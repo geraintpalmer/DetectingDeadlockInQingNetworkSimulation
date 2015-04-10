@@ -17,13 +17,16 @@
 \maketitle
 
 \section{Explanation of Deadlock}
+
 Any open queueing network with feedback loops, at least one service station that has limited queueing capacity, and where individuals can be blocked from joining the queue at the next destination can experience deadlock.
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.\newline
+
 In figure 1 a simple two node queueing network is shown in a deadlocked state.
 Customer $e$ has finished service at node $1$, but remains there as there is not enough queueing space at node $2$ to accept him.
 We say he is blocked by customer $i$, as he is waiting for customer $i$ to be released.
 Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.\newline
+
 When there are multiple servers, individuals become blocked by all customers in service or blocked at their destination.
 Figure 2 (top) shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
 However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
@@ -44,7 +47,10 @@ However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and c
 
 NEED A LOT MORE HERE. DIAGRAMS TO EXPLAIN TOO.
 
+
+
 \section{Literature Review}
+
 Most of the literature on blocking conveniently assumes the networks are deadlock-free.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
@@ -53,7 +59,10 @@ Here a integer linear program is formulated to find the minimum queueing space a
 The literature does not discuss deadlock properties in open restricted queueing networks.\newline
 NEED A LOT MORE HERE
 
+
+
 \section{Definitions}
+
 \begin{tabular}{ p{5cm} p{10cm} }
   $\left| V(D) \right|$ & The order of the directed graph $D$ is its number of vertices. \\
   Weakly connected component & A weakly connected component of a digraph containing $X$ is the set of all nodes that can be reached from $X$ if we ignore the direction of the edges. \\
@@ -65,40 +74,57 @@ NEED A LOT MORE HERE
 \newline
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 
+
+
 \section{Explaining Digraph}
+
 Here is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes.
 Let the number of servers in node $i$ be denoted by $c_i$.\newline
-Define $D$ as a directed graph associated with $Q$, where $\left| V(D) \right| \leq \sum_{i=1}^N c_i$. Each vertex of $D$ is an individual who is either in service or blocked.\newline
+
+Define $D$ as a directed graph associated with $Q$, where $\left| V(D) \right| \leq \sum_{i=1}^N c_i$. Each vertex of $D$ is an occupied server, occupied by an individual who is either in service or blocked.\newline
+
 When an individual finishes service at node $i$, and this individuals next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
-At this point $c_j$ directed edges between this individual and each individual in service or blocked at node $j$ are created in $D$.\newline
-Once an individual is released, that individual is removed as a vertex of $D$, and all edges in and out of that vertex removed.
-If another individual enters service at the same time, then that next individual node, and aquires the previous individual's in-edges.\newline
-CLEARER, VERTICES SHOULD BE SERVERS THAT CAN BE OCCUPIED. LOTS OF DIAGRAMS. SUPGRAPHS THING.
+At this point $c_j$ directed edges between this individual's server and the servers of each individual in service or blocked at node $j$ are created in $D$.\newline
+
+When an individual is released and another customer occupies their server, that servers out-edges are removed.
+When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
+
+CLEARER: LOTS OF DIAGRAMS. SUPGRAPHS THING.
+
+
 
 \section{Theorem}
 
 \subsection*{Theorem}
+
 A deadlock situation arises if and only if there exists a weakly connected component of $D$ containing no vertices with $deg^{out} = 0$.\newline
 
 \subsection*{Observations}
+
 Consider one weakly connected component $G$ of $D$.
-Consider the node $X_a \in G$, where $X_a$'s next destination is node $j$.
-Then $X_a$'s direct successors are the individuals who are blocked or in service at node $j$.
-We can interpret all $X_a$'s decendents as those individuals who are directly or indirectly blocking $X_a$, and we can interpret all $X_a$'s ancestors as those individuals who are being blocked directly or indirectly by $X_a$.\newline
-We do not need to worry about the situation $\text{deg}^{\text{out}}(X_a) > c_j$ as it will never occur because we only create edges from $X_a$ to individuals in service or blocked in node $j$.
-If $\text{deg}^{\text{out}}(X_a) = c_j$ then $X_a$ is blocked by all its direct successors.
-The only other situation is that $X_a$ is not blocked, and belongs to $G$ because $X_a$ is in service and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.\newline
-It is clear that if any of $X_a$'s decendents are not blocked, then we do not have deadlock, and if all of $X_a$'s descendents are blocked, then we have deadlock.
-We also know that by definition all of $X_a$'s ancestors are blocked.\newline
+Consider the node $X_a \in G$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
+Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
+Then $X_a$'s direct successors are the  servers occupied by individuals who are blocked or in service at node $j$.
+We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.\newline
+
+Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
+If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
+The only other situation is that $a$ is not blocked, and $X_a \in G$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.\newline
+
+It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock; and if all of $X_a$'s descendents are occupied by blocked individuals, then we have deadlock.
+We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
 
 \subsection*{Proof}
+
 Consider one weakly connected component $G$ of $D$.
-All vertices of $G$ are either a decendent of another vertiex and so is blocking someone, or is an ancestor of another vertex, and so is blocked.\newline
+All vertices of $G$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.\newline
+
 Assume that $G$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$.
-This imples that $X$ is not blocked, so $X$ must be a descendent of another vertrex.
+This imples that $X$'s occupant is not blocked, so $X$ must be a descendent of another vertrex.
 Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are not all blocked.\newline
-Now assume that we have deadlock, and all of the members of $G$ are blocked.
-For a given vertex $X$, all decendents of $X$ are blocked, and so must have out-degrees greater than 0.
+
+Now assume that we have deadlock.
+For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 However, as our choice of $X$ was arbitrary, this must be true for all members of $G$, and no members of $G$ have out-degree of 0.\newline
 
 \bibliographystyle{plain}
