@@ -46,8 +46,6 @@ However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and c
   \caption{Two nodes in deadlock (top), and two nodes not deadlocked (bottom).}
 \end{figure}
 
-NEED A LOT MORE HERE. DIAGRAMS TO EXPLAIN TOO.
-
 
 
 \section{Literature Review}
@@ -58,8 +56,20 @@ The paper also presents algorithms for finding the minimum queueing space requir
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 The literature does not discuss deadlock properties in open restricted queueing networks.\newline
-NEED A LOT MORE HERE
 
+General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
+Conditions for this type of deadlock, also referred to as deadly embraces, to potentially occur are given:
+\begin{itemize}
+  \item Mutual exclusion: Tasks have exclusive control over resources.
+  \item Wait for: Tasks do not release resources while waiting for other resources.
+  \item No preemption: Resources cannot be removed until they have been used to completion.
+  \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
+\end{itemize}
+Dynamic state-graphs are defined, with resources as vertices and requests as edges.
+For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.\newline
+
+In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
+Using these labels \textit{simple bounded circuits} are defined whose existance within the state graph is sufficient to detect deadlock.\newline
 
 
 \section{Definitions}
@@ -96,7 +106,7 @@ At this point $c_j$ directed edges between this individual's server and the vert
 When an individual is released and another customer occupies their server, that servers out-edges are removed.
 When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
 
-CLEARER: LOTS OF DIAGRAMS. SUPGRAPHS THING.
+NEED LOTS OF PARALLEL DIAGRAMS, REALITY vs STATE GRAPH.
 
 
 
