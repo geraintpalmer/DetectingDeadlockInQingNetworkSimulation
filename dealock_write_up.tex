@@ -96,7 +96,7 @@ Define $D(t)$ as the state graph of $Q$ at time $t$.
 Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked, and so $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$.
 The state graph shows the blockage relationships between servers: a directed edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has finished service and is waiting for the $X_b$ to release its occupant before he can be realsed himself.\newline
 
-The state graph $D(t)$ can be partitioned into $N$ subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
+The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
 The vertex set of each subgraph is static over time, however their edge sets may change.\newline
 
 The state graph is dynamically built up as follows.
@@ -131,8 +131,9 @@ The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because 
 It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
 
-Also note that each of the defined subgraphs $d_i(t)$, are empty graphs on $c_i$ vertices; that is they contain $c_i$ nodes and no edges.
-Every vertex in $d_i(t)$ has the same ancestors.\newline
+Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual $X_a$ in that service station is being blocked by himself.
+This can only happens if there is another individual being blocked by $X_a$, and that individual became blocked before $X_a$ became blocked.
+It is also true that every vertex in $d_i(t)$ has the same ancestors.\newline
 
 \subsection*{Proof}
 
