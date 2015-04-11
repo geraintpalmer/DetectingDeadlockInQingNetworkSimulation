@@ -5,6 +5,7 @@
 \usepackage{mathtools}
 \usepackage{tikz}
 \usepackage{standalone}
+\usepackage{float}
 
 
 \title{Detecting Deadlock in Queueing Network Simulations}
@@ -31,18 +32,18 @@ When there are multiple servers, individuals become blocked by all customers in 
 Figure 2 (top) shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
 However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
 
-\begin{figure}
+\begin{figure}[H]
   \includestandalone[width=\textwidth]{images/2nodesindeadlock}
   \caption{Two nodes in deadlock.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \begin{tabular}{c c}
     \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti} \\
     \\
     \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
   \end{tabular}
-  \caption{Two nodes in deadlock (top), and Two node not deadlocked (bottom).}
+  \caption{Two nodes in deadlock (top), and two nodes not deadlocked (bottom).}
 \end{figure}
 
 NEED A LOT MORE HERE. DIAGRAMS TO EXPLAIN TOO.
@@ -78,10 +79,10 @@ NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 
 \section{Explaining Digraph}
 
-Here is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes.
+Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
 Let the number of servers in node $i$ be denoted by $c_i$.\newline
 
-Define $D$ as a directed graph associated with $Q$, where $\left| V(D) \right| \leq \sum_{i=1}^N c_i$. Each vertex of $D$ is an occupied server, occupied by an individual who is either in service or blocked.\newline
+Define $D(t)$ as the state graph of $Q$, where $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$. Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked.\newline
 
 When an individual finishes service at node $i$, and this individuals next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
 At this point $c_j$ directed edges between this individual's server and the servers of each individual in service or blocked at node $j$ are created in $D$.\newline
@@ -97,35 +98,35 @@ CLEARER: LOTS OF DIAGRAMS. SUPGRAPHS THING.
 
 \subsection*{Theorem}
 
-A deadlock situation arises if and only if there exists a weakly connected component of $D$ containing no vertices with $deg^{out} = 0$.\newline
+A deadlock situation arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ containing no vertices with $deg^{out} = 0$.\newline
 
 \subsection*{Observations}
 
-Consider one weakly connected component $G$ of $D$.
-Consider the node $X_a \in G$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
+Consider one weakly connected component $G(t)$ of $D(t)$.
+Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
 Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
 Then $X_a$'s direct successors are the  servers occupied by individuals who are blocked or in service at node $j$.
 We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.\newline
 
 Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
-The only other situation is that $a$ is not blocked, and $X_a \in G$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.\newline
+The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.\newline
 
-It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock; and if all of $X_a$'s descendents are occupied by blocked individuals, then we have deadlock.
+It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
 
 \subsection*{Proof}
 
-Consider one weakly connected component $G$ of $D$.
-All vertices of $G$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.\newline
+Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
+All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.\newline
 
-Assume that $G$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$.
+Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$.
 This imples that $X$'s occupant is not blocked, so $X$ must be a descendent of another vertrex.
 Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are not all blocked.\newline
 
 Now assume that we have deadlock.
 For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-However, as our choice of $X$ was arbitrary, this must be true for all members of $G$, and no members of $G$ have out-degree of 0.\newline
+However, as our choice of $X$ was arbitrary, this must be true for all members of $G$, and so no members of $G(t)$ have out-degree of 0.\newline
 
 \bibliographystyle{plain}
 \bibliography{refs}
