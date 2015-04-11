@@ -71,10 +71,10 @@ NEED A LOT MORE HERE
   Ancestors & If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_i$ is an ancestor of $X_j$. \\
   Decendents & If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_j$ is a descendant of $X_i$. \\
   $\text{deg}^{\text{out}}(X)$ & The out-degree of $X$ is the number of outgoing edges emanating from that vertex. \\
+  Subgraph & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
 \end{tabular}
 \newline
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
-
 
 
 \section{Explaining Digraph}
@@ -82,10 +82,16 @@ NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
 Let the number of servers in node $i$ be denoted by $c_i$.\newline
 
-Define $D(t)$ as the state graph of $Q$, where $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$. Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked.\newline
+Define $D(t)$ as the state graph of $Q$ at time $t$.
+Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked, and so $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$.
+The state graph shows the blockage relationships between servers: a directed edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has finished service and is waiting for the $X_b$ to release its occupant before he can be realsed himself.\newline
 
+The state graph $D(t)$ can be partitioned into $N$ subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
+The vertex set of each subgraph is static over time, however their edge sets may change.\newline
+
+The state graph is dynamically built up as follows.
 When an individual finishes service at node $i$, and this individuals next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
-At this point $c_j$ directed edges between this individual's server and the servers of each individual in service or blocked at node $j$ are created in $D$.\newline
+At this point $c_j$ directed edges between this individual's server and the vertices of $d_j(t)$ are created in $D(t)$.\newline
 
 When an individual is released and another customer occupies their server, that servers out-edges are removed.
 When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
@@ -114,6 +120,9 @@ The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because 
 
 It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
+
+Also note that each of the defined subgraphs $d_i(t)$, are empty graphs on $c_i$ vertices; that is they contain $c_i$ nodes and no edges.
+Every vertex in $d_i(t)$ has the same ancestors.\newline
 
 \subsection*{Proof}
 
