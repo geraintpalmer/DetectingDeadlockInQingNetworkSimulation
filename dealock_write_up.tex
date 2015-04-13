@@ -121,7 +121,7 @@ A deadlock situation arises at time $t$ if and only if there exists a weakly con
 Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
 Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
-Then $X_a$'s direct successors are the  servers occupied by individuals who are blocked or in service at node $j$.
+Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
 We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.\newline
 
 Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
@@ -131,9 +131,8 @@ The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because 
 It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
 
-Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual $X_a$ in that service station is being blocked by himself.
-This can only happens if there is another individual being blocked by $X_a$, and that individual became blocked before $X_a$ became blocked.
-It is also true that every vertex in $d_i(t)$ has the same ancestors.\newline
+Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
+This does not necassarily mean there is deadlock.\newline
 
 \subsection*{Proof}
 
@@ -146,7 +145,7 @@ Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are n
 
 Now assume that we have deadlock.
 For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-However, as our choice of $X$ was arbitrary, this must be true for all members of $G$, and so no members of $G(t)$ have out-degree of 0.\newline
+However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.\newline
 
 \bibliographystyle{plain}
 \bibliography{refs}
