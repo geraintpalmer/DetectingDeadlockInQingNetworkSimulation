@@ -30,8 +30,8 @@ We say he is blocked by customer $i$, as he is waiting for customer $i$ to be re
 Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.\newline
 
 When there are multiple servers, individuals become blocked by all customers in service or blocked at their destination.
-Figure 2 (top) shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
-However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
+Figure 2(a) shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
+However in figure 2(b), customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
 
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/2nodesindeadlock}
@@ -96,6 +96,7 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   Decendents & If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_j$ is a descendant of $X_i$. \\
   $\text{deg}^{\text{out}}(X)$ & The out-degree of $X$ is the number of outgoing edges emanating from that vertex. \\
   Subgraph & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
+  Sink vertex & A sink vertex is a vertex in a directed graph that has no out-degree of zero.\\
 \end{tabular}
 \newline
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
@@ -128,7 +129,7 @@ NEED LOTS OF PARALLEL DIAGRAMS, REALITY vs STATE GRAPH.
 
 \subsection*{Theorem}
 
-A deadlock situation arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ containing no vertices with $deg^{out} = 0$.\newline
+A deadlock situation arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ that doesn't contain a sink vertex.\newline
 
 \subsection*{Observations}
 
