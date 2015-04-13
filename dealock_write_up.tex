@@ -6,7 +6,8 @@
 \usepackage{tikz}
 \usepackage{standalone}
 \usepackage{float}
-
+\usepackage{caption}
+\usepackage{subcaption}
 
 \title{Detecting Deadlock in Discrete Event Simulations of Queueing Networks}
 \author{Geraint Palmer}
@@ -38,15 +39,28 @@ However in figure 2 (bottom), customer $i$ is blocked by both $d$ adn $e$, and c
 \end{figure}
 
 \begin{figure}[H]
-  \begin{tabular}{c c}
-    \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti} \\
-    \\
-    \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
-  \end{tabular}
-  \caption{Two nodes in deadlock (top), and two nodes not deadlocked (bottom).}
+\begin{subfigure}[b]{\textwidth}
+  \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti}
+  \caption{Two nodes in deadlock.}
+\end{subfigure}
+\begin{subfigure}[b]{\textwidth}
+  \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
+  \caption{Two nodes not deadlocked}
+\end{subfigure}
+\caption{Two nodes in deadlock and not in deadlock.}
 \end{figure}
 
+Note that the whole queueing network need not be deadlocked, only a part of it.
+If one section of the network is in deadlock, then the system is deadlocked, even though customers may still be able to have services and transitions in other areas of te network.
+An example is shown in figure 3.
+Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they ar blocking one another.
+Individual $k$ on the other hand is free to move to its next destination.
+It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.\newline
 
+\begin{figure}[H]
+  \includestandalone[width=\textwidth]{images/4nodes2indeadlock}
+  \caption{A deadlock situation where not all nodes are deadlocked.}
+\end{figure}
 
 \section{Literature Review}
 

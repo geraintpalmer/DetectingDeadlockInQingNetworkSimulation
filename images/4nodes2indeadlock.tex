@@ -1,0 +1,64 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw (0, 0) -- (4, 0);
+  \draw (4, 0) -- (4, 1);
+  \draw (0, 1) -- (4, 1);
+  \filldraw [fill=black!25, draw=black] (0.5, 0.5) circle [radius=0.25] node {$a$};
+  \filldraw [fill=black!25, draw=black] (1.5, 0.5) circle [radius=0.25] node {$b$};
+  \filldraw [fill=black!25, draw=black] (2.5, 0.5) circle [radius=0.25] node {$c$};
+  \filldraw [fill=black!25, draw=black] (3.5, 0.5) circle [radius=0.25] node {$d$};
+  \draw (4.5, 0) -- (4.5, 1);
+  \draw (4.5, 1) -- (5.5, 1);
+  \draw (5.5, 1) -- (5.5, 0);
+  \draw (5.5, 0) -- (4.5, 0);
+  \filldraw [fill=black!25, draw=black] (5, 0.5) circle [radius=0.25] node {$e$};
+
+  \draw (8, 0) -- (10, 0);
+  \draw (10, 0) -- (10, 1);
+  \draw (8, 1) -- (10, 1);
+  \filldraw [fill=black!25, draw=black] (8.5, 0.5) circle [radius=0.25] node {$f$};
+  \filldraw [fill=black!25, draw=black] (9.5, 0.5) circle [radius=0.25] node {$g$};
+  \draw (10.5, 0) -- (10.5, 1);
+  \draw (10.5, 1) -- (11.5, 1);
+  \draw (11.5, 1) -- (11.5, 0);
+  \draw (11.5, 0) -- (10.5, 0);
+  \filldraw [fill=black!25, draw=black] (11, 0.5) circle [radius=0.25] node {$h$};
+
+  \draw [dashed, ->] (5, 0.5) -- (8, 0.5);
+  \draw [dashed] (12, 0.5) -- (13, 0.5);
+  \draw [dashed] (13, 0.5) -- (13, 1.5);
+  \draw [dashed] (13, 1.5) -- (-1, 1.5);
+  \draw [dashed] (-1, 1.5) -- (-1, 0.5);
+  \draw [dashed, ->] (-1, 0.5) -- (0, 0.5);
+
+
+
+  \draw (0, -2) -- (4, -2);
+  \draw (4, -2) -- (4, -1);
+  \draw (0, -1) -- (4, -1);
+  \filldraw [fill=black!25, draw=black] (2.5, -1.5) circle [radius=0.25] node {$i$};
+  \filldraw [fill=black!25, draw=black] (3.5, -1.5) circle [radius=0.25] node {$j$};
+  \draw (4.5, -2) -- (4.5, -1);
+  \draw (4.5, -1) -- (5.5, -1);
+  \draw (5.5, -1) -- (5.5, -2);
+  \draw (5.5, -2) -- (4.5, -2);
+  \filldraw [fill=black!25, draw=black] (5, -1.5) circle [radius=0.25] node {$k$};
+
+  \draw (8, -2) -- (10, -2);
+  \draw (10, -2) -- (10, -1);
+  \draw (8, -1) -- (10, -1);
+  \draw (10.5, -2) -- (10.5, -1);
+  \draw (10.5, -1) -- (11.5, -1);
+  \draw (11.5, -1) -- (11.5, -2);
+  \draw (11.5, -2) -- (10.5, -2);
+
+  \draw [dashed, ->] (5, -1.5) -- (8, -1.5);
+
+
+\end{tikzpicture}
+
+\end{document}
