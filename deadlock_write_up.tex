@@ -8,6 +8,8 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
 
 \title{Detecting Deadlock in Discrete Event Simulations of Queueing Networks}
 \author{Geraint Palmer}
@@ -161,6 +163,31 @@ Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are n
 Now assume that we have deadlock.
 For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.\newline
+
+
+\section{Markov Chain Model}
+
+Assume two \(M/M/1\) queues, room for \(n_i\) waiters at each.
+
+\begin{itemize}
+    \item State space:
+        \[S = \{(i,j)\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq n_1 + n_2 + 2
+        \geq i + j \}\cup\{-1\}\]
+
+        Where \(i\) denotes number of individuals:
+            \begin{itemize}
+                \item In service or waiting at the first node.
+                \item Occupying a server but having finished service at the
+                    second node waiting to join the first
+            \end{itemize}
+        Where \(j\) denotes number of individuals:
+            \begin{itemize}
+                \item In service or waiting at the second node.
+                \item Occupying a server but having finished service at the
+                    first node waiting to join the first
+            \end{itemize}
+        and the state \(-1\) denotes the deadlocked state.
+\end{itemize}
 
 \bibliographystyle{plain}
 \bibliography{refs}
