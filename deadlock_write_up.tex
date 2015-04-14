@@ -167,7 +167,15 @@ However, as our choice of $X$ was arbitrary, this must be true for all members o
 
 \section{Markov Chain Model}
 
-Assume two \(M/M/1\) queues, room for \(n_i\) waiters at each.
+Consider the queueing network shown in figure 4.
+This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
+$\Lambda_i$ is the external arrival rates to each service station.
+All routing possibilities except self loops are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
+
+\begin{figure}[H]
+  \includestandalone[width=\textwidth]{images/2nodeexample}
+  \caption{A two node queueing network.}
+\end{figure}
 
 \begin{itemize}
     \item State space:
@@ -188,6 +196,45 @@ Assume two \(M/M/1\) queues, room for \(n_i\) waiters at each.
             \end{itemize}
         and the state \(-1\) denotes the deadlocked state.
 \end{itemize}
+
+If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then the transitions are:
+
+\begin{equation}
+  q_{(i_1, j_1),(i_2, j_2)} = \left\{
+  \begin{matrix*}[ r ]
+    \left. \begin{matrix*}[ r ]
+      \Lambda_1 & \text{if } i_1 \leq n_1 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{matrix*}[ r ]
+      \Lambda_2 & \text{if } j_1 \leq n_2 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (0, 1) \\
+    (1 - r_{12})\mu_1 \min(i_1, 1) & \text{if } \delta = (-1, 0) \\
+    (1 - r_{21})\mu_2 \min(j_1, 1) & \text{if } \delta = (0, -1) \\
+    \left. \begin{matrix*}[ r ]
+      0 & \text{if } j_1 = n_2 + 2 \\
+      r_{12}\mu_1 \text{min}(i_1, 1) & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (-1, 1) \\
+    \left. \begin{matrix*}[ r ]
+      0 & \text{if } i_1 = n_1 + 2 \\
+      r_{21}\mu_2 \text{min}(j_1, 1) & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (1, -1)
+  \end{matrix*} \right.
+\end{equation}
+
+and
+
+\begin{equation}
+  q_{(i, j), -1} = \left\{
+  \begin{matrix*}[ r ]
+    r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
+    r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
+    0 & \text{otherwise}
+  \end{matrix*}
+  \right.
+\end{equation}
+
 
 \bibliographystyle{plain}
 \bibliography{refs}
