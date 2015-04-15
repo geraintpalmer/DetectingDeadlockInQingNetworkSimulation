@@ -197,7 +197,7 @@ All routing possibilities except self loops are possible, where the routing prob
         and the state \(-1\) denotes the deadlocked state.
 \end{itemize}
 
-If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then the transitions are:
+If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then for all $(i_1, j_1), (i_2, j_2), s \in S$ the transitions are given by:
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -219,14 +219,13 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then the transitions are:
     \left. \begin{matrix*}[ r ]
       0 & \text{if } i_1 = n_1 + 2 \\
       r_{21}\mu_2 \text{min}(j_1, 1) & \text{otherwise}
-    \end{matrix*} \right\} & \text{if } \delta = (1, -1)
+    \end{matrix*} \right\} & \text{if } \delta = (1, -1) \\
+    0 & \text{otherwise}
   \end{matrix*} \right.
 \end{equation}
 
-and
-
 \begin{equation}
-  q_{(i, j), -1} = \left\{
+  q_{(i_1, j_1), -1} = \left\{
   \begin{matrix*}[ r ]
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
@@ -234,6 +233,19 @@ and
   \end{matrix*}
   \right.
 \end{equation}
+
+and
+
+\begin{equation}
+  q_{-1, s} = 0
+\end{equation}
+
+From this we can find the expected time until deadlock is reached.
+It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
+\begin{equation}
+  (I - T)^{-1}e
+\end{equation}
+where $e$ is the ones vector.
 
 
 \bibliographystyle{plain}
