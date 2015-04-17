@@ -26,35 +26,39 @@ Deadlock can be experienced in any open queueing network with feedback loops, wh
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.\newline
 
-In figure 1 a simple two node queueing network is shown in a deadlocked state.
+In figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
 Customer $e$ has finished service at node $1$, but remains there as there is not enough queueing space at node $2$ to accept him.
 We say he is blocked by customer $i$, as he is waiting for customer $i$ to be released.
 Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.\newline
 
 When there are multiple servers, individuals become blocked by all customers in service or blocked at their destination.
-Figure 2(a) shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
-However in figure 2(b), customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
+Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
+However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
 
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/2nodesindeadlock}
   \caption{Two nodes in deadlock.}
+  \label{fig:2in_deadlock}
 \end{figure}
 
 \begin{figure}[H]
 \begin{subfigure}[b]{\textwidth}
   \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti}
   \caption{Two nodes in deadlock.}
+  \label{fig:inout_deadlock_in}
 \end{subfigure}
 \begin{subfigure}[b]{\textwidth}
   \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
   \caption{Two nodes not deadlocked}
+  \label{fig:inout_deadlock_out}
 \end{subfigure}
 \caption{Two nodes in deadlock and not in deadlock.}
+\label{fig:inout_deadlock}
 \end{figure}
 
 Note that the whole queueing network need not be deadlocked, only a part of it.
 If one section of the network is in deadlock, then the system is deadlocked, even though customers may still be able to have services and transitions in other areas of the network.
-An example is shown in figure 3.
+An example is shown in figure~\ref{fig:somenodes_notdeadlocked}.
 Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they are blocking one another.
 Individual $k$ on the other hand is free to move to its next destination.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.\newline
@@ -62,6 +66,7 @@ It should be clear that if the queueing network is connected, then there is a no
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/4nodes2indeadlock}
   \caption{A deadlock situation where not all nodes are deadlocked.}
+  \label{fig:somenodes_notdeadlocked}
 \end{figure}
 
 \section{Literature Review}
@@ -124,7 +129,7 @@ When an individual is released and another customer who wasn't blocked occupies 
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
 
-NEED LOTS OF PARALLEL DIAGRAMS, REALITY vs STATE GRAPH.
+This process is illustrated in figure...
 
 
 
@@ -168,7 +173,7 @@ However, as our choice of $X$ was arbitrary, this must be true for all members o
 
 \section{Markov Chain Model}
 
-Consider the queueing network shown in figure 4.
+Consider the queueing network shown in figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities except self loops are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
@@ -176,6 +181,7 @@ All routing possibilities except self loops are possible, where the routing prob
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/2nodeexample}
   \caption{A two node queueing network.}
+  \label{fig:queueingnetwork_2nodes}
 \end{figure}
 
 \begin{itemize}
