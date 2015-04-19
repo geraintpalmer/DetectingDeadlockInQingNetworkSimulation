@@ -22,8 +22,10 @@
 
 \maketitle
 
-\section{Explanation of Deadlock}
+This section will discuss the properties and detection of deadlock in queueing networks.
+Throughout the section, when discussing queueing networks, it is assumed that the queueing network is open and connected.
 
+\section{Explanation of Deadlock}
 Deadlock can be experienced in any open queueing network with feedback loops, where at least one service station has limited queueing capacity, and where individuals can be blocked from joining the queue at the next destination.
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.\newline
@@ -63,13 +65,27 @@ If one section of the network is in deadlock, then the system is deadlocked, eve
 An example is shown in figure~\ref{fig:somenodes_notdeadlocked}.
 Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they are blocking one another.
 Individual $k$ on the other hand is free to move to its next destination.
-It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.\newline
+This idea is expanded on in the next section.
 
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/4nodes2indeadlock}
   \caption{A deadlock situation where not all nodes are deadlocked.}
   \label{fig:somenodes_notdeadlocked}
 \end{figure}
+
+
+\section{Types of Deadlock}
+The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
+The different configurations of which nodes experience deadlock can be thought of ad different types of deadlock.
+Each different type of deadlocked state can be denoted $\Delta_{i,j,k...}$ with the indices $i, j, k...$ denoting which nodes are participating in that deadlocked state.
+The amount of different types of deadlock that a queueing network can experience is equal to the number of directed cycles in in the queueing network's routing matrix.\newline
+
+For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.
+For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $\Delta_{1,...,N}$, the state where all service stations experience deadlock.
+It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
+That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.\newline
+
+If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $N!$ possible deadlock types.
 
 
 \section{Literature Review}
