@@ -4,6 +4,8 @@
 \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
 \usepackage{standalone}
 \usepackage{float}
 \usepackage{caption}
@@ -69,6 +71,7 @@ It should be clear that if the queueing network is connected, then there is a no
   \label{fig:somenodes_notdeadlocked}
 \end{figure}
 
+
 \section{Literature Review}
 
 Most of the literature on blocking conveniently assumes the networks are deadlock-free.
@@ -129,8 +132,59 @@ When an individual is released and another customer who wasn't blocked occupies 
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
 
-This process is illustrated in figure...
+This general process of building up the state graph as the queueing network is simulated is illustrated in figure~\ref{fig:general_buildup}.
+Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
+The simulation starts with full queues, and every server occupied by a customer in service.
+Customer 14 finishes service, and is blocked from entering node $A$.
+Then customer 5 finishes service and is blocked from entering node $B$.
+Then customer 10 finishes service and is blocked from entering node $A$.
+Finally customer 6 finishes service and wants to reenter the queue for node $A$ but is blocked.
+A deadlock situation arises as customer 6 is waiting for customer 5 to move, who is waiting for customer 10 to move, who is waiting for either customer 5 or 6 to move.
+The state graph is shown at each event.
 
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step1} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step1} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step2} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step2} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step3} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step3} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step4} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step4} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step5} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step5}
+    \end{tabular}
+  \end{center}
+  \caption{Illustrating the general build up of the state graph until deadlock.}
+  \label{fig:general_buildup}
+\end{figure}
+
+The rules on how edges are removed from the state graph are shown in figure~\ref{fig:general_builddown}.
+Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
+Customer 6 finishes service and immediately joins service at node $C$.
+Now there is room for customer 4 to move into service at node $B$.
+Notice that the edge $A_2 -- B_1$ remains in the state graph, as customer 5 is still blocked by that server.
+The customers queueing at node $A$ move along the queue, with customer 3 begining service.
+This leaves enough room for customer 7 to join the back of the queue at $A$.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step1} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step1} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step2} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step2} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step3} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step3} \\
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step4} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step4}
+    \end{tabular}
+  \end{center}
+  \caption{Illustrating how the state graph evolves when blocked customer start moving.}
+  \label{fig:general_builddown}
+\end{figure}
 
 
 \section{Theorem}
@@ -187,7 +241,7 @@ All routing possibilities except self loops are possible, where the routing prob
 \begin{itemize}
     \item State space:
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq n_1 + n_2 + 2
-        \geq i + j \}\cup\{-1\}\]
+        \geq i + j \}\cup\{\Delta_{1,2}\}\]
 
         Where \(i\) denotes number of individuals:
             \begin{itemize}
@@ -201,7 +255,7 @@ All routing possibilities except self loops are possible, where the routing prob
                 \item Occupying a server but having finished service at the
                     first node waiting to join the first
             \end{itemize}
-        and the state \(-1\) denotes the deadlocked state.
+        and the state \(\Delta_{1,2}\) denotes the deadlocked state.
 \end{itemize}
 
 If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then for all $(i_1, j_1), (i_2, j_2), s \in S$ the transitions are given by:
@@ -232,7 +286,7 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then for all $(i_1, j_1), (i_2,
 \end{equation}
 
 \begin{equation}
-  q_{(i_1, j_1), -1} = \left\{
+  q_{(i_1, j_1), \Delta_{1,2}} = \left\{
   \begin{matrix*}[ r ]
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\

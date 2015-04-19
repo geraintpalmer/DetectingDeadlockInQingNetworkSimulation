@@ -1,0 +1,21 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \node (A1) [style={minimum size=1cm,draw=black,fill=black!30!white,text=black,shape=circle}] at (5, 0) {$A_1$};
+  \node (A2) [style={minimum size=1cm,draw=black,fill=black!30!white,text=black,shape=circle}] at (1.545, 4.755) {$A_2$};
+  \node (B1) [style={minimum size=1cm,draw=black,fill=black!30!white,text=black,shape=circle}] at (-4.045, 2.939) {$B_1$};
+  \node (C1) [style={minimum size=1cm,draw=black,fill=black!30!white,text=black,shape=circle}] at (-4.045, -2.939) {$C_1$};
+  \node (C2) [style={minimum size=1cm,draw=black,fill=black!30!white,text=black,shape=circle}] at (1.545, -4.755) {$C_2$};
+
+  \draw[ultra thick, -triangle 90] (A2) -- (B1);
+
+
+\end{tikzpicture}
+
+\end{document}
