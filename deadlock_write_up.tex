@@ -85,7 +85,7 @@ For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked s
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.\newline
 
-If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $N!$ possible deadlock types.
+If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $\sum_{i=1}^N \binom{N}{i}$ possible deadlock types.
 
 
 \section{Literature Review}
