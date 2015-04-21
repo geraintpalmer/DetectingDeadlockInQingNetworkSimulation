@@ -46,7 +46,7 @@ individuals can be blocked from joining the queue at the next destination. % All
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
 
-In figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
+In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
 Customer $e$ has finished service at node $1$, but remains there as there is not
 enough queueing space at node $2$ to accept them.
 We say customer $e$ is blocked by customer $i$, as he is waiting for customer $i$ to be released.
@@ -80,7 +80,7 @@ However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and
 
 Note that the whole queueing network need not be deadlocked, only a part of it.
 If one section of the network is in deadlock, then the system is deadlocked, even though customers may still be able to have services and transitions in other areas of the network.
-An example is shown in figure~\ref{fig:somenodes_notdeadlocked}.
+An example is shown in Figure~\ref{fig:somenodes_notdeadlocked}.
 Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they are blocking one another.
 Individual $k$ on the other hand is free to move to its next destination.
 This idea is expanded on in the next section.
@@ -192,7 +192,7 @@ When an individual is released and another customer who wasn't blocked occupies 
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incident to that server are removed.
 
-This general process of building up the state graph as the queueing network is simulated is illustrated in figure~\ref{fig:general_buildup}.
+This general process of building up the state graph as the queueing network is simulated is illustrated in Figure~\ref{fig:general_buildup}.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
 The simulation starts with full queues, and every server occupied by a customer in service.
 Customer 14 finishes service, and is blocked from entering node $A$.
@@ -221,7 +221,7 @@ The state graph is shown at each event.
   \label{fig:general_buildup}
 \end{figure}
 
-The rules on how edges are removed from the state graph are shown in figure~\ref{fig:general_builddown}.
+The rules on how edges are removed from the state graph are shown in Figure~\ref{fig:general_builddown}.
 Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
 Customer 6 finishes service and immediately joins service at node $C$.
 Now there is room for customer 4 to move into service at node $B$.
@@ -289,7 +289,7 @@ However, as our choice of $X$ was arbitrary, this must be true for all members o
 
 \section{Markov Chain Model}
 
-Consider the queueing network shown in figure~\ref{fig:queueingnetwork_2nodes}.
+Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities except self loops are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
