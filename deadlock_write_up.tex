@@ -190,7 +190,7 @@ At this point $c_j$ directed edges between this individual's server and the vert
 
 When an individual is released and another customer who wasn't blocked occupies their server, that servers out-edges are removed.
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
-When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.
+When an individual is released and there isn't another customer to occupy that server, then all edges incident to that server are removed.
 
 This general process of building up the state graph as the queueing network is simulated is illustrated in figure~\ref{fig:general_buildup}.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
@@ -229,6 +229,8 @@ Notice that the edge $A_2 -- B_1$ remains in the state graph, as customer 5 is s
 The customers queueing at node $A$ move along the queue, with customer 3 begining service.
 This leaves enough room for customer 7 to join the back of the queue at $A$.
 
+% This diagram needs more explanation throughout (step by step, possibly
+% fragment).
 \begin{figure}[H]
   \begin{center}
     \begin{tabular}{ c c c }
