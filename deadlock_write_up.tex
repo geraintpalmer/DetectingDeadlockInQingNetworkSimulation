@@ -167,16 +167,20 @@ NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
 
 Let the number of servers in node $i$ be denoted by $c_i$.
-Define $D(t)$ as the state graph of $Q$ at time $t$.
-Each vertex of $D(t)$ is an occupied server, occupied by an individual who is
-either in service or blocked, and so $\left| V\left(D\left(t\right)\right)
-\right| \leq \sum_{i=1}^N c_i$ for all $t \geq 0$.
-The state graph shows the blockage relationships between servers: a directed
-edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has
-finished service and is waiting for the $X_b$ to release its occupant before he
-can be released himself.
+Define $D(t)=(V(t), E(t))$ as the state graph of $Q$ at time $t$.
 
-The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
+The vertices at time \(t\), \(V(t)\) correspond to occupied servers in the
+queueing system.
+Thus, $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i$ for all $t \geq 0$.
+
+The edges at time \(t\), \(E(t)\) correspond to a blocking relationship.
+There is a directed edge at time \(t\) from vertex \(X_a\in V(t)\) to vertex \(X_b\in
+V(t)\) if and only if an individual occupying the server corresponding to vertex
+\(X_a\) is being blocked by an individual occupying the server corresponding to
+vertex \(X_b\).
+
+The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs,
+$D(t)=\bigcup_{i=1}^N d_i(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
 The vertex set of each subgraph is static over time, however their edge sets may change.
 
 The state graph is dynamically built up as follows.
