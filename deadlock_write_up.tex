@@ -181,7 +181,8 @@ vertex \(X_b\).
 
 The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs,
 $D(t)=\bigcup_{i=1}^N d_i(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
-The vertex set of each subgraph is static over time, however their edge sets may change.
+The vertex set of each subgraph is static over time, however their edge sets may
+change. % This is not actually true is it???? The vertex set is dynamic?
 
 The state graph is dynamically built up as follows.
 When an individual finishes service at node $i$, and this individuals next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
