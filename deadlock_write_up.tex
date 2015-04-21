@@ -1,6 +1,8 @@
 \documentclass{article}
 
 \usepackage{fullpage}
+\usepackage{parskip}
+
 \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{tikz}
@@ -27,18 +29,22 @@ Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected. % These two things need to be defined
 
 \section{Explanation of Deadlock}
-Deadlock can be experienced in any open queueing network with feedback loops, where at least one service station has limited queueing capacity, and where individuals can be blocked from joining the queue at the next destination.
+Deadlock can be experienced in any open queueing network with feedback loops,
+where at least one service station has limited queueing capacity, and where
+individuals can be blocked from joining the queue at the next destination. % All of these things will need to be defined somewhere (possibly in earlier sections).
+
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
-That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.\newline
+That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
 
 In figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
-Customer $e$ has finished service at node $1$, but remains there as there is not enough queueing space at node $2$ to accept him.
-We say he is blocked by customer $i$, as he is waiting for customer $i$ to be released.
-Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.\newline
+Customer $e$ has finished service at node $1$, but remains there as there is not
+enough queueing space at node $2$ to accept them.
+We say customer $e$ is blocked by customer $i$, as he is waiting for customer $i$ to be released.
+Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.
 
 When there are multiple servers, individuals become blocked by all customers in service or blocked at their destination.
 Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
-However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.\newline
+However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.
 
 \begin{figure}[H]
   \includestandalone[width=\textwidth]{images/2nodesindeadlock}
@@ -79,12 +85,12 @@ This idea is expanded on in the next section.
 The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
 The different configurations of which nodes experience deadlock can be thought of ad different types of deadlock.
 Each different type of deadlocked state can be denoted $\Delta_{i,j,k...}$ with the indices $i, j, k...$ denoting which nodes are participating in that deadlocked state.
-The amount of different types of deadlock that a queueing network can experience is equal to the number of directed cycles in in the queueing network's routing matrix.\newline
+The amount of different types of deadlock that a queueing network can experience is equal to the number of directed cycles in in the queueing network's routing matrix.
 
 For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $\Delta_{1,...,N}$, the state where all service stations experience deadlock.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
-That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.\newline
+That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
 
 If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $\sum_{i=1}^N \binom{N}{i}$ possible deadlock types.
 
@@ -96,7 +102,7 @@ For closed networks of $K$ customers with only one class of customer, \cite{kund
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
-The literature does not discuss deadlock properties in open restricted queueing networks.\newline
+The literature does not discuss deadlock properties in open restricted queueing networks.
 
 General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
 Conditions for this type of deadlock, also referred to as deadly embraces, to potentially occur are given:
@@ -107,10 +113,10 @@ Conditions for this type of deadlock, also referred to as deadly embraces, to po
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
 Dynamic state-graphs are defined, with resources as vertices and requests as edges.
-For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.\newline
+For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
 
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
-Using these labels \textit{simple bounded circuits} are defined whose existance within the state graph is sufficient to detect deadlock.\newline
+Using these labels \textit{simple bounded circuits} are defined whose existance within the state graph is sufficient to detect deadlock.
 
 
 \section{Definitions}
@@ -125,29 +131,29 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   Subgraph & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
   Sink vertex & A sink vertex is a vertex in a directed graph that has no out-degree of zero.\\
 \end{tabular}
-\newline
+
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 
 
 \section{Explaining Digraph}
 
 Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
-Let the number of servers in node $i$ be denoted by $c_i$.\newline
+Let the number of servers in node $i$ be denoted by $c_i$.
 
 Define $D(t)$ as the state graph of $Q$ at time $t$.
 Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked, and so $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$.
-The state graph shows the blockage relationships between servers: a directed edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has finished service and is waiting for the $X_b$ to release its occupant before he can be realsed himself.\newline
+The state graph shows the blockage relationships between servers: a directed edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has finished service and is waiting for the $X_b$ to release its occupant before he can be realsed himself.
 
 The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
-The vertex set of each subgraph is static over time, however their edge sets may change.\newline
+The vertex set of each subgraph is static over time, however their edge sets may change.
 
 The state graph is dynamically built up as follows.
 When an individual finishes service at node $i$, and this individuals next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
-At this point $c_j$ directed edges between this individual's server and the vertices of $d_j(t)$ are created in $D(t)$.\newline
+At this point $c_j$ directed edges between this individual's server and the vertices of $d_j(t)$ are created in $D(t)$.
 
 When an individual is released and another customer who wasn't blocked occupies their server, that servers out-edges are removed.
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
-When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.\newline
+When an individual is released and there isn't another customer to occupy that server, then all edges incedent to that server are removed.
 
 This general process of building up the state graph as the queueing network is simulated is illustrated in figure~\ref{fig:general_buildup}.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
@@ -208,7 +214,7 @@ This leaves enough room for customer 7 to join the back of the queue at $A$.
 
 \subsection*{Theorem}
 
-A deadlock situation arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ that doesn't contain a sink vertex.\newline
+A deadlock situation arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ that doesn't contain a sink vertex.
 
 \subsection*{Observations}
 
@@ -216,30 +222,30 @@ Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
 Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
 Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
-We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.\newline
+We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
 
 Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
-The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.\newline
+The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
 
 It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
-We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.\newline
+We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.
 
 Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
-This does not necassarily mean there is deadlock.\newline
+This does not necassarily mean there is deadlock.
 
 \subsection*{Proof}
 
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
-All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.\newline
+All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
 Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$.
 This imples that $X$'s occupant is not blocked, so $X$ must be a descendent of another vertrex.
-Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are not all blocked.\newline
+Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are not all blocked.
 
 Now assume that we have deadlock.
 For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.\newline
+However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.
 
 
 \section{Markov Chain Model}
