@@ -120,10 +120,10 @@ That is, once $Q$ falls into one of the transient deadlocked states, it will eve
 
 If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $\sum_{i=1}^N \binom{N}{i}$ possible deadlock types.
 
-
 \section{Literature Review}
 
-Most of the literature on blocking conveniently assumes the networks are deadlock-free.
+Most of the literature on blocking conveniently assumes the networks are
+deadlock-free. % Can you list some reference here \cite{X,Y,Z} before details below
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
