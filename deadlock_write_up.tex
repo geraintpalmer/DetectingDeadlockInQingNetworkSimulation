@@ -165,11 +165,16 @@ NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 \section{State Digraph}
 
 Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
-Let the number of servers in node $i$ be denoted by $c_i$.
 
+Let the number of servers in node $i$ be denoted by $c_i$.
 Define $D(t)$ as the state graph of $Q$ at time $t$.
-Each vertex of $D(t)$ is an occupied server, occupied by an individual who is either in service or blocked, and so $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i, \quad \forall t \geq 0$.
-The state graph shows the blockage relationships between servers: a directed edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has finished service and is waiting for the $X_b$ to release its occupant before he can be realsed himself.
+Each vertex of $D(t)$ is an occupied server, occupied by an individual who is
+either in service or blocked, and so $\left| V\left(D\left(t\right)\right)
+\right| \leq \sum_{i=1}^N c_i$ for all $t \geq 0$.
+The state graph shows the blockage relationships between servers: a directed
+edge from one $X_a$ to $X_b$ represents that the customer occupying $X_a$ has
+finished service and is waiting for the $X_b$ to release its occupant before he
+can be released himself.
 
 The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs, $d_1(t), d_2(t), ..., d_N(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
 The vertex set of each subgraph is static over time, however their edge sets may change.
