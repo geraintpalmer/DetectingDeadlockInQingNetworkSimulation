@@ -294,6 +294,16 @@ Now assume that we have deadlock.
 For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.
 
+\subsection*{Lemma}
+
+An absorbing deadlocked state arises at time $t$ if $D(t)$ doesn't contain a sink vertex.
+
+\subsection*{Proof}
+
+A vertex with out-degree greater than zero represents an occupied server whose occupant has finished service and is blocked.
+If all vertices have out-degree greater than zero, then all servers are occupied by blocked individuals.
+A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendents finishing service.
+As all servers are occupied by blocked individuals, no server can finish service, and so no server can release their occupant, implying an absorbing deadlocked state.
 
 \section{Markov Chain Model}
 
