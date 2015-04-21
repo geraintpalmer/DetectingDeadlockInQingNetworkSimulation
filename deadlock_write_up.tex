@@ -196,12 +196,16 @@ When an individual is released and there isn't another customer to occupy that s
 
 This general process of building up the state graph as the queueing network is simulated is illustrated in Figure~\ref{fig:general_buildup}.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
+As an example, a customer labelled $(A_2, 10, C)$ would have an i.d. number of 2, is occupying server $A_2$ and is currently waiting to join node $C$.
+If a customer isn't occupying a server the notation $\emptyset$ is used.
+Similarly for customers occupying a server and still in service, their next destination is yet undecided, so $\emptyset$ is used.
+
 The simulation starts with full queues, and every server occupied by a customer in service.
-Customer 14 finishes service, and is blocked from entering node $A$.
-Then customer 5 finishes service and is blocked from entering node $B$.
-Then customer 10 finishes service and is blocked from entering node $A$.
-Finally customer 6 finishes service and wants to reenter the queue for node $A$ but is blocked.
-A deadlock situation arises as customer 6 is waiting for customer 5 to move, who is waiting for customer 10 to move, who is waiting for either customer 5 or 6 to move.
+Customer 13 finishes service, and is blocked from entering node $A$.
+Then customer 4 finishes service and is blocked from entering node $B$.
+Then customer 9 finishes service and is blocked from entering node $A$.
+Finally customer 5 finishes service and wants to reenter the queue for node $A$ but is blocked.
+A deadlock situation arises as customer 5 is waiting for customer 4 to move, who is waiting for customer 9 to move, who is waiting for either customer 4 or 5 to move.
 The state graph is shown at each event.
 
 \begin{figure}[H]
