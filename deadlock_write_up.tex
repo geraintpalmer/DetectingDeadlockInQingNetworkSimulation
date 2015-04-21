@@ -14,6 +14,9 @@
 \usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amsthm}
+
+\newtheorem{definition}{Definition}
 
 \title{Detecting Deadlock in Discrete Event Simulations of Queueing Networks}
 \author{Geraint Palmer}
@@ -28,7 +31,14 @@ This section will define and discuss the properties and detection of deadlock in
 Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected. % These two things need to be defined
 
-\section{Explanation of Deadlock}
+\section{Deadlock}
+
+\begin{definition}
+    When a simulation is in a situation that despite services and arrivals
+    occurring no changes of state are possible (due to recursive upstream
+    blocking) the system is said to be in deadlock.
+\end{definition}
+
 Deadlock can be experienced in any open queueing network with feedback loops,
 where at least one service station has limited queueing capacity, and where
 individuals can be blocked from joining the queue at the next destination. % All of these things will need to be defined somewhere (possibly in earlier sections).
