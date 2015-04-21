@@ -94,9 +94,13 @@ This idea is expanded on in the next section.
 
 \section{Types of Deadlock}
 The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
-The different configurations of which nodes experience deadlock can be thought of ad different types of deadlock.
+The different configurations of which nodes experience deadlock can be thought
+of as different types of deadlock.
 Each different type of deadlocked state can be denoted $\Delta_{i,j,k...}$ with the indices $i, j, k...$ denoting which nodes are participating in that deadlocked state.
-The amount of different types of deadlock that a queueing network can experience is equal to the number of directed cycles in in the queueing network's routing matrix.
+The amount of different types of deadlock that a queueing network can experience
+is equal to the number of directed cycles in in the queueing network's routing
+matrix. % This paragraph will change and will need more discussion of last
+%sentence (images etc...)
 
 For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $\Delta_{1,...,N}$, the state where all service stations experience deadlock.
