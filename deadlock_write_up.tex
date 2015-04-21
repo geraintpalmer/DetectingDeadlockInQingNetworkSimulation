@@ -98,7 +98,7 @@ This idea is expanded on in the next section.
 The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
 The different configurations of which nodes experience deadlock can be thought
 of as different types of deadlock.
-Each different type of deadlocked state can be denoted $\Delta_{i,j,k...}$ with the indices $i, j, k...$ denoting which nodes are participating in that deadlocked state.
+Each different type of deadlocked state can be denoted $(i_1, i_2, i_3...)$ where $i_k = -1$ if node $k$ node is participating in that deadlocked state.
 The amount of different types of deadlock that a queueing network can experience
 is equal to the number of directed cycles in in the queueing network's routing
 matrix. % This paragraph will change and will need more discussion of last
@@ -116,7 +116,7 @@ For connected queueing networks, these deadlocks can be classified into transien
     queueing network are in deadlock.
 \end{definition}
 
-For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $\Delta_{1,...,N}$, the state where all service stations experience deadlock.
+For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $(i_1=-1,...,i_N=-1)$, the state where all service stations experience deadlock.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
 
@@ -171,9 +171,9 @@ Presented is a method of detecting when deadlock occurs in an open queueing netw
 Let the number of servers in node $i$ be denoted by $c_i$.
 Define $D(t)=(V(t), E(t))$ as the state graph of $Q$ at time $t$.
 
-The vertices at time \(t\), \(V(t)\) correspond to occupied servers in the
+The vertices at time \(t\), \(V(t)\) correspond to servers in the
 queueing system.
-Thus, $\left| V\left(D\left(t\right)\right) \right| \leq \sum_{i=1}^N c_i$ for all $t \geq 0$.
+Thus, $\left| V\left(D\left(t\right)\right) \right| = \sum_{i=1}^N c_i$ for all $t \geq 0$.
 
 The edges at time \(t\), \(E(t)\) correspond to a blocking relationship.
 There is a directed edge at time \(t\) from vertex \(X_a\in V(t)\) to vertex \(X_b\in
@@ -184,7 +184,7 @@ vertex \(X_b\).
 The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs,
 $D(t)=\bigcup_{i=1}^N d_i(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
 The vertex set of each subgraph is static over time, however their edge sets may
-change. % This is not actually true is it???? The vertex set is dynamic?
+change.
 
 The state graph is dynamically built up as follows.
 When an individual finishes service at node $i$, and this individual's next destination is node $j$, but there is not enough queueing capacity for $j$ to accept that individual, then that individual remains at node $i$ and becomes blocked.
@@ -233,7 +233,7 @@ For illustrative purposes the queueing network here is a different queueing netw
 Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
 Customer 6 finishes service and immediately joins service at node $C$.
 Now there is room for customer 4 to move into service at node $B$.
-Notice that the edge $A_2 -- B_1$ remains in the state graph, as customer 5 is still blocked by that server.
+Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as customer 5 is still blocked by that server.
 The customers queueing at node $A$ move along the queue, with customer 3 begining service.
 This leaves enough room for customer 7 to join the back of the queue at $A$.
 
@@ -320,8 +320,8 @@ All routing possibilities except self loops are possible, where the routing prob
 
 \begin{itemize}
     \item State space:
-        \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq n_1 + n_2 + 2
-        \geq i + j \}\cup\{\Delta_{1,2}\}\]
+        \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq i + j \leq n_1 + n_2 + 2
+        \}\cup\{(-1, -1)\}\]
 
         Where \(i\) denotes number of individuals:
             \begin{itemize}
@@ -335,10 +335,10 @@ All routing possibilities except self loops are possible, where the routing prob
                 \item Occupying a server but having finished service at the
                     first node waiting to join the first
             \end{itemize}
-        and the state \(\Delta_{1,2}\) denotes the deadlocked state.
+        and the state $(-1, -1)$ denotes the deadlocked state.
 \end{itemize}
 
-If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then for all $(i_1, j_1), (i_2, j_2), s \in S$ the transitions are given by:
+If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S | i_k, j_k \geq 0$, then the transitions are given by:
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -366,7 +366,7 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$, then for all $(i_1, j_1), (i_2,
 \end{equation}
 
 \begin{equation}
-  q_{(i_1, j_1), \Delta_{1,2}} = \left\{
+  q_{(i_1, j_1), (-1, -1)} = \left\{
   \begin{matrix*}[ r ]
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
