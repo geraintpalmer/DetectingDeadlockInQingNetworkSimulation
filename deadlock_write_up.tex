@@ -38,7 +38,7 @@ Open queueing networks are those networks that have at least one node to which c
 \begin{definition}
     When a simulation is in a situation where at least one service station,
     despite having arrivals, ceases to finish any more services
-    due to recursive upstream blocking) the system is said to be in deadlock.
+    due to recursive upstream blocking the system is said to be in deadlock.
 \end{definition}
 
 Deadlock can be experienced in any open queueing network that experiences
@@ -210,24 +210,26 @@ The state graph is shown at each event.
 
 \begin{figure}[H]
   \begin{center}
-    \begin{tabular}{ c c c }
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step1} & \hspace{0.1\textwidth} &
+    \begin{tabular}{ c c c c }
+      $a)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step1} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step1} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step2} & \hspace{0.1\textwidth} &
+      $b)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step2} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step2} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step3} & \hspace{0.1\textwidth} &
+      $c)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step3} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step3} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step4} & \hspace{0.1\textwidth} &
+      $d)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step4} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step4} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step5} & \hspace{0.1\textwidth} &
+      $e)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step5} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step5}
     \end{tabular}
   \end{center}
-  \caption{Illustrating the general build up of the state graph until deadlock.}
+  \caption{Illustrating the general build up of the state graph.}
   \label{fig:general_buildup}
 \end{figure}
 
 The rules on how edges are removed from the state graph are shown in Figure~\ref{fig:general_builddown}.
+For illustrative purposes the queueing network here is a different queueing network than in Figure~\ref{fig:general_buildup}.
+
 Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
 Customer 6 finishes service and immediately joins service at node $C$.
 Now there is room for customer 4 to move into service at node $B$.
@@ -239,14 +241,14 @@ This leaves enough room for customer 7 to join the back of the queue at $A$.
 % fragment).
 \begin{figure}[H]
   \begin{center}
-    \begin{tabular}{ c c c }
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step1} & \hspace{0.1\textwidth} &
+    \begin{tabular}{ c c c c }
+      $a)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step1} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step1} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step2} & \hspace{0.1\textwidth} &
+      $b)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step2} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step2} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step3} & \hspace{0.1\textwidth} &
+      $c)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step3} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step3} \\
-      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step4} & \hspace{0.1\textwidth} &
+      $d)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step4} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step4}
     \end{tabular}
   \end{center}
