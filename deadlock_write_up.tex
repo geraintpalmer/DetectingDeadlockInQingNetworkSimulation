@@ -52,7 +52,8 @@ enough queueing space at node $2$ to accept them.
 We say customer $e$ is blocked by customer $i$, as he is waiting for customer $i$ to be released.
 Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.
 
-When there are multiple servers, individuals become blocked by all customers in service or blocked at their destination.
+When there are multiple servers, individuals become blocked by all customers in
+service.
 Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
 However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.
 
