@@ -103,6 +103,17 @@ matrix. % This paragraph will change and will need more discussion of last
 %sentence (images etc...)
 
 For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.
+
+\begin{definition}
+    A transient deadlock state is when there are still some changes of state
+    whilst a connected component of the queueing network is itself in deadlock.
+\end{definition}
+
+\begin{definition}
+    The absorbing deadlock state is when all connected components of the
+    queueing network are in deadlock.
+\end{definition}
+
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $\Delta_{1,...,N}$, the state where all service stations experience deadlock.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
