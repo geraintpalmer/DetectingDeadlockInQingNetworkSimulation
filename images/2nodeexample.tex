@@ -14,6 +14,7 @@
   \draw (5, 0) -- (5, 3);
   \draw (6, 0) -- (6, 3);
   \draw (7, 0) -- (7, 3);
+  \draw (0, 0) -- (0, 3);
 
   \node at (3, 1.5) {\LARGE{$n_1$}};
 
@@ -28,6 +29,7 @@
   \draw (9, 6) -- (9, 9);
   \draw (10, 6) -- (10, 9);
   \draw (11, 6) -- (11, 9);
+  \draw (15, 6) -- (15, 9);
 
   \node at (12, 7.5) {\LARGE{$n_2$}};
 
@@ -35,14 +37,14 @@
   \draw (5, 7.5) circle (1.5) node {\LARGE{$\mu_2$}};
 
   % % In and out routes
-  \draw[thick, ->] (11.5, 1.5) -- (20, 1.5);
-  \draw[thick, ->] (3.5, 7.5) -- (-5, 7.5);
-  \draw[thick, ->] (-5, 1.5) -- (0.5, 1.5) node [pos=0, left] {\LARGE{$\Lambda_1$}};
-  \draw[thick, ->] (20, 7.5) -- (14.5, 7.5) node [pos=0, right] {\LARGE{$\Lambda_2$}};
+  \draw[thick, -triangle 90] (11.5, 1.5) -- (20, 1.5);
+  \draw[thick, -triangle 90] (3.5, 7.5) -- (-5, 7.5);
+  \draw[thick, -triangle 90] (-5, 1.5) -- (0, 1.5) node [pos=0, left] {\LARGE{$\Lambda_1$}};
+  \draw[thick, -triangle 90] (20, 7.5) -- (15, 7.5) node [pos=0, right] {\LARGE{$\Lambda_2$}};
 
   % Routing between nodes
-  \draw[thick, ->] (17, 1.5) -- (17, 7.5) node [pos=0.5, left] {\LARGE{$r_{12}$}};
-  \draw[thick, ->] (-2, 7.5) -- (-2, 1.5) node [pos=0.5, left] {\LARGE{$r_{21}$}};
+  \draw[thick, -triangle 90] (17, 1.5) -- (17, 7.5) node [pos=0.5, left] {\LARGE{$r_{12}$}};
+  \draw[thick, -triangle 90] (-2, 7.5) -- (-2, 1.5) node [pos=0.5, left] {\LARGE{$r_{21}$}};
 
 \end{tikzpicture}
 

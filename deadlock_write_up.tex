@@ -307,6 +307,52 @@ As all servers are occupied by blocked individuals, no server can finish service
 
 \section{Markov Chain Model}
 
+\subsection{One Node Network}
+Consider the one node network with feedback loop shown in Figure~\ref{fig:queueingnetwork_1node}.
+There is room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
+Once a customer has finished service he rejoins the queue with probability $r_{11}$, and so exits the system with probability $1 - r_{11}$.
+
+\begin{figure}[H]
+  \includestandalone[width=\textwidth]{images/1nodeexample}
+  \caption{A one node queueing network.}
+  \label{fig:queueingnetwork_1node}
+\end{figure}
+
+State space:
+        \[S = \{i\in\mathbb{N}| 0 \leq i \leq n
+        \}\cup\{-1\}\]
+Where \(i\) denotes number of individuals in service or waiting.
+
+If we define $\delta = i_2 - i_1$ for all $i_k \in S | i_k \geq 0$, then the transitions are given by:
+
+\begin{equation}
+  q_{i_1, i_2} = \left\{
+  \begin{matrix*}[ r ]
+    \left. \begin{matrix*}[ r ]
+      0 & \text{if } i = n + 1 \\
+      \Lambda & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = 1 \\
+    (1 - r_{11})\mu & \text{if } \delta = -1 \\
+    0 & \text{otherwise}
+  \end{matrix*} \right.
+\end{equation}
+
+\begin{equation}
+  q_{i, -1} = \left\{
+  \begin{matrix*}[ r ]
+    r_{11}\mu & \text{if } i = n + 1) \\
+    0 & \text{otherwise}
+  \end{matrix*}
+  \right.
+\end{equation}
+
+and
+
+\begin{equation}
+  q_{-1, i} = 0
+\end{equation}
+
+\subsection{Two Node Network without Self Loops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.

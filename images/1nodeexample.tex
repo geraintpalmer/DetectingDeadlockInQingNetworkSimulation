@@ -1,0 +1,33 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  % Queue A
+  \draw (0, 0) -- (8, 0);
+  \draw (8, 0) -- (8, 3);
+  \draw (0, 3) -- (8, 3);
+  \draw (4, 0) -- (4, 3);
+  \draw (5, 0) -- (5, 3);
+  \draw (6, 0) -- (6, 3);
+  \draw (7, 0) -- (7, 3);
+  \draw (0, 0) -- (0, 3);
+
+  \node at (3, 1.5) {\LARGE{$n$}};
+
+  % Service center a
+  \draw (10, 1.5) circle (1.5) node {\LARGE{$\mu$}};
+
+  % % In and out routes
+  \draw[thick, -triangle 90] (11.5, 1.5) -- (16.5, 1.5);
+  \draw[thick, -triangle 90] (-5, 1.5) -- (0, 1.5) node [pos=0, left] {\LARGE{$\Lambda$}};
+
+  % Routing between nodes
+  \draw[thick, -triangle 90] (14.5, 1.5) -- (14.5, 5) -- (-3, 5) -- (-3, 1.5) node [pos=0.5, left] {\LARGE{$r_{11}$}};
+
+\end{tikzpicture}
+
+\end{document}
