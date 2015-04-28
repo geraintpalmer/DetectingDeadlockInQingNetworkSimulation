@@ -338,7 +338,7 @@ All routing possibilities except self loops are possible, where the routing prob
         and the state $(-1, -1)$ denotes the deadlocked state.
 \end{itemize}
 
-If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S | i_k, j_k \geq 0$, then the transitions are given by:
+If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k), s \in S | i_k, j_k \geq 0$, then the transitions are given by:
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -351,15 +351,21 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S | i_k,
       \Lambda_2 & \text{if } j_1 \leq n_2 \\
       0 & \text{otherwise}
     \end{matrix*} \right\} & \text{if } \delta = (0, 1) \\
-    (1 - r_{12})\mu_1 \min(i_1, 1) & \text{if } \delta = (-1, 0) \\
-    (1 - r_{21})\mu_2 \min(j_1, 1) & \text{if } \delta = (0, -1) \\
+    \left. \begin{matrix*}[ r ]
+      0 & \text{if } j_1 = n_1 + 2 \\
+      (1 - r_{12})\mu_1 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (-1, 0) \\
+    \left. \begin{matrix*}[ r ]
+      0 & \text{if } i_1 = n_1 + 2 \\
+      (1 - r_{21})\mu_2 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } \delta = (0, -1) \\
     \left. \begin{matrix*}[ r ]
       0 & \text{if } j_1 = n_2 + 2 \\
-      r_{12}\mu_1 \text{min}(i_1, 1) & \text{otherwise}
+      r_{12}\mu_1 & \text{otherwise}
     \end{matrix*} \right\} & \text{if } \delta = (-1, 1) \\
     \left. \begin{matrix*}[ r ]
       0 & \text{if } i_1 = n_1 + 2 \\
-      r_{21}\mu_2 \text{min}(j_1, 1) & \text{otherwise}
+      r_{21}\mu_2 & \text{otherwise}
     \end{matrix*} \right\} & \text{if } \delta = (1, -1) \\
     0 & \text{otherwise}
   \end{matrix*} \right.
