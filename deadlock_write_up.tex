@@ -260,9 +260,11 @@ This leaves enough room for customer 7 to join the back of the queue at $A$.
 
 \subsection*{Theorem}
 
-A deadlocked state arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ that doesn't contain a sink vertex.
+A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 
 \subsection*{Observations}
+
+The statement of the theorem is equivalent to: A deadlocked state arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ in which there is at least one vertex that is not a sink and does not have a path to a sink vertex.
 
 Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
@@ -274,7 +276,7 @@ Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
 The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
 
-It is clear that if any of $X_a$'s decendents are occupied by individuals who are not blocked, then we do not have deadlock at time $t$; and if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
+It is clear that if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.
 
 Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
@@ -285,13 +287,13 @@ This does not necassarily mean there is deadlock.
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
 All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
-Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$.
-This imples that $X$'s occupant is not blocked, so $X$ must be a descendent of another vertrex.
-Therefore $Q$ is not deadlocked as there exists a vertex whose descendents are not all blocked.
+Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertix to $X$.
+This imples that $X$'s occupant is not blocked and is a descendent of another vertrex.
+Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendents are all blocked.
 
 Now assume that we have deadlock.
-For a given vertex $X$, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-However, as our choice of $X$ was arbitrary, this must be true for all members of $G(t)$, and so no members of $G(t)$ have out-degree of 0.
+For a vertex $X$ who is deadlocked, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
+And so there is no path from $X$ to a vertex with out-degree of 0.
 
 \subsection*{Lemma}
 
