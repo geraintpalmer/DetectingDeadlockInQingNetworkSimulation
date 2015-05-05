@@ -2,7 +2,6 @@
 
 \usepackage{fullpage}
 \usepackage{parskip}
-
 \usepackage{setspace}
 \usepackage{mathtools}
 \usepackage{tikz}
@@ -158,11 +157,11 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   $\text{deg}^{\text{out}}(X)$ & The out-degree of $X$ is the number of outgoing edges emanating from that vertex. \\
   Subgraph                     & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
   Sink vertex                  & A sink vertex is a vertex in a directed graph that has out-degree of zero.\\
+  Knot                         & In a directed graph, a knot is a set of vertices such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
 \end{tabular}
 
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
 % Should some of this be before?
-
 
 \section{State Digraph}
 
@@ -440,6 +439,29 @@ It is shown in \cite{stewart09} that for a discrete transition matrix of the for
 \end{equation}
 where $e$ is a vector of 1s.  % I am not sure if this is nicest way of doing
 % this.
+
+
+\section{Resolving Deadlock}
+Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
+This is not necassarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
+Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
+
+At deadlock, the service stations can be classified into the following three mutually exclusive categories:
+\begin{itemize}
+    \item Nodes that are not deadlocked: These are nodes that do not contain any blocked individuals.
+    \item Nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
+    \item Nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
+\end{itemize}
+
+At the first instance of deadlock, consider the weakly connected component $G$ of $D(t)$ that contains no sink nodes.
+The vertices of $G$ correspond to servers.
+As there is no sink node, all vertices of $G$ have an out-edge, and so all vertices in $G$ contain a blocked individual.
+Therefore, there are no vertices in $G$ belonging to nodes that are not deadlocked.
+
+A node is causing deadlock if all its servers belong to a knot in $G$.
+A node that is affected by deadlock has no servers belonging to a knot in $G$.
+
+
 
 
 \bibliographystyle{plain}
