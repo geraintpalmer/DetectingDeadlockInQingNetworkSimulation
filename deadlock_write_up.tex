@@ -14,6 +14,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage[ruled]{algorithm2e}
 
 \newtheorem{definition}{Definition}
 
@@ -157,7 +158,7 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   $\text{deg}^{\text{out}}(X)$ & The out-degree of $X$ is the number of outgoing edges emanating from that vertex. \\
   Subgraph                     & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
   Sink vertex                  & A sink vertex is a vertex in a directed graph that has out-degree of zero.\\
-  Knot                         & In a directed graph, a knot is a set of vertices such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
+  Knot                         & In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
 \end{tabular}
 
 NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
@@ -451,18 +452,35 @@ Closer inspection of the state digraph is required in order to find a way to res
 At deadlock, the service stations can be classified into the following three mutually exclusive categories:
 \begin{itemize}
     \item Nodes that are not deadlocked: These are nodes that do not contain any blocked individuals.
-    \item Nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
-    \item Nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
+    \item Causation nodes, nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
+    \item Affected nodes, nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
 \end{itemize}
 
-At the first instance of deadlock, consider the weakly connected component $G$ of $D(t)$ that contains no sink nodes.
-The vertices of $G$ correspond to servers.
-As there is no sink node, all vertices of $G$ have an out-edge, and so all vertices in $G$ contain a blocked individual.
-Therefore, there are no vertices in $G$ belonging to nodes that are not deadlocked.
+At the first instance of deadlock, there will only be one knot in $D(t)$.
+Let us denote the knot as $K$.
+The vertices of $K$ correspond to servers.
+As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
+Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
+All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
+An affected node has servers belonging to the same weakly connected component as $K$, but does ot have servers in $K$.
 
-A node is causing deadlock if all its servers belong to a knot in $G$.
-A node that is affected by deadlock has no servers belonging to a knot in $G$.
+When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
+Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
+Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
+This property may have to be broken in order to ensure the conservation property is not.
 
+The following algorithm is proposed in order to resolve deadlock:
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Find the knot $K$ in $D(t)$\;
+    Choose the vertex $V_0$ in $K$ containing the blocked customer who has waited the longest to get to another vertex $V_1$ in $K$\;
+    Find the cycle $C$ containg the edge $V_0 \longrightarrow V_1$\;
+    Start at $V_0$\;
+    \For{$V_i$ in $C$}{
+    Move the individual who is waiting to get to $V_{i+1}$\;}
+    Redraw $D(t)$\;
+\end{algorithm}
 
 
 
