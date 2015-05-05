@@ -1,6 +1,14 @@
 from __future__ import division
 import numpy as np
+import yaml
 
+
+# Input parameters here
+n1, n2 = 3, 2
+mu1, mu2 = 10.0, 8.0
+r12, r21 = 0.25, 0.15
+L1, L2 = 4.0, 5.0
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/vary_n2/'
 
 class Network:
     """
@@ -100,19 +108,25 @@ class Network:
                 else:
                     return 0
             if delta == (-1, 0):
-                return (1-self.r12)*self.mu1*min(state1[0], 1)
+                if state1[1] == self.n2+2:
+                    return 0
+                else:
+                    return (1-self.r12)*self.mu1
             if delta == (0, -1):
-                return (1-self.r21)*self.mu2*min(state1[1], 1)
+                if state1[0] == self.n1+2:
+                    return 0
+                else:
+                    return (1-self.r21)*self.mu2
             if delta == (-1, 1):
                 if state1[1] == self.n2+2:
                     return 0
                 else:
-                    return self.r12*self.mu1*min(state1[0], 1)
+                    return self.r12*self.mu1
             if delta == (1, -1):
                 if state1[0] == self.n1 + 2:
                     return 0
                 else:
-                    return self.r21*self.mu2*min(state1[1], 1)
+                    return self.r21*self.mu2
             return 0
 
     def write_transition_matrix(self):
@@ -204,13 +218,29 @@ class Network:
             >>> Q = Network(1, 1, 6.0, 7.0, 0.1, 0.1, 3.0, 4.0)
             >>> Q.find_mean_time_to_absorbtion()
             >>> Q.mean_steps_to_absorbtion
-            {(0, 1): 5569.3309485569425, (1, 2): 5552.4262511938905, (0, 0): 5571.622376104965, (3, 0): 5431.1549079579117, (3, 1): 5232.8255050133139, (2, 1): 5547.3770517645999, (0, 2): 5565.8065378684014, (2, 0): 5561.4483015679771, (1, 3): 5218.4671485026602, (2, 2): 5518.8950250134531, (1, 0): 5568.0109461689945, (0, 3): 5462.6681009914637, (1, 1): 5562.8594988480072}
+            {'(0, 1)': 5569.3309485569425, '(3, 0)': 5431.1549079579117, '(0, 0)': 5571.622376104965, '(1, 0)': 5568.0109461689945, '(3, 1)': 5232.8255050133139, '(1, 1)': 5562.8594988480072, '(2, 1)': 5547.3770517645999, '(1, 2)': 5552.4262511938905, '(2, 0)': 5561.4483015679771, '(0, 3)': 5462.6681009914637, '(1, 3)': 5218.4671485026602, '(0, 2)': 5565.8065378684014, '(2, 2)': 5518.8950250134531}
             >>> Q.mean_time_to_absorbtion
-            {(0, 1): 278.46654742784716, (1, 2): 277.62131255969456, (0, 0): 278.58111880524825, (3, 0): 271.55774539789559, (3, 1): 261.64127525066573, (2, 1): 277.36885258823003, (0, 2): 278.29032689342006, (2, 0): 278.07241507839888, (1, 3): 260.92335742513302, (2, 2): 275.94475125067265, (1, 0): 278.40054730844975, (0, 3): 273.13340504957318, (1, 1): 278.14297494240037}
+            {'(0, 1)': 278.46654742784716, '(3, 0)': 271.5577453978956, '(0, 0)': 278.58111880524825, '(1, 0)': 278.40054730844975, '(3, 1)': 261.64127525066573, '(1, 1)': 278.1429749424004, '(2, 1)': 277.36885258823, '(1, 2)': 277.62131255969456, '(2, 0)': 278.0724150783989, '(0, 3)': 273.1334050495732, '(1, 3)': 260.923357425133, '(0, 2)': 278.29032689342006, '(2, 2)': 275.94475125067265}
         """
         T = self.discrete_transition_matrix[:-1, :-1]
         S = np.linalg.inv(np.identity(len(T)) - T)
-        steps2absorb = [sum(S[i]) for i in range(len(S))]
+        steps2absorb = [sum([S[i,j] for j in range(len(S))]) for i in range(len(S))]
         time2absorb = [s*self.time_step for s in steps2absorb]
-        self.mean_steps_to_absorbtion = {self.State_Space[i]: steps2absorb[i] for i in range(len(steps2absorb))}
-        self.mean_time_to_absorbtion = {self.State_Space[i]: time2absorb[i] for i in range(len(time2absorb))}
+        self.mean_steps_to_absorbtion = {str(self.State_Space[i]): steps2absorb[i] for i in range(len(steps2absorb))}
+        self.mean_time_to_absorbtion = {str(self.State_Space[i]): float(time2absorb[i]) for i in range(len(time2absorb))}
+
+    def write_results_to_file(self):
+		"""
+		Takes the summary statistics and writes them into a .yml file
+		"""
+		results_file = open('%stheoretical_results_%s.yml' % (directory, str(n2)), 'w')
+		results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
+		results_file.close()
+
+if __name__ == '__main__':
+    n2s = [0, 1, 2, 3, 4, 5, 6]
+    for i in range(len(n2s)):
+        n2 = n2s[i]
+        Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
+        Q.find_mean_time_to_absorbtion()
+        Q.write_results_to_file()
