@@ -307,6 +307,22 @@ If all vertices have out-degree greater than zero, then all servers are occupied
 A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendents finishing service.
 As all servers are occupied by blocked individuals, no server can finish service, and so no server can release their occupant, implying an absorbing deadlocked state.
 
+\section{Finding Knots}
+Here is an initial draft of an algorithm for dynamically finding a knot in the state digraph of the queueing network.
+
+It has been noted earlier that a knot in the state digraph is equivalent to there existing a vertex without a directed path to a sink.
+
+Keeping track of the list of sinks in $D$ will be useful.
+Let's call this list $\text{sink\_list}$.
+Initially all vertices of $D(0)$ are sinks, and belong to $\text{sink\_list}$.
+At the point when a vertex gains an out-edge, that vertex is removed from $\text{sink\_list}$.
+At the point when a vertex has an out-edge removed, if $\text{deg}^{\text{out}} = 0$ then that vertex is added to $\text{sink\_list}$.
+Therefore, at any one point we have knowledge of all the sinks in $D(t)$.
+
+Now, the only action that can lead to a vertex transitioning from having a path to a sink and not having a path to a sink is adding an edge.
+Removing an edge of $D(t)$ will not cause deadlock, as removing an edge implies that a customer has moved, and a customer moving cannot cause deadlock.
+Therefore, we only need to check the vertex's paths to sinks when an edge is added.
+
 \section{Markov Chain Model}
 
 \subsection{One Node Network}
