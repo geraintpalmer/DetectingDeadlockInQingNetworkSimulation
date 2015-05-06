@@ -484,14 +484,14 @@ When choosing which customer to move in order to resolve deadlock, we must be ca
 Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
 Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
 This property may have to be broken in order to ensure the conservation property is not.
+Assume that we have labelled the edges of the digraph iteratively, that is the 1st edges drawn are weighted 1, 2nd edges drawn are weighted 2 etc. % If this works then I'll include this in the write up of how state digraph is formed
 
 The following algorithm is proposed in order to resolve deadlock:
 
 \begin{algorithm}[H]
     \DontPrintSemicolon
     Find the knot $K$ in $D(t)$\;
-    Choose the vertex $V_0$ in $K$ containing the blocked customer who has waited the longest to get to another vertex $V_1$ in $K$\;
-    Find the cycle $C$ containg the edge $V_0 \longrightarrow V_1$\;
+    Find the cycle $C \in K$ whose average edge weight is minimum\;
     Start at $V_0$\;
     \For{$V_i$ in $C$}{
     Move the individual who is waiting to get to $V_{i+1}$\;}
