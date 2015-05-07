@@ -592,7 +592,7 @@ When choosing which customer to move in order to resolve deadlock, we must be ca
 Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
 Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
 This property may have to be broken in order to ensure the conservation property is not.
-Assume that we have labelled the edges of the digraph iteratively, that is the 1st edges drawn are weighted 1, 2nd edges drawn are weighted 2 etc. % If this works then I'll include this in the write up of how state digraph is formed
+Assume that we have weighted the edges of the digraph with the time that they were created. % If this works then I'll include this in the write up of how state digraph is formed
 
 The following algorithm is proposed in order to resolve deadlock:
 
