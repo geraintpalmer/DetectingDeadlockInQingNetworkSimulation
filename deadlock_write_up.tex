@@ -197,66 +197,124 @@ When an individual is released and another customer who wasn't blocked occupies 
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incident to that server are removed.
 
-This general process of building up the state graph as the queueing network is simulated is illustrated in Figure~\ref{fig:general_buildup}.
+This general process of building up the state graph as the queueing network is simulated will now be shown.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
 As an example, a customer labelled $(A_2, 10, C)$ would have an i.d. number of 2, is occupying server $A_2$ and is currently waiting to join node $C$.
 If a customer isn't occupying a server the notation $\emptyset$ is used.
 Similarly for customers occupying a server and still in service, their next destination is yet undecided, so $\emptyset$ is used.
 
-The simulation starts with full queues, and every server occupied by a customer in service.
-Customer 13 finishes service, and is blocked from entering node $A$.
-Then customer 4 finishes service and is blocked from entering node $B$.
-Then customer 9 finishes service and is blocked from entering node $A$.
-Finally customer 5 finishes service and wants to reenter the queue for node $A$ but is blocked.
-A deadlock situation arises as customer 5 is waiting for customer 4 to move, who is waiting for customer 9 to move, who is waiting for either customer 4 or 5 to move.
-The state graph is shown at each event.
+The simulation starts with full queues, and every server occupied by a customer in service. This is shown in Figure~\ref{fig:general_buildup_1}.
 
 \begin{figure}[H]
-  \begin{center}
-    \begin{tabular}{ c c c c }
-      $a)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step1} & \hspace{0.1\textwidth} &
+  \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step1} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step1} \\
-      $b)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step2} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step2} \\
-      $c)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step3} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step3} \\
-      $d)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step4} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step4} \\
-      $e)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step5} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step5}
-    \end{tabular}
-  \end{center}
-  \caption{Illustrating the general build up of the state graph.}
-  \label{fig:general_buildup}
+  \end{tabular}
+  \caption{}
+  \label{fig:general_buildup_1}
 \end{figure}
 
-The rules on how edges are removed from the state graph are shown in Figure~\ref{fig:general_builddown}.
-For illustrative purposes the queueing network here is a different queueing network than in Figure~\ref{fig:general_buildup}.
+Customer 13 finishes service, and is blocked from entering node $A$. Figure~\ref{fig:general_buildup_2}.
+
+\begin{figure}[H]
+  \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step2} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step2} \\
+  \end{tabular}
+  \caption{}
+  \label{fig:general_buildup_2}
+\end{figure}
+
+Then customer 4 finishes service and is blocked from entering node $B$. Figure~\ref{fig:general_buildup_3}.
+
+\begin{figure}[H]
+  \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step3} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step3} \\
+  \end{tabular}
+  \caption{}
+  \label{fig:general_buildup_3}
+\end{figure}
+
+Then customer 9 finishes service and is blocked from entering node $A$. Figure~\ref{general_buildup_4}.
+
+\begin{figure}[H]
+  \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step4} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step4} \\
+  \end{tabular}
+  \caption{}
+  \label{fig:general_buildup_4}
+\end{figure}
+
+Finally, in Figure~\ref{fig:general_buildup_5} customer 5 finishes service and wants to reenter the queue for node $A$ but is blocked.
+A deadlock situation arises as customer 5 is waiting for customer 4 to move, who is waiting for customer 9 to move, who is waiting for either customer 4 or 5 to move.
+
+\begin{figure}[H]
+  \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen1_step5} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen1_step5} \\
+  \end{tabular}
+  \caption{}
+  \label{fig:general_buildup_5}
+\end{figure}
+
+The rules on how edges are removed from the state graph will now be shown.
+For illustrative purposes the queueing network here is a different queueing network than in Figure~\ref{fig:general_buildup_1}.
 
 Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
-Customer 6 finishes service and immediately joins service at node $C$.
-Now there is room for customer 4 to move into service at node $B$.
-Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as customer 5 is still blocked by that server.
-The customers queueing at node $A$ move along the queue, with customer 3 begining service.
-This leaves enough room for customer 7 to join the back of the queue at $A$.
+This is shown in Figure~\ref{fig:general_builddown_1}.
 
-% This diagram needs more explanation throughout (step by step, possibly
-% fragment).
 \begin{figure}[H]
   \begin{center}
-    \begin{tabular}{ c c c c }
-      $a)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step1} & \hspace{0.1\textwidth} &
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step1} & \hspace{0.1\textwidth} &
       \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step1} \\
-      $b)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step2} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step2} \\
-      $c)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step3} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step3} \\
-      $d)$ & \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step4} & \hspace{0.1\textwidth} &
-      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step4}
-    \end{tabular}
+  \end{tabular}
   \end{center}
-  \caption{Illustrating how the state graph evolves when blocked customer start moving.}
-  \label{fig:general_builddown}
+  \caption{}
+  \label{fig:general_builddown_1}
+\end{figure}
+
+Customer 6 finishes service and immediately joins service at node $C$. Figure~\ref{fig:general_builddown_2}.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step2} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step2} \\
+  \end{tabular}
+  \end{center}
+  \caption{}
+  \label{fig:general_builddown_2}
+\end{figure}
+
+Now there is room for customer 4 to move into service at node $B$. Figure~\ref{fig:general_builddown_3}.
+Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as customer 5 is still blocked by that server.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step3} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step3} \\
+  \end{tabular}
+  \end{center}
+  \caption{}
+  \label{fig:general_builddown_3}
+\end{figure}
+
+The customers queueing at node $A$ move along the queue, with customer 3 begining service.
+This leaves enough room for customer 7 to join the back of the queue at $A$. Figure~\ref{fig:general_builddown_4}.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{ c c c }
+      \includestandalone[width=0.62\textwidth]{images/examplenetwork2_scen2_step4} & \hspace{0.1\textwidth} &
+      \includestandalone[width=0.2\textwidth]{images/exampledigraph_scen2_step4} \\
+  \end{tabular}
+  \end{center}
+  \caption{}
+  \label{fig:general_builddown_4}
 \end{figure}
 
 \subsection*{Observations}
