@@ -1,5 +1,5 @@
 """
-Usage: draw_graph_vary_L.py <dir_name_th> <dir_name_s> <state> <begin> <end> <step>
+Usage: draw_graph_vary_L.py <dir_name> <state> <begin> <end> <step> <var>
 
 Arguments
     dir_name_th : name of the directory from which to read in data files (theoretical results)
@@ -22,12 +22,12 @@ import matplotlib.pyplot as plt
 from csv import reader
 
 arguments = docopt.docopt(__doc__)
-dirnameth = arguments['<dir_name_th>']
-dirnames = arguments['<dir_name_s>']
+dirname = arguments['<dir_name>']
 state = arguments['<state>']
 begin = float(arguments['<begin>'])
 end = float(arguments['<end>'])
 step = float(arguments['<step>'])
+var = str(arguments['<var>'])
 
 
 Ls = [i*step + begin for i in range(int((end-begin)/step)+1)]
@@ -36,8 +36,8 @@ times_to_deadlock = []
 simulation_results = []
 
 root = os.getcwd()
-directoryth = os.path.join(root, dirnameth)
-directorys = os.path.join(root, dirnames)
+directoryth = os.path.join(root, dirname)
+directorys = os.path.join(root, dirname)
 
 for i in Ls:
     parameter_file_name = directoryth + 'theoretical_results_%s.yml' % str(i)
@@ -69,7 +69,7 @@ for row in simulation_results:
 fig, ax = plt.subplots()
 plt.plot(Ls, times_to_deadlock)
 plt.boxplot(simulation_results_to_plot, positions=Ls, widths=step/2, showmeans=True, sym='')
-ax.set_xlabel('mu2')
+ax.set_xlabel(var)
 ax.set_ylabel('Time to Deadlock from (0, 0)')
 ax.set_title('Expected Time to Deadlock From State (0, 0)')
 fig.tight_layout()

@@ -17,6 +17,8 @@
 \usepackage[ruled]{algorithm2e}
 
 \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 
 \title{Detecting Deadlock in Discrete Event Simulations of Queueing Networks}
 \author{Geraint Palmer}
@@ -104,16 +106,17 @@ is equal to the number of directed cycles in in the queueing network's routing
 matrix. % This paragraph will change and will need more discussion of last
 %sentence (images etc...)
 
-For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.
+For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.\\
+
 
 \begin{definition}
     A transient deadlock state is when there are still some changes of state
-    whilst a subgraph of the queueing network is itself in deadlock.
+    whilst a subgraph of the queueing network is itself in deadlock.\\
 \end{definition}
 
 \begin{definition}
     The absorbing deadlock state is when all subgraphs of the
-    queueing network are in deadlock.
+    queueing network are in deadlock.\\
 \end{definition}
 
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $(i_1=-1,...,i_N=-1)$, the state where all service stations experience deadlock.
@@ -256,16 +259,7 @@ This leaves enough room for customer 7 to join the back of the queue at $A$.
   \label{fig:general_builddown}
 \end{figure}
 
-
-\section{Theorem}
-
-\subsection*{Theorem}
-
-A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
-
 \subsection*{Observations}
-
-The statement of the theorem is equivalent to: A deadlocked state arises at time $t$ if and only if there exists a weakly connected component of $D(t)$ in which there is at least one vertex that is not a sink and does not have a path to a sink vertex.
 
 Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
@@ -283,8 +277,14 @@ We also know that by definition all of $X_a$'s ancestors are occupied by blocked
 Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
 This does not necassarily mean there is deadlock.
 
-\subsection*{Proof}
 
+\section{Theorem}
+
+\begin{theorem}
+A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
+\end{theorem}
+
+\begin{proof}
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
 All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
@@ -295,22 +295,72 @@ Therefore $Q$ is not deadlocked as there does not exist a vertex whose descenden
 Now assume that we have deadlock.
 For a vertex $X$ who is deadlocked, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 And so there is no path from $X$ to a vertex with out-degree of 0.
+\end{proof}
 
-\subsection*{Lemma}
 
+\begin{lemma}
+For a queueing network with two nodes or less, a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
+\end{lemma}
+
+\begin{proof}
+Consider a one node queueing network $Q_1$.
+
+If there is deadlock, then all servers are occupied by blocked individuals, and so all servers have an out-edge.
+
+Consider a two node queueing network $Q_2$.
+
+If both nodes are involved in the deadlock, so there is a customer in node 1 blocked from entering node 2, and a customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
+The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
+
+Now consider the case when only one node is involved in the deadlock.
+Without loss of generality, let's say that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
+For the servers of node 2 to be part of that weakly conneced component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
+An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
+An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
+In this case the server in node 2 has an out-edge, and so there is still no sink.
+
+For the case of a queueing network with more than two nodes, the following counter-example proves the claim:
+
+Begin with all servers occupied by customers in service.
+The customer at server $B_1$ is blocked from entering node $A$.
+Then the customer at server $C_1$ is blocked from entering node $B$.
+Then the customer at server $A_1$ is blocked from entering node $A$.
+The resulting state digraph in Figure~\ref{fig:counter_example} has a weakly connected component with a sink.
+\end{proof}
+
+\begin{figure}
+\begin{center}
+\includestandalone[width=0.3\textwidth]{images/counter_example_digraph}
+\end{center}
+\caption{A Counter-Example State Digraph.}
+\label{fig:counter_example}
+\end{figure}
+
+\begin{lemma}
 An absorbing deadlocked state arises at time $t$ if $D(t)$ doesn't contain a sink vertex.
+\end{lemma}
 
-\subsection*{Proof}
-
+\begin{proof}
 A vertex with out-degree greater than zero represents an occupied server whose occupant has finished service and is blocked.
 If all vertices have out-degree greater than zero, then all servers are occupied by blocked individuals.
 A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendents finishing service.
 As all servers are occupied by blocked individuals, no server can finish service, and so no server can release their occupant, implying an absorbing deadlocked state.
+\end{proof}
 
 \section{Finding Knots}
 Here is an initial draft of an algorithm for dynamically finding a knot in the state digraph of the queueing network.
 
-It has been noted earlier that a knot in the state digraph is equivalent to there existing a vertex without a directed path to a sink.
+\begin{theorem}
+    The existance of a knot in the state digraph is equivalent to the existance of a vertex with an out-edge but without a path to a sink.
+\end{theorem}
+
+\begin{proof}
+    Consider a vertex $X$ that has an out-edge, but does not have a path to a sink.
+    All of $X$'s descendants also do not have paths to sinks.
+
+    As the number of vertices in $D(t)$ are finite ($\left| V\left(D\left(t\right)\right) \right| = \sum_{i=1}^N c_i$ for all $t \geq 0$), then all the possible paths leading out from $X$ must either be part of a cycle of lead to a cycle.
+    And so all paths from $X$ must terminate in a knot.
+\end{proof}
 
 Keeping track of the list of sinks in $D$ will be useful.
 Let's call this list $\text{sink\_list}$.
