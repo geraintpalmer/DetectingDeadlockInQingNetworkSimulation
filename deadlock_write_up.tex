@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
 \usepackage{standalone}
 \usepackage{float}
 \usepackage{caption}
@@ -558,6 +559,14 @@ and
 \begin{equation}
   q_{-1, s} = 0
 \end{equation}
+
+For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMC}.
+
+\begin{figure}
+    \includestandalone{images/markov_chain}
+    \caption{Markov chain of the two node system with $n_1=1$ and $n_2=2$.}
+    \label{fig:2nodeMC}
+\end{figure}
 
 From this we can find the expected time until deadlock is reached.
 It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
