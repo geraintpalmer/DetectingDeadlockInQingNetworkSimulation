@@ -479,6 +479,14 @@ and
   q_{-1, i} = 0
 \end{equation}
 
+The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
+
+\begin{figure}
+    \includestandalone[width=\textwidth]{images/markov_chain_1node}
+    \caption{Markov chain of the one node system.}
+    \label{fig:1nodeMC}
+\end{figure}
+
 \subsection{Two Node Network without Self Loops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
@@ -563,7 +571,7 @@ and
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMC}.
 
 \begin{figure}
-    \includestandalone{images/markov_chain}
+    \includestandalone[width=\textwidth]{images/markov_chain}
     \caption{Markov chain of the two node system with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
 \end{figure}
