@@ -417,30 +417,26 @@ As all servers are occupied by blocked individuals, no server can finish service
 \end{proof}
 
 \section{Finding Knots}
-Here is an initial draft of an algorithm for dynamically finding a knot in the state digraph of the queueing network.
 
-\begin{theorem}
-    The existance of a knot in the state digraph is equivalent to the existance of a vertex with an out-edge but without a path to a sink.
-\end{theorem}
+By definition knots are strongly connected subgraphs where every member's descendants belong to that subgraph.
 
-\begin{proof}
-    Consider a vertex $X$ that has an out-edge, but does not have a path to a sink.
-    All of $X$'s descendants also do not have paths to sinks.
+Using the Python package NetworkX, finding strongly connected components, and finding a vertex's decendants are built-in methods.
+The following algoithm, taken from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
 
-    As the number of vertices in $D(t)$ are finite ($\left| V\left(D\left(t\right)\right) \right| = \sum_{i=1}^N c_i$ for all $t \geq 0$), then all the possible paths leading out from $X$ must either be part of a cycle of lead to a cycle.
-    And so all paths from $X$ must terminate in a knot.
-\end{proof}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Find the strongly connected subgraphs of $D(t)$\;
+    \For{strongly connected subgraph $SCS$ in list of strongly connected subgraphs of $D(t)$}{
+      \For{vertex $v$ in $SCS$}{
+        \If{number of $v$'s decendants > number of vertices in $SCS$}{
+          Add $SCS$ to list of knots\;
+          break\;
+          }\;
+        }\;
+      }\;
+\end{algorithm}
 
-Keeping track of the list of sinks in $D$ will be useful.
-Let's call this list $\text{sink\_list}$.
-Initially all vertices of $D(0)$ are sinks, and belong to $\text{sink\_list}$.
-At the point when a vertex gains an out-edge, that vertex is removed from $\text{sink\_list}$.
-At the point when a vertex has an out-edge removed, if $\text{deg}^{\text{out}} = 0$ then that vertex is added to $\text{sink\_list}$.
-Therefore, at any one point we have knowledge of all the sinks in $D(t)$.
 
-Now, the only action that can lead to a vertex transitioning from having a path to a sink and not having a path to a sink is adding an edge.
-Removing an edge of $D(t)$ will not cause deadlock, as removing an edge implies that a customer has moved, and a customer moving cannot cause deadlock.
-Therefore, we only need to check the vertex's paths to sinks when an edge is added.
 
 \section{Markov Chain Model}
 
