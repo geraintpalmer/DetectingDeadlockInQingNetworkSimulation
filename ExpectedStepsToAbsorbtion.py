@@ -8,7 +8,7 @@ n1, n2 = 3, 2
 mu1, mu2 = 10.0, 8.0
 r12, r21 = 0.25, 0.15
 L1, L2 = 4.0, 5.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/vary_n2/'
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/run_10000_itrs/vary_r12/'
 
 class Network:
     """
@@ -100,33 +100,27 @@ class Network:
             if delta == (1, 0):
                 if state1[0]<=self.n1:
                     return self.L1
-                else:
-                    return 0
+                return 0
             if delta == (0, 1):
                 if state1[1]<=self.n2:
                     return self.L2
-                else:
-                    return 0
+                return 0
             if delta == (-1, 0):
-                if state1[1] == self.n2+2:
-                    return 0
-                else:
+                if state1[1] <= self.n2+1:
                     return (1-self.r12)*self.mu1
+                return 0
             if delta == (0, -1):
-                if state1[0] == self.n1+2:
-                    return 0
-                else:
+                if state1[0] <= self.n1+1:
                     return (1-self.r21)*self.mu2
+                return 0
             if delta == (-1, 1):
-                if state1[1] == self.n2+2:
-                    return 0
-                else:
+                if state1[1] <= self.n2+1:
                     return self.r12*self.mu1
+                return 0
             if delta == (1, -1):
-                if state1[0] == self.n1 + 2:
-                    return 0
-                else:
+                if state1[0] <= self.n1 + 1:
                     return self.r21*self.mu2
+                return 0
             return 0
 
     def write_transition_matrix(self):
@@ -233,14 +227,14 @@ class Network:
 		"""
 		Takes the summary statistics and writes them into a .yml file
 		"""
-		results_file = open('%stheoretical_results_%s.yml' % (directory, str(n2)), 'w')
+		results_file = open('%stheoretical_results_%s.yml' % (directory, str(r12)), 'w')
 		results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
 		results_file.close()
 
 if __name__ == '__main__':
-    n2s = [0, 1, 2, 3, 4, 5, 6]
-    for i in range(len(n2s)):
-        n2 = n2s[i]
+    r12s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    #n1s = range(7)
+    for r12 in r12s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
         Q.find_mean_time_to_absorbtion()
         Q.write_results_to_file()

@@ -10,6 +10,10 @@
 \begin{tikzpicture}
 
 
+% Node bottom
+\draw (3.9, 2.1) rectangle (9.3, 3.9);
+\draw (9.3, 1.2) rectangle (11.1, 4.8);
+
 % Node middle
 \draw (4.8, 8.1) rectangle (12, 9.9);
 \draw (3, 7.2) rectangle (4.8, 10.8);
@@ -25,8 +29,14 @@
 \draw[ultra thick, -triangle 90] (14.5, 9) -- (12, 9); % In to top
 \draw[ultra thick, -triangle 90] (3, 9) -- (0.5, 9); % Out of top
 
+\draw[ultra thick, -triangle 90] (0.5, 3) -- (3.9, 3); % In to bottom
+\draw[ultra thick, -triangle 90] (11.1, 3) -- (14.5, 3); % Out of bottom
+
 \draw[ultra thick, -triangle 90] (1.75, 9) -- (1.75, 15); % middle to top
+\draw[ultra thick, -triangle 90] (1.75, 9) -- (1.75, 3); % middle to bottom
+
 \draw[ultra thick, -triangle 90] (13.25, 15) -- (13.25, 9); % top to middle
+\draw[ultra thick, -triangle 90] (13.25, 3) -- (13.25, 9); % bottom to middle
 
 % Top customers
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (10.2, 15) {$A_1$};
@@ -42,15 +52,27 @@
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (9.3, 9) {};
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (11.1, 9) {};
 
+% Bottom customers
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (10.2, 3.9) {$C_1$};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (10.2, 2.1) {$C_2$};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (4.8, 3) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (6.6, 3) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (8.4, 3) {};
 
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (3.9, 9.9) {$B_1$};
 \draw[gray, dashed, ->] (3.2, 9.9) [bend left=45] to (3.5, 14.4);
+
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (10.2, 3.9) {$C_1$};
+\draw[gray, dashed, ->] (10.9, 3.9) [bend right=45] to (12.6, 8.4);
 
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (10.2, 15) {$A_1$};
 \draw[gray, dashed, ->] (10.9, 15) [bend left=45] to (12.7, 9.5);
 
 \node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (3.9, 8.1) {$B_2$};
 \draw[gray, dashed, ->] (3.2, 8.1) [bend left=45] to (3.3, 14.6);
+
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (10.2, 2.1) {$C_2$};
+\draw[gray, dashed, ->] (10.9, 2.1) [bend right=45] to (12.8, 8.6);
 
 \end{tikzpicture}
 

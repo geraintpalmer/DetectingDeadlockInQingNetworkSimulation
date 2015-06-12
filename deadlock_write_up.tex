@@ -34,7 +34,6 @@ This section will define and discuss the properties and detection of deadlock in
 Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected.
 Open queueing networks are those networks that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
-% Need to define connected networks, might be something I made up. I know what I mean though.
 
 \section{Deadlock}
 
@@ -52,30 +51,32 @@ Deadlock occurs when a customer finishes service at node $i$ and is blocked from
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
 
 In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
-Customer $e$ has finished service at node $1$, but remains there as there is not
-enough queueing space at node $2$ to accept them.
-We say customer $e$ is blocked by customer $i$, as he is waiting for customer $i$ to be released.
-Similarly, customer $i$ has finished service at node $2$, but remains there as there is not enough queueing space at node $1$, customer $i$ is blocked by customer $e$.
+Customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
+enough queueing space at node $B$ to accept them.
+We say the customer at server $A_1$ is blocked by the customer at server $B_1$, as he is waiting for that customer to be released.
+Similarly, the customer occupying server $B_1$ has finished service at node $B$, but remains there as there is not enough queueing space at node $A$, and so the customer at server $B_1$ is blocked by the customer at server $A_1$.
 
 When there are multiple servers, individuals become blocked by all customers in
-service. at the destination service station.
-Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, customer $i$ is blocked by both $d$ and $e$, who are both blocked by customer $i$.
-However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and $e$, and customer $d$ isn't blocked, and so there is no deadlock.
+service at the destination service station.
+Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, the customer occupying server $A_1$ is blocked by customers at both $B_1$ and $B_2$, who are both blocked by the customer at $A_1$.
+However in \ref{fig:inout_deadlock_out}, customer at $A_1$ is blocked by customers at both $B_1$ and $B_2$, but the customer at $B_2$ isn't blocked, and so there is no deadlock.
 
 \begin{figure}[H]
-  \includestandalone[width=\textwidth]{images/2nodesindeadlock}
+  \begin{center}
+  \includestandalone[width=0.5\textwidth]{images/2nodesindeadlock}
   \caption{Two nodes in deadlock.}
   \label{fig:2in_deadlock}
+  \end{center}
 \end{figure}
 
 \begin{figure}[H]
-\begin{subfigure}[b]{\textwidth}
-  \includestandalone[width=\textwidth]{images/2nodesindeadlockmulti}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/2nodesindeadlockmulti}
   \caption{Two nodes in deadlock.}
   \label{fig:inout_deadlock_in}
 \end{subfigure}
-\begin{subfigure}[b]{\textwidth}
-  \includestandalone[width=\textwidth]{images/2nodesnotdeadlocked}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/2nodesnotdeadlocked}
   \caption{Two nodes not deadlocked}
   \label{fig:inout_deadlock_out}
 \end{subfigure}
@@ -85,17 +86,8 @@ However in \ref{fig:inout_deadlock_out}, customer $i$ is blocked by both $d$ and
 
 Note that the whole queueing network need not be deadlocked, only a part of it.
 If one section of the network is in deadlock, then the system is deadlocked, even though customers may still be able to have services and transitions in other areas of the network.
-An example is shown in Figure~\ref{fig:somenodes_notdeadlocked}.
-Here nodes $1$ and $2$ are in deadlock, so individuals $e$ and $h$ cannot transition to the next node as they are blocking one another.
-Individual $k$ on the other hand is free to move to its next destination.
+An example is shown in Figure~\ref{fig:trans}.
 This idea is expanded on in the next section.
-
-\begin{figure}[H]
-  \includestandalone[width=\textwidth]{images/4nodes2indeadlock}
-  \caption{A deadlock situation where not all nodes are deadlocked.}
-  \label{fig:somenodes_notdeadlocked}
-\end{figure}
-
 
 \section{Types of Deadlock}
 The previous section introduced the idea that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
@@ -120,6 +112,26 @@ For connected queueing networks, these deadlocks can be classified into transien
     queueing network are in deadlock.\\
 \end{definition}
 
+Figure~\ref{fig:transabsorb} shows a three nodes network in a transient deadlocked state, and an absorbing deadlocked state.
+In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occipant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
+However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
+At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/transientdeadlock}
+  \caption{Transient deadlock.}
+  \label{fig:trans}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/absorbingdeadlock}
+  \caption{Absorbing deadlock.}
+  \label{fig:absorb}
+\end{subfigure}
+\caption{Types of deadlock: a) transient and b) absorbing.}
+\label{fig:transabsorb}
+\end{figure}
+
 For a queueing network $Q$ with $N$ service stations, the absorbing deadlocked state corresponds to $(i_1=-1,...,i_N=-1)$, the state where all service stations experience deadlock.
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
@@ -128,8 +140,8 @@ If the routing matrix of $Q$ is complete, that is there is a possible route from
 
 \section{Literature Review}
 
-Most of the literature on blocking conveniently assumes the networks are
-deadlock-free. % Can you list some reference here \cite{X,Y,Z} before details below
+Most of the literature on blocking either does not consider networks with feedback loops, ignores the possibility of deadlock, or conveniently assumes the networks are
+deadlock-free.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
@@ -165,8 +177,6 @@ Using these labels \textit{simple bounded circuits} are defined whose existance 
   Knot                         & In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
 \end{tabular}
 
-NEED CONSISTANT NOTATION, REFERENCES FOR DEFINITIONS.
-% Should some of this be before?
 
 \section{State Digraph}
 
@@ -318,7 +328,7 @@ This leaves enough room for customer 7 to join the back of the queue at $A$. Fig
   \label{fig:general_builddown_4}
 \end{figure}
 
-\subsection*{Observations}
+\subsubsection*{Observations}
 
 Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
@@ -337,7 +347,7 @@ Also note that if a service-station subgraph $d_i(t)$ contains edges, then there
 This does not necassarily mean there is deadlock.
 
 
-\section{Theorem}
+\section{Results on the State Digraph}
 
 \begin{theorem}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
@@ -435,14 +445,14 @@ Therefore, we only need to check the vertex's paths to sinks when an edge is add
 \section{Markov Chain Model}
 
 It is interesting to build an analytical model of the system's behaviour to deadlock.
-As a Markov chain model the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
+As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
 
 We can however find the expected time until deadlock is reached.
 It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
-where $e$ is a vector of 1s.  % I am not sure if this is nicest way of doing
+where $e$ is a vector of 1s.
 % this.
 
 \subsection{One Node Network}
@@ -459,7 +469,7 @@ Once a customer has finished service he rejoins the queue with probability $r_{1
 State space:
         \[S = \{i\in\mathbb{N}| 0 \leq i \leq n + 1
         \}\cup\{-1\}\]
-Where \(i\) denotes number of individuals in service or waiting.
+where \(i\) denotes number of individuals in service or waiting.
 
 If we define $\delta = i_2 - i_1$ for all $i_k \in S | i_k \geq 0$, then the transitions are given by:
 
@@ -515,13 +525,13 @@ All routing possibilities except self loops are possible, where the routing prob
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)}| 0 \leq i + j \leq n_1 + n_2 + 2
         \}\cup\{(-1, -1)\}\]
 
-        Where \(i\) denotes number of individuals:
+        where \(i\) denotes number of individuals:
             \begin{itemize}
                 \item In service or waiting at the first node.
                 \item Occupying a server but having finished service at the
                     second node waiting to join the first
             \end{itemize}
-        Where \(j\) denotes number of individuals:
+        where \(j\) denotes number of individuals:
             \begin{itemize}
                 \item In service or waiting at the second node.
                 \item Occupying a server but having finished service at the
@@ -585,6 +595,38 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
     \includestandalone[width=\textwidth]{images/markov_chain}
     \caption{Markov chain of the two node system with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
+\end{figure}
+
+Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
+Only parameters for one node are shown, as the other node's parameters will have the same affect.
+We can see that increasing the arrival rate $\Lambda_1$ and the transition probability $r_{12}$ results in reaching deadlock faster.
+This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
+Increasing the service rate $\mu_1$ and the queueing capacity $n_1$ results in reaching deadlock slower.
+Again these are intuitive, as increasing the service rate results in moving customers out of the system quicker, and increasing the queueing capacity allows more customers in the system before becoming deadlock.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyL1}
+  \caption{Varying $\Lambda_1$}
+  \label{fig:timestodeadlock2_L1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyr12}
+  \caption{Varying $r_{12}$}
+  \label{fig:timestodeadlock2_r12}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varymu1}
+  \caption{Varying $\mu_1$}
+  \label{fig:timestodeadlock2_mu1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyn1}
+  \caption{Varying $n_1$}
+  \label{fig:timestodeadlock2_n1}
+\end{subfigure}
+\caption{Analytical \& Simulation Results of Times to Deadlock (1000 iterations)}
+\label{fig:timestodeadlock2}
 \end{figure}
 
 

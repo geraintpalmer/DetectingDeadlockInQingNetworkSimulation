@@ -1,43 +1,57 @@
 \documentclass{standalone}
+
 \usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usepackage{standalone}
 
 \begin{document}
 
 \begin{tikzpicture}
-  \draw (0, 0) -- (3, 0);
-  \draw (3, 0) -- (3, 1);
-  \draw (0, 1) -- (3, 1);
-  \filldraw [fill=black!25, draw=black] (0.5, 0.5) circle [radius=0.25] node {$a$};
-  \filldraw [fill=black!25, draw=black] (1.5, 0.5) circle [radius=0.25] node {$b$};
-  \filldraw [fill=black!25, draw=black] (2.5, 0.5) circle [radius=0.25] node {$c$};
-  \draw (3.5, -0.3) -- (3.5, 1.3);
-  \draw (3.5, 1.3) -- (4.5, 1.3);
-  \draw (4.5, 1.3) -- (4.5, -0.3);
-  \draw (4.5, -0.3) -- (3.5, -0.3);
-  \filldraw [fill=black!25, draw=black] (4, 0.2) circle [radius=0.25] node {$d$};
-  \filldraw [fill=black!25, draw=black] (4, 0.8) circle [radius=0.25] node {$e$};
 
-  \draw (8, 0) -- (11, 0);
-  \draw (11, 0) -- (11, 1);
-  \draw (8, 1) -- (11, 1);
-  \filldraw [fill=black!25, draw=black] (8.5, 0.5) circle [radius=0.25] node {$f$};
-  \filldraw [fill=black!25, draw=black] (9.5, 0.5) circle [radius=0.25] node {$g$};
-  \filldraw [fill=black!25, draw=black] (10.5, 0.5) circle [radius=0.25] node {$h$};
-  \draw (11.5, 0) -- (11.5, 1);
-  \draw (11.5, 1) -- (12.5, 1);
-  \draw (12.5, 1) -- (12.5, 0);
-  \draw (12.5, 0) -- (11.5, 0);
-  \filldraw [fill=black!25, draw=black] (12, 0.5) circle [radius=0.25] node {$i$};
 
-  \draw [dashed] (4, 0.2) -- (6, 0.2);
-  \draw [dashed] (6, 0.2) -- (6, -0.8);
-  \draw [dashed, ->] (6, -0.8) -- (8, -0.8);
-  \draw [dashed, ->] (4, 0.8) -- (8, 0.8);
-  \draw [dashed] (12, 0.5) -- (13, 0.5);
-  \draw [dashed] (13, 0.5) -- (13, 1.5);
-  \draw [dashed] (13, 1.5) -- (-1, 1.5);
-  \draw [dashed] (-1, 1.5) -- (-1, 0.5);
-  \draw [dashed, ->] (-1, 0.5) -- (0, 0.5);
+% Node middle
+\draw (4.8, 8.1) rectangle (12, 9.9);
+\draw (3, 7.2) rectangle (4.8, 10.8);
+
+% Node top
+\draw (3.9, 14.1) rectangle (9.3, 15.9);
+\draw (9.3, 14.1) rectangle (11.1, 15.9);
+
+% Routings
+\draw[ultra thick, -triangle 90] (0.5, 15) -- (3.9, 15); % In to top
+\draw[ultra thick, -triangle 90] (11.1, 15) -- (14.5, 15); % Out of top
+
+\draw[ultra thick, -triangle 90] (14.5, 9) -- (12, 9); % In to top
+\draw[ultra thick, -triangle 90] (3, 9) -- (0.5, 9); % Out of top
+
+\draw[ultra thick, -triangle 90] (1.75, 9) -- (1.75, 15); % middle to top
+\draw[ultra thick, -triangle 90] (13.25, 15) -- (13.25, 9); % top to middle
+
+% Top customers
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (10.2, 15) {$A_1$};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (4.8, 15) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (6.6, 15) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (8.4, 15) {};
+
+% Bottom customers
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (3.9, 9.9) {$B_1$};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (3.9, 8.1) {$B_2$};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (5.7, 9) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (7.5, 9) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (9.3, 9) {};
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!10,text=black,shape=circle}] at (11.1, 9) {};
+
+
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (3.9, 9.9) {$B_1$};
+\draw[gray, dashed, ->] (3.2, 9.9) [bend left=45] to (3.5, 14.4);
+
+\node[align=center] [style={minimum size=1.4cm, text width=1.0cm, draw=black,fill=black!25,text=black,shape=circle}] at (10.2, 15) {$A_1$};
+\draw[gray, dashed, ->] (10.9, 15) [bend left=45] to (12.7, 9.5);
+
+\draw (3.2, 8.1) edge[gray, dashed, out=180,in=0,->] (0, 6.5);
+
+
 \end{tikzpicture}
 
 \end{document}
