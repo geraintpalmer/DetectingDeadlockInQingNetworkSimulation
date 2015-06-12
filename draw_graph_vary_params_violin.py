@@ -68,6 +68,7 @@ for row in simulation_results:
 fig, ax = plt.subplots()
 plt.plot(Ls, times_to_deadlock, 'g')
 plt.boxplot(simulation_results_to_plot, positions=Ls, widths=step/2, showmeans=True, sym='')
+plt.violinplot(simulation_results_to_plot, positions=Ls, showmeans=True, showmedians=True, showextrema=False)
 ax.set_xlabel(var)
 ax.set_ylabel('Time to Deadlock from (0, 0)')
 ax.set_title('Expected Time to Deadlock From State (0, 0)')
