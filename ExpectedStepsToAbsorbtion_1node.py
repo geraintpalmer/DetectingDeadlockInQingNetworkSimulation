@@ -5,10 +5,10 @@ import yaml
 
 # Input parameters here
 n1 = 3
-mu1 = 8.0
+mu1 = 10.0
 r11 = 0.25
-L1 = 5.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node/run_1000_itrs/vary_r12/'
+L1 = 6.0
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node/run_1000_itrs/vary_r11/'
 
 class Network:
     """
