@@ -19,6 +19,7 @@ import shutil
 import docopt
 import matplotlib.pyplot as plt
 from csv import reader
+import numpy as np
 
 arguments = docopt.docopt(__doc__)
 dirname = arguments['<dir_name>']
@@ -65,10 +66,21 @@ for row in simulation_results:
 
 
 
+simulation_results_to_plot_no_outliers = []
+for data_series in simulation_results_to_plot:
+    q75, q25 = np.percentile(data_series, [75 ,25])
+    iqr = q75 - q25
+    upper = q75 + (1.5*iqr)
+    lower = q25 - (1.5*iqr)
+    new_data = [obs for obs in data_series if obs > lower and obs < upper]
+    simulation_results_to_plot_no_outliers.append(new_data)
+
+
+
 fig, ax = plt.subplots()
 plt.plot(Ls, times_to_deadlock, 'g')
 plt.boxplot(simulation_results_to_plot, positions=Ls, widths=step/2, showmeans=True, sym='')
-plt.violinplot(simulation_results_to_plot, positions=Ls, showmeans=True, showmedians=True, showextrema=False)
+plt.violinplot(simulation_results_to_plot_no_outliers, widths=step/1.5, positions=Ls, showmeans=False, showmedians=False, showextrema=False)
 ax.set_xlabel(var)
 ax.set_ylabel('Time to Deadlock from (0, 0)')
 ax.set_title('Expected Time to Deadlock From State (0, 0)')
