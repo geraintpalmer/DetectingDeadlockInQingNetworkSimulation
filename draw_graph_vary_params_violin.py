@@ -32,7 +32,8 @@ var = str(arguments['<var>'])
 
 Ls = [i*step + begin for i in range(int((end-begin)/step)+1)]
 
-times_to_deadlock = []
+mean_times_to_deadlock = []
+median_times_to_deadlock = []
 simulation_results = []
 
 root = os.getcwd()
@@ -40,11 +41,18 @@ directoryth = os.path.join(root, dirname)
 directorys = os.path.join(root, dirname)
 
 for i in Ls:
-    parameter_file_name = directoryth + 'theoretical_results_%s.yml' % str(i)
+    parameter_file_name = directoryth + 'theoretical_results_mean_%s.yml' % str(i)
     parameter_file = open(parameter_file_name, 'r')
     parameters = yaml.load(parameter_file)
     parameter_file.close()
-    times_to_deadlock.append(parameters[state])
+    mean_times_to_deadlock.append(parameters[state])
+
+for i in Ls:
+    parameter_file_name = directoryth + 'theoretical_results_median_%s.yml' % str(i)
+    parameter_file = open(parameter_file_name, 'r')
+    parameters = yaml.load(parameter_file)
+    parameter_file.close()
+    median_times_to_deadlock.append(parameters[state])
 
 for i in Ls:
     parameter_file_name = directorys + 'deadlocking_times_%s.csv' % str(i)
@@ -78,7 +86,8 @@ for data_series in simulation_results_to_plot:
 
 
 fig, ax = plt.subplots()
-plt.plot(Ls, times_to_deadlock, 'g')
+plt.plot(Ls, mean_times_to_deadlock, 'g')
+plt.plot(Ls, median_times_to_deadlock, 'g')
 plt.boxplot(simulation_results_to_plot, positions=Ls, widths=step/2, showmeans=True, sym='')
 plt.violinplot(simulation_results_to_plot_no_outliers, widths=step/1.5, positions=Ls, showmeans=False, showmedians=False, showextrema=False)
 ax.set_xlabel(var)

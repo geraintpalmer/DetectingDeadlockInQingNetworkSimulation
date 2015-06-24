@@ -1,6 +1,10 @@
+"""
+This file is a simulation
+"""
 from __future__ import division
 import numpy as np
 import yaml
+import random
 
 
 # Input parameters here
@@ -223,18 +227,61 @@ class Network:
         self.mean_steps_to_absorbtion = {str(self.State_Space[i]): steps2absorb[i] for i in range(len(steps2absorb))}
         self.mean_time_to_absorbtion = {str(self.State_Space[i]): float(time2absorb[i]) for i in range(len(time2absorb))}
 
+
+    def find_median_time_to_absorption(self):
+        """
+        Finds the median time to absorption
+
+            >>> Q = Network(1, 1, 6.0, 7.0, 0.1, 0.1, 3.0, 4.0)
+            >>> Q.find_median_time_to_absorption()
+        """
+        points = [False for state in self.State_Space[:-1]]
+        step = 1
+        p = np.matrix(self.discrete_transition_matrix)
+
+        probs = [0 for i in range(len(p)-1)]
+        while not all(points):
+            new_probs = [p[i,-1] for i in range(len(p)-1)]
+            for j in range(len(probs)):
+                if points[j] == False and new_probs[j] >= 0.5:
+                    points[j] = [step-1, probs[j], step, new_probs[j]]
+            probs = new_probs
+            p = p*np.matrix(self.discrete_transition_matrix)
+            step += 1
+
+        steps2absorb = [self.interpolate(pnt) for pnt in points]
+        time2absorb = [s*self.time_step for s in steps2absorb]
+        self.median_steps_to_absorbtion = {str(self.State_Space[i]): steps2absorb[i] for i in range(len(steps2absorb))}
+        self.median_time_to_absorbtion = {str(self.State_Space[i]): float(time2absorb[i]) for i in range(len(time2absorb))}
+
+    def interpolate(self, pnt):
+        """
+        Takes in list of form [y1, x1, y2, x2] and interpolates to find y value that corresponds to x=0.5
+        """
+        y1 = pnt[0]
+        y2 = pnt[2]
+        x1 = pnt[1]
+        x2 = pnt[3]
+        m = (x2-x1)/(y2-y1)
+        c = y1 - (x1*m)
+        return (0.5*m) + c
+
     def write_results_to_file(self):
-		"""
-		Takes the summary statistics and writes them into a .yml file
-		"""
-		results_file = open('%stheoretical_results_%s.yml' % (directory, str(r12)), 'w')
-		results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
-		results_file.close()
+        """
+        Takes the summary statistics and writes them into a .yml file
+        """
+        results_file = open('%stheoretical_results_mean_%s.yml' % (directory, str(r12)), 'w')
+        results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
+        results_file.close()
+
+        results_file = open('%stheoretical_results_median_%s.yml' % (directory, str(r12)), 'w')
+        results_file.write(yaml.dump(self.median_time_to_absorbtion, default_flow_style=False))
+        results_file.close()
 
 if __name__ == '__main__':
     r12s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-    #n1s = range(7)
     for r12 in r12s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
         Q.find_mean_time_to_absorbtion()
+        Q.find_median_time_to_absorption()
         Q.write_results_to_file()
