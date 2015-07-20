@@ -12,8 +12,7 @@ n1, n2 = 3, 2
 mu1, mu2 = 10.0, 8.0
 r12, r21 = 0.25, 0.15
 L1, L2 = 4.0, 5.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple/run_10000_itrs/vary_r12/'
-
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple/run_10000_itrs/vary_n2/'
 class Network:
     """
     A class to hold the queueing network object
@@ -94,36 +93,36 @@ class Network:
             return 0
         if state2 == -1:
             if state1[0] == self.n1 and state1[1] == self.n2 + 2:
-                return self.r21*self.mu2
+                return self.r21 * self.mu2
             if state1[0] == self.n1 + 2 and state1[1] == self.n2:
-                return self.r12*self.mu1
+                return self.r12 * self.mu1
             else:
                 return 0
         else:
-            delta = (state2[0]-state1[0], state2[1]-state1[1])
+            delta = (state2[0] - state1[0], state2[1] - state1[1])
             if delta == (1, 0):
-                if state1[0]<=self.n1:
+                if state1[0] < self.n1 + 1:
                     return self.L1
                 return 0
             if delta == (0, 1):
-                if state1[1]<=self.n2:
+                if state1[1] < self.n2 + 1:
                     return self.L2
                 return 0
             if delta == (-1, 0):
-                if state1[1] <= self.n2+1:
-                    return (1-self.r12)*self.mu1
+                if state1[1] < self.n2 + 2:
+                    return (1 - self.r12) * self.mu1
                 return 0
             if delta == (0, -1):
-                if state1[0] <= self.n1+1:
-                    return (1-self.r21)*self.mu2
+                if state1[0] < self.n1 + 2:
+                    return (1 - self.r21) * self.mu2
                 return 0
             if delta == (-1, 1):
-                if state1[1] <= self.n2+1:
-                    return self.r12*self.mu1
+                if state1[1] < self.n2 + 2 and (state1[0], state1[1]) != (self.n1+2, self.n2):
+                    return self.r12 * self.mu1
                 return 0
             if delta == (1, -1):
-                if state1[0] <= self.n1 + 1:
-                    return self.r21*self.mu2
+                if state1[0] < self.n1 + 2 and (state1[0], state1[1]) != (self.n1, self.n2+2):
+                    return self.r21 * self.mu2
                 return 0
             return 0
 
@@ -266,22 +265,65 @@ class Network:
         c = y1 - (x1*m)
         return (0.5*m) + c
 
-    def write_results_to_file(self):
+    def take_expvariate(self, rate):
+        """
+        Returns the expovariate of a number, returns "Inf" if exp(0)
+        """
+        if rate == 0.0:
+            return "Inf"
+        return random.expovariate(rate)
+
+    def write_results_to_file(self, param):
         """
         Takes the summary statistics and writes them into a .yml file
         """
-        results_file = open('%stheoretical_results_mean_%s.yml' % (directory, str(r12)), 'w')
+        results_file = open('%stheoretical_results_%s.yml' % (directory, str(param)), 'w')
         results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
         results_file.close()
 
-        results_file = open('%stheoretical_results_median_%s.yml' % (directory, str(r12)), 'w')
-        results_file.write(yaml.dump(self.median_time_to_absorbtion, default_flow_style=False))
+        # results_file = open('%stheoretical_results_median_%s.yml' % (directory, str(param)), 'w')
+        # results_file.write(yaml.dump(self.median_time_to_absorbtion, default_flow_style=False))
+        # results_file.close()
+
+    def simulate_markov_chain(self, num_itrs):
+        """
+        Simulates the markov chain for num_itrs iterations
+        """
+        sim_times_to_absorbtion = []
+        for iteration in range(num_itrs):
+            current_time = 0
+            current_state = 0
+            while current_state != len(self.State_Space)-1:
+                rates = [self.transition_matrix[current_state,i] for i in range(len(self.State_Space))]
+                times = [self.take_expvariate(r) for r in rates]
+                atimes = [t for t in times if t > 0.0]
+                time = min(atimes)
+                new_state = times.index(time)
+                current_time += time
+                current_state = new_state
+            if iteration % 50 == 0:
+                print "Completed " + str(iteration) + " iterations."
+            sim_times_to_absorbtion.append(current_time)
+        self.sim_results = {'(0, 0)':sim_times_to_absorbtion}
+
+    def write_simulation_results_to_file(self, param):
+        """
+        Writes the results from the simulation to file
+        """
+        results_file = open('%smarkov_simulation_results_%s.yml' % (directory, str(param)), 'w')
+        results_file.write(yaml.dump(self.sim_results, default_flow_style=False))
         results_file.close()
 
 if __name__ == '__main__':
-    r12s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-    for r12 in r12s:
+    n2s = [0, 1, 2, 3, 4, 5, 6]
+    for n2 in n2s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
         Q.find_mean_time_to_absorbtion()
-        Q.find_median_time_to_absorption()
-        Q.write_results_to_file()
+        # Q.find_median_time_to_absorption()
+        Q.write_results_to_file(n2)
+        print "Now starting n2 = " + str(n2)
+        # Q.simulate_markov_chain(1000)
+        # Q.write_simulation_results_to_file(L1)
+    # Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
+    # print Q.State_Space
+    # print Q.transition_matrix
