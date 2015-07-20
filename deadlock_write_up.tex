@@ -506,6 +506,58 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
     \label{fig:1nodeMC}
 \end{figure}
 
+Figure~\ref{fig:timestodeadlock} shows the effect of varying the parameters of the queueing network on times to deadlock.
+We can see that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
+This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
+Increasing the queueing capacity $n$ results in reaching deadlock slower.
+Again this are intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlock.
+
+
+\begin{figure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyL}
+  \caption{Varying $\Lambda$}
+  \label{fig:timestodeadlock_L}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyr11}
+  \caption{Varying $r_{11}$}
+  \label{fig:timestodeadlock_r11}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varymu}
+  \caption{Varying $\mu$}
+  \label{fig:timestodeadlock_mu}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/varyn}
+  \caption{Varying $n$}
+  \label{fig:timestodeadlock_n}
+\end{subfigure}
+\caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
+\label{fig:timestodeadlock}
+\end{figure}
+
+We get interesting behaviour as the service rate $\mu$ varies, as the service rate contributed towards bothmoving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
+This behavious can be interperated as follows:
+\begin{itemize}
+\item At low service rates below a certain threshold, the arrival rate is relatively large compared to the service rate, and we can assume a saturated system.
+At this point services where a customer exits the system does not have much of an effect, as we can assume another arrival immediately.
+However services where a customer wishes to rejoin the queue results in a blockage as the system is saturated.
+Therefore, increasing the service rate here increases the chance of a blockagße, and so the chance of deadlock.
+\item Above this threshold the service rate is large enough that we cannot assume a saturated system, and so services where the customer exits the system does have an affect on the number of customers in the system.
+Thus increasing the service rate removes people from the system, and as sush there is less chance of getting blocked and deadlocked.
+\end{itemize}
+
+This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
+Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{images/varymur11}
+  \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
+  \label{fig:varymuandr}
+\end{figure}
+
 \subsection{Two Node Network without Self Loops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
@@ -597,10 +649,7 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
 Only parameters for one node are shown, as the other node's parameters will have the same affect.
-We can see that increasing the arrival rate $\Lambda_1$ and the transition probability $r_{12}$ results in reaching deadlock faster.
-This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
-Increasing the service rate $\mu_1$ and the queueing capacity $n_1$ results in reaching deadlock slower.
-Again these are intuitive, as increasing the service rate results in moving customers out of the system quicker, and increasing the queueing capacity allows more customers in the system before becoming deadlock.
+We can see that we get similar behaviour as the 1 node network.
 
 \begin{figure}[H]
 \begin{subfigure}[b]{0.5\textwidth}
@@ -623,7 +672,7 @@ Again these are intuitive, as increasing the service rate results in moving cust
   \caption{Varying $n_1$}
   \label{fig:timestodeadlock2_n1}
 \end{subfigure}
-\caption{Analytical \& Simulation Results of Times to Deadlock (1000 iterations)}
+\caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
 \label{fig:timestodeadlock2}
 \end{figure}
 
