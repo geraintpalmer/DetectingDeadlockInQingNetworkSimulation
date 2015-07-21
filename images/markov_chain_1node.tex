@@ -25,25 +25,25 @@
     % Transitions
     % Arrivals
 
-    \draw (0) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda$}  (1);
-    \draw (1) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda$}  (2);
-    \draw (2) edge[out=45,in=180,->,thick] node [below] {\tiny$\Lambda$}  ($(2)+(1.5,0.7)$);
-    \draw ($(n-1)+(-1.5,0.7)$) edge[out=0,in=135,->,thick] node [below] {\tiny$\Lambda$}  (n-1);
-    \draw (n-1) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda$}  (n);
-    \draw (n) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda$}  (n+1);
+    \draw[draw=red] (0) edge[out=45,in=135,->,thick] node [below, text=red] {\tiny$\Lambda$}  (1);
+    \draw[draw=red] (1) edge[out=45,in=135,->,thick] node [below, text=red] {\tiny$\Lambda$}  (2);
+    \draw[draw=red] (2) edge[out=45,in=180,->,thick] node [below, text=red] {\tiny$\Lambda$}  ($(2)+(1.5,0.7)$);
+    \draw[draw=red] ($(n-1)+(-1.5,0.7)$) edge[out=0,in=135,->,thick] node [below, text=red] {\tiny$\Lambda$}  (n-1);
+    \draw[draw=red] (n-1) edge[out=45,in=135,->,thick] node [below, text=red] {\tiny$\Lambda$}  (n);
+    \draw[draw=red] (n) edge[out=45,in=135,->,thick] node [below, text=red] {\tiny$\Lambda$}  (n+1);
 
     % Services
 
-    \draw (0) edge[out=-45,in=-135,<-,thick] node [above] {\tiny$(1-r_{11})\mu$} (1);
-    \draw (1) edge[out=-45,in=-135,<-,thick] node [above] {\tiny$(1-r_{11})\mu$} (2);
-    \draw (2) edge[out=-45,in=180,<-,thick] node [above right] {\tiny$(1-r_{11})\mu$} ($(2)+(1.5,-0.7)$);
-    \draw ($(n-1)+(-1.5,-0.7)$) edge[out=0,in=-135,<-,thick] node [above left] {\tiny$(1-r_{11})\mu$} (n-1);
-    \draw (n-1) edge[out=-45,in=-135,<-,thick] node [above] {\tiny$(1-r_{11})\mu$} (n);
-    \draw (n) edge[out=-45,in=-135,<-,thick] node [above] {\tiny$(1-r_{11})\mu$} (n+1);
+    \draw[draw=blue] (0) edge[out=-45,in=-135,<-,thick] node [above, text=blue] {\tiny$(1-r_{11})\mu$} (1);
+    \draw[draw=blue] (1) edge[out=-45,in=-135,<-,thick] node [above, text=blue] {\tiny$(1-r_{11})\mu$} (2);
+    \draw[draw=blue] (2) edge[out=-45,in=180,<-,thick] node [above right, text=blue] {\tiny$(1-r_{11})\mu$} ($(2)+(1.5,-0.7)$);
+    \draw[draw=blue] ($(n-1)+(-1.5,-0.7)$) edge[out=0,in=-135,<-,thick] node [above left, text=blue] {\tiny$(1-r_{11})\mu$} (n-1);
+    \draw[draw=blue] (n-1) edge[out=-45,in=-135,<-,thick] node [above, text=blue] {\tiny$(1-r_{11})\mu$} (n);
+    \draw[draw=blue] (n) edge[out=-45,in=-135,<-,thick] node [above, text=blue] {\tiny$(1-r_{11})\mu$} (n+1);
 
     % To deadlock
 
-    \draw (n+1) edge[->,thick] node [above] {\tiny$r_{11}\mu$} (-1);
+    \draw[draw=green!60!black] (n+1) edge[->,thick] node [above, text=green!60!black] {\tiny$r_{11}\mu$} (-1);
 
 \end{tikzpicture}
 

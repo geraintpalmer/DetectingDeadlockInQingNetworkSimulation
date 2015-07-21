@@ -38,95 +38,95 @@
 
     % Transitions
     % Arrivals
-    \draw (00) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (10);
-    \draw (01) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (11);
-    \draw (02) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (12);
-    \draw (03) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (13);
-    \draw (04) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (14);
+    \draw[draw=red] (00) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (10);
+    \draw[draw=red] (01) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (11);
+    \draw[draw=red] (02) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (12);
+    \draw[draw=red] (03) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (13);
+    \draw[draw=red] (04) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (14);
 
-    \draw (10) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (20);
-    \draw (11) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (21);
-    \draw (12) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (22);
-    \draw (13) edge[out=-135,in=135,->,thick] node [below left] {\tiny$\Lambda_1$} (23);
+    \draw[draw=red] (10) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (20);
+    \draw[draw=red] (11) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (21);
+    \draw[draw=red] (12) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (22);
+    \draw[draw=red] (13) edge[out=-135,in=135,->,thick] node [below left, text=red] {\tiny$\Lambda_1$} (23);
 
-    \draw (00) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (01);
-    \draw (01) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (02);
-    \draw (02) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (03);
+    \draw[draw=orange] (00) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (01);
+    \draw[draw=orange] (01) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (02);
+    \draw[draw=orange] (02) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (03);
 
-    \draw (10) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$}  (11);
-    \draw (11) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (12);
-    \draw (12) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (13);
+    \draw[draw=orange] (10) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$}  (11);
+    \draw[draw=orange] (11) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (12);
+    \draw[draw=orange] (12) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (13);
 
-    \draw (20) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$}  (21);
-    \draw (21) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (22);
-    \draw (22) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (23);
+    \draw[draw=orange] (20) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$}  (21);
+    \draw[draw=orange] (21) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (22);
+    \draw[draw=orange] (22) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (23);
 
-    \draw (30) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$}  (31);
-    \draw (31) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (32);
+    \draw[draw=orange] (30) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$}  (31);
+    \draw[draw=orange] (31) edge[out=45,in=135,->,thick] node [below, text=orange] {\tiny$\Lambda_2$} (32);
 
     % % First Station Service and exit
-    \draw (00) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (10);
-    \draw (01) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (11);
-    \draw (02) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (12);
-    \draw (03) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (13);
+    \draw[blue] (00) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (10);
+    \draw[blue] (01) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (11);
+    \draw[blue] (02) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (12);
+    \draw[blue] (03) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (13);
 
-    \draw (10) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (20);
-    \draw (11) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (21);
-    \draw (12) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (22);
-    \draw (13) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (23);
+    \draw[blue] (10) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (20);
+    \draw[blue] (11) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (21);
+    \draw[blue] (12) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (22);
+    \draw[blue] (13) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (23);
 
-    \draw (20) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (30);
-    \draw (21) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (31);
-    \draw (22) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (32);
+    \draw[blue] (20) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (30);
+    \draw[blue] (21) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (31);
+    \draw[blue] (22) edge[<-,thick] node [left] {\tiny$(1-r_{12})\mu_1$} (32);
 
     % Second station service and exit
-    \draw (04) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (03);
-    \draw (03) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (02);
-    \draw (02) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (01);
-    \draw (01) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (00);
+    \draw[draw=cyan] (04) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (03);
+    \draw[draw=cyan] (03) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (02);
+    \draw[draw=cyan] (02) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (01);
+    \draw[draw=cyan] (01) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (00);
 
-    \draw (14) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (13);
-    \draw (13) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (12);
-    \draw (12) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (11);
-    \draw (11) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (10);
+    \draw[draw=cyan] (14) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (13);
+    \draw[draw=cyan] (13) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (12);
+    \draw[draw=cyan] (12) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (11);
+    \draw[draw=cyan] (11) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (10);
 
-    \draw (23) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (22);
-    \draw (22) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (21);
-    \draw (21) edge[->,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (20);
+    \draw[draw=cyan] (23) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (22);
+    \draw[draw=cyan] (22) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (21);
+    \draw[draw=cyan] (21) edge[->,thick] node [above, text=cyan] {\tiny$(1-r_{21})\mu_2$} (20);
 
     % 1st station service and transition
-    \draw (30) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(21)+(-0.5,-0.2)$);
-    \draw (20) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(11)+(-0.5,-0.2)$);
-    \draw (10) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(01)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (30) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(21)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (20) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(11)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (10) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(01)+(-0.5,-0.2)$);
 
-    \draw (31) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(22)+(-0.5,-0.2)$);
-    \draw (21) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(12)+(-0.5,-0.2)$);
-    \draw (11) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(02)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (31) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(22)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (21) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(12)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (11) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(02)+(-0.5,-0.2)$);
 
-    \draw (22) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(13)+(-0.5,-0.2)$);
-    \draw (12) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(03)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (22) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(13)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (12) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(03)+(-0.5,-0.2)$);
 
-    \draw (13) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(04)+(-0.5,-0.2)$);
-    \draw (32) edge[out=90,in=180,->,thick] node [left] {\tiny$r_{12}\mu_1$} ($(23)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (13) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(04)+(-0.5,-0.2)$);
+    \draw[draw=green!60!black] (23) edge[out=90,in=180,->,thick] node [left, text=green!60!black] {\tiny$r_{12}\mu_1$} ($(14)+(-0.5,-0.2)$);
 
     % 2ns station service and transition
-    \draw ($(21)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(30)+(0.1,0.3)$);
-    \draw ($(11)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(20)+(0.1,0.3)$);
-    \draw ($(01)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(10)+(0.1,0.3)$);
+    \draw[draw=green] ($(21)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(30)+(0.1,0.3)$);
+    \draw[draw=green] ($(11)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(20)+(0.1,0.3)$);
+    \draw[draw=green] ($(01)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(10)+(0.1,0.3)$);
 
-    \draw ($(22)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(31)+(0.1,0.3)$);
-    \draw ($(12)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(21)+(0.1,0.3)$);
-    \draw ($(02)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(11)+(0.1,0.3)$);
+    \draw[draw=green] ($(22)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(31)+(0.1,0.3)$);
+    \draw[draw=green] ($(12)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(21)+(0.1,0.3)$);
+    \draw[draw=green] ($(02)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(11)+(0.1,0.3)$);
 
-    \draw ($(13)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(22)+(0.1,0.3)$);
-    \draw ($(03)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(12)+(0.1,0.3)$);
+    \draw[draw=green] ($(13)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(22)+(0.1,0.3)$);
+    \draw[draw=green] ($(03)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(12)+(0.1,0.3)$);
 
-    \draw ($(04)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(13)+(0.1,0.3)$);
-    \draw ($(14)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(23)+(0.1,0.3)$);
+    \draw[draw=green] ($(04)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(13)+(0.1,0.3)$);
+    \draw[draw=green] ($(23)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(32)+(0.1,0.3)$);
 
     % To deadlock
-    \draw (14) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} (-1);
-    \draw (32) edge[->,thick] node [above] {\tiny$r_{12}\mu_1$} (-1);
+    \draw[draw=green] (14) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} (-1);
+    \draw[draw=green!60!black] (32) edge[->,thick] node [above, text=green!60!black] {\tiny$r_{12}\mu_1$} (-1);
 
 
 \end{tikzpicture}
