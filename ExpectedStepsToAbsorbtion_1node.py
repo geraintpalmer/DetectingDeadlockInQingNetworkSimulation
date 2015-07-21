@@ -5,10 +5,10 @@ import yaml
 
 # Input parameters here
 n1 = 3
-mu1 = 10.0
-r11 = 0.25
-L1 = 6.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node/run_1000_itrs/vary_r11/'
+mu1 = 5
+r11 = 0.95
+L1 = 4.0
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2Node_mkII/'
 
 class Network:
     """
@@ -137,17 +137,17 @@ class Network:
         self.mean_steps_to_absorbtion = {str(self.State_Space[i]): steps2absorb[i] for i in range(len(steps2absorb))}
         self.mean_time_to_absorbtion = {str(self.State_Space[i]): float(time2absorb[i]) for i in range(len(time2absorb))}
 
-    def write_results_to_file(self):
+    def write_results_to_file(self, param):
 		"""
 		Takes the summary statistics and writes them into a .yml file
 		"""
-		results_file = open('%stheoretical_results_%s.yml' % (directory, str(r11)), 'w')
+		results_file = open('%stheoretical_results_%s.yml' % (directory, str(param)), 'w')
 		results_file.write(yaml.dump(self.mean_time_to_absorbtion, default_flow_style=False))
 		results_file.close()
 
 if __name__ == '__main__':
-    r11s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-    for r11 in r11s:
+    mu1s = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0]
+    for mu1 in mu1s:
         Q = Network(n1, mu1, r11, L1)
         Q.find_mean_time_to_absorbtion()
-        Q.write_results_to_file()
+        Q.write_results_to_file(mu1)
