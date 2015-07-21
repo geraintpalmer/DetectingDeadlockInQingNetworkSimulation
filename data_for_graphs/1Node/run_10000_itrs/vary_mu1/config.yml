@@ -1,0 +1,27 @@
+Variable:
+  - 'Service_rates'
+  - 'Class 0'
+  - 0
+Values:
+  - ['Exponential', 0.5]
+  - ['Exponential', 1.0]
+  - ['Exponential', 1.5]
+  - ['Exponential', 2.0]
+  - ['Exponential', 2.5]
+  - ['Exponential', 3.0]
+  - ['Exponential', 3.5]
+  - ['Exponential', 4.0]
+  - ['Exponential', 4.5]
+  - ['Exponential', 5.0]
+  - ['Exponential', 5.5]
+  - ['Exponential', 6.0]
+  - ['Exponential', 6.5]
+  - ['Exponential', 7.0]
+  - ['Exponential', 7.5]
+  - ['Exponential', 8.0]
+  - ['Exponential', 8.5]
+  - ['Exponential', 9.0]
+  - ['Exponential', 9.5]
+  - ['Exponential', 10.0]
+Number of Iterations:
+  - 10000

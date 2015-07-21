@@ -6,4 +6,3 @@
 *.log
 .DS_Store
 *.pyc
-data_for_graphs/
