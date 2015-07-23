@@ -92,7 +92,7 @@ class Network:
             >>> Q.find_transition_rates((5, 2), (6, 1))
             0
         """
-        if state1 == -1 or state1 == -2 or state1 == -3:
+        if state1 in [-1, -2, -3]:
             return 0
         if state2 == -1:
             if state1[0] == self.n1 and state1[1] == self.n2 + 2:
