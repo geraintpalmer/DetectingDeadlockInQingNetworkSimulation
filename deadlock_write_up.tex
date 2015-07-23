@@ -506,6 +506,8 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
 \end{figure}
 
 Figure~\ref{fig:timestodeadlock} shows the effect of varying the parameters of the queueing network on times to deadlock.
+Base parameters of $\Lambda = 10$, $n = 3$, $\mu = 5$ and $r_{11} = 0.25$ were used.
+
 We can see that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
 Increasing the queueing capacity $n$ results in reaching deadlock slower.
@@ -557,7 +559,7 @@ Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behav
   \label{fig:varymuandr}
 \end{figure}
 
-\subsection{Two Node Network without Self Loops}
+\subsection{Two Node Network without Self Loops}\label{sec:2nodewithoutselfloops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
@@ -642,11 +644,12 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 \begin{figure}[H]
     \includestandalone[width=\textwidth]{images/markov_chain}
-    \caption{Markov chain of the two node system with $n_1=1$ and $n_2=2$.}
+    \caption{Markov chain of the two node system without self loops, $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
 \end{figure}
 
 Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{12} = 0.25$ and $r_{21} = 0.15$ were used.
 Only parameters for one node are shown, as the other node's parameters will have the same affect.
 We can see that we get similar behaviour as the 1 node network.
 
@@ -751,7 +754,7 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then
   \right.
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{equ:todeadlock2}
   q_{(i_1, j_1), (-2)} = \left\{
   \begin{matrix*}[ r ]
     r_{11}\mu_1 & \text{if } i > n_1 \text{ and } j < n_2 + 2 \\
@@ -760,7 +763,7 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then
   \right.
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{equ:todeadlock3}
   q_{(i_1, j_1), (-3)} = \left\{
   \begin{matrix*}[ r ]
     r_{22}\mu_2 & \text{if } j > n_2 \text{ and } i < n_1 + 2 \\
@@ -771,11 +774,59 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then
 
 and
 
-\begin{equation}
+\begin{align}
   q_{-1, s} = 0 \\
   q_{-2, s} = 0 \\
   q_{-3, s} = 0
-\end{equation}
+\end{align}
+
+Note that the there are only two differences between this formulation and the formulation given in Subsection~\ref{sec:2nodewithoutselfloops}: the probabilities of leaving nodes 1 and 2 are now $(1-r_{11}-r{12})\mu_1$ and $(1-r_{21}-r_{22})\mu_2$; and there are now two more ways to reach deadlock, Equation~\ref{equ:todeadlock2} and Equation~\ref{equ:todeadlock3}.
+
+For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMCfeedback}.
+
+\begin{figure}[H]
+    \includestandalone[width=\textwidth]{images/markov_chain_feedback}
+    \caption{Markov chain of the two node system with self loops, $n_1=1$ and $n_2=2$.}
+    \label{fig:2nodeMCfeedback}
+\end{figure}
+
+Figure~\ref{fig:timestodeadlockfeedback} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{11} = 0.1$, $r_{12} = 0.25$, $r_{21} = 0.15$ and $r_{22} = 0.1$ were used.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_L1fb}
+  \caption{Varying $\Lambda_1$}
+  \label{fig:timestodeadlockfb_L1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_L2fb}
+  \caption{Varying $\Lambda_2$}
+  \label{fig:timestodeadlockfb_L2}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_mu1fb}
+  \caption{Varying $\mu_1$}
+  \label{fig:timestodeadlockfb_mu1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_mu2fb}
+  \caption{Varying $\mu_2$}
+  \label{fig:timestodeadlockfb_mu2}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_n1fb}
+  \caption{Varying $n_1$}
+  \label{fig:timestodeadlockfb_n1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/vary_n2fb}
+  \caption{Varying $n_2$}
+  \label{fig:timestodeadlockfb_n2}
+\end{subfigure}
+\caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
+\label{fig:timestodeadlockfeedback}
+\end{figure}
 
 
 \section{Resolving Deadlock}
