@@ -443,7 +443,7 @@ It is interesting to build an analytical model of the system's behaviour to dead
 As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
 
 We can however find the expected time until deadlock is reached.
-It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & V \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
+It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
@@ -828,6 +828,49 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \label{fig:timestodeadlockfeedback}
 \end{figure}
 
+Times to deadlock in this case means the time to the first instance of deadlock.
+There is however three different deadlocked states which the queueing network can fall into, -1, -2 and -3.
+
+A method is shown in \cite{stewart09} to find the probabilities of which absorbing state a Markov chain will reach.
+The discrete transition matrix must be in the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$.
+Then $A = (I - T)^{-1}U$, and the $(i, j)^{\text{th}}$ element of $A$ corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
+
+Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing network affects the absorption probabilities.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobL1}
+  \caption{Varying $\Lambda_1$}
+  \label{fig:absprobL1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobL2}
+  \caption{Varying $\Lambda_2$}
+  \label{fig:absprobL2}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobmu1}
+  \caption{Varying $\mu_1$}
+  \label{fig:absprobmu1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobmu2}
+  \caption{Varying $\mu_2$}
+  \label{fig:absprobmu2}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobn1}
+  \caption{Varying $n_1$}
+  \label{fig:absprobn1}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/absprobn2}
+  \caption{Varying $n_2$}
+  \label{fig:absprobn2}
+\end{subfigure}
+\caption{Probabilities of reaching each deadlocked state.}
+\label{fig:absorbingprobs}
+\end{figure}
 
 \section{Resolving Deadlock}
 Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
