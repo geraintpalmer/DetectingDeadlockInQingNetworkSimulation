@@ -9,7 +9,7 @@ n1, n2 = 3, 2
 mu1, mu2 = 10.0, 8.0
 r12, r21 = 0.25, 0.15
 L1, L2 = 4.0, 5.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple/run_10000_itrs/vary_mu1/'
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple/run_10000_itrs/vary_L1/'
 class Network:
     """
     A class to hold the queueing network object
@@ -314,13 +314,13 @@ class Network:
         results_file.close()
 
 if __name__ == '__main__':
-    mu1s = [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0]
-    for mu1 in mu1s:
+    L1s = [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0]
+    for L1 in L1s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
         Q.find_mean_time_to_absorbtion()
         # Q.find_median_time_to_absorption()
-        Q.write_results_to_file(mu1)
-        print "Now starting mu1 = " + str(mu1)
+        Q.write_results_to_file(L1)
+        print "Now starting L1 = " + str(L1)
         # Q.simulate_markov_chain(1000)
         # Q.write_simulation_results_to_file(L1)
     # Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2)

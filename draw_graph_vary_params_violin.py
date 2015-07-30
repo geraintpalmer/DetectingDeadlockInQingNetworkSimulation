@@ -46,7 +46,7 @@ directoryth = os.path.join(root, dirname)
 directorys = os.path.join(root, dirname)
 
 for i in Ls:
-    if var[0] == 'n':
+    if var[0] == 'n' or var[0] == 'c':
         parameter_file_name = directoryth + 'theoretical_results_%s.yml' % str(int(i))
     else:
         parameter_file_name = directoryth + 'theoretical_results_%s.yml' % str(i)
@@ -63,7 +63,7 @@ for i in Ls:
 #     median_times_to_deadlock.append(parameters[state])
 
 for i in Ls:
-    if var[0] == 'n':
+    if var[0] == 'n' or var[0] == 'c':
         parameter_file_name = directorys + 'deadlocking_times_%s.csv' % str(int(i))
     else:
         parameter_file_name = directorys + 'deadlocking_times_%s.csv' % str(i)
@@ -104,11 +104,13 @@ if var[0] == 'm':
     ax.set_xlabel(r'$\mu_{'+var[2:]+'}$')
 if var[0] == 'n':
     ax.set_xlabel(r'$n_{'+var[1:]+'}$')
+if var[0] == 'c':
+    ax.set_xlabel(r'$c_{'+var[1:]+'}$')
 if var[0] == 'r':
     ax.set_xlabel(r'$r_{'+var[1:]+'}$')
 
-ax.set_ylabel('Time to Deadlock from (0, 0)')
-ax.set_title('Expected Time to Deadlock From State (0, 0)')
+ax.set_ylabel('Time to Deadlock from (0)')
+ax.set_title('Expected Time to Deadlock From State (0)')
 
 if leg_loc == 'l':
     plt.legend(loc=2)

@@ -452,7 +452,7 @@ where $e$ is a vector of 1s.
 
 Another interesting analytical measure to find is the median time to deadlock.
 
-\subsection{One Node Network}
+\subsection{One Node Network}\label{sec:1nodenet}
 Consider the one node network with feedback loop shown in Figure~\ref{fig:queueingnetwork_1node}.
 There is room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
 Once a customer has finished service he rejoins the queue with probability $r_{11}$, and so exits the system with probability $1 - r_{11}$.
@@ -554,8 +554,10 @@ This effect is closely related to the transition rate $r_{11}$, as the rate at w
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{images/varymur11}
+  \begin{center}
+  \includegraphics[width=0.6\textwidth]{images/varymur11}
   \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
+  \end{center}
   \label{fig:varymuandr}
 \end{figure}
 
@@ -871,6 +873,57 @@ Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing
 \caption{Probabilities of reaching each deadlocked state.}
 \label{fig:absorbingprobs}
 \end{figure}
+
+
+\subsection{One Node Network, Multi-Server}
+Consider the one node network with feedback loop discussed in Subsection~\ref{sec:1nodenet}, now with $c$ parallel servers.
+
+State space:
+        \[S = \{i\in\mathbb{N}| 0 \leq i \leq n + 2c\}\]
+where \(i\) denotes number of individuals at the node plus the number of individuals blocked at that node.
+For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
+The state $i=n+2c$ denotes the deadlocked state.
+
+If we define $\delta = i_2 - i_1$ for all $i_k \in S$, then the transitions are given by:
+
+\begin{equation}
+  q_{i_1, i_2} = \left\{
+  \begin{matrix*}[ r ]
+    \left. \begin{matrix*}[ r ]
+      \Lambda & \text{if } \delta = 1 \\
+      (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } i_i < n + c \\
+  \end{matrix*} \right.
+\end{equation}
+
+\begin{equation}
+  q_{i_1, i_2} = \left\{
+  \begin{matrix*}[ r ]
+    \left. \begin{matrix*}[ r ]
+      (c-k)r_{11}\mu & \text{if } \delta = 1 \\
+      (1-r_{11})(c-k)\mu & \text{if } \delta = -j-1\\
+      0 & \text{otherwise}
+    \end{matrix*} \right\} & \text{if } i_i = n + c + j \\
+  \end{matrix*} \right.
+  \quad \forall \quad 0 \leq j \leq c
+\end{equation}
+
+Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient spaces to go through before reaching the deadlocked state.
+Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i=n+c+1$ to $i=n+2c$) can jump back to state $i=n+c-1$ simply with a service and an exit.
+Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
+
+Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$ and $r_{11} = 0.5$ were used.
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.6\textwidth]{images/vary_c_1Nms}
+  \caption{The effect of $c$ on times to deadlock.}
+  \end{center}
+  \label{fig:timestodeadlock1nodemultiserver}
+\end{figure}
+
 
 \section{Resolving Deadlock}
 Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
