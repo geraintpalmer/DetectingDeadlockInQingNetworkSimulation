@@ -557,8 +557,8 @@ Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behav
   \begin{center}
   \includegraphics[width=0.6\textwidth]{images/varymur11}
   \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
-  \end{center}
   \label{fig:varymuandr}
+  \end{center}
 \end{figure}
 
 \subsection{Two Node Network without Self Loops}\label{sec:2nodewithoutselfloops}
@@ -681,7 +681,7 @@ We can see that we get similar behaviour as the 1 node network.
 \end{figure}
 
 
-\subsection{Two Node Network each with Self Loops}
+\subsection{Two Node Network each with Self Loops}\label{sec:2nodeselfloops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodesfeedback}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
@@ -920,9 +920,53 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$ and $r_{11} = 0.5$ were use
   \begin{center}
   \includegraphics[width=0.6\textwidth]{images/vary_c_1Nms}
   \caption{The effect of $c$ on times to deadlock.}
-  \end{center}
   \label{fig:timestodeadlock1nodemultiserver}
+  \end{center}
 \end{figure}
+
+
+\subsection{A Bound on the Mean Time to Deadlock}
+In this section we shall define four deadlocking queueing networks as follows:
+
+\begin{itemize}
+  \item Define $\Omega_{1_1}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}$.
+  \item Define $\Omega_{1_2}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\mu_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}$.
+  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21}\}$. Let its mean time to deadlock be denoted by $\omega_2$.
+  \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega$.
+\end{itemize}
+
+Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
+
+\begin{figure}[H]
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=\textwidth]{images/omega11}
+  \caption{$\Omega_{1_1}$ within $\Omega$}
+  \label{fig:omega11withinomega}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=\textwidth]{images/omega12}
+  \caption{$\Omega_{1_2}$ within $\Omega$}
+  \label{fig:omega12withinomega}
+\end{subfigure}
+\begin{center}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includestandalone[width=\textwidth]{images/omega2}
+  \caption{$\Omega_2$ within $\Omega$}
+  \label{fig:omega2withinomega}
+\end{subfigure}
+\end{center}
+\caption{Decomposition of $\Omega$ into $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$}
+\label{fig:decomposeqnet}
+\end{figure}
+
+\begin{theorem}
+For any parameter sets the following inequality holds:
+$\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
+\end{theorem}
+
+\begin{proof}
+The proof will be here.
+\end{proof}
 
 
 \section{Resolving Deadlock}

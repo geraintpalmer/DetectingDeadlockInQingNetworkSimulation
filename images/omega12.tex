@@ -1,0 +1,56 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  % Queue A
+  \draw[draw=gray, dotted] (0, 0) -- (8, 0);
+  \draw[draw=gray, dotted] (8, 0) -- (8, 3);
+  \draw[draw=gray, dotted] (0, 3) -- (8, 3);
+  \draw[draw=gray, dotted] (4, 0) -- (4, 3);
+  \draw[draw=gray, dotted] (5, 0) -- (5, 3);
+  \draw[draw=gray, dotted] (6, 0) -- (6, 3);
+  \draw[draw=gray, dotted] (7, 0) -- (7, 3);
+  \draw[draw=gray, dotted] (0, 0) -- (0, 3);
+
+  \node[text=gray] at (3, 1.5) {\LARGE{$n_1$}};
+
+  % Service center a
+  \draw[draw=gray, dotted, text=gray] (10, 1.5) circle (1.5) node {\LARGE{$\mu_1$}};
+
+  % Queue B
+  \draw[draw=red] (7, 6) -- (7, 9);
+  \draw[draw=red] (7, 6) -- (15, 6);
+  \draw[draw=red] (7, 9) -- (15, 9);
+  \draw[draw=red] (8, 6) -- (8, 9);
+  \draw[draw=red] (9, 6) -- (9, 9);
+  \draw[draw=red] (10, 6) -- (10, 9);
+  \draw[draw=red] (11, 6) -- (11, 9);
+  \draw[draw=red] (15, 6) -- (15, 9);
+
+  \node[text=red] at (12, 7.5) {\LARGE{$n_2$}};
+
+  % Service center B
+  \draw[draw=red, text=red] (5, 7.5) circle (1.5) node {\LARGE{$\mu_2$}};
+
+  % % In and out routes
+  \draw[thick, draw=gray, dotted, -triangle 90] (11.5, 1.5) -- (20, 1.5);
+  \draw[thick, draw=red, fill=red, -triangle 90] (3.5, 7.5) -- (-5, 7.5);
+  \draw[thick, draw=gray, dotted, -triangle 90] (-5, 1.5) -- (0, 1.5) node [pos=0, left] {\textcolor{gray}{\LARGE{$\Lambda_1$}}};
+  \draw[thick, draw=red, -triangle 90] (20, 7.5) -- (15, 7.5) node [pos=0, right] {\textcolor{red}{\LARGE{$\Lambda_2$}}};
+
+  % Routing between nodes
+  \draw[thick, draw=gray, dotted, -triangle 90] (17, 1.5) -- (17, 7.5) node [pos=0.5, left] {\textcolor{gray}{\LARGE{$r_{12}$}}};
+  \draw[thick, draw=gray, dotted, -triangle 90] (-2, 7.5) -- (-2, 1.5) node [pos=0.5, left] {\textcolor{gray}{\LARGE{$r_{21}$}}};
+
+  % Feedback routs
+  \draw[thick, draw=gray, dotted, -triangle 90] (17, 1.5) -- (17, -1.5) -- (-2, -1.5) -- (-2, 1.5);
+  \draw[thick, draw=red, -triangle 90] (-2, 7.5) -- (-2, 10.5) -- (17, 10.5) -- (17, 7.5);
+  \node[text=gray] at (16.5, 0) {\LARGE{$r_{11}$}};
+  \node[text=red] at (-2.5, 9) {\LARGE{$r_{22}$}};
+\end{tikzpicture}
+
+\end{document}
