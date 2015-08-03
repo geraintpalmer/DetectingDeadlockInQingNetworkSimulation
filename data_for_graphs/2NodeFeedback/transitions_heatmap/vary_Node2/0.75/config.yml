@@ -1,0 +1,19 @@
+Variable:
+  - 'Transition_matrices'
+  - 'Class 0'
+  - 1
+  - 1
+Values:
+  - 0.0
+  - 0.025
+  - 0.05
+  - 0.075
+  - 0.1
+  - 0.125
+  - 0.15
+  - 0.175
+  - 0.2
+  - 0.225
+  - 0.25
+Number of Iterations:
+  - 10000
