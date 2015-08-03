@@ -8,6 +8,10 @@
 \begin{document}
 
 \begin{tikzpicture}
+    
+    \draw[rounded corners=10mm,fill=magenta!10, draw=none] (-0.75, -9.75) rectangle (6.75, -5.25);
+    \draw[rounded corners=10mm,fill=violet!10, draw=none] (8.25, -3.75) rectangle (12.75, 0.75);
+
     \tikzstyle{state}=[minimum width=1.5cm, font=\boldmath];
     % First row
     \node (00) at (0,0) [state] {$(0,0)$};
@@ -34,9 +38,9 @@
     \node (31) at ($(30)+(3,0)$) [state] {$(3,1)$};
     \node (32) at ($(31)+(3,0)$) [state] {$(3,2)$};
 
-    \node (-1) at ($(32)+(6,0)$) [state] {$(-1)$};
-    \node (-2) at ($(30)+(2,-1.5)$) [state] {$(-2)$};
-    \node (-3) at ($(04)+(1.5,-1.5)$) [state] {$(-3)$};
+    \node (-3) at ($(23)+(3,-3)$) [state] {$(-3)$};
+    \node (-1) at ($(32)+(3,-1.5)$) [state] {$(-1)$};
+    \node (-2) at ($(14)+(1.5,-3)$) [state] {$(-2)$};
 
     % Transitions
     % Arrivals
@@ -126,23 +130,15 @@
     \draw[draw=green] ($(04)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(13)+(0.1,0.3)$);
     \draw[draw=green] ($(23)+(-0.4,-0.2)$) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} ($(32)+(0.1,0.3)$);
 
-    % To deadlock -1
-    \draw[draw=green] (14) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} (-1);
-    \draw[draw=green!60!black] (32) edge[->,thick] node [above, text=green!60!black] {\tiny$r_{12}\mu_1$} (-1);
+    % To deadlock -3
+    \draw[draw=green] (14) edge[->,thick] node [left, text=green] {\tiny$r_{21}\mu_2$} (-3);
+    \draw[draw=green!60!black] (32) edge[->,thick] node [above, text=green!60!black] {\tiny$r_{12}\mu_1$} (-3);
 
     % To deadlock -2
-    \draw[draw=magenta] (20) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
-    \draw[draw=magenta] (21) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
-    \draw[draw=magenta] (22) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
-    \draw[draw=magenta] (30) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
-    \draw[draw=magenta] (31) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
-    \draw[draw=magenta] (32) edge[->, thick] node [left, text=magenta] {\tiny$r_{11}\mu_1$} (-2);
+    \draw[draw=magenta!25] ($(31)+(0,-0.75)$) edge[out=-90,in=180, ->, thick] node [above, text=magenta!25] {\tiny$r_{11}\mu_1$} (-1);
 
     % TO deadlock -3
-    \draw[draw=magenta!60!black] (03) edge[->, thick] node [left, text=magenta!60!black] {\tiny$r_{11}\mu_1$} (-3);
-    \draw[draw=magenta!60!black] (04) edge[->, thick] node [left, text=magenta!60!black] {\tiny$r_{11}\mu_1$} (-3);
-    \draw[draw=magenta!60!black] (13) edge[->, thick] node [left, text=magenta!60!black] {\tiny$r_{11}\mu_1$} (-3);
-    \draw[draw=magenta!60!black] (14) edge[->, thick] node [left, text=magenta!60!black] {\tiny$r_{11}\mu_1$} (-3);
+    \draw[draw=violet!25] ($(04)+(0.75, -1.5)$) edge[out=0,in=90, ->, thick] node [left, text=violet!25] {\tiny$r_{22}\mu_1$} (-2);
 
 
 

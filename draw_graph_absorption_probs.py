@@ -56,9 +56,9 @@ fig, ax = plt.subplots()
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.78, box.height])
 
-p1 = plt.bar(params, todeadlock1, width=step, color='red', label='Deadlock (-1)')
-p2 = plt.bar(params, todeadlock2, width=step, color='cyan', bottom=todeadlock1, label='Deadlock (-2)')
-p3 = plt.bar(params, todeadlock3, width=step, color='yellow', bottom=[todeadlock2[i]+todeadlock1[i] for i in range(len(todeadlock3))], label='Deadlock (-3)')
+p1 = plt.bar(params, todeadlock1, width=step, color='cyan', bottom=[todeadlock3[i]+todeadlock2[i] for i in range(len(todeadlock3))],  label='Deadlock (-1)')
+p2 = plt.bar(params, todeadlock2, width=step, color='yellow', bottom=todeadlock3, label='Deadlock (-2)')
+p3 = plt.bar(params, todeadlock3, width=step, color='red', label='Deadlock (-3)')
 
 plt.title("Absorbtion Probabilities of Deadlocking from State (0, 0)")
 ax.set_ylabel('Probability')
