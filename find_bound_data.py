@@ -15,9 +15,9 @@ def write_to_file(big_list, directory):
     data_file.close()
 
 
-LandMus = [float(i)/4.0 for i in range(81)][1:]
-ns = range(21)
-rs = [i/40.0 for i in range(41)][1:]
+LandMus = [float(i)/2.0 for i in range(31)][1:]
+ns = range(11)
+rs = [i/20.0 for i in range(41)][1:]
 
 a_list = []
 for L1 in LandMus:
@@ -44,7 +44,7 @@ for L1 in LandMus:
 												Q3.find_mean_time_to_absorbtion()
 												# order of row
 												# [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11, Q12, Q2, Q3]
-												the_row = [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11.mean_time_to_absorbtion['0'], Q12.mean_time_to_absorbtion['0'], Q2.mean_time_to_absorbtion['(0, 0)'], Q2.mean_time_to_absorbtion['(0, 0)']]
+												the_row = [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11.mean_time_to_absorbtion['0'], Q12.mean_time_to_absorbtion['0'], Q2.mean_time_to_absorbtion['(0, 0)'], Q3.mean_time_to_absorbtion['(0, 0)']]
 												a_list.append(the_row)
 
 write_to_file(directory, a_list)
