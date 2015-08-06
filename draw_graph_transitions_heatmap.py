@@ -83,14 +83,14 @@ if anorsim == 'err':
     data = np.array(errors)
 masked_data = np.ma.masked_where(np.isnan(data),data)
 
-plt.pcolor(X, Y, masked_data, cmap='YlOrBr')
+# plt.pcolor(X, Y, masked_data, cmap='YlOrBr')
 # plt.pcolor(X, Y, masked_data, cmap='BrBG')
-# plt.pcolor(X, Y, masked_data)
+plt.pcolor(X, Y, masked_data)
 plt.colorbar()
 plt.xlabel(r'$r_{22}$')
 plt.ylabel(r'$r_{21}$')
 if anorsim == 'err':
     plt.title('Error in Times to Deadlock')
 else:
-    plt.title('Mean Times to Deadlock from (0, 0) - Varying + ' r'$r_{21}$' + ' and ' + r'$r_{22}$')
+    plt.title('Mean Times to Deadlock from (0, 0) - Varying ' + r'$r_{21}$' + ' and ' + r'$r_{22}$')
 plt.show()

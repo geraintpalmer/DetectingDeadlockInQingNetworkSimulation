@@ -851,6 +851,7 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 Figure~\ref{fig:timestodeadlockfeedback} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{11} = 0.1$, $r_{12} = 0.25$, $r_{21} = 0.15$ and $r_{22} = 0.1$ were used.
 
+
 \begin{figure}[H]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/vary_L1fb}
@@ -884,6 +885,25 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{subfigure}
 \caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
 \label{fig:timestodeadlockfeedback}
+\end{figure}
+
+Figure~\ref{fig:timestodeadlockfb_n1} shows interesting behaviour.
+Increasing $n_1$ causes a longer time to deadlock up to a point, where increasing $n_1$ any more does not affect the time to deadlock.
+This is due to the fact that there are other ways to get to deadlock, and we are only interested in the first instance of any of these deadlocks.
+Getting to deadlocked state (-2) is not affected by $n_1$, and so once $n_1$ goes over a certain threshold the system always reaches (-2) before any other deadlocked state, and so the time to deadlock is unaffected by increasing $n_1$ any further.
+
+This behaviour will be exhibited while $n_2$ increases too, however the threshold will take longer to reach as the base parameter for $n_1$ is larger than the base parameter for $n_2$.
+
+This behaviour is highlighted in the heatmap shown in Figure~\ref{fig:capacitiesheatmap}, where the analytical mean time to deadlock is shown with combinations of $n_1$ and $n_2$.
+For each value of $n_2$, once a certain threshold of $n_1$ is reached no more change in time to deadlock occurs.
+Similarly for each value of $n_1$, once a certain threshold o $n_2$ is reached no more change in time to deadlock occurs.
+The behaviour is unsymmetrical due to the other parameters associated with Node 1 and Node 2 being unsymmetrical.
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{images/n1n2_heatmap}
+  \caption{Deadlocking behaviour, varying $n_1$ and $n_2$}
+  \end{center}
 \end{figure}
 
 The heatmaps in Figure~\ref{fig:heatmaps} illustrate how varying the two transition probabilities out of each node affects the time to deadlock.
