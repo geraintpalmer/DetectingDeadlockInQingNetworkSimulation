@@ -412,8 +412,8 @@ A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
 All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
-Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertix to $X$.
-This imples that $X$'s occupant is not blocked and is a descendent of another vertrex.
+Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
+This imples that $X$'s occupant is not blocked and is a descendent of another vertex.
 Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendents are all blocked.
 
 Now assume that we have deadlock.
@@ -1053,13 +1053,13 @@ $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
 \begin{proof}
 First, define some systems:
 \begin{itemize}
-  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to dealock of $\widetilde{\Omega}_{1_1}$.
-  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to dealock of $\widetilde{\Omega}_{1_2}$.
-  \item Let $\widetilde{\Omega}_2$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to dealock of $\widetilde{\Omega}_2$.
+  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
+  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
+  \item Let $\widetilde{\Omega}_2$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
 \end{itemize}
 
 Now $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
-Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach (-1), (-2) or (-3), whichever comes first.
+Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3), whichever comes first.
 
 Comparing $\widetilde{\Omega}_{1_1}$ to $\Omega_{1_1}$:
 The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in $\Omega_{1_1}$; this is due to the extra customers who have transitioned from the Node 2 to Node 1.
@@ -1069,7 +1069,7 @@ Similarly we can conclude $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
 
 Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
 The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$.
-This is die to the extra customers who are rejoining the queue after service.
+This is due to the extra customers who are rejoining the queue after service.
 Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 2 in $\Omega_2$.
 Therefore $\widetilde{\omega}_2 \leq \omega_2$
 
