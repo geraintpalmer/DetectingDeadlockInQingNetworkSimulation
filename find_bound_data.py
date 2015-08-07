@@ -1,23 +1,53 @@
+"""
+Usage: experiment_parallelprocessing.py <LandMs> <nis> <ris>
+
+Arguments
+    LandMs 	: list of lambdas and mus
+    nis		: list of ns
+    ris 	: list of rs
+
+Options
+    -h          : displays this help file
+"""
 import ExpectedStepsToAbsorbtion_1node
 import ExpectedStepsToAbsorbtion_2NodeSimple
 import ExpectedStepsToAbsorbtion_2NodeFeedback
+import docopt
+from csv import writer, reader
 
 directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/bound_data/'
+
+
+arguments = docopt.docopt(__doc__)
+LandMs = arguments['<LandMs>']
+nis = arguments['<nis>']
+ris = arguments['<ris>']
+
 
 def write_to_file(big_list, directory):
     """
     Writes the records for times to deadlock to a csv file
     """
+    huge_list = []
+    data_file = open('%sbound_data.csv' % directory, 'r')
+    rdr = reader(data_file)
+    for row in rdr:
+    	huge_list.append(row)
+    data_file.close()
+
+    for row in big_list:
+    	huge_list.append(row)
+
     data_file = open('%sbound_data.csv' % directory, 'w')
     csv_wrtr = writer(data_file)
-    for row in big_list:
+    for row in huge_list:
         csv_wrtr.writerow(row)
     data_file.close()
 
 
-LandMus = [float(i)/2.0 for i in range(31)][1:]
-ns = range(11)
-rs = [i/20.0 for i in range(41)][1:]
+LandMus = eval(LandMs)
+ns = eval(nis)
+rs = eval(ris)
 
 a_list = []
 for L1 in LandMus:
@@ -47,4 +77,4 @@ for L1 in LandMus:
 												the_row = [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11.mean_time_to_absorbtion['0'], Q12.mean_time_to_absorbtion['0'], Q2.mean_time_to_absorbtion['(0, 0)'], Q3.mean_time_to_absorbtion['(0, 0)']]
 												a_list.append(the_row)
 
-write_to_file(directory, a_list)
+write_to_file(a_list, directory)

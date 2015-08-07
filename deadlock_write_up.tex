@@ -903,6 +903,7 @@ The behaviour is unsymmetrical due to the other parameters associated with Node 
   \begin{center}
   \includegraphics[width=0.5\textwidth]{images/n1n2_heatmap}
   \caption{Deadlocking behaviour, varying $n_1$ and $n_2$}
+  \label{fig:capacitiesheatmap}
   \end{center}
 \end{figure}
 
@@ -999,7 +1000,7 @@ If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$, then the transitions are
       \Lambda & \text{if } \delta = 1 \\
       (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
       0 & \text{otherwise}
-    \end{matrix*} \right\} & \text{if } i_i < n + c \\
+    \end{matrix*} \right\} & \text{if } i_1 < n + c \\
   \end{matrix*} \right.
 \end{equation}
 
@@ -1010,7 +1011,7 @@ If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$, then the transitions are
       (c-k)r_{11}\mu & \text{if } \delta = 1 \\
       (1-r_{11})(c-k)\mu & \text{if } \delta = -j-1\\
       0 & \text{otherwise}
-    \end{matrix*} \right\} & \text{if } i_i = n + c + j \\
+    \end{matrix*} \right\} & \text{if } i_1 = n + c + j \\
   \end{matrix*} \right.
   \quad \forall \quad 0 \leq j \leq c
 \end{equation}
@@ -1031,76 +1032,76 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$ and $r_{11} = 0.5$ were use
 \end{figure}
 
 
-\subsection{A Bound on the Mean Time to Deadlock}
-In this section we shall define four deadlocking queueing networks as follows:
+% \subsection{A Bound on the Mean Time to Deadlock}
+% In this section we shall define four deadlocking queueing networks as follows:
 
-\begin{itemize}
-  \item Define $\Omega_{1_1}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}$.
-  \item Define $\Omega_{1_2}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\mu_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}$.
-  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21}\}$. Let its mean time to deadlock be denoted by $\omega_2$.
-  \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega$.
-\end{itemize}
+% \begin{itemize}
+%   \item Define $\Omega_{1_1}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}$.
+%   \item Define $\Omega_{1_2}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\mu_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}$.
+%   \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21}\}$. Let its mean time to deadlock be denoted by $\omega_2$.
+%   \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega$.
+% \end{itemize}
 
-Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
+% Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
 
-\begin{figure}[H]
-\begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=\textwidth]{images/omega11}
-  \caption{$\Omega_{1_1}$ within $\Omega$}
-  \label{fig:omega11withinomega}
-\end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=\textwidth]{images/omega12}
-  \caption{$\Omega_{1_2}$ within $\Omega$}
-  \label{fig:omega12withinomega}
-\end{subfigure}
-\begin{center}
-\begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=\textwidth]{images/omega2}
-  \caption{$\Omega_2$ within $\Omega$}
-  \label{fig:omega2withinomega}
-\end{subfigure}
-\end{center}
-\caption{Decomposition of $\Omega$ into $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$}
-\label{fig:decomposeqnet}
-\end{figure}
+% \begin{figure}[H]
+% \begin{subfigure}[b]{0.5\textwidth}
+%   \includestandalone[width=\textwidth]{images/omega11}
+%   \caption{$\Omega_{1_1}$ within $\Omega$}
+%   \label{fig:omega11withinomega}
+% \end{subfigure}
+% \begin{subfigure}[b]{0.5\textwidth}
+%   \includestandalone[width=\textwidth]{images/omega12}
+%   \caption{$\Omega_{1_2}$ within $\Omega$}
+%   \label{fig:omega12withinomega}
+% \end{subfigure}
+% \begin{center}
+% \begin{subfigure}[b]{0.5\textwidth}
+%   \includestandalone[width=\textwidth]{images/omega2}
+%   \caption{$\Omega_2$ within $\Omega$}
+%   \label{fig:omega2withinomega}
+% \end{subfigure}
+% \end{center}
+% \caption{Decomposition of $\Omega$ into $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$}
+% \label{fig:decomposeqnet}
+% \end{figure}
 
-\begin{theorem}
-For any parameter sets the following inequality holds:
-$\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
-\end{theorem}
+% \begin{theorem}
+% For any parameter sets the following inequality holds:
+% $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
+% \end{theorem}
 
-\begin{proof}
-First, define some systems:
-\begin{itemize}
-  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
-  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
-  \item Let $\widetilde{\Omega}_2$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
-\end{itemize}
+% \begin{proof}
+% First, define some systems:
+% \begin{itemize}
+%   \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
+%   \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
+%   \item Let $\widetilde{\Omega}_2$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
+% \end{itemize}
 
-Now $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
-Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3), whichever comes first.
+% Now $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
+% Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3), whichever comes first.
 
-Comparing $\widetilde{\Omega}_{1_1}$ to $\Omega_{1_1}$:
-The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in $\Omega_{1_1}$; this is due to the extra customers who have transitioned from the Node 2 to Node 1.
-As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$.
+% Comparing $\widetilde{\Omega}_{1_1}$ to $\Omega_{1_1}$:
+% The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in $\Omega_{1_1}$; this is due to the extra customers who have transitioned from the Node 2 to Node 1.
+% As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$.
 
-Similarly we can conclude $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
+% Similarly we can conclude $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
 
-Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
-The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$.
-This is due to the extra customers who are rejoining the queue after service.
-Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 2 in $\Omega_2$.
-Therefore $\widetilde{\omega}_2 \leq \omega_2$
+% Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
+% The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$.
+% This is due to the extra customers who are rejoining the queue after service.
+% Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 2 in $\Omega_2$.
+% Therefore $\widetilde{\omega}_2 \leq \omega_2$
 
-And so
+% And so
 
-\begin{align*}
-\min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
-\omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)
-\end{align*}
+% \begin{align*}
+% \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
+% \omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)
+% \end{align*}
 
-\end{proof}
+% \end{proof}
 
 
 \section{Resolving Deadlock}
