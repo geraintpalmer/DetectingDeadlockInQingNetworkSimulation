@@ -44,6 +44,28 @@ def write_to_file(big_list, directory):
         csv_wrtr.writerow(row)
     data_file.close()
 
+def find_p_full(L, mu, n):
+ 	"""
+ 	Finds the probability of a ode beign full
+ 	"""
+ 	n += 1
+ 	if L == mu:
+ 		return 1.0/(n+1)
+ 	else:
+ 		rho = L/mu
+ 		return (((1-rho)*(rho**n))/(1-(rho**(n+1))))
+
+def find_p_empty(L, mu, n):
+ 	"""
+ 	Finds the probability of a ode beign full
+ 	"""
+ 	n += 1
+ 	if L == mu:
+ 		return 1.0/(n+1)
+ 	else:
+ 		rho = L/mu
+ 		return ((1-rho)/(1-(rho**(n+1))))
+
 
 LandMus = eval(LandMs)
 ns = eval(nis)
@@ -64,17 +86,31 @@ for L1 in LandMus:
 									for r22 in rs:
 										if r11+r12 <= 1.0:
 											if r21+r22 <= 1.0:
-												Q11 = ExpectedStepsToAbsorbtion_1node.Network(n1, mu1, r11, L1)
-												Q11.find_mean_time_to_absorbtion()
-												Q12 = ExpectedStepsToAbsorbtion_1node.Network(n2, mu2, r22, L2)
-												Q12.find_mean_time_to_absorbtion()
+												# P1full = find_p_full(L1, mu1, n1)
+												# P1empty = find_p_empty(L1, mu1, n1)
+												# P2full = find_p_full(L2, mu2, n2)
+												# P2empty = find_p_empty(L2, mu2, n2)
+												# L1_dash = (L1*(P2empty+P2full))+((L1+(r21*L2))*(1-P2empty-P2full))
+												# L2_dash = (L2*(P1empty+P1full))+((L2+(r12*L1))*(1-P1empty-P1full))
+												# mu1_dash = ((1/((1/mu1)+(1/mu2)))*P1full)+(0.5*mu1*P2full)+(mu1*(1-P1full-P2full))
+												# mu2_dash = ((1/((1/mu2)+(1/mu1)))*P2full)+(0.5*mu2*P1full)+(mu2*(1-P2full-P1full))
+												mu1_dash = min(0.5*mu1, (1.0/((1.0/mu1)+(1.0/mu2))))
+												mu2_dash = min(0.5*mu2, (1.0/((1.0/mu1)+(1.0/mu2))))
+												Q11_low = ExpectedStepsToAbsorbtion_1node.Network(n1, mu1_dash, r11, L1)
+												Q11_low.find_mean_time_to_absorbtion()
+												Q12_low = ExpectedStepsToAbsorbtion_1node.Network(n2, mu2_dash, r22, L2)
+												Q12_low.find_mean_time_to_absorbtion()
+												Q11_high = ExpectedStepsToAbsorbtion_1node.Network(n1, mu1, r11, L1)
+												Q11_high.find_mean_time_to_absorbtion()
+												Q12_high = ExpectedStepsToAbsorbtion_1node.Network(n2, mu2, r22, L2)
+												Q12_high.find_mean_time_to_absorbtion()
 												Q2 = ExpectedStepsToAbsorbtion_2NodeSimple.Network(n1, n2, mu1, mu2, r12, r21, L1, L2)
 												Q2.find_mean_time_to_absorbtion()
 												Q3 = ExpectedStepsToAbsorbtion_2NodeFeedback.Network(n1, n2, mu1, mu2, r11, r12, r21, r22, L1, L2)
 												Q3.find_mean_time_to_absorbtion()
 												# order of row
-												# [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11, Q12, Q2, Q3]
-												the_row = [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11.mean_time_to_absorbtion['0'], Q12.mean_time_to_absorbtion['0'], Q2.mean_time_to_absorbtion['(0, 0)'], Q3.mean_time_to_absorbtion['(0, 0)']]
+												# [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11_low, Q11_high Q12_low, Q12_high, Q2, Q3]
+												the_row = [L1, L2, mu1, mu2, n1, n2, r11, r12, r21, r22, Q11_low.mean_time_to_absorbtion['0'], Q11_high.mean_time_to_absorbtion['0'], Q12_low.mean_time_to_absorbtion['0'], Q12_high.mean_time_to_absorbtion['0'], Q2.mean_time_to_absorbtion['(0, 0)'], Q3.mean_time_to_absorbtion['(0, 0)']]
 												a_list.append(the_row)
 
 write_to_file(a_list, directory)
