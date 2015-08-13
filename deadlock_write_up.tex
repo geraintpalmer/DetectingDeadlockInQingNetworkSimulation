@@ -1035,13 +1035,13 @@ In this section we shall define six deadlocking queueing networks as follows:
 
 \begin{itemize}
   \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
-  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\min(\frac{1}{2}\mu_1, m)$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
+  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $m_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
   \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\mu_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
-  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\min(\frac{1}{2}\mu_2, m)$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
+  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $m_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
   \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21}\}$. Let its mean time to deadlock be denoted by $\omega_2$.
   \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega$.
 \end{itemize}
-where $m = \frac{1}{\frac{1}{\mu_1} + \frac{1}{\mu_2}}$.
+where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
 
 Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
 
@@ -1092,16 +1092,45 @@ Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is grea
 As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_2 \leq \omega_2$
 
 Consider $\widetilde{\Omega}_{1_1}$.
+Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
 
-\begin{itemize}
-  \item If neither Node 1 nor Node 2 is blocked, then the effective service rate is equal to $\mu_1$.
-  \item If Node 2 is blocked (due to a customer wanting to transition to Node 1), then when Node 1 has a service it simultaneously accepts a customer from Node 2. There is no change in state until the next customer finishes service. Therefore Node 1 remains in the same state for two customers' service times; and so we can imagine this process as one service with effective service rate $\frac{1}{2}\mu_1$.
-  \item If Node 2 is full but not blocked, and Node 1 finishes service and the customer wants to transition to Node 2, then that customer becomes blocked. That customer remains blocked until there is room at Node 2, that is when Node 2 has a service. Therefore that customer's effective service time is his service time plus what remains of the service time of the customer at Node 2. As all service times are Markovian it does not matter how long a customer has been in service at Node 2, the expected time until its unblockage is $\frac{1}{\mu_1} + \frac{1}{\mu_2}$, and the effective service rate is $m = \frac{1}{\frac{1}{\mu_1}+\frac{1}{\mu_2}}$.
-\end{itemize}
+The shortest expected effecive service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
+Therefore the largest effective service rate is $\mu_1$.
+
+The longest service time corresponds to when Node 2 is full, Node 1 finishes service and gets blocked.
+Here the customer in service at Node 1 spends $\frac{1}{\mu_1}$ in service, then gets blocked.
+That customer remains blocked until there is room at Node 2, that is when Node 2 has a service.
+As all service rates are Markovian, the time spent blocked is $\frac{1}{\mu_2}$.
+
+If the customer finishing service at Node 2 transitions to Node 1, then $\widetilde{\Omega}_{1_1}$'s state hasn't changed, and Node 2 is full again.
+The next customer at Node 1 now spends $\frac{1}{\mu_1}$ in service.
+This process will repeat if Node 1 is blocked before Node 2 releases a customer, and so the process is repeated with probability $P_{\text{repeat}}$.
+
+And so the longest effective service time is:
+
+\begin{align*}
+  & = \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \dotsi \right. \right. \right. \\
+  & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( 1 + P_{\text{repeat}} + P_{\text{repeat}}^2 + P_{\text{repeat}}^3 + \dots \right) \\
+  & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( \frac{1}{1 - P_{\text{repeat}}} \right)
+\end{align*}
+
+If $S_1$ is the time the customer at Node 1 spends in service, and $S_2$ is the time the customer at node 2 spends in service, then $S_1 \sim \text{Exp}(\mu_1)$ and $S_2 \sim \text{Exp}(\mu_2)$.
+Now $P_{\text{repeat}} = P(S_1 < S_2) = \frac{\mu_1}{\mu_1 + \mu_2}$.
+
+Therefore the smallest effective service rate is:
+
+\begin{align*}
+  & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-P_{\text{repeat}}} \right) } \\
+  & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-\frac{\mu_1}{\mu_1 + \mu_2}} \right) } \\
+  & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{\mu_1 + \mu_2}{\mu_2} \right) } \\
+  & = \frac{\mu_2}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \mu_1 + \mu_2 \right) } \\
+  & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
+  & = m_1
+\end{align*}
 
 As time to deadlock does not increase monotonically with service rate (see Figure~\ref{fig:timestodeadlock_mu}) we cannot simply compare $\widetilde{\Omega}_{1_1}$ with the system that has the largest of smallest service rate; instead we must compare $\widetilde{\Omega}_{1_1}$ with either the system with the smallest service rate or the largest, whichever yields the longest time to deadlock.
 
-The largest service rate is clearly $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and so the smallest must be $\min(\frac{1}{2}\mu_1, m)$ corresponding to $\Omega_{1_1}^{\star\star}$.
+The largest service rate is $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and the smallest is $m$ corresponding to $\Omega_{1_1}^{\star\star}$.
 And so we compare with whichever system takes longer to reach deadlock, we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
 
 And so comparing this to $\widetilde{\Omega}_{1_1}$: the effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in that system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
@@ -1120,43 +1149,43 @@ And so
 \end{proof}
 
 
-\section{Resolving Deadlock}
-Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
-This is not necassarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
-Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
+% \section{Resolving Deadlock}
+% Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
+% This is not necassarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
+% Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
 
-At deadlock, the service stations can be classified into the following three mutually exclusive categories:
-\begin{itemize}
-    \item Nodes that are not deadlocked: These are nodes that do not contain any blocked individuals.
-    \item Causation nodes, nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
-    \item Affected nodes, nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
-\end{itemize}
+% At deadlock, the service stations can be classified into the following three mutually exclusive categories:
+% \begin{itemize}
+%     \item Nodes that are not deadlocked: These are nodes that do not contain any blocked individuals.
+%     \item Causation nodes, nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
+%     \item Affected nodes, nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
+% \end{itemize}
 
-At the first instance of deadlock, there will only be one knot in $D(t)$.
-Let us denote the knot as $K$.
-The vertices of $K$ correspond to servers.
-As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
-Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
-All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
-An affected node has servers belonging to the same weakly connected component as $K$, but does ot have servers in $K$.
+% At the first instance of deadlock, there will only be one knot in $D(t)$.
+% Let us denote the knot as $K$.
+% The vertices of $K$ correspond to servers.
+% As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
+% Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
+% All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
+% An affected node has servers belonging to the same weakly connected component as $K$, but does ot have servers in $K$.
 
-When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
-Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
-Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
-This property may have to be broken in order to ensure the conservation property is not.
-Assume that we have weighted the edges of the digraph with the time that they were created. % If this works then I'll include this in the write up of how state digraph is formed
+% When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
+% Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
+% Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
+% This property may have to be broken in order to ensure the conservation property is not.
+% Assume that we have weighted the edges of the digraph with the time that they were created. % If this works then I'll include this in the write up of how state digraph is formed
 
-The following algorithm is proposed in order to resolve deadlock:
+% The following algorithm is proposed in order to resolve deadlock:
 
-\begin{algorithm}[H]
-    \DontPrintSemicolon
-    Find the knot $K$ in $D(t)$\;
-    Find the cycle $C \in K$ whose average edge weight is minimum\;
-    Start at $V_0$\;
-    \For{$V_i$ in $C$}{
-    Move the individual who is waiting to get to $V_{i+1}$\;}
-    Redraw $D(t)$\;
-\end{algorithm}
+% \begin{algorithm}[H]
+%     \DontPrintSemicolon
+%     Find the knot $K$ in $D(t)$\;
+%     Find the cycle $C \in K$ whose average edge weight is minimum\;
+%     Start at $V_0$\;
+%     \For{$V_i$ in $C$}{
+%     Move the individual who is waiting to get to $V_{i+1}$\;}
+%     Redraw $D(t)$\;
+% \end{algorithm}
 
 
 

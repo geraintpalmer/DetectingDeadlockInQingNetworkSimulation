@@ -14,6 +14,7 @@ import ExpectedStepsToAbsorbtion_2NodeSimple
 import ExpectedStepsToAbsorbtion_2NodeFeedback
 import docopt
 from csv import writer, reader
+from math import exp
 
 directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/bound_data/'
 
@@ -86,16 +87,8 @@ for L1 in LandMus:
 									for r22 in rs:
 										if r11+r12 <= 1.0:
 											if r21+r22 <= 1.0:
-												# P1full = find_p_full(L1, mu1, n1)
-												# P1empty = find_p_empty(L1, mu1, n1)
-												# P2full = find_p_full(L2, mu2, n2)
-												# P2empty = find_p_empty(L2, mu2, n2)
-												# L1_dash = (L1*(P2empty+P2full))+((L1+(r21*L2))*(1-P2empty-P2full))
-												# L2_dash = (L2*(P1empty+P1full))+((L2+(r12*L1))*(1-P1empty-P1full))
-												# mu1_dash = ((1/((1/mu1)+(1/mu2)))*P1full)+(0.5*mu1*P2full)+(mu1*(1-P1full-P2full))
-												# mu2_dash = ((1/((1/mu2)+(1/mu1)))*P2full)+(0.5*mu2*P1full)+(mu2*(1-P2full-P1full))
-												mu1_dash = min(0.5*mu1, (1.0/((1.0/mu1)+(1.0/mu2))))
-												mu2_dash = min(0.5*mu2, (1.0/((1.0/mu1)+(1.0/mu2))))
+												mu1_dash = (mu2/(mu1+mu2))/((2.0/mu1)+(1.0/mu2))
+												mu2_dash = (mu1/(mu2+mu1))/((1.0/mu1)+(2.0/mu2))
 												Q11_low = ExpectedStepsToAbsorbtion_1node.Network(n1, mu1_dash, r11, L1)
 												Q11_low.find_mean_time_to_absorbtion()
 												Q12_low = ExpectedStepsToAbsorbtion_1node.Network(n2, mu2_dash, r22, L2)
