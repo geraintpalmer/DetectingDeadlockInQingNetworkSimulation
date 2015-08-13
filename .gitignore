@@ -6,3 +6,7 @@
 *.log
 .DS_Store
 *.pyc
+data_for_graphs/bound_stuff/
+data_for_graphs/test/
+*.ipynb
+*.dvi
