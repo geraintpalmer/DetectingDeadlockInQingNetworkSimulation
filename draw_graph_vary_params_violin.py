@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt
 from csv import reader
 import numpy as np
 import pylab
+# import seaborn
 
 
 arguments = docopt.docopt(__doc__)
