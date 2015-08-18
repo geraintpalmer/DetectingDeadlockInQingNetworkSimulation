@@ -16,10 +16,13 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage[ruled]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{enumerate}
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 
 \title{Deadlocking in Queueing Networks}
 \author{Geraint Palmer}
@@ -493,7 +496,7 @@ The following algoithm, taken from the NetworkX developer zone ticket \#663, is 
 
 
 
-\section{Markov Chain Model}
+\section{Markov Chain Models}
 
 It is interesting to build an analytical model of the system's behaviour to deadlock.
 As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
@@ -520,7 +523,7 @@ Once a customer has finished service he rejoins the queue with probability $r_{1
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 1
         \}\cup\{-1\}\]
-where \(i\) denotes number of individuals in service or waiting.
+where \(i\) denotes the number of individuals in service or waiting.
 
 If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$ then the transitions are given by:
 
@@ -632,17 +635,17 @@ All routing possibilities except self loops are possible, where the routing prob
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
         \}\cup\{(-1)\}\]
 
-        where \(i\) denotes number of individuals:
+        where \(i\) denotes the number of individuals:
             \begin{itemize}
                 \item In service or waiting at the first node.
                 \item Occupying a server but having finished service at the
-                    second node waiting to join the first
+                    second node waiting to join the first.
             \end{itemize}
-        where \(j\) denotes number of individuals:
+        where \(j\) denotes the number of individuals:
             \begin{itemize}
                 \item In service or waiting at the second node.
                 \item Occupying a server but having finished service at the
-                    first node waiting to join the first
+                    first node waiting to join the second.
             \end{itemize}
         and the state $(-1)$ denotes the deadlocked state.
 \end{itemize}
@@ -752,17 +755,17 @@ All routing possibilities are possible, where the routing probability from node 
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
         \}\cup\{(-1), (-2), (-3)\}\]
 
-        where \(i\) denotes number of individuals:
+        where \(i\) denotes the number of individuals:
             \begin{itemize}
                 \item In service or waiting at the first node.
                 \item Occupying a server but having finished service at the
-                    second node waiting to join the first
+                    second node waiting to join the first.
             \end{itemize}
-        where \(j\) denotes number of individuals:
+        where \(j\) denotes the number of individuals:
             \begin{itemize}
                 \item In service or waiting at the second node.
                 \item Occupying a server but having finished service at the
-                    first node waiting to join the first
+                    first node waiting to join the second.
             \end{itemize}
         and the state $(-3)$ denotes the deadlocked state cause by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
 \end{itemize}
@@ -979,13 +982,16 @@ Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing
 \label{fig:absorbingprobs}
 \end{figure}
 
+\subsection{Multi-Server Networks}
+It is possible to model the networks discussed in Section~\ref{sec:1nodenet} and Section~\ref{sec:2nodewithoutselfloops} where each node has multiple parallel servers.
+These models are discussed in the next subsections.
 
-\subsection{One Node Network, Multi-Server}
+\subsubsection{Multi-Server: One Node Network}
 Consider the one node network with feedback loop discussed in Subsection~\ref{sec:1nodenet}, now with $c$ parallel servers.
 
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
-where \(i\) denotes number of individuals at the node plus the number of individuals blocked at that node.
+where \(i\) denotes the number of individuals at the node plus the number of individuals blocked at that node.
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
 The state $i=n+2c$ denotes the deadlocked state.
 
@@ -1028,6 +1034,74 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$ and $r_{11} = 0.5$ were use
   \label{fig:timestodeadlock1nodemultiserver}
   \end{center}
 \end{figure}
+
+
+\subsubsection{Multi-Server: Two Node Network without Self Loops}
+Consider the two node network with feedback loops discussed in Subsection~\ref{sec:2nodewithoutselfloops}, now with $c_1$ parallel servers at the first node, and $c_2$ parallel servers at the second node.
+
+State space:
+        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2\times n_2+c_2+c_1)}\}\]
+where $i$ denotes the number of individuals at the Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
+For example, $(i=n_1+c_1+2, j=n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
+The state $(i=n_1+c_1+c_2, j=n_2+c_2+c_1)$ denotes the deadlocked state.
+
+Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ ,then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by the following table:
+
+
+\begin{center}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{ l | l | l | l |}
+  & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\ \hline
+  \rotatebox[origin=c]{90}{$i_1 < n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
+  \rotatebox[origin=c]{90}{$i_1 = n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
+  \rotatebox[origin=c]{90}{$i_1 > n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+The values $b_1$ and $b_2$ correspond to the number of people blocked to Node 1 and Node 2 respectively.
+The values $s_1$ and $s_2$ correspond to the amount of people currently in service at Node 1 and Node 2 respectively.
+
+This formulation of the Markov chain makes use of the following proposition:
+
+\begin{proposition}
+  In the two node queueing network described, if there are $b_1$ customers blocked to Node 1, and $b_2$ customers blocked to Node 2, where $b_1, b_2 > 0$, then:
+  \begin{enumerate}[i.]
+    \item \label{itm:exit1} A customer finishing service and leaving the system at Node 1 yields a difference in state of $\delta = (-\min(b_1+1, b_2+1), -\min(b_1, b_2+1))$.
+    \item \label{itm:exit2} A customer finishing service and leaving the system at Node 2 yields a difference in state of $\delta = (-\min(b_1+1, b_2), -\min(b_1+1, b_2+1))$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Each blocked individual is counted in the state space twice, once as an $i$ and once as a $j$. A blocked customer is counted as existing in the Node he is occupying, but also has a blocked part counted at the other node.
+
+  Now an unblocking where a customer transitions from being blocked at Node 1 to being at Node 2 yields $\delta = (-1, 0)$; his blocked part at $j$ disappears, while his existence part at $i$ transitions to Node 2 to become a $j$.
+  This type of unblocking leaves space at Node 1 for more potential unblockings.
+
+  Similarly an unblocking where a customer transitions from being blocked at Node 2 to being at Node 1 yields $\delta = (0, -1)$; his blocked part at $i$ disappears, while his existence part at $j$ transitions to Node 2 to become a $i$.
+  This type of unblocking leaves space at Node 2 for more potential unblockings.
+
+  Consider a customer finishing service and exiting the system at Node 1.
+  Breaking down the overall unblocking process into subprocesses, we can break down the overall difference $\delta$ into sub-differences $\delta_1$, $\delta_2$, $\delta_3$, etc, where $\delta = \sum_i \delta_i$.
+
+  \begin{itemize}
+    \item Exit at 1: $delta_1 = (-1, 0)$
+    \item Unblock customer from Node 2: $\delta_2 = (0, -1)$ if there is someone at Node 2 to unblock, else stop.
+    \item Unblock customer from Node 1: $\delta_3 = (-1, 0)$ if there is someone at Node 1 to unblock, else stop.
+    \item Repeat the last to steps until stopping criteria is reached.
+  \end{itemize}
+
+  Now:
+  \begin{align*}
+    \delta &= \sum_i \delta_i\\
+    &= (-1, 0) + (0, -1) + (-1, 0) + (0, -1) + \dots\\
+    &= (-1, 0) + \min(b_1, b_2+1)(0, -1) + \min(b_2, b_1)(-1, 0)\\
+    &= (-\min(b_1+1, b_2+1), -\min(b_1, b_2+1))
+  \end{align*}
+
+  A similar argument yields $\delta = (-\min(b_1+1, b_2), -\min(b_1+1, b_2+1))$ for the situation where a customer finishes service at Node 2 and exits the system.
+\end{proof}
+
 
 
 \subsection{A Bound on the Mean Time to Deadlock}
@@ -1077,9 +1151,9 @@ $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
 \begin{proof}
 First, define some systems:
 \begin{itemize}
-  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
-  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_2}$ sytem within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
-  \item Let $\widetilde{\Omega}_2$ denote the $\Omega_2$ sytem within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
+  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ system embedded within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
+  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_2}$ system embedded within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
+  \item Let $\widetilde{\Omega}_2$ denote the $\Omega_2$ system embedded within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
 \end{itemize}
 
 Now $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
