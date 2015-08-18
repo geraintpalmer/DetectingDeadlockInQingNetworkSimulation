@@ -64,7 +64,7 @@ The following definition will be used.
 
 Deadlock can be experienced in any open queueing network that experiences
 blocking, with at least once cycle containing all service stations with
-resticted queueing capacity.
+restricted queueing capacity.
 
 Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
 That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
@@ -110,14 +110,14 @@ This idea is expanded on in Section~\ref{sec:typesofdeadlock}.
 
 \section{Literature Review}
 
-Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicted to analyse.
+Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicated to analyse.
 In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his servers from starting the next customer's service.
 This is known as blocking.
 Since blocking introduces interdependencies between nodes, the product form solution of unrestricted networks is not appropriate.
 One of the first papers to consider these sorts of systems was \cite{hunt56}.
 Results are derived by writing out and solving the systems' difference equations.
 The same method is used in \cite{baber08}.
-The thesis investigates two and three node systems, as well as systems with one service sentre with infinite queue routing into a number of these two and three node systems.
+The thesis investigates two and three node systems, as well as systems with one service centre with infinite queue routing into a number of these two and three node systems.
 
 A two node system with no intermediate queue and blocking is studied in \cite{aviitzhakyadin65}. In this paper the moment generating functions of waiting time and number of customers in the system are derived, from which further performance measures can be obtained.
 
@@ -132,8 +132,8 @@ The algorithm finds the mean values of a queueing network with feedforward flows
 Iteratively working from the node furthest downstream and working backwards, if that station does exhibit blocking it finds the \textit{effective service time}, that is the weighted sum of service time and the mean time blocked and waiting to transition to the next node, and computes the effective service time for the next upstream node with a recursive formula.
 This method is adapted to multi-server queues in \cite{koizumietal05}, and a similar iterative method was used in \cite{korporaaletal00}.
 
-Restriced queueing networks can give rise to the phenomenon of deadlock.
-This can cause problems for both analytical and simuation models, and most of the literature on blocking either does not consider networks with feedback loops, ignores the possibility of deadlock, or conveniently assumes the networks are
+Restricted queueing networks can give rise to the phenomenon of deadlock.
+This can cause problems for both analytical and simulation models, and most of the literature on blocking either does not consider networks with feedback loops, ignores the possibility of deadlock, or conveniently assumes the networks are
 deadlock-free.
 
 General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
@@ -168,7 +168,7 @@ Here dynamic state-graphs are defined, with resources as vertices and requests a
 For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
 
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
-Using these labels \textit{simple bounded circuits} are defined whose existance within the state graph is sufficient to detect deadlock.
+Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
@@ -194,7 +194,7 @@ For connected queueing networks, these deadlocks can be classified into transien
 \end{definition}
 
 Figure~\ref{fig:transabsorb} shows a three nodes network in a transient deadlocked state, and an absorbing deadlocked state.
-In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occipant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
+In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occupant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
 However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
 At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
 
@@ -392,17 +392,17 @@ Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
 Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
 Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
-We can interpret all $X_a$'s decendents as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+We can interpret all $X_a$'s descendants as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
 
 Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
 The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
 
-It is clear that if all of $X_a$'s descendents are occupied by blocked individuals, then the system is deadlocked at time $t$.
+It is clear that if all of $X_a$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
 We also know that by definition all of $X_a$'s ancestors are occupied by blocked individuals.
 
 Also note that if a service-station subgraph $d_i(t)$ contains edges, then there is an individual in $X_a \in d_i(t)$ that is being blocked by himself.
-This does not necassarily mean there is deadlock.
+This does not necessarily mean there is deadlock.
 
 
 \subsection{Results on the State Digraph}
@@ -413,14 +413,14 @@ A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 
 \begin{proof}
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
-All vertices of $G(t)$ are either decendents of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
 Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
-This imples that $X$'s occupant is not blocked and is a descendent of another vertex.
-Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendents are all blocked.
+This implies that $X$'s occupant is not blocked and is a descendant of another vertex.
+Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendants are all blocked.
 
 Now assume that we have deadlock.
-For a vertex $X$ who is deadlocked, all decendents of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
+For a vertex $X$ who is deadlocked, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 And so there is no path from $X$ to a vertex with out-degree of 0.
 \end{proof}
 
@@ -441,7 +441,7 @@ The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is n
 
 Now consider the case when only one node is involved in the deadlock.
 Without loss of generality, let's say that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
-For the servers of node 2 to be part of that weakly conneced component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
+For the servers of node 2 to be part of that weakly connected component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
 An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
 An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
 In this case the server in node 2 has an out-edge, and so there is still no sink.
@@ -478,8 +478,8 @@ As all servers are occupied by blocked individuals, no server can finish service
 
 By definition knots are strongly connected subgraphs where every member's descendants belong to that subgraph.
 
-Using the Python package NetworkX, finding strongly connected components, and finding a vertex's decendants are built-in methods.
-The following algoithm, taken from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
+Using the Python package NetworkX, finding strongly connected components, and finding a vertex's descendants are built-in methods.
+The following algorithm, taken from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
 
 \begin{algorithm}[H]
     \DontPrintSemicolon
@@ -502,7 +502,7 @@ It is interesting to build an analytical model of the system's behaviour to dead
 As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
 
 We can however find the expected time until deadlock is reached.
-It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$ then the expected number of time steps until absorbtion starting from state $i$ is the $i\text{th}$ element of the vector
+It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$ then the expected number of time steps until absorption starting from state $i$ is the $i\text{th}$ element of the vector
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
@@ -597,14 +597,14 @@ Again this are intuitive, as increasing the queueing capacity allows more custom
 \end{figure}
 
 We get interesting behaviour as the service rate $\mu$ varies, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
-This behavious can be interperated as follows:
+This behaviour can be interpreted as follows:
 \begin{itemize}
 \item At low service rates below a certain threshold, the arrival rate is relatively large compared to the service rate, and we can assume a saturated system.
 At this point services where a customer exits the system does not have much of an effect, as we can assume another arrival immediately.
 However services where a customer wishes to rejoin the queue results in a blockage as the system is saturated.
 Therefore, increasing the service rate here increases the chance of a blockage, and so the chance of deadlock.
 \item Above this threshold the service rate is large enough that we cannot assume a saturated system, and so services where the customer exits the system does have an affect on the number of customers in the system.
-Thus increasing the service rate removes people fromå the system, and as such there is less chance of getting blocked and deadlocked.
+Thus increasing the service rate removes people from the system, and as such there is less chance of getting blocked and deadlocked.
 \end{itemize}
 
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
@@ -1083,12 +1083,13 @@ This formulation of the Markov chain makes use of the following proposition:
 
   Consider a customer finishing service and exiting the system at Node 1.
   Breaking down the overall unblocking process into subprocesses, we can break down the overall difference $\delta$ into sub-differences $\delta_1$, $\delta_2$, $\delta_3$, etc, where $\delta = \sum_i \delta_i$.
+  These subprocesses are:
 
   \begin{itemize}
-    \item Exit at 1: $delta_1 = (-1, 0)$
+    \item Exit at 1: $\delta_1 = (-1, 0)$
     \item Unblock customer from Node 2: $\delta_2 = (0, -1)$ if there is someone at Node 2 to unblock, else stop.
     \item Unblock customer from Node 1: $\delta_3 = (-1, 0)$ if there is someone at Node 1 to unblock, else stop.
-    \item Repeat the last to steps until stopping criteria is reached.
+    \item Repeat the last two steps until stopping criteria is reached.
   \end{itemize}
 
   Now:
@@ -1168,7 +1169,7 @@ As an increase in the arrival rate causes the mean time to deadlock to decrease,
 Consider $\widetilde{\Omega}_{1_1}$.
 Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
 
-The shortest expected effecive service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
+The shortest expected effective service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
 Therefore the largest effective service rate is $\mu_1$.
 
 The longest service time corresponds to when Node 2 is full, Node 1 finishes service and gets blocked.
@@ -1225,7 +1226,7 @@ And so
 
 % \section{Resolving Deadlock}
 % Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
-% This is not necassarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
+% This is not necessarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
 % Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
 
 % At deadlock, the service stations can be classified into the following three mutually exclusive categories:
@@ -1241,7 +1242,7 @@ And so
 % As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
 % Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
 % All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
-% An affected node has servers belonging to the same weakly connected component as $K$, but does ot have servers in $K$.
+% An affected node has servers belonging to the same weakly connected component as $K$, but does not have servers in $K$.
 
 % When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
 % Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
