@@ -1,0 +1,13 @@
+Variable:
+  - 'Queue_capacities'
+  - 0
+Values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+Number of Iterations:
+  - 10000

@@ -6,32 +6,12 @@ import csv
 
 
 # # Input parameters here
-# n1, n2 = 3, 2
-# c1, c2 = 5, 2
-# mu1, mu2 = 8.0, 6.0
-# r12, r21 = 0.5, 0.5
-# L1, L2 = 5.0, 6.0
-# directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/run_10000_itrs/vary_c1/'
 n1, n2 = 2, 1
-c1, c2 = 5, 2
+c1, c2 = 2, 2
 mu1, mu2 = 5.5, 6.5
 r12, r21 = 0.7, 0.6
 L1, L2 = 9.0, 7.5
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/Results_varyc/'
-
-# Input parameters here
-# n1, n2 = 3, 2
-# c1, c2 = 1, 1
-# mu1, mu2 = 10.0, 8.0
-# r12, r21 = 0.25, 0.15
-# L1, L2 = 4.0, 5.0
-# directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/test/vary_mu1/'
-# n1, n2 = 0, 0
-# c1, c2 = 4, 2
-# mu1, mu2 = 6.0, 7.0
-# r12, r21 = 0.7, 0.6
-# L1, L2 = 7.5, 7.0
-# directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/Results_test/'
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/run_10000_itrs/vary_mu2/'
 
 
 class Network:
@@ -334,14 +314,14 @@ class Network:
 
 
 if __name__ == '__main__':
-    # mu1s = [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0]
-    c1s = [1, 2, 3, 4, 5]
-    # L2s = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
-    for c1 in c1s:
+    mu2s = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0]
+    # c1s = [1, 2, 3, 4, 5]
+    # L2s = [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0]
+    for mu2 in mu2s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2, c1, c2)
         Q.find_mean_time_to_absorbtion()
-        Q.write_results_to_file(c1)
-        print "Now starting c1 = " + str(c1)
+        Q.write_results_to_file(mu2)
+        print "Now starting mu2 = " + str(mu2)
     # Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2, c1, c2)
     # for state in Q.State_Space:
     #     print state

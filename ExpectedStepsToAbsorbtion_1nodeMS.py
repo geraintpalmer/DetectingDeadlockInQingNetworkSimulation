@@ -8,8 +8,8 @@ n1 = 3
 mu1 = 2.0
 r11 = 0.5
 L1 = 6.0
-c1 = 1
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node_MultiServer/vary_c1/'
+c1 = 2
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node_MultiServer/run_10000_itrs/vary_r11/'
 
 class Network:
     """
@@ -150,9 +150,9 @@ class Network:
 		results_file.close()
 
 if __name__ == '__main__':
-    c1s = [1, 2, 3, 4, 5]
-    for c1 in c1s:
-        print "Starting c1 = " + str(c1)
+    r11s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    for r11 in r11s:
+        print "Starting r11 = " + str(r11)
         Q = Network(n1, mu1, r11, L1, c1)
         Q.find_mean_time_to_absorbtion()
-        Q.write_results_to_file(c1)
+        Q.write_results_to_file(r11)
