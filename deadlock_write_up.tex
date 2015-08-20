@@ -18,6 +18,7 @@
 \usepackage[ruled]{algorithm2e}
 \usepackage{adjustbox}
 \usepackage{enumerate}
+\usepackage[nocompress]{cite}
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -145,11 +146,11 @@ Conditions for this type of deadlock, also referred to as deadly embraces, to po
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
 
-In \cite{kawadkaretal14} it is noted that in general there are three strategies for dealing with deadlock:
+In general there are three strategies for dealing with deadlock \cite{kawadkaretal14, elmagarmid86}:
 
 \begin{itemize}
   \item Prevention, in which the system cannot possibly deadlock in the first place.
-  \item Dynamic avoidance, in which decisions are made as time unfolds to avoid reaching deadlock.
+  \item Avoidance, in which decisions are made as time unfolds to avoid reaching deadlock.
   \item Detection and recovery.
 \end{itemize}
 
@@ -164,12 +165,13 @@ There are algorithms discussed in the literature for the dynamic avoidance of de
 In the Banker's Algorithm \cite{dijkstra82, kawadkaretal14}, unsafe states, those that will lead to deadlock, are avoided by ensuring actions leading to these states are not carried out.
 
 General deadlock detection in systems unspecific to queueing networks are discussed in \cite{coffmanelphick71}.
-Here dynamic state-graphs are defined, with resources as vertices and requests as edges.
-For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
+A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and their variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}.
+These wait-for graphs, keep track of all circular wait relations between tasks.
 
+In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
+For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
-
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
 In the introduction an idea was introduced that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
@@ -1016,7 +1018,7 @@ The behaviour is unsymmetrical due to the other parameters associated with Node 
     \caption{Varying $n_2$}
     \label{fig:comparetimeprob_n2}
   \end{subfigure}
-  \caption{Comparing time to deadlock and absorbtion probabilities as queue capacities increase.}
+  \caption{Comparing time to deadlock and absorption probabilities as queue capacities increase.}
   \label{fig:comparetimeprob_ns}
 \end{figure}
 
