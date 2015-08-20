@@ -709,33 +709,56 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{12} = 0.25$ and $r_{21} = 0.15$ were used.
-Only parameters for one node are shown, as the other node's parameters will have the same affect.
 We can see that we get similar behaviour as the 1 node network.
 
+\begin{center}
 \begin{figure}[H]
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{center}
+\begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varyL1}
   \caption{Varying $\Lambda_1$}
   \label{fig:timestodeadlock2_L1}
 \end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{subfigure}[b]{0.38\textwidth}
+  \includegraphics[width=\textwidth]{images/varyL2}
+  \caption{Varying $\Lambda_2$}
+  \label{fig:timestodeadlock2_L2}
+\end{subfigure}
+\begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varyr12}
   \caption{Varying $r_{12}$}
   \label{fig:timestodeadlock2_r12}
 \end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{subfigure}[b]{0.38\textwidth}
+  \includegraphics[width=\textwidth]{images/varyr21}
+  \caption{Varying $r_{21}$}
+  \label{fig:timestodeadlock2_r21}
+\end{subfigure}
+\begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varymu1}
   \caption{Varying $\mu_1$}
   \label{fig:timestodeadlock2_mu1}
 \end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{subfigure}[b]{0.38\textwidth}
+  \includegraphics[width=\textwidth]{images/varymu2}
+  \caption{Varying $\mu_2$}
+  \label{fig:timestodeadlock2_mu2}
+\end{subfigure}
+\begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varyn1}
   \caption{Varying $n_1$}
   \label{fig:timestodeadlock2_n1}
 \end{subfigure}
+\begin{subfigure}[b]{0.38\textwidth}
+  \includegraphics[width=\textwidth]{images/varyn2}
+  \caption{Varying $n_2$}
+  \label{fig:timestodeadlock2_n2}
+\end{subfigure}
+\end{center}
 \caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
 \label{fig:timestodeadlock2}
 \end{figure}
+\end{center}
 
 
 \subsection{Two Node Network each with Self Loops}\label{sec:2nodeselfloops}
@@ -1025,14 +1048,38 @@ Varying the amount of servers has a greater effect on the time to deadlock howev
 Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
 
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
-Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$ and $r_{11} = 0.5$ were used.
+Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$ were used.
 
 \begin{figure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL_1Nms}
+    \caption{Varying $\Lambda$}
+    \label{fig:1Nms_L}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu_1Nms}
+    \caption{Varying $\mu$}
+    \label{fig:1Nms_mu}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varyr11_1Nms}
+    \caption{Varying $r_{11}$}
+    \label{fig:1Nms_r11}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn_1Nms}
+    \caption{Varying $n$}
+    \label{fig:1Nms_n}
+  \end{subfigure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{images/vary_c_1Nms}
-  \caption{The effect of $c$ on times to deadlock.}
-  \label{fig:timestodeadlock1nodemultiserver}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varyc_1Nms}
+    \caption{Varying $c$}
+    \label{fig:1Nms_c}
+  \end{subfigure}
   \end{center}
+  \caption{The effect of varying parameters on times to deadlock.}
+  \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
 
 
@@ -1102,6 +1149,67 @@ This formulation of the Markov chain makes use of the following proposition:
 
   A similar argument yields $\delta = (-\min(b_1+1, b_2), -\min(b_1+1, b_2+1))$ for the situation where a customer finishes service at Node 2 and exits the system.
 \end{proof}
+
+Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and $c_2 = 2$ were used.
+
+\begin{figure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL1_2Nms}
+    \caption{Varying $\Lambda_1$}
+    \label{fig:2Nms_L1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL2_2Nms}
+    \caption{Varying $\Lambda_@$}
+    \label{fig:2Nms_L2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu_1Nms}
+    \caption{Varying $\mu_1$}
+    \label{fig:2Nms_mu1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu2_2Nms}
+    \caption{Varying $\mu_2$}
+    \label{fig:2Nms_mu2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/dummygraph}
+    \caption{Varying $r_{12}$}
+    \label{fig:2Nms_r12}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyr21_2Nms}
+    \caption{Varying $r_{21}$}
+    \label{fig:2Nms_r21}
+  \end{subfigure}
+  \begin{center}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn1_2Nms}
+    \caption{Varying $n_1$}
+    \label{fig:2Nms_n1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn2_2Nms}
+    \caption{Varying $n_2$}
+    \label{fig:2Nms_n2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyc1_2Nms}
+    \caption{Varying $c_1$}
+    \label{fig:2Nms_c1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/dummygraph}
+    \caption{Varying $c_2$}
+    \label{fig:2Nms_c2}
+  \end{subfigure}
+  \end{center}
+  \caption{The effect of varying parameters on times to deadlock.}
+  \label{fig:timestodeadlock2nodemultiserver}
+\end{figure}
+
 
 
 
