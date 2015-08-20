@@ -11,7 +11,7 @@ c1, c2 = 2, 2
 mu1, mu2 = 5.5, 6.5
 r12, r21 = 0.7, 0.6
 L1, L2 = 9.0, 7.5
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/run_10000_itrs/vary_r21/'
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeSimple_MultiServer/run_10000_itrs/vary_c2/'
 
 
 class Network:
@@ -315,14 +315,14 @@ class Network:
 
 if __name__ == '__main__':
     # mu2s = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0]
-    # c1s = [1, 2, 3, 4, 5]
+    c2s = [1, 2, 3, 4, 5]
     # L2s = [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0]
-    r21s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-    for r21 in r21s:
+    # r12s = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    for c2 in c2s:
         Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2, c1, c2)
         Q.find_mean_time_to_absorbtion()
-        Q.write_results_to_file(r21)
-        print "Now starting r21 = " + str(r21)
+        Q.write_results_to_file(c2)
+        print "Now starting c2 = " + str(c2)
     # Q = Network(n1, n2, mu1, mu2, r12, r21, L1, L2, c1, c2)
     # for state in Q.State_Space:
     #     print state
