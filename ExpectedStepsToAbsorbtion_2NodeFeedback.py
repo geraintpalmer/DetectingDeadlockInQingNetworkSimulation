@@ -269,18 +269,14 @@ if __name__ == '__main__':
     mu1, mu2 = 10.0, 8.0
     r11, r12, r21, r22 = 0.1, 0.25, 0.15, 0.1
     L1, L2 = 4.0, 5.0
+    directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeFeedback/varying_ns/n1/'
+    # L2s = [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0]
     n1s = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+    # r22s = [0.0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975, 1.0]
     for n1 in n1s:
-      print '--- n1 = ' + str(n1) + ' ---'
-      directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2NodeFeedback/capacities_heatmap/n1_' + str(n1) + '/'
-
-      # L2s = [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0]
-      n2s = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-      # r22s = [0.0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4, 0.425, 0.45, 0.475, 0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7, 0.725, 0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975, 1.0]
-      for n2 in n2s:
-          Q = Network(n1, n2, mu1, mu2, r11, r12, r21, r22, L1, L2)
-          Q.find_mean_time_to_absorbtion()
-          # Q.find_absorpion_probabilities()
-          Q.write_results_to_file(n2)
-          # Q.write_absorb_results_to_file(n1)
-          # print "Now starting n2 = " + str(n2)
+        Q = Network(n1, n2, mu1, mu2, r11, r12, r21, r22, L1, L2)
+        Q.find_mean_time_to_absorbtion()
+        Q.find_absorpion_probabilities()
+        Q.write_results_to_file(n1)
+        Q.write_absorb_results_to_file(n1)
+        print "Now starting n1 = " + str(n1)

@@ -514,7 +514,7 @@ Consider the one node network with feedback loop shown in Figure~\ref{fig:queuei
 There is room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
 Once a customer has finished service he rejoins the queue with probability $r_{11}$, and so exits the system with probability $1 - r_{11}$.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/1nodeexample}
   \caption{A one node queueing network.}
   \label{fig:queueingnetwork_1node}
@@ -556,7 +556,7 @@ and
 
 The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain_1node}
     \caption{Markov chain of the one node system.}
     \label{fig:1nodeMC}
@@ -571,7 +571,7 @@ Increasing the queueing capacity $n$ results in reaching deadlock slower.
 Again this are intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlock.
 
 
-\begin{figure}
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/varyL}
   \caption{Varying $\Lambda$}
@@ -610,7 +610,7 @@ Thus increasing the service rate removes people from the system, and as such the
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
 
-\begin{figure}
+\begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width=0.6\textwidth]{images/varymur11}
   \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
@@ -624,7 +624,7 @@ This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each servi
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities except self loops are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/2nodeexample}
   \caption{A two node queueing network.}
   \label{fig:queueingnetwork_2nodes}
@@ -701,7 +701,7 @@ and
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMC}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain}
     \caption{Markov chain of the two node system without self loops, $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
@@ -712,7 +712,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 We can see that we get similar behaviour as the 1 node network.
 
 \begin{center}
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{center}
 \begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varyL1}
@@ -767,7 +767,7 @@ This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each servi
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/2nodefeedbackexample}
   \caption{A two node queueing network, each with feedback loops.}
   \label{fig:queueingnetwork_2nodesfeedback}
@@ -866,7 +866,7 @@ Note that the there are only two differences between this formulation and the fo
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMCfeedback}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain_feedback}
     \caption{Markov chain of the two node system with self loops, $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMCfeedback}
@@ -876,7 +876,7 @@ Figure~\ref{fig:timestodeadlockfeedback} shows the effect of varying the paramet
 Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{11} = 0.1$, $r_{12} = 0.25$, $r_{21} = 0.15$ and $r_{22} = 0.1$ were used.
 
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/vary_L1fb}
   \caption{Varying $\Lambda_1$}
@@ -911,32 +911,12 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \label{fig:timestodeadlockfeedback}
 \end{figure}
 
-Figure~\ref{fig:timestodeadlockfb_n1} shows interesting behaviour.
-Increasing $n_1$ causes a longer time to deadlock up to a point, where increasing $n_1$ any more does not affect the time to deadlock.
-This is due to the fact that there are other ways to get to deadlock, and we are only interested in the first instance of any of these deadlocks.
-Getting to deadlocked state (-2) is not affected by $n_1$, and so once $n_1$ goes over a certain threshold the system always reaches (-2) before any other deadlocked state, and so the time to deadlock is unaffected by increasing $n_1$ any further.
-
-This behaviour will be exhibited while $n_2$ increases too, however the threshold will take longer to reach as the base parameter for $n_1$ is larger than the base parameter for $n_2$.
-
-This behaviour is highlighted in the heatmap shown in Figure~\ref{fig:capacitiesheatmap}, where the analytical mean time to deadlock is shown with combinations of $n_1$ and $n_2$.
-For each value of $n_2$, once a certain threshold of $n_1$ is reached no more change in time to deadlock occurs.
-Similarly for each value of $n_1$, once a certain threshold o $n_2$ is reached no more change in time to deadlock occurs.
-The behaviour is unsymmetrical due to the other parameters associated with Node 1 and Node 2 being unsymmetrical.
-
-\begin{figure}[H]
-  \begin{center}
-  \includegraphics[width=0.5\textwidth]{images/n1n2_heatmap}
-  \caption{Deadlocking behaviour, varying $n_1$ and $n_2$}
-  \label{fig:capacitiesheatmap}
-  \end{center}
-\end{figure}
-
 The heatmaps in Figure~\ref{fig:heatmaps} illustrate how varying the two transition probabilities out of each node affects the time to deadlock.
 Note the shape of the heatmap, this is due to the restriction than $r_{11} + r{12} \leq 1$ and $r_{21} + r_{22} \leq 1$.
 We can see for both nodes it is the rejoining probability ($r_{11}$ and $r_{22}$) that has the most drastic effect on time to deadlock.
 This effect is greater for Node 2, the node that has the smaller queueing capacity.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/N1_heatmap}
   \caption{Analytical: Varying transition probabilities at Node 1}
@@ -970,7 +950,7 @@ Then $A = (I - T)^{-1}U$, and the $(i, j)^{\text{th}}$ element of $A$ correspond
 
 Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing network affects the absorption probabilities.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/absprobL1}
   \caption{Varying $\Lambda_1$}
@@ -1004,6 +984,47 @@ Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing
 \caption{Probabilities of reaching each deadlocked state.}
 \label{fig:absorbingprobs}
 \end{figure}
+
+Figure~\ref{fig:timestodeadlockfb_n1} shows interesting behaviour.
+Increasing $n_1$ causes a longer time to deadlock up to a point, where increasing $n_1$ any more does not affect the time to deadlock.
+This is due to the fact that there are other ways to get to deadlock, and we are only interested in the first instance of any of these deadlocks.
+Getting to deadlocked state (-2) is not affected by $n_1$, and so once $n_1$ goes over a certain threshold the system always reaches (-2) before any other deadlocked state, and so the time to deadlock is unaffected by increasing $n_1$ any further.
+
+This behaviour will be exhibited while $n_2$ increases too, however the threshold will take longer to reach as the base parameter for $n_1$ is larger than the base parameter for $n_2$.
+
+This behaviour is highlighted in the heatmap shown in Figure~\ref{fig:capacitiesheatmap}, where the analytical mean time to deadlock is shown with combinations of $n_1$ and $n_2$.
+For each value of $n_2$, once a certain threshold of $n_1$ is reached no more change in time to deadlock occurs.
+Similarly for each value of $n_1$, once a certain threshold o $n_2$ is reached no more change in time to deadlock occurs.
+The behaviour is unsymmetrical due to the other parameters associated with Node 1 and Node 2 being unsymmetrical.
+
+\begin{figure}[!htbp]
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{images/n1n2_heatmap}
+  \caption{Deadlocking behaviour, varying $n_1$ and $n_2$}
+  \label{fig:capacitiesheatmap}
+  \end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/comparetimeprobn1}
+    \caption{Varying $n_1$}
+    \label{fig:comparetimeprob_n1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/comparetimeprobn2}
+    \caption{Varying $n_2$}
+    \label{fig:comparetimeprob_n2}
+  \end{subfigure}
+  \caption{Comparing time to deadlock and absorbtion probabilities as queue capacities increase.}
+  \label{fig:comparetimeprob_ns}
+\end{figure}
+
+Figure~\ref{fig:comparetimeprob_ns} compares the deadlocking behaviour as $n_1$ and $n_2$ increase to absorption probabilities.
+Time to deadlock while varying $n_1$ is compared to the probability of absorption to state (-2), as $n_1$ plays no part in getting to state (-2).
+Similarly time to deadlock while varying $n_2$ is compared to the probability of absorption to state (-1).
+Here it is shown that once it is almost certain that deadlock will be caused by the other node only, then increasing the queueing capacity at this node does not affect time to deadlock.
+
 
 \subsection{Multi-Server Networks}
 It is possible to model the networks discussed in Section~\ref{sec:1nodenet} and Section~\ref{sec:2nodewithoutselfloops} where each node has multiple parallel servers.
@@ -1050,7 +1071,7 @@ Increasing the amount of servers also increases the rate at which $i$ are reduce
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$ were used.
 
-\begin{figure}
+\begin{figure}[!htbp]
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/varyL_1Nms}
     \caption{Varying $\Lambda$}
@@ -1153,7 +1174,7 @@ This formulation of the Markov chain makes use of the following proposition:
 Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and $c_2 = 2$ were used.
 
-\begin{figure}
+\begin{figure}[!htbp]
   \begin{subfigure}[b]{0.333\textwidth}
     \includegraphics[width=\textwidth]{images/varyL1_2Nms}
     \caption{Varying $\Lambda_1$}
@@ -1228,7 +1249,7 @@ where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and 
 
 Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includestandalone[width=\textwidth]{images/omega11}
   \caption{$\Omega_{1_1}$ within $\Omega$}
