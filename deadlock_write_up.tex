@@ -45,7 +45,7 @@ Here deadlock, or gridlock, is caused by the mutual blocking of cars.
 The blue cars are blocked from movement due to the yellow cars; the yellow cars are blocked from movement due to the green cars, the green cars are blocked from movement due to the red cars; and the red cars are blocked from movement due to the blue cars.
 This can be interperated as the blue cars indirectly blocking themselves.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \begin{center}
   \includestandalone[width=0.5\textwidth]{images/gridlock}
   \caption{Gridlock, a representation of general deadlock.}
@@ -80,7 +80,7 @@ service at the destination service station.
 Figure~\ref{fig:inout_deadlock_in} shows two nodes in deadlock, the customer occupying server $A_1$ is blocked by customers at both $B_1$ and $B_2$, who are both blocked by the customer at $A_1$.
 However in \ref{fig:inout_deadlock_out}, customer at $A_1$ is blocked by customers at both $B_1$ and $B_2$, but the customer at $B_2$ isn't blocked, and so there is no deadlock.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \begin{center}
   \includestandalone[width=0.5\textwidth]{images/2nodesindeadlock}
   \caption{Two nodes in deadlock.}
@@ -88,7 +88,7 @@ However in \ref{fig:inout_deadlock_out}, customer at $A_1$ is blocked by custome
   \end{center}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includestandalone[width=0.9\textwidth]{images/2nodesindeadlockmulti}
   \caption{Two nodes in deadlock.}
@@ -198,7 +198,7 @@ In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked f
 However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
 At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includestandalone[width=0.9\textwidth]{images/transientdeadlock}
   \caption{Transient deadlock.}
