@@ -5,10 +5,10 @@ import yaml
 
 # Input parameters here
 n1 = 3
-mu1 = 5
-r11 = 0.95
-L1 = 4.0
-directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/2Node_mkII/'
+mu1 = 5.0
+r11 = 0.25
+L1 = 10.0
+directory = '/Users/geraintianpalmer/Documents/DetectingDeadlockInQingNetworkSimulation/data_for_graphs/1Node/threshold_L_N1/L' + str(L1) + '/'
 
 class Network:
     """
@@ -151,3 +151,4 @@ if __name__ == '__main__':
         Q = Network(n1, mu1, r11, L1)
         Q.find_mean_time_to_absorbtion()
         Q.write_results_to_file(mu1)
+        print "Starting mu1 = " + str(mu1)

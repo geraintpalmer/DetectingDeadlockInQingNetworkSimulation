@@ -612,12 +612,36 @@ Thus increasing the service rate removes people from the system, and as such the
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
 
+Figure~\ref{fig:threshold_r11}, Figure~\ref{fig:threshold_L} and Figure~\ref{fig:threshold_n} show the effect of varying $r_{11}$, $\Lambda$ and $n$ on this threshold respectively.
+In Figure~\ref{fig:threshold_n} it is shown that increasing the queueing capacity lowers the threshold, this is due to the system becoming saturated easier at lower queueing capacities, and therefore requiring a larger service rate to escape this saturated zone.
+In Figure~\ref{fig:threshold_r11} it is shown that increasing the rejoining probability raises the threshold.
+Lower rejoining probabilities make the system escape the saturated zone quicker, and only a low service rate is required to escape; however at high rejoin probabilities a higher service rate fills the system up quicker, and so an even higher service rate is required to escape the saturated zone.
+Figure~\ref{fig:threshold_L} implies a positive linear relationship between the arrival rate and the threshold.
+Again, at lower arrival rates the system does not fill up as easily, and so is easier to escape the saturated zone.
+
 \begin{figure}[!htbp]
-  \begin{center}
-  \includegraphics[width=0.6\textwidth]{images/varymur11}
-  \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
-  \label{fig:varymuandr}
-  \end{center}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/varymur11}
+    \caption{The effect of $r_{11}$ and $\mu$ on times to deadlock.}
+    \label{fig:varymuandr}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/plot_thresholds_r11}
+    \caption{The effect of $r_{11}$ on the threshold.}
+    \label{fig:threshold_r11}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/plot_thresholds_L}
+    \caption{The effect of $\Lambda$ on the threshold.}
+    \label{fig:threshold_L}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/plot_thresholds_n}
+    \caption{The effect of $n$ on the threshold.}
+    \label{fig:threshold_n}
+  \end{subfigure}
+  \caption{Investigating the service rate threshold.}
+  \label{fig:threshold_investigate}
 \end{figure}
 
 \subsection{Two Node Network without Self Loops}\label{sec:2nodewithoutselfloops}
@@ -1101,7 +1125,7 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
     \label{fig:1Nms_c}
   \end{subfigure}
   \end{center}
-  \caption{The effect of varying parameters on times to deadlock.}
+  \caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
 
@@ -1229,7 +1253,7 @@ Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\m
     \label{fig:2Nms_c2}
   \end{subfigure}
   \end{center}
-  \caption{The effect of varying parameters on times to deadlock.}
+  \caption{Analytical \& Simulation Results of Times to Deadlock (10,000 iterations)}
   \label{fig:timestodeadlock2nodemultiserver}
 \end{figure}
 
