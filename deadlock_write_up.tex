@@ -22,12 +22,12 @@
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 
 \title{Deadlocking in Queueing Networks}
 \author{Geraint Palmer}
 \date{}
+
 
 \begin{document}
 \onehalfspacing
@@ -54,8 +54,25 @@ This can be interperated as the blue cars indirectly blocking themselves.
   \end{center}
 \end{figure}
 
-This work will investigate deadlocking in queueing networks.
-The following definition will be used.
+This work will investigate deadlocking in open restricted queueing networks.
+Section~\ref{sec:litreview} will give an overview of the literature on both resticted queueing networks and general deadlocks.
+Section~\ref{sec:typesofdeadlock} will differentiate between two different types of deadlocks in queueing networks.
+In Section~\ref{sec:detectdeadlock} the state digraph will be defined, explained, and it will be shown how to use the state digraph to detect deadlock in queueing network simulations.
+Section~\ref{sec:markovmodels} Markov chain models of five simple queueing networks will be given and their deadlocking properties explored.
+Finally a bound will be given on the expected time to deadlock of one of the queueing network models given.
+
+Throughout this report for the $i$th node of a queueing network the following notation will be used:
+
+\begin{itemize}
+  \item $\Lambda_i$ denotes the arrival rate
+  \item $\mu_i$ denotes the service rate
+  \item $r_{ij}$ denotes the transition probability from node $i$ to node $j$
+  \item $n_i$ denotes the queueing capacity
+  \item $c_i$ denotes the number of parallel servers
+\end{itemize}
+
+Exponential service rates and Poisson arrivals are assumed.
+The following definition of deadlock will be used.\\
 
 \begin{definition}
     When a simulation is in a situation where at least one service station,
@@ -109,24 +126,25 @@ If one section of the network is in deadlock, then the system is deadlocked, eve
 An example is shown in Figure~\ref{fig:trans}.
 This idea is expanded on in Section~\ref{sec:typesofdeadlock}.
 
-\section{Literature Review}
+\section{Literature Review}\label{sec:litreview}
 
-Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicated to analyse.
-In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his servers from starting the next customer's service.
+Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicated to analyse than unrestriced networks, those with infinite queueing capacity.
+In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his server from starting the next customer's service.
 This is known as blocking.
-Since blocking introduces interdependencies between nodes, the product form solution of unrestricted networks is not appropriate.
+Since blocking introduces interdependencies between nodes, the standard product form solution of unrestricted networks is not appropriate.
 One of the first papers to consider these sorts of systems was \cite{hunt56}.
 Results are derived by writing out and solving the systems' difference equations.
 The same method is used in \cite{baber08}.
-The thesis investigates two and three node systems, as well as systems with one service centre with infinite queue routing into a number of these two and three node systems.
+The thesis investigates two and three node systems, as well as systems with one service centre with infinite queueing capacity routing into a number of these two and three node systems.
 
 A two node system with no intermediate queue and blocking is studied in \cite{aviitzhakyadin65}. In this paper the moment generating functions of waiting time and number of customers in the system are derived, from which further performance measures can be obtained.
 
 Two features of blocking are described in \cite{koizumietal05}: $(i)$ patients completing service at a blocked station remain there until there is sufficient queueing space at the next station, and $(ii)$ these patients block other patients from entering that station.
 If a station only has characteristic (i) then it is referred to as `classic congestion', and if a station has both characteristics it is referred to as `blocking'.
 Three blocking situations are studied in \cite{latoucheneuts80}, defined by rules on the system reaching `full blocking' and their `unblocking rule'.
-If the node that is subject to blocking has $r$ parallel servers, then once $r^*$ ($1\leq r\leq r^*$) servers become blocked all remaining unblocked servers stop service and the node becomes fully blocked.
-Given that there is a room for $M$ customers to wait between nodes, once there are only $k^*$ ($0\leq k^*\leq M+r^*-2$) customers waiting between the nodes all services may start again and the node becomes unblocked.
+If the node that is subject to blocking has $r$ parallel servers, then once $r^*$ ($1\leq r^*\leq r$) servers become blocked all remaining unblocked servers stop service and the node becomes fully blocked.
+Given that there is $c$ parallel servers, and room for $M - 1$ customers to wait between nodes, once there are only $k^*$ ($0\leq k^*\leq M+r^*-2$) customers waiting between the nodes all services may start again and the node becomes unblocked.
+The most common blocking rules studied, and those studied in this report, correspond to $r^* = c$, and $k^* = M + c - 2$.
 
 And approximation method for solving queueing networks with downstream blocking only in presented in \cite{takahashi80}.
 The algorithm finds the mean values of a queueing network with feedforward flows and single server nodes.
@@ -145,6 +163,8 @@ Conditions for this type of deadlock, also referred to as deadly embraces, to po
   \item No preemption: Resources cannot be removed until they have been used to completion.
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
+
+In open unrestricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satified in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity.
 
 In general there are three strategies for dealing with deadlock \cite{kawadkaretal14, elmagarmid86}:
 
@@ -218,10 +238,42 @@ At which point, the whole system is deadlocked, and so has reached absorbing dea
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
 
-If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then there are $\sum_{i=1}^N \binom{N}{i}$ possible deadlock types.
+If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then the following proposition gives the number of possible deadlocked states.\\
+
+\begin{proposition}
+  If the routing matrix of a queueing network $Q$ with $N$ nodes is complete, that is there is a possible route from every service station to every other service station, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $i$th Bell number.
+\end{proposition}
+
+\begin{proof}
+  The number of different types of deadlock correspond to the number of cycles in the routing matrix, including self loops.
+  As there is a route from every node to every other node, this corresponds to every possible compination of nodes.
+  Let $S$ denote the set of nodes.
+
+  A Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets.
+  They are generated using the following recurrance relation
+
+  \begin{equation*}
+    B_n = \sum_{k=0}^{n+1} \binom{n-1}{k} B_k
+  \end{equation*}
+
+  At first glance a Bell number seems inappropriate as this problem isn't looking for every possible partition, but every possible combination of nodes, even if that is inexhaustive of the set of nodes.
+  What we need to find is every possible partition of every set in $\mathcal{P}(S) \setminus \emptyset$.
+
+  In $\mathcal{P}(S)$ there are $\binom{N}{i}$ sets of size $i$.
+  And so the number of ways to partition every set in $\mathcal{P}(S)$ is:
+
+  \begin{align*}
+    &= \sum_{i=0}^N \binom{N}{i} B_i\\
+    &= B_{N+1}\\
+  \end{align*}
+
+  Only one of these partitions corresponds to the empty set, that is when no nodes are deadlocked.
+  Therefore the number of daedlocked states correspond to $B_{N+1}-1$.
+
+\end{proof}
 
 
-\section{Dynamically Detecting Deadlock}
+\section{Dynamically Detecting Deadlock}\label{sec:detectdeadlock}
 In the following subsections, a method will be presented to dynamically detect deadlock in discrete event simulations of queueing networks.
 The following definitions will be required in this section:
 
@@ -240,10 +292,10 @@ The following definitions will be required in this section:
 
 \subsection{State Digraph}
 
-Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state graph.
+Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state digraph.
 
 Let the number of servers in node $i$ be denoted by $c_i$.
-Define $D(t)=(V(t), E(t))$ as the state graph of $Q$ at time $t$.
+Define $D(t)=(V(t), E(t))$ as the state digraph of $Q$ at time $t$.
 
 The vertices at time \(t\), \(V(t)\) correspond to servers in the
 queueing system.
@@ -255,7 +307,7 @@ V(t)\) if and only if an individual occupying the server corresponding to vertex
 \(X_a\) is being blocked by an individual occupying the server corresponding to
 vertex \(X_b\).
 
-The state graph $D(t)$ can be partitioned into $N$ service-station subgraphs,
+The state digraph $D(t)$ can be partitioned into $N$ service-station subgraphs,
 $D(t)=\bigcup_{i=1}^N d_i(t)$, where the vertices of $d_i(t)$ represent the servers of node $i$.
 The vertex set of each subgraph is static over time, however their edge sets may
 change.
@@ -268,7 +320,7 @@ When an individual is released and another customer who wasn't blocked occupies 
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incident to that server are removed.
 
-This general process of building up the state graph as the queueing network is simulated will now be shown.
+This general process of building up the state digraph as the queueing network is simulated will now be shown.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
 As an example, a customer labelled $(A_2, 10, C)$ would have an i.d. number of 2, is occupying server $A_2$ and is currently waiting to join node $C$.
 If a customer isn't occupying a server the notation $\emptyset$ is used.
@@ -424,19 +476,26 @@ Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendan
 Now assume that we have deadlock.
 For a vertex $X$ who is deadlocked, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
 And so there is no path from $X$ to a vertex with out-degree of 0.
+
 \end{proof}
 
 
-\begin{lemma}
-For a queueing network with two nodes or less, a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
-\end{lemma}
+\begin{proposition}
+For queueing networks:
+\begin{itemize}
+  \item with one node
+  \item with node nodes, each with two or fewer parallel servers
+  \item with a finite amount of nodes, each with a single server
+\end{itemize}
+a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
+\end{proposition}
 
 \begin{proof}
-Consider a one node queueing network $Q_1$.
+Consider a one node queueing network.
 
 If there is deadlock, then all servers are occupied by blocked individuals, and so all servers have an out-edge.
 
-Consider a two node queueing network $Q_2$.
+Consider a two node queueing network, each node with 2 or fewer parallel servers.
 
 If both nodes are involved in the deadlock, so there is a customer in node 1 blocked from entering node 2, and a customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
 The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
@@ -446,39 +505,68 @@ Without loss of generality, let's say that node 1 is in deadlock with itself, th
 For the servers of node 2 to be part of that weakly connected component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
 An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
 An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
-In this case the server in node 2 has an out-edge, and so there is still no sink.
+In this case one server in node 2 has an out-edge.
+Now either the other server of node two is still in server, and so isn't part of that weakly connected component, or the other server's customer is blocked and so has an out edge.
 
-For the case of a queueing network with more than two nodes, the following counter-example proves the claim:
+For the case of a queueing network with two nodes and more than 2 servers at node 2, consider the following counter-example:
 
-Begin with all servers occupied by customers in service.
+Node $A$ has two parallel server, node $B$ has three parallel sevrers.
+Begin with all servers occupied by customers in service and full queues.
+The customer at server $A_1$ is blocked to node $A$.
+The customer at server $B_1$ is blocked to node $A$.
+The customer at server $B_2$ is blocked to node $B$.
+The customer at server $A_2$ is blockec to node $A$.
+The resulting state digraph in Figure~\ref{fig:counter_example_1} has a weakly connected component with a sink.
+
+Consider a queueing network with $N$ nodes, each with a single server.
+
+If $1 \leq n \leq N$ nodes are involved in the deadlock, then each server in those $n$ nodes has a blocked customer, and so has an out-edge.
+Of the other nodes, they can only be in the same weakly connected component if either they contain a indiviual blocked by those in deadlock, in which case they will have an out edge; or they contain a blocked individual blocked by those directly or indirectly blocked by those in deadlock, in which case they will have an out edge; or they are blocking someone who is blocked directly or indirectly by those in deadlock.
+However this last case cannot happen, as every node is single server each person can only be blocked by one other individual at a time.
+
+For the case of a queueing network with more than two nodes with multiple servers, the following counter-example proves the claim:
+
+Node $A$ has one parallel server, node $B$ has two parallel servers, and node $C$ has three parallel servers.
+Begin with all servers occupied by customers in service and full queues.
 The customer at server $B_1$ is blocked from entering node $A$.
 Then the customer at server $C_1$ is blocked from entering node $B$.
 Then the customer at server $A_1$ is blocked from entering node $A$.
-The resulting state digraph in Figure~\ref{fig:counter_example} has a weakly connected component with a sink.
+The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
+
 \end{proof}
 
 \begin{figure}
+\begin{subfigure}{0.5\textwidth}
 \begin{center}
-\includestandalone[width=0.3\textwidth]{images/counter_example_digraph}
+\includestandalone[width=0.8\textwidth]{images/counter_example_digraph_1}
 \end{center}
-\caption{A Counter-Example State Digraph.}
-\label{fig:counter_example}
+\caption{State Digraph of Counter-Example 1.}
+\label{fig:counter_example_1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\begin{center}
+\includestandalone[width=0.65\textwidth]{images/counter_example_digraph_2}
+\end{center}
+\caption{State Digraph of Counter-Example 2.}
+\label{fig:counter_example_2}
+\end{subfigure}
 \end{figure}
 
-\begin{lemma}
+\begin{proposition}
 An absorbing deadlocked state arises at time $t$ if $D(t)$ doesn't contain a sink vertex.
-\end{lemma}
+\end{proposition}
 
 \begin{proof}
 A vertex with out-degree greater than zero represents an occupied server whose occupant has finished service and is blocked.
 If all vertices have out-degree greater than zero, then all servers are occupied by blocked individuals.
-A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendents finishing service.
+A release at vertex $X_a$ can only be triggered by one of $X_a$'s descendants finishing service.
 As all servers are occupied by blocked individuals, no server can finish service, and so no server can release their occupant, implying an absorbing deadlocked state.
+
 \end{proof}
 
 \subsection{Finding Knots}
 
-By definition knots are strongly connected subgraphs where every member's descendants belong to that subgraph.
+By definition knots are strongly connected subgraphs where every member has descendants, and every member's descendants belong to that subgraph.
 
 Using the Python package NetworkX, finding strongly connected components, and finding a vertex's descendants are built-in methods.
 The following algorithm, taken from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
@@ -488,7 +576,7 @@ The following algorithm, taken from the NetworkX developer zone ticket \#663, is
     Find the strongly connected subgraphs of $D(t)$\;
     \For{strongly connected subgraph $SCS$ in list of strongly connected subgraphs of $D(t)$}{
       \For{vertex $v$ in $SCS$}{
-        \If{number of $v$'s decendants $>$ number of vertices in $SCS$}{
+        \If{number of $v$'s descendants $>$ number of vertices in $SCS$}{
           Add $SCS$ to list of knots\;
           break\;
           }\;
@@ -498,7 +586,7 @@ The following algorithm, taken from the NetworkX developer zone ticket \#663, is
 
 
 
-\section{Markov Chain Models}
+\section{Markov Chain Models}\label{sec:markovmodels}
 
 It is interesting to build an analytical model of the system's behaviour to deadlock.
 As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
@@ -938,7 +1026,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{figure}
 
 The heatmaps in Figure~\ref{fig:heatmaps} illustrate how varying the two transition probabilities out of each node affects the time to deadlock.
-Note the shape of the heatmap, this is due to the restriction than $r_{11} + r{12} \leq 1$ and $r_{21} + r_{22} \leq 1$.
+Note the shape of the heatmap, this is due to the restriction that $r_{11} + r{12} \leq 1$ and $r_{21} + r_{22} \leq 1$.
 We can see for both nodes it is the rejoining probability ($r_{11}$ and $r_{22}$) that has the most drastic effect on time to deadlock.
 This effect is greater for Node 2, the node that has the smaller queueing capacity.
 
@@ -968,7 +1056,7 @@ This effect is greater for Node 2, the node that has the smaller queueing capaci
 \end{figure}
 
 Times to deadlock in this case means the time to the first instance of deadlock.
-There is however three different deadlocked states which the queueing network can fall into, -1, -2 and -3.
+There is however three different deadlocked states which the queueing network can fall into, (-1), (-2) and (-3).
 
 A method is shown in \cite{stewart09} to find the probabilities of which absorbing state a Markov chain will reach.
 The discrete transition matrix must be in the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$.
@@ -1016,7 +1104,7 @@ Increasing $n_1$ causes a longer time to deadlock up to a point, where increasin
 This is due to the fact that there are other ways to get to deadlock, and we are only interested in the first instance of any of these deadlocks.
 Getting to deadlocked state (-2) is not affected by $n_1$, and so once $n_1$ goes over a certain threshold the system always reaches (-2) before any other deadlocked state, and so the time to deadlock is unaffected by increasing $n_1$ any further.
 
-This behaviour will be exhibited while $n_2$ increases too, however the threshold will take longer to reach as the base parameter for $n_1$ is larger than the base parameter for $n_2$.
+This behaviour is exhibited as $n_2$ increases too, however this threshold will take longer to reach as the base parameter for $n_1$ is larger than the base parameter for $n_2$.
 
 This behaviour is highlighted in the heatmap shown in Figure~\ref{fig:capacitiesheatmap}, where the analytical mean time to deadlock is shown with combinations of $n_1$ and $n_2$.
 For each value of $n_2$, once a certain threshold of $n_1$ is reached no more change in time to deadlock occurs.
@@ -1156,7 +1244,7 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = 
 The values $b_1$ and $b_2$ correspond to the number of people blocked to Node 1 and Node 2 respectively.
 The values $s_1$ and $s_2$ correspond to the amount of people currently in service at Node 1 and Node 2 respectively.
 
-This formulation of the Markov chain makes use of the following proposition:
+This formulation of the Markov chain makes use of the following proposition:\\
 
 \begin{proposition}
   In the two node queueing network described, if there are $b_1$ customers blocked to Node 1, and $b_2$ customers blocked to Node 2, where $b_1, b_2 > 0$, then:
@@ -1172,7 +1260,7 @@ This formulation of the Markov chain makes use of the following proposition:
   Now an unblocking where a customer transitions from being blocked at Node 1 to being at Node 2 yields $\delta = (-1, 0)$; his blocked part at $j$ disappears, while his existence part at $i$ transitions to Node 2 to become a $j$.
   This type of unblocking leaves space at Node 1 for more potential unblockings.
 
-  Similarly an unblocking where a customer transitions from being blocked at Node 2 to being at Node 1 yields $\delta = (0, -1)$; his blocked part at $i$ disappears, while his existence part at $j$ transitions to Node 2 to become a $i$.
+  Similarly an unblocking where a customer transitions from being blocked at Node 2 to being at Node 1 yields $\delta = (0, -1)$; his blocked part at $i$ disappears, while his existence part at $j$ transitions to Node 2 to become an $i$.
   This type of unblocking leaves space at Node 2 for more potential unblockings.
 
   Consider a customer finishing service and exiting the system at Node 1.
@@ -1195,6 +1283,7 @@ This formulation of the Markov chain makes use of the following proposition:
   \end{align*}
 
   A similar argument yields $\delta = (-\min(b_1+1, b_2), -\min(b_1+1, b_2+1))$ for the situation where a customer finishes service at Node 2 and exits the system.
+
 \end{proof}
 
 Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
@@ -1297,7 +1386,7 @@ Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $
 \label{fig:decomposeqnet}
 \end{figure}
 
-Defining $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ and $\omega_{1_2} = \max(\omega_{1_2}^{\star}, \omega_{1_2}^{\star\star})$ we get the following bound:
+Defining $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ and $\omega_{1_2} = \max(\omega_{1_2}^{\star}, \omega_{1_2}^{\star\star})$ we get the following bound:\\
 
 \begin{theorem}
 For any parameter sets the following inequality holds:
