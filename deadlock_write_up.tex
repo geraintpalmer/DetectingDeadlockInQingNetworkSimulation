@@ -24,8 +24,8 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 
-\title{Deadlocking in Queueing Networks}
-\author{Geraint Palmer}
+\title{On Deadlocking in Queueing Networks}
+\author{Geraint Ian Palmer}
 \date{}
 
 
@@ -34,7 +34,7 @@
 
 \maketitle
 
-This section will define and discuss the properties and detection of deadlock in queueing networks.
+This report will define and discuss the properties and detection of deadlock in queueing networks.
 Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected.
 Open queueing networks are those networks that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
@@ -246,18 +246,22 @@ If the routing matrix of $Q$ is complete, that is there is a possible route from
 
 \begin{proof}
   The number of different types of deadlock correspond to the number of cycles in the routing matrix, including self loops.
-  As there is a route from every node to every other node, this corresponds to every possible compination of nodes.
+  As there is a route from every node to every other node, this corresponds to every possible combination of nodes in deadlock.
   Let $S$ denote the set of nodes.
 
   A Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets.
   They are generated using the following recurrance relation
 
-  \begin{equation*}
-    B_n = \sum_{k=0}^{n+1} \binom{n-1}{k} B_k
-  \end{equation*}
+  \begin{align*}
+    B_n &= \sum_{k=0}^{n-1} \binom{n-1}{k} B_k\\
+    B_0 &= 1
+  \end{align*}
 
-  At first glance a Bell number seems inappropriate as this problem isn't looking for every possible partition, but every possible combination of nodes, even if that is inexhaustive of the set of nodes.
-  What we need to find is every possible partition of every set in $\mathcal{P}(S) \setminus \emptyset$.
+  At first glance a Bell number seems inappropriate as this problem isn't looking for every possible partition, but every possible partition of combinations of nodes, to allow for partitions that are inexhaustive of the set.
+  This is required as not every node will be in deadlock.
+
+  The set of sets of all nodes in deadlock is $\mathcal{P}(S) \setminus \emptyset$, and every set of deadlocked nodes $S_k$ has $B_{\left| S_k \right|}$ possible partitions.
+
 
   In $\mathcal{P}(S)$ there are $\binom{N}{i}$ sets of size $i$.
   And so the number of ways to partition every set in $\mathcal{P}(S)$ is:
