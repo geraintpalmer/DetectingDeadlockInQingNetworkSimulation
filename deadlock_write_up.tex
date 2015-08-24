@@ -238,15 +238,16 @@ At which point, the whole system is deadlocked, and so has reached absorbing dea
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
 That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
 
-If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, then the following proposition gives the number of possible deadlocked states.\\
+The number of different deadlocked states is equal to the number of combinations of cycles in the routing matrix.
+If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, and every node has finite queueing capacity, then the following proposition gives the number of possible deadlocked states.\\
 
 \begin{proposition}
-  If the routing matrix of a queueing network $Q$ with $N$ nodes is complete, that is there is a possible route from every service station to every other service station, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $i$th Bell number.
+  If the routing matrix of a queueing network $Q$ with $N$ nodes is complete, that is there is a possible route from every service station to every other service station, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $i$th Bell number.
 \end{proposition}
 
 \begin{proof}
-  The number of different types of deadlock correspond to the number of cycles in the routing matrix, including self loops.
-  As there is a route from every node to every other node, this corresponds to every possible combination of nodes in deadlock.
+  The number of different types of deadlock correspond to the number of combinations of cycles in the routing matrix, including self loops.
+  As there is a route from every node to every other node, this corresponds to every possible combination of nodes in deadlock, for every combination of deadlocks.
   Let $S$ denote the set of nodes.
 
   A Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets.
@@ -276,6 +277,8 @@ If the routing matrix of $Q$ is complete, that is there is a possible route from
 
 \end{proof}
 
+The remainder of this report will only be concerned with the first instance of deadlock.
+The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity.
 
 \section{Dynamically Detecting Deadlock}\label{sec:detectdeadlock}
 In the following subsections, a method will be presented to dynamically detect deadlock in discrete event simulations of queueing networks.
