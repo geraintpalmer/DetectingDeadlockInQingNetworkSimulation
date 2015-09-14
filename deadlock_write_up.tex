@@ -41,10 +41,10 @@ Open queueing networks are those networks that have at least one node to which c
 
 \section{Introduction}
 
-The simplest representation of deadlock is shown in Figure~\ref{fig:gridlock}.
-Here deadlock, or gridlock, is caused by the mutual blocking of cars.
-The blue cars are blocked from movement due to the yellow cars; the yellow cars are blocked from movement due to the green cars, the green cars are blocked from movement due to the red cars; and the red cars are blocked from movement due to the blue cars.
-This can be interperated as the blue cars indirectly blocking themselves.
+A simple representation of deadlock is shown in Figure~\ref{fig:gridlock}.
+Here deadlock, or gridlock, is caused by the mutual blocking of vehicles.
+The blue vehicles are blocked from movement due to the yellow vehicles; the yellow vehicles are blocked from movement due to the green vehicles, the green vehicles are blocked from movement due to the red vehicles; and the red vehicles are blocked from movement due to the blue vehicles.
+This can be interperated as the blue vehicles indirectly blocking themselves, and similarly for the other colours.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -54,14 +54,17 @@ This can be interperated as the blue cars indirectly blocking themselves.
   \end{center}
 \end{figure}
 
-This work will investigate deadlocking in open restricted queueing networks.
-Section~\ref{sec:litreview} will give an overview of the literature on both resticted queueing networks and general deadlocks.
-Section~\ref{sec:typesofdeadlock} will differentiate between two different types of deadlocks in queueing networks.
-In Section~\ref{sec:detectdeadlock} the state digraph will be defined, explained, and it will be shown how to use the state digraph to detect deadlock in queueing network simulations.
-Section~\ref{sec:markovmodels} Markov chain models of five simple queueing networks will be given and their deadlocking properties explored.
-Finally a bound will be given on the expected time to deadlock of one of the queueing network models given.
+This report is structured as follows:
 
-Throughout this report for the $i$th node of a queueing network the following notation will be used:
+\begin{itemize}
+  \item Section~\ref{sec:litreview} gives an overview of the literature on both resticted queueing networks and general deadlocks.
+  \item Section~\ref{sec:typesofdeadlock} discusses different types of deadlocks in queueing networks.
+  \item Section~\ref{sec:detectdeadlock} defines and explains the state digraph, and demonstrates how to use the state digraph to detect deadlock in queueing network simulations.
+  \item Section~\ref{sec:markovmodels} defines Markov chain models for five simple queueing networks, and solved using linear algebraic techniques.
+  \item Section~\ref{sec:bound} gives a bound on the expected time to deadlock for one of the queueing network models given.
+\end{itemize}
+
+Throughout this report, for the $i$th node of a queueing network the following notation will be used:
 
 \begin{itemize}
   \item $\Lambda_i$ denotes the arrival rate
@@ -72,20 +75,15 @@ Throughout this report for the $i$th node of a queueing network the following no
 \end{itemize}
 
 Exponential service rates and Poisson arrivals are assumed.
-The following definition of deadlock will be used.\\
+
+In open queueing networks with at least one cycle containing all service stations with restricted queueing capacity, deadlock can be experienced.
+For he purposes of this report, deadlock is defined as follows.\\
 
 \begin{definition}
     When a simulation is in a situation where at least one service station,
     despite having arrivals, ceases to begin or finish any more services
-    due to recursive upstream blocking the system is said to be in deadlock.
+    due to recursive upstream blocking, the system is said to be in deadlock.
 \end{definition}
-
-Deadlock can be experienced in any open queueing network that experiences
-blocking, with at least once cycle containing all service stations with
-restricted queueing capacity.
-
-Deadlock occurs when a customer finishes service at node $i$ and is blocked from transitioning to node $j$; however the individuals in node $j$ are all blocked, directly or indirectly, by the blocked individual in node $i$.
-That is, deadlock occurs if every individual blocking individual $X$, directly or indirectly, are also blocked.
 
 In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
 Customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
@@ -1356,7 +1354,7 @@ Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\m
 
 
 
-\subsection{A Bound on the Mean Time to Deadlock}
+\section{A Bound on the Mean Time to Deadlock}\label{sec:bound}
 In this section we shall define six deadlocking queueing networks as follows:
 
 \begin{itemize}
