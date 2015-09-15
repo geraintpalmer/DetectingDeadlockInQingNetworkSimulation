@@ -1,0 +1,43 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \node (a) [style={minimum size=1.5cm,fill=orange,text=black,shape=circle}] at (0, 0) {};
+  \node (b) [style={minimum size=1.5cm,fill=green,text=black,shape=circle}] at (5, 0) {};
+  \node (c) [style={minimum size=1.5cm,fill=green,text=black,shape=circle}] at (0, 5) {};
+  \node (d) [style={minimum size=1.5cm,fill=orange,text=black,shape=circle}] at (5, 5) {};
+
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (a) -- (b);
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (b) -- (a);
+
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (a) -- (c);
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (c) -- (a);
+
+  \draw[draw=orange, ultra thick, -triangle 90] (a) -- (d);
+  \draw[draw=orange, ultra thick, -triangle 90] (d) -- (a);
+
+  \draw[draw=green, ultra thick, -triangle 90] (b) -- (c);
+  \draw[draw=green, ultra thick, -triangle 90] (c) -- (b);
+
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (b) -- (d);
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (d) -- (b);
+
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (c) -- (d);
+  \draw[draw=black!20!white, ultra thick, -triangle 90] (d) -- (c);
+
+  \draw[draw=orange, ultra thick, -triangle 90] (a) to [out=-120,in=180,looseness=4] (a);
+
+  \draw[draw=green, ultra thick, -triangle 90] (b) to [out=0,in=300,looseness=4] (b);
+
+  \draw[draw=green, ultra thick, -triangle 90] (c) to [out=-210,in=90,looseness=4] (c);
+
+  \draw[draw=orange, ultra thick, -triangle 90] (d) to [out=90,in=30,looseness=4] (d);
+
+\end{tikzpicture}
+
+\end{document}

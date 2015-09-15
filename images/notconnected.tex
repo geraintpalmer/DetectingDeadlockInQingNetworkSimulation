@@ -1,0 +1,50 @@
+\documentclass{standalone}
+% \documentclass{article}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  % Queue A
+  \draw (0, 0) -- (8, 0);
+  \draw (8, 0) -- (8, 3);
+  \draw (0, 3) -- (8, 3);
+  \draw (4, 0) -- (4, 3);
+  \draw (5, 0) -- (5, 3);
+  \draw (6, 0) -- (6, 3);
+  \draw (7, 0) -- (7, 3);
+  \draw (0, 0) -- (0, 3);
+
+  \node at (3, 1.5) {};
+
+  % Service center a
+  \draw (10, 1.5) circle (1.5) node {};
+
+  % Queue B
+  \draw (7, 6) -- (7, 9);
+  \draw (7, 6) -- (15, 6);
+  \draw (7, 9) -- (15, 9);
+  \draw (8, 6) -- (8, 9);
+  \draw (9, 6) -- (9, 9);
+  \draw (10, 6) -- (10, 9);
+  \draw (11, 6) -- (11, 9);
+  \draw (15, 6) -- (15, 9);
+
+  % Service center B
+  \draw (5, 7.5) circle (1.5) node {};
+
+  % % In and out routes
+  \draw[thick, -triangle 90] (11.5, 1.5) -- (20, 1.5);
+  \draw[thick, -triangle 90] (3.5, 7.5) -- (-5, 7.5);
+  \draw[thick, -triangle 90] (-5, 1.5) -- (0, 1.5) node [pos=0, left] {};
+  \draw[thick, -triangle 90] (20, 7.5) -- (15, 7.5) node [pos=0, right] {};
+
+  % Feedback routs
+  \draw[thick, -triangle 90] (17, 1.5) -- (17, -1.5) -- (-2, -1.5) -- (-2, 1.5);
+  \draw[thick, -triangle 90] (-2, 7.5) -- (-2, 10.5) -- (17, 10.5) -- (17, 7.5);
+  \node at (16.5, 0) {};
+  \node at (-2.5, 9) {};
+\end{tikzpicture}
+
+\end{document}

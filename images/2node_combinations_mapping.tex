@@ -1,0 +1,28 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usepackage{standalone}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\node at (0, 18) {\includestandalone{images/deadlockcombinations/dummy2_1a}};
+\draw[ultra thick,-triangle 90] (0, 15) -- (0, 12.5) node[midway, left] {\huge{$g$}};
+\node at (0, 10) {\includestandalone{images/deadlockcombinations/2node1a}};
+\node at (10, 18) {\includestandalone{images/deadlockcombinations/dummy2_1b}};
+\draw[ultra thick,-triangle 90] (10, 15) -- (10, 12.5) node[midway, left] {\huge{$g$}};
+\node at (10, 10) {\includestandalone{images/deadlockcombinations/2node1b}};
+
+\node at (20, 18) {\includestandalone{images/deadlockcombinations/dummy2_1ab}};
+\draw[ultra thick,-triangle 90] (20, 15) -- (20, 12.5) node[midway, left] {\huge{$g$}};
+\node at (20, 10) {\includestandalone{images/deadlockcombinations/2node1ab}};
+\node at (30, 18) {\includestandalone{images/deadlockcombinations/dummy2_2a_b}};
+\draw[ultra thick,-triangle 90] (30, 15) -- (30, 12.5) node[midway, left] {\huge{$g$}};
+\node at (30, 10) {\includestandalone{images/deadlockcombinations/2node2a_b}};
+
+\end{tikzpicture}
+
+\end{document}

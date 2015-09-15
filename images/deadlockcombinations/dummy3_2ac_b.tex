@@ -1,0 +1,21 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw[opacity=.3,line width=25mm,line cap=round,draw=yellow, rounded corners=2.5mm] (0, 0) -- (0, 3);
+  \draw[opacity=.3,line width=25mm,line cap=round,draw=yellow, rounded corners=2.5mm] (3, 0) -- (3, 0);
+  \draw[opacity=.3,line width=25mm,line cap=round,draw=yellow, rounded corners=2.5mm] (3, 3) -- (3, 3);
+
+  \node (a) [style={minimum size=1.5cm,fill=black!20!white,text=black,shape=circle}] at (0, 0) {\LARGE{$a'$}};
+  \node (b) [style={minimum size=1.5cm,fill=black!20!white,text=black,shape=circle}] at (3, 0) {\LARGE{$b'$}};
+  \node (c) [style={minimum size=1.5cm,fill=black!20!white,text=black,shape=circle}] at (0, 3) {\LARGE{$c'$}};
+  \node (xi) [style={minimum size=1.5cm,fill=black!20!white,text=black,shape=circle}] at (3, 3) {\textcolor{red}{\LARGE{$\xi$}}};
+
+\end{tikzpicture}
+
+\end{document}

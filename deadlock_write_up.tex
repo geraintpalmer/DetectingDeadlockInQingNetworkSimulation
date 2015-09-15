@@ -192,13 +192,33 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
-In the introduction an idea was introduced that parts of a queueing network can be in a deadlocked state, although other parts will continue to flow.
+For the purpose of this section a queueing network will be described as connected if the as a possible path from every node to every other node regardless of direction; and will be described as complete if, from any node, there is a non zero probability of joining any other node of the network, including re-entering the same node.
+Figure~\ref{fig:connectedcomplete} illustrates these concepts.
+
+\begin{figure}[!htbp]
+\begin{center}
+\begin{subfigure}[b]{0.3\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/notconnected}
+  \caption{Not connected.}
+  \label{fig:connected}
+\end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/connected}
+  \caption{Connected but not complete.}
+  \label{fig:notconnected}
+\end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+  \includestandalone[width=0.9\textwidth]{images/complete}
+  \caption{Complete.}
+  \label{fig:complete}
+\end{subfigure}
+\end{center}
+\caption{Illustrating connectedness and completeness in queueing networks.}
+\label{fig:connectedcomplete}
+\end{figure}
+
 The different configurations of which nodes experience deadlock can be thought
 of as different types of deadlock.
-The amount of different types of deadlock that a queueing network can experience
-is equal to the number of directed cycles in in the queueing network's routing
-matrix. % This paragraph will change and will need more discussion of last
-%sentence (images etc...)
 
 For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.\\
 
@@ -213,69 +233,99 @@ For connected queueing networks, these deadlocks can be classified into transien
     queueing network are in deadlock.\\
 \end{definition}
 
-Figure~\ref{fig:transabsorb} shows a three nodes network in a transient deadlocked state, and an absorbing deadlocked state.
+Figure~\ref{fig:transabsorb} shows a three node network in a transient deadlocked state, and an absorbing deadlocked state.
 In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occupant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
 However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
 At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
 
 \begin{figure}[!htbp]
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{center}
+\begin{subfigure}[b]{0.45\textwidth}
   \includestandalone[width=0.9\textwidth]{images/transientdeadlock}
   \caption{Transient deadlock.}
   \label{fig:trans}
 \end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{subfigure}[b]{0.45\textwidth}
   \includestandalone[width=0.9\textwidth]{images/absorbingdeadlock}
   \caption{Absorbing deadlock.}
   \label{fig:absorb}
 \end{subfigure}
 \caption{Types of deadlock: a) transient and b) absorbing.}
 \label{fig:transabsorb}
+\end{center}
 \end{figure}
 
-It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node.
-That is, once $Q$ falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
+It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node, or those non-deadlocked nodes also becoming deadlocked themselves.
+That is, once a queueing network falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
 
 The number of different deadlocked states is equal to the number of combinations of cycles in the routing matrix.
-If the routing matrix of $Q$ is complete, that is there is a possible route from every service station to every other service station, and every node has finite queueing capacity, then the following proposition gives the number of possible deadlocked states.\\
+
+\subsection{Number of Deadlock types in Complete Queueing Network}
+
+Figure~\ref{fig:4nodecombinations} illustrates the number of different types of deadlock configurations possible in a complete queueing network with four nodes.
+
+\begin{figure}[!htbp]
+  \begin{center}
+    \includestandalone[width=0.75\textwidth]{images/4node_combinations}
+  \end{center}
+  \caption{The $51 = B_5-1$ configurations of a 4 node complete queueing network.}
+  \label{fig:4nodecombinations}
+\end{figure}
+
+Before proceeding, remember that a Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets \cite{cameron94}.
+Now the following theorem gives the number of possible deadlocked states in a complete queueing network.\\
 
 \begin{proposition}
-  If the routing matrix of a queueing network $Q$ with $N$ nodes is complete, that is there is a possible route from every service station to every other service station, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $i$th Bell number.
+  If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_i$ denotes the $i$th Bell number.
 \end{proposition}
 
 \begin{proof}
-  The number of different types of deadlock correspond to the number of combinations of cycles in the routing matrix, including self loops.
-  As there is a route from every node to every other node, this corresponds to every possible combination of nodes in deadlock, for every combination of deadlocks.
-  Let $S$ denote the set of nodes.
 
-  A Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets.
-  They are generated using the following recurrance relation
+Define $S_N$ as a set of of $N$ nodes.
+Define $D_N$ as the set of possible deadlocks on a queueing network $Q$ with $N$ nodes.
+Define $\xi$ as a dummy node.
+Define $P_N$ as the set of all partitions of $S_N\cup\{\xi\}$ not including the set that counts all nodes in one partition.
 
-  \begin{align*}
-    B_n &= \sum_{k=0}^{n-1} \binom{n-1}{k} B_k\\
-    B_0 &= 1
-  \end{align*}
+Now $|S_N| = B_{N+1}-1$.
 
-  At first glance a Bell number seems inappropriate as this problem isn't looking for every possible partition, but every possible partition of combinations of nodes, to allow for partitions that are inexhaustive of the set.
-  This is required as not every node will be in deadlock.
+Consider the mapping $g:D_N \mapsto P_N$ defined by:
 
-  The set of sets of all nodes in deadlock is $\mathcal{P}(S) \setminus \emptyset$, and every set of deadlocked nodes $S_k$ has $B_{\left| S_k \right|}$ possible partitions.
+\begin{itemize}
+  \item The node $x \in Q$ maps to a node $x' \in S_N$.
+  \item If $x'$ belongs to the same partition as $\xi$ then $x$ is not involved in deadlock.
+  \item If $x'$ does not belong to the same partition as $\xi$ then all nodes in $x'$'s partition are in deadlock together.
+\end{itemize}
 
-
-  In $\mathcal{P}(S)$ there are $\binom{N}{i}$ sets of size $i$.
-  And so the number of ways to partition every set in $\mathcal{P}(S)$ is:
-
-  \begin{align*}
-    &= \sum_{i=0}^N \binom{N}{i} B_i\\
-    &= B_{N+1}\\
-  \end{align*}
-
-  Only one of these partitions corresponds to the empty set, that is when no nodes are deadlocked.
-  Therefore the number of daedlocked states correspond to $B_{N+1}-1$.
+The mapping $g$ is both 1-1 and onto, and so is a bijection.
+Therefore $|D_N| = |P_N| = B_{N+1}-1$.
 
 \end{proof}
 
-The remainder of this report will only be concerned with the first instance of deadlock.
+Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ and $N=3$.
+
+\begin{figure}[!htbp]
+\begin{subfigure}[b]{\textwidth}
+  \begin{center}
+    \includestandalone[width=0.7\textwidth]{images/2node_combinations_mapping}
+  \end{center}
+  \caption{Example of $g$ for $N=2$}
+  \label{fig:2Nmapping}
+\end{subfigure}\newline
+\newline
+\begin{subfigure}[b]{\textwidth}
+  \includestandalone[width=\textwidth]{images/3node_combinations_mapping}
+  \caption{Example of $g$ for $N=3$}
+  \label{fig:3Nmapping}
+\end{subfigure}
+\caption{Example of $g$ for $N=2$ and $N=3$.}
+\label{fig:exampleofmapping}
+\end{figure}
+
+Some deadlock configurations cannot be reached without first having gone through another deadlock state.
+For example, a deadlock configuration that consists of two seperate components in deadlock must have been in a state with one deadlocked component prior to reaching that configuration.
+
+The remainder of this report will only be concerned with the first instance of deadlock, that is the deadlocked states that can be reached from a non-deadlocked state directly.
+That is deadlock configurations with only one deadlocked component.
 The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity.
 
 \section{Dynamically Detecting Deadlock}\label{sec:detectdeadlock}
