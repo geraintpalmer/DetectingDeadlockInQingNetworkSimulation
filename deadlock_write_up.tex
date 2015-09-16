@@ -260,7 +260,7 @@ That is, once a queueing network falls into one of the transient deadlocked stat
 
 The number of different deadlocked states is equal to the number of combinations of cycles in the routing matrix.
 
-\subsection{Number of Deadlock types in Complete Queueing Network}
+\subsection{Deadlock types in Complete Queueing Network}
 
 Figure~\ref{fig:4nodecombinations} illustrates the number of different types of deadlock configurations possible in a complete queueing network with four nodes.
 
@@ -320,6 +320,19 @@ Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ 
 \caption{Example of $g$ for $N=2$ and $N=3$.}
 \label{fig:exampleofmapping}
 \end{figure}
+
+\begin{proposition}
+  If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible absorbing deadlocked states is $B_N$, and the number of possible transient deadlocked states is $B_{N+1}-B_N-1$.
+\end{proposition}
+
+\begin{proof}
+In an absorbing deadlocked state every node is involved in some configuration of deadlock.
+The number of deadlock configurations where there are no undeadlocked nodes is simply the number of partitions of $N$ nodes.
+Therefore the number of absorbing states is $B_N$ from the definition of a Bell number.
+
+A deadlocked state is either absorbing or transient.
+If there are $B_N$ absorbing states, and $B_{N+1}-1$ in total, then there must be $B_{N+1}-B{N}-1$ transient deadlocked states.
+\end{proof}
 
 Some deadlock configurations cannot be reached without first having gone through another deadlock state.
 For example, a deadlock configuration that consists of two seperate components in deadlock must have been in a state with one deadlocked component prior to reaching that configuration.
