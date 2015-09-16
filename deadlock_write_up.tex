@@ -341,8 +341,8 @@ The remainder of this report will only be concerned with the first instance of d
 That is deadlock configurations with only one deadlocked component.
 The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity.
 
-\section{Dynamically Detecting Deadlock}\label{sec:detectdeadlock}
-In the following subsections, a method will be presented to dynamically detect deadlock in discrete event simulations of queueing networks.
+\section{Detecting Deadlock}\label{sec:detectdeadlock}
+In the following subsections, a method will be presented to detect deadlock in discrete event simulations of queueing networks.
 The following definitions will be required in this section:
 
 \begin{tabular}{ p{5cm} p{10cm} }
@@ -360,7 +360,7 @@ The following definitions will be required in this section:
 
 \subsection{State Digraph}
 
-Presented is a method of detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state digraph.
+A method for detecting when deadlock occurs in an open queueing network $Q$ with $N$ nodes, using a dynamic directed graph, the state digraph, is now proposed.
 
 Let the number of servers in node $i$ be denoted by $c_i$.
 Define $D(t)=(V(t), E(t))$ as the state digraph of $Q$ at time $t$.
@@ -405,7 +405,7 @@ The simulation starts with full queues, and every server occupied by a customer 
   \label{fig:general_buildup_1}
 \end{figure}
 
-Customer 13 finishes service, and is blocked from entering node $A$. Figure~\ref{fig:general_buildup_2}.
+Customer 13 finishes service and is blocked from entering node $A$ (Figure~\ref{fig:general_buildup_2}).
 
 \begin{figure}[H]
   \begin{tabular}{ c c c }
@@ -416,7 +416,7 @@ Customer 13 finishes service, and is blocked from entering node $A$. Figure~\ref
   \label{fig:general_buildup_2}
 \end{figure}
 
-Then customer 4 finishes service and is blocked from entering node $B$. Figure~\ref{fig:general_buildup_3}.
+Then customer 4 finishes service and is blocked from entering node $B$ (Figure~\ref{fig:general_buildup_3}).
 
 \begin{figure}[H]
   \begin{tabular}{ c c c }
@@ -427,7 +427,7 @@ Then customer 4 finishes service and is blocked from entering node $B$. Figure~\
   \label{fig:general_buildup_3}
 \end{figure}
 
-Then customer 9 finishes service and is blocked from entering node $A$. Figure~\ref{fig:general_buildup_4}.
+Then customer 9 finishes service and is blocked from entering node $A$ (Figure~\ref{fig:general_buildup_4}).
 
 \begin{figure}[H]
   \begin{tabular}{ c c c }
@@ -438,7 +438,7 @@ Then customer 9 finishes service and is blocked from entering node $A$. Figure~\
   \label{fig:general_buildup_4}
 \end{figure}
 
-Finally, in Figure~\ref{fig:general_buildup_5} customer 5 finishes service and wants to reenter the queue for node $A$ but is blocked.
+Finally, in Figure~\ref{fig:general_buildup_5} customer 5 finishes service and wants to re-enter the queue for node $A$ but is blocked.
 A deadlock situation arises as customer 5 is waiting for customer 4 to move, who is waiting for customer 9 to move, who is waiting for either customer 4 or 5 to move.
 
 \begin{figure}[H]
@@ -453,7 +453,7 @@ A deadlock situation arises as customer 5 is waiting for customer 4 to move, who
 The rules on how edges are removed from the state graph will now be shown.
 For illustrative purposes the queueing network here is a different queueing network than discussed above.
 
-Here the simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
+The simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
 This is shown in Figure~\ref{fig:general_builddown_1}.
 
 \begin{figure}[H]
@@ -467,7 +467,7 @@ This is shown in Figure~\ref{fig:general_builddown_1}.
   \label{fig:general_builddown_1}
 \end{figure}
 
-Customer 6 finishes service and immediately joins service at node $C$. Figure~\ref{fig:general_builddown_2}.
+Customer 6 finishes service and immediately joins service at node $C$ (Figure~\ref{fig:general_builddown_2}).
 
 \begin{figure}[H]
   \begin{center}
@@ -480,7 +480,7 @@ Customer 6 finishes service and immediately joins service at node $C$. Figure~\r
   \label{fig:general_builddown_2}
 \end{figure}
 
-Now there is room for customer 4 to move into service at node $B$. Figure~\ref{fig:general_builddown_3}.
+Now there is room for customer 4 to move into service at node $B$ (Figure~\ref{fig:general_builddown_3}).
 Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as customer 5 is still blocked by that server.
 
 \begin{figure}[H]
@@ -495,7 +495,7 @@ Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as cu
 \end{figure}
 
 The customers queueing at node $A$ move along the queue, with customer 3 begining service.
-This leaves enough room for customer 7 to join the back of the queue at $A$. Figure~\ref{fig:general_builddown_4}.
+This leaves enough room for customer 7 to join the back of the queue at $A$ (Figure~\ref{fig:general_builddown_4}).
 
 \begin{figure}[H]
   \begin{center}
@@ -508,15 +508,15 @@ This leaves enough room for customer 7 to join the back of the queue at $A$. Fig
   \label{fig:general_builddown_4}
 \end{figure}
 
-\subsubsection*{Observations}
+\subsubsection{Observations}
 
 Consider one weakly connected component $G(t)$ of $D(t)$.
 Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
-Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
+Next consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$.
 Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
 We can interpret all $X_a$'s descendants as the servers whose occupants are directly or indirectly blocking $a$, and we can interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
 
-Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are being 0 or $c_j$.
+Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are 0 or $c_j$.
 If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors.
 The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
 
@@ -552,7 +552,7 @@ And so there is no path from $X$ to a vertex with out-degree of 0.
 For queueing networks:
 \begin{itemize}
   \item with one node
-  \item with node nodes, each with two or fewer parallel servers
+  \item with two nodes, each with two or fewer parallel servers
   \item with a finite amount of nodes, each with a single server
 \end{itemize}
 a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
@@ -632,12 +632,14 @@ As all servers are occupied by blocked individuals, no server can finish service
 
 \end{proof}
 
-\subsection{Finding Knots}
+Finding knots is discussed in Section~\ref{sec:findknots}.
+
+\subsection{Finding Knots}\label{sec:findknots}
 
 By definition knots are strongly connected subgraphs where every member has descendants, and every member's descendants belong to that subgraph.
 
-Using the Python package NetworkX, finding strongly connected components, and finding a vertex's descendants are built-in methods.
-The following algorithm, taken from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
+An implementation of an algorithm to find strongly connected components in the Python package NetworkX is used, in the following algorithm.
+The following algorithm, taken and adapted from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
 
 \begin{algorithm}[H]
     \DontPrintSemicolon
