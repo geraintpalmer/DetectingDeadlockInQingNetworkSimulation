@@ -77,7 +77,7 @@ Throughout this report, for the $i$th node of a queueing network the following n
 Exponential service rates and Poisson arrivals are assumed.
 
 In open queueing networks with at least one cycle containing all service stations with restricted queueing capacity, deadlock can be experienced.
-For he purposes of this report, deadlock is defined as follows.\\
+For the purposes of this report, deadlock is defined as follows.\\
 
 \begin{definition}
     When a simulation is in a situation where at least one service station,
@@ -88,7 +88,7 @@ For he purposes of this report, deadlock is defined as follows.\\
 In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
 Customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
 enough queueing space at node $B$ to accept them.
-We say the customer at server $A_1$ is blocked by the customer at server $B_1$, as he is waiting for that customer to be released.
+We say the customer at server $A_1$ is blocked by the customer at server $B_1$, as they are waiting for that customer to be released.
 Similarly, the customer occupying server $B_1$ has finished service at node $B$, but remains there as there is not enough queueing space at node $A$, and so the customer at server $B_1$ is blocked by the customer at server $A_1$.
 
 When there are multiple servers, individuals become blocked by all customers in
@@ -658,21 +658,63 @@ The following algorithm, taken and adapted from the NetworkX developer zone tick
 
 \section{Markov Chain Models}\label{sec:markovmodels}
 
-It is interesting to build an analytical model of the system's behaviour to deadlock.
-As a Markov chain model, the deadlocking state is an absorbing state, and so any queueing network that can experience deadlock is guaranteed to experience deadlock.
+This section will build analytical models of systems' behaviour to deadlock.
+The section is structured as follows:
+\begin{itemize}
+  \item Section~\ref{sec:analysisMC} shows how to analyse a general Markov model of a deadlocking queueing system.
+  \item Section~\ref{sec:1nodenet} gives the Markov formulation for a one node queueing network with single servers.
+  \item Section~\ref{sec:sec:2nodewithoutselfloops} gives the Markov formulation for a two node queueing network with single servers without self loops.
+  \item Section~\ref{sec:2nodeselfloops} gives the Markov formulation for a two node complete queueing network with single servers.
+  \item Section~\ref{sec:onenodemulti} gives the Markov formulation for a one node queueing network with multiple servers.
+  \item Section~\ref{sec:2nodemulti} gives the Markov formulation for a two node queueing network with multiple servers without self loops.
+\end{itemize}
 
-We can however find the expected time until deadlock is reached.
-It is shown in \cite{stewart09} that for a discrete transition matrix of the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$ then the expected number of time steps until absorption starting from state $i$ is the $i\text{th}$ element of the vector
+\subsection{Analysis of Markov Chain Models}\label{sec:analysisMC}
+
+This section will discuss the techniques used in subsequent sections to analyse specific Markov chain models of deadlock.
+
+In general a continuous Markov chain model of a deadlocking queueing network is a series of states $s \in S$ and the transition rates between states $q_{s_1,s_2}$.
+Each state $s$ uniquely defines a configuration of customers around the queueing network.
+Deadlocked states are also present, either denoted by that specific configuration of customers, or by negative numbers, for example $-1$.
+
+In the Markov chain models discussed here, only the first instance of deadlock is considered.
+This may be a transient deadlocked state, however once this state is reached further transitions are not considered, and so all deadlocked states cannot transition to any other state, and so is an absorbing state of the Markov chain.
+Therefore any queueing network that can experience deadlock is guaranteed to experience deadlock, as absorbing Markov chains are guaranteed to enter one of its absorbing states.
+
+The expected time until deadlock is reached is equivalent to the expected time to absorbtion of the Markov chain, which can easily be found \cite{stewart09}.
+The canonical form of an absorbing Markov chain is
+
+\begin{equation*}
+P = \left(\begin{matrix} T & U\\ 0 & I \end{matrix} \right)
+\end{equation*}
+
+where $I$ is an identity matrix.
+
+Now the expected number of time steps until absorption starting from state $i$ is the $i\text{th}$ element of the vector
+
 \begin{equation}
   (I - T)^{-1}e
 \end{equation}
+
 where $e$ is a vector of 1s.
-% this.
+
+Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the number expected of time steps to absorption, or deadlock can be found.
+
+When there are more than one deadlock state, there is more than one absorbing state in the Markov chain.
+The probabilities of which absorbing state a Markov chain will reach can be found.
+Now the $(i, j)^{\text{th}}$ element of the vector
+\begin{equation}
+  (I - T)^{-1}U
+\end{equation}
+
+corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
 
 \subsection{One Node Network}\label{sec:1nodenet}
 Consider the one node network with feedback loop shown in Figure~\ref{fig:queueingnetwork_1node}.
-There is room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
-Once a customer has finished service he rejoins the queue with probability $r_{11}$, and so exits the system with probability $1 - r_{11}$.
+This shows an \(M/M/1\) queue with room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
+Once a customer has finished service they rejoin the queue with probability $r_{11}$, and so exit the system with probability $1 - r_{11}$.
+
+Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $n$, $r_{11})$.
 
 \begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/1nodeexample}
@@ -683,7 +725,7 @@ Once a customer has finished service he rejoins the queue with probability $r_{1
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 1
         \}\cup\{-1\}\]
-where \(i\) denotes the number of individuals in service or waiting.
+where \(i\) denotes the number of individuals in service or waiting, and $-1$ denotes the deadlocked state.
 
 If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$ then the transitions are given by:
 
@@ -718,17 +760,17 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
 
 \begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain_1node}
-    \caption{Markov chain of the one node system.}
+    \caption{Diagrammatic representation of the Markov chain for $\Omega_1$.}
     \label{fig:1nodeMC}
 \end{figure}
 
 Figure~\ref{fig:timestodeadlock} shows the effect of varying the parameters of the queueing network on times to deadlock.
 Base parameters of $\Lambda = 10$, $n = 3$, $\mu = 5$ and $r_{11} = 0.25$ were used.
 
-We can see that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
+It can be seen that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the first node's queue filling up quicker.
 Increasing the queueing capacity $n$ results in reaching deadlock slower.
-Again this are intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlock.
+Again this is intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlock.
 
 
 \begin{figure}[!htbp]
@@ -756,7 +798,7 @@ Again this are intuitive, as increasing the queueing capacity allows more custom
 \label{fig:timestodeadlock}
 \end{figure}
 
-We get interesting behaviour as the service rate $\mu$ varies, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
+The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
 This behaviour can be interpreted as follows:
 \begin{itemize}
 \item At low service rates below a certain threshold, the arrival rate is relatively large compared to the service rate, and we can assume a saturated system.
@@ -770,8 +812,8 @@ Thus increasing the service rate removes people from the system, and as such the
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
 
-Figure~\ref{fig:threshold_r11}, Figure~\ref{fig:threshold_L} and Figure~\ref{fig:threshold_n} show the effect of varying $r_{11}$, $\Lambda$ and $n$ on this threshold respectively.
-In Figure~\ref{fig:threshold_n} it is shown that increasing the queueing capacity lowers the threshold, this is due to the system becoming saturated easier at lower queueing capacities, and therefore requiring a larger service rate to escape this saturated zone.
+Figures~\ref{fig:threshold_r11}, \ref{fig:threshold_L} and \ref{fig:threshold_n} show the effect of varying $r_{11}$, $\Lambda$ and $n$ on this threshold respectively.
+In Figure~\ref{fig:threshold_n} it is shown that increasing the queueing capacity lowers the threshold; this is due to the system becoming saturated easier at lower queueing capacities and therefore requiring a larger service rate to escape this saturated zone.
 In Figure~\ref{fig:threshold_r11} it is shown that increasing the rejoining probability raises the threshold.
 Lower rejoining probabilities make the system escape the saturated zone quicker, and only a low service rate is required to escape; however at high rejoin probabilities a higher service rate fills the system up quicker, and so an even higher service rate is required to escape the saturated zone.
 Figure~\ref{fig:threshold_L} implies a positive linear relationship between the arrival rate and the threshold.
@@ -807,6 +849,8 @@ Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities except self loops are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
+
+Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$.
 
 \begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/2nodeexample}
@@ -887,13 +931,13 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 \begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain}
-    \caption{Markov chain of the two node system without self loops, $n_1=1$ and $n_2=2$.}
+    \caption{Diagrammatic representation of the Markov chain for $\Omega_2$ with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
 \end{figure}
 
 Figure~\ref{fig:timestodeadlock2} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{12} = 0.25$ and $r_{21} = 0.15$ were used.
-We can see that we get similar behaviour as the 1 node network.
+similar behaviour to Figure~\ref{fig:timestodeadlock} can be seen.
 
 \begin{center}
 \begin{figure}[!htbp]
@@ -945,15 +989,17 @@ We can see that we get similar behaviour as the 1 node network.
 \end{center}
 
 
-\subsection{Two Node Network each with Self Loops}\label{sec:2nodeselfloops}
+\subsection{Complete Two Node Network}\label{sec:2nodeselfloops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodesfeedback}.
 This shows two \(M/M/1\) queues, with \(n_i\) queueing capacity at at each service station and service rates $\mu_i$.
 $\Lambda_i$ is the external arrival rates to each service station.
 All routing possibilities are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
 
+Let this system be denoted by $\Omega$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$.
+
 \begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/2nodefeedbackexample}
-  \caption{A two node queueing network, each with feedback loops.}
+  \caption{A complete two node queueing network.}
   \label{fig:queueingnetwork_2nodesfeedback}
 \end{figure}
 
@@ -974,7 +1020,7 @@ All routing possibilities are possible, where the routing probability from node 
                 \item Occupying a server but having finished service at the
                     first node waiting to join the second.
             \end{itemize}
-        and the state $(-3)$ denotes the deadlocked state cause by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
+        and the state $(-3)$ denotes the deadlocked state cause by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only. (Recall the different configurations of deadlock in Figure~\ref{fig:4nodecombinations})
 \end{itemize}
 
 If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then the transitions are given by:
@@ -1052,7 +1098,7 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 \begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/markov_chain_feedback}
-    \caption{Markov chain of the two node system with self loops, $n_1=1$ and $n_2=2$.}
+    \caption{Diagrammatic representation of the Markov chain for $\Omega$ with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMCfeedback}
 \end{figure}
 
@@ -1096,7 +1142,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{figure}
 
 The heatmaps in Figure~\ref{fig:heatmaps} illustrate how varying the two transition probabilities out of each node affects the time to deadlock.
-Note the shape of the heatmap, this is due to the restriction that $r_{11} + r{12} \leq 1$ and $r_{21} + r_{22} \leq 1$.
+Note the shape of the heatmap, this is due to the restriction that $r_{11} + r_{12} \leq 1$ and $r_{21} + r_{22} \leq 1$.
 We can see for both nodes it is the rejoining probability ($r_{11}$ and $r_{22}$) that has the most drastic effect on time to deadlock.
 This effect is greater for Node 2, the node that has the smaller queueing capacity.
 
@@ -1127,10 +1173,6 @@ This effect is greater for Node 2, the node that has the smaller queueing capaci
 
 Times to deadlock in this case means the time to the first instance of deadlock.
 There is however three different deadlocked states which the queueing network can fall into, (-1), (-2) and (-3).
-
-A method is shown in \cite{stewart09} to find the probabilities of which absorbing state a Markov chain will reach.
-The discrete transition matrix must be in the form $P = \bigl(\begin{smallmatrix} T & U\\ 0 & I \end{smallmatrix} \bigr)$.
-Then $A = (I - T)^{-1}U$, and the $(i, j)^{\text{th}}$ element of $A$ corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
 
 Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing network affects the absorption probabilities.
 
@@ -1169,7 +1211,7 @@ Figure~\ref{fig:absorbingprobs} shows how varying the parameters of the queueing
 \label{fig:absorbingprobs}
 \end{figure}
 
-Figure~\ref{fig:timestodeadlockfb_n1} shows interesting behaviour.
+Figure~\ref{fig:timestodeadlockfb_n1} shows that increasing queueing capacity is no longer nearly linear.
 Increasing $n_1$ causes a longer time to deadlock up to a point, where increasing $n_1$ any more does not affect the time to deadlock.
 This is due to the fact that there are other ways to get to deadlock, and we are only interested in the first instance of any of these deadlocks.
 Getting to deadlocked state (-2) is not affected by $n_1$, and so once $n_1$ goes over a certain threshold the system always reaches (-2) before any other deadlocked state, and so the time to deadlock is unaffected by increasing $n_1$ any further.
@@ -1214,7 +1256,7 @@ Here it is shown that once it is almost certain that deadlock will be caused by 
 It is possible to model the networks discussed in Section~\ref{sec:1nodenet} and Section~\ref{sec:2nodewithoutselfloops} where each node has multiple parallel servers.
 These models are discussed in the next subsections.
 
-\subsubsection{Multi-Server: One Node Network}
+\subsubsection{Multi-Server: One Node Network}\label{sec:onenodemulti}
 Consider the one node network with feedback loop discussed in Subsection~\ref{sec:1nodenet}, now with $c$ parallel servers.
 
 State space:
@@ -1223,7 +1265,7 @@ where \(i\) denotes the number of individuals at the node plus the number of ind
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
 The state $i=n+2c$ denotes the deadlocked state.
 
-If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$, then the transitions are given by:
+If we define $\delta = i_2 - i_1$ for all $i_k \in S$, then the transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
@@ -1248,7 +1290,7 @@ If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$, then the transitions are
   \quad \forall \quad 0 \leq j \leq c
 \end{equation}
 
-Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient spaces to go through before reaching the deadlocked state.
+Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
 Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i=n+c+1$ to $i=n+2c$) can jump back to state $i=n+c-1$ simply with a service and an exit.
 Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
 
@@ -1288,28 +1330,33 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
 \end{figure}
 
 
-\subsubsection{Multi-Server: Two Node Network without Self Loops}
+\subsubsection{Multi-Server: Two Node Network without Self Loops}\label{sec:2nodemulti}
 Consider the two node network with feedback loops discussed in Subsection~\ref{sec:2nodewithoutselfloops}, now with $c_1$ parallel servers at the first node, and $c_2$ parallel servers at the second node.
 
 State space:
-        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2\times n_2+c_2+c_1)}\}\]
-where $i$ denotes the number of individuals at the Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
-For example, $(i=n_1+c_1+2, j=n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
-The state $(i=n_1+c_1+c_2, j=n_2+c_2+c_1)$ denotes the deadlocked state.
+        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)}\}\]
+where $i$ denotes the number of individuals at Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
+For example, $(i, j) = (n_1+c_1+2, n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
+The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
 
-Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ ,then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by the following table:
+Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ ,then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:transitionsmutliserv}.
 
 
+\begin{table}
 \begin{center}
-\begin{adjustbox}{width=1\textwidth}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{ l | l | l | l |}
   & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\ \hline
   \rotatebox[origin=c]{90}{$i_1 < n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
   \rotatebox[origin=c]{90}{$i_1 = n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
   \rotatebox[origin=c]{90}{$i_1 > n_1 + c_1$} & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\ \hline
 \end{tabular}
-\end{adjustbox}
+}
+\caption{Table of transitions for a multi server two node network.}
+\label{tab:transitionsmultierv}
 \end{center}
+\end{table}
+
 
 The values $b_1$ and $b_2$ correspond to the number of people blocked to Node 1 and Node 2 respectively.
 The values $s_1$ and $s_2$ correspond to the amount of people currently in service at Node 1 and Node 2 respectively.
@@ -1325,7 +1372,7 @@ This formulation of the Markov chain makes use of the following proposition:\\
 \end{proposition}
 
 \begin{proof}
-  Each blocked individual is counted in the state space twice, once as an $i$ and once as a $j$. A blocked customer is counted as existing in the Node he is occupying, but also has a blocked part counted at the other node.
+  Each blocked individual is counted in the state space twice, once as an $i$ and once as a $j$. A blocked customer is counted as existing in the Node they is occupying, but also has a blocked part counted at the other node.
 
   Now an unblocking where a customer transitions from being blocked at Node 1 to being at Node 2 yields $\delta = (-1, 0)$; his blocked part at $j$ disappears, while his existence part at $i$ transitions to Node 2 to become a $j$.
   This type of unblocking leaves space at Node 1 for more potential unblockings.
@@ -1420,7 +1467,8 @@ Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\m
 
 
 \section{A Bound on the Mean Time to Deadlock}\label{sec:bound}
-In this section we shall define six deadlocking queueing networks as follows:
+This section will derive a bound for the mean time to deadlock of the $\Omega$ system.
+In order to do this, six deadlocking queueing networks are defined as follows:
 
 \begin{itemize}
   \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
@@ -1464,7 +1512,7 @@ $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
 \end{theorem}
 
 \begin{proof}
-First, define some systems:
+First, define the following systems:
 \begin{itemize}
   \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ system embedded within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_1}$.
   \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_2}$ system embedded within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean time to deadlock of $\widetilde{\Omega}_{1_2}$.
