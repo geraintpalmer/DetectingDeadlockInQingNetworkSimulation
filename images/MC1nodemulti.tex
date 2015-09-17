@@ -1,0 +1,69 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tikzstyle{state}=[minimum width=1.5cm, font=\boldmath];
+    % First col
+    \node (0) at (0,0) [state] {$(0)$};
+    \node (1) at ($(0)+(0,-2)$) [state] {$(1)$};
+    \node (2) at ($(1)+(0,-2)$) [state] {$(2)$};
+    \node (dots1) at ($(2)+(0,-2)$) [state] {\LARGE...};
+    \node (c-1) at ($(dots1)+(0,-2)$) [state] {$(c-1)$};
+    \node (c) at ($(c-1)+(0,-2)$) [state] {$(c)$};
+    \node (c+1) at ($(c)+(2,0)$) [state] {$(c+1)$};
+    \node (dots2) at ($(c+1)+(2,0)$) [state] {\LARGE...};
+    \node (n+c-1) at ($(dots2)+(2,-0)$) [state] {$(n+c-1)$};
+
+    % Second col
+    \node (n+c) at ($(n+c-1)+(0,2)$) [state] {$(n+c)$};
+    \node (n+c+1) at ($(n+c)+(0,2)$) [state] {$(n+c+1)$};
+    \node (dots3) at ($(n+c+1)+(0,2)$) [state] {\LARGE...};
+    \node (n+2c-1) at ($(dots3)+(0,2)$) [state] {$(n+2c-1)$};
+    \node (n+2c) at ($(n+2c-1)+(0,2)$) [state] {$(n+2c)$};
+
+    % Transitions
+    \draw[draw=red] (0) edge[out=-45,in=45,->,thick] node [left, text=red] {\tiny$\Lambda$} (1);
+    \draw[draw=red] (1) edge[out=-45,in=45,->,thick] node [left, text=red] {\tiny$\Lambda$} (2);
+    \draw[draw=red] (2) edge[out=-45,in=90,->,thick] node [left, text=red] {\tiny$\Lambda$} ($(2)+(0.6,-1.25)$);
+    \draw[draw=red] ($(c-1)+(0.6,1.25)$) edge[out=90,in=45,->,thick] node [left, text=red] {\tiny$\Lambda$} (c-1);
+    \draw[draw=red] (c-1) edge[out=-45,in=45,->,thick] node [left, text=red] {\tiny$\Lambda$} (c);
+
+    \draw[draw=red] (c) edge[out=45,in=135,->,thick] node [above, text=red] {\tiny$\Lambda$} (c+1);
+    \draw[draw=red] (c+1) edge[out=45,in=180,->,thick] node [above, text=red] {\tiny$\Lambda$} ($(c+1)+(1.25,0.6)$);
+    \draw[draw=red] ($(n+c-1)+(-1.25,0.6)$) edge[out=0,in=135,->,thick] node [above, text=red] {\tiny$\Lambda$} (n+c-1);
+
+    \draw[draw=green!60!black] (n+c-1) edge[->,thick] node [left,text=green!60!black] {\tiny$cr_{11}\mu$} (n+c);
+    \draw[draw=green!60!black] (n+c) edge[->,thick] node [left,text=green!60!black] {\tiny$(c-1)r_{11}\mu$} (n+c+1);
+    \draw[draw=green!60!black] (n+c+1) edge[->,thick] node [left,text=green!60!black] {\tiny$(c-2)r_{11}\mu$} ($(n+c+1)+(0,1.4)$);
+    \draw[draw=green!60!black] ($(n+2c-1)+(0,-1.4)$) edge[->,thick] node [left,text=green!60!black] {\tiny$2r_{11}\mu$} (n+2c-1);
+    \draw[draw=green!60!black] (n+2c-1) edge[->,thick] node [left,text=green!60!black] {\tiny$r_{11}\mu$} (n+2c);
+
+    \draw[draw=blue] (0) edge[out=-135,in=135,<-,thick] node [left, text=blue] {\tiny$(1-r_{11})\mu$} (1);
+    \draw[draw=blue] (1) edge[out=-135,in=135,<-,thick] node [left, text=blue] {\tiny$2(1-r_{11})\mu$} (2);
+    \draw[draw=blue] (2) edge[out=-135,in=-90,<-,thick] node [left, text=blue] {\tiny$3(1-r_{11})\mu$} ($(2)+(-0.6,-1.25)$);
+    \draw[draw=blue] ($(c-1)+(-0.6,1.25)$) edge[out=-90,in=135,->,thick] node [left, text=blue] {\tiny$(c-1)(1-r_{11})\mu$} (c-1);
+    \draw[draw=blue] (c-1) edge[out=-135,in=135,<-,thick] node [left, text=blue] {\tiny$c(1-r_{11})\mu$} (c);
+
+
+    \draw[draw=blue] (c) edge[out=-45,in=-135,<-,thick] node [below, text=blue] {\tiny$c(1-r_{11})\mu$} (c+1);
+    \draw[draw=blue] (c+1) edge[out=-45,in=180,<-,thick] node [below, text=blue] {\tiny$c(1-r_{11})\mu$} ($(c+1)+(1.5,-0.7)$);
+    \draw[draw=blue] ($(n+c-1)+(-1.5,-0.7)$) edge[out=0,in=-135,<-,thick] node [below, text=blue] {\tiny$c(1-r_{11})\mu$} (n+c-1);
+
+    \draw[draw=blue] (n+c) edge[out=-45,in=45,->,thick] node [above, text=blue] {\tiny$c(1-r_{11})\mu$} (n+c-1);
+    \draw[draw=blue] (n+c+1) edge[out=-30,in=30,->,thick] node [above right, text=blue] {\tiny$(c-1)(1-r_{11})\mu$} (n+c-1);
+    \draw[draw=blue] (n+2c-1) edge[out=-15,in=15,->,thick] node [left, text=blue] {\tiny$2(1-r_{11})\mu$} (n+c-1);
+    \draw[draw=blue] (n+2c) edge[out=0,in=0,->,thick] node [above right, text=blue] {\tiny$(1-r_{11})\mu$} (n+c-1);
+
+
+
+
+
+\end{tikzpicture}
+
+\end{document}

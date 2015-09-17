@@ -1255,6 +1255,13 @@ These models are discussed in the next subsections.
 
 \subsubsection{Multi-Server: One Node Network}\label{sec:onenodemulti}
 Consider the one node network with feedback loop discussed in Subsection~\ref{sec:1nodenet}, now with $c$ parallel servers.
+This multi server $\Omega_1$ system is shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
+
+\begin{figure}[!htbp]
+  \includestandalone[width=\textwidth]{images/1nodemultiserver}
+  \caption{A one node multi-server queueing network.}
+  \label{fig:queueingnetwork_1nodemulti}
+\end{figure}
 
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
@@ -1286,6 +1293,14 @@ If we define $\delta = i_2 - i_1$ for all $i_k \in S$, then the transitions are 
   \end{matrix*} \right.
   \quad \forall \quad 0 \leq j \leq c
 \end{equation}
+
+The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
+
+\begin{figure}[!htbp]
+    \includestandalone[width=\textwidth]{images/MC1nodemulti}
+    \caption{Diagrammatic representation of the Markov chain for a multi server $\Omega_1$ system.}
+    \label{fig:1nodeMCms}
+\end{figure}
 
 Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
 Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i=n+c+1$ to $i=n+2c$) can jump back to state $i=n+c-1$ simply with a service and an exit.
@@ -1329,6 +1344,13 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
 
 \subsubsection{Multi-Server: Two Node Network without Self Loops}\label{sec:2nodemulti}
 Consider the two node network with feedback loops discussed in Subsection~\ref{sec:2nodewithoutselfloops}, now with $c_1$ parallel servers at the first node, and $c_2$ parallel servers at the second node.
+This is shown in Figure~\ref{fig:queueingnetwork_2nodemulti}
+
+\begin{figure}[!htbp]
+  \includestandalone[width=\textwidth]{images/2nodemultiserver}
+  \caption{A two node multi-server queueing network.}
+  \label{fig:queueingnetwork_2nodemulti}
+\end{figure}
 
 State space:
         \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)}\}\]
