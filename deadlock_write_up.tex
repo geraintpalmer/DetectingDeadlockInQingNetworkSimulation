@@ -192,8 +192,19 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
-For the purpose of this section a queueing network will be described as connected if the as a possible path from every node to every other node regardless of direction; and will be described as complete if, from any node, there is a non zero probability of joining any other node of the network, including re-entering the same node.
+For the purposes of this section a queueing network can be described as connected and complete according to the following definitions.\\
+
+\begin{definition}
+A queueing network is connected if there is a possible path from every node to every other node regardless of direction.\\
+\end{definition}
+
+\begin{definition}
+A queueing network is complete if, from any node, there is a non zero probability of joining any other node of the network directly, including re-entering the same node.\\
+\end{definition}
+
 Figure~\ref{fig:connectedcomplete} illustrates these concepts.
+Note that a complete queueing network is equivalent to the underlying routing matrix being a complete graph with loops.
+Also note that a complete queueing network is also connected.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -255,8 +266,8 @@ At which point, the whole system is deadlocked, and so has reached absorbing dea
 \end{center}
 \end{figure}
 
-It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, the whole system will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node, or those non-deadlocked nodes also becoming deadlocked themselves.
-That is, once a queueing network falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into the absorbing deadlocked state.
+It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, all nodes will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node, or those non-deadlocked nodes also becoming deadlocked themselves.
+That is, once a queueing network falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into an absorbing deadlocked state.
 
 The number of different deadlocked states is equal to the number of combinations of cycles in the routing matrix.
 
@@ -327,7 +338,7 @@ Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ 
 
 \begin{proof}
 In an absorbing deadlocked state every node is involved in some configuration of deadlock.
-The number of deadlock configurations where there are no undeadlocked nodes is simply the number of partitions of $N$ nodes.
+The number of deadlock configurations where there are no undeadlocked nodes is simply the number of partitions of $N$ nodes, where each partition represents a seperate deadlocked component.
 Therefore the number of absorbing states is $B_N$ from the definition of a Bell number.
 
 A deadlocked state is either absorbing or transient.
@@ -343,20 +354,6 @@ The number of different deadlocked states that can reached at first instance is 
 
 \section{Detecting Deadlock}\label{sec:detectdeadlock}
 In the following subsections, a method will be presented to detect deadlock in discrete event simulations of queueing networks.
-The following definitions will be required in this section:
-
-\begin{tabular}{ p{5cm} p{10cm} }
-  $\left| V(D) \right|$        & The order of the directed graph $D$ is its number of vertices. \\
-  Weakly connected component   & A weakly connected component of a digraph containing $X$ is the set of all nodes that can be reached from $X$ if we ignore the direction of the edges. \\
-  Direct successor             & If a directed graph contains an edge from $X_i$ to $X_j$ , then we say that $X_j$ is a direct successor of $X_i$. \\
-  Ancestors                    & If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_i$ is an ancestor of $X_j$. \\
-  Descendants                  & If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_j$ is a descendant of $X_i$. \\
-  $\text{deg}^{\text{out}}(X)$ & The out-degree of $X$ is the number of outgoing edges emanating from that vertex. \\
-  Subgraph                     & A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$. \\
-  Sink vertex                  & A sink vertex is a vertex in a directed graph that has out-degree of zero.\\
-  Knot                         & In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.\\
-\end{tabular}
-
 
 \subsection{State Digraph}
 
@@ -1629,8 +1626,19 @@ And so
 \bibliographystyle{plain}
 \bibliography{refs}
 
+\section*{Appendix}
+Some definitions from graph theory that have been used in this report:
 
-
-
+\begin{itemize}
+  \item \textbf{$\left| V(D) \right|$}: The order of the directed graph $D$ is its number of vertices.
+  \item \textbf{Weakly connected component}: A weakly connected component of a digraph containing $X$ is the set of all nodes that can be reached from $X$ if we ignore the direction of the edges.
+  \item \textbf{Direct successor}: If a directed graph contains an edge from $X_i$ to $X_j$ , then we say that $X_j$ is a direct successor of $X_i$.
+  \item \textbf{Ancestors}: If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_i$ is an ancestor of $X_j$.
+  \item \textbf{Descendants}: If a directed graph contains a path from $X_i$ to $X_j$ , then we say that $X_j$ is a descendant of $X_i$.
+  \item \textbf{$\text{deg}^{\text{out}}(X)$}: The out-degree of $X$ is the number of outgoing edges emanating from that vertex.
+  \item \textbf{Subgraph}: A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$.
+  \item \textbf{Sink vertex}: A sink vertex is a vertex in a directed graph that has out-degree of zero.
+  \item \textbf{Knot}: In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.
+\end{itemize}
 
 \end{document}
