@@ -660,7 +660,7 @@ The section is structured as follows:
 \begin{itemize}
   \item Section~\ref{sec:analysisMC} shows how to analyse a general Markov model of a deadlocking queueing system.
   \item Section~\ref{sec:1nodenet} gives the Markov formulation for a one node queueing network with single servers.
-  \item Section~\ref{sec:sec:2nodewithoutselfloops} gives the Markov formulation for a two node queueing network with single servers without self loops.
+  \item Section~\ref{sec:2nodewithoutselfloops} gives the Markov formulation for a two node queueing network with single servers without self loops.
   \item Section~\ref{sec:2nodeselfloops} gives the Markov formulation for a two node complete queueing network with single servers.
   \item Section~\ref{sec:onenodemulti} gives the Markov formulation for a one node queueing network with multiple servers.
   \item Section~\ref{sec:2nodemulti} gives the Markov formulation for a two node queueing network with multiple servers without self loops.
@@ -1353,12 +1353,20 @@ This is shown in Figure~\ref{fig:queueingnetwork_2nodemulti}
 \end{figure}
 
 State space:
-        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)}\}\]
+        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)} \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
 where $i$ denotes the number of individuals at Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
 For example, $(i, j) = (n_1+c_1+2, n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
 The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
 
-Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ ,then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:transitionsmutliserv}.
+The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
+
+\begin{figure}[!htbp]
+    \includestandalone[width=\textwidth]{images/MC2nodemultiserv}
+    \caption{Diagrammatic representation of the Markov chain for a multi server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
+    \label{fig:2nodeMCms}
+\end{figure}
+
+Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ ,then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:transitionsmultierv}.
 
 
 \begin{table}
@@ -1660,7 +1668,7 @@ Some definitions from graph theory that have been used in this report:
   \item \textbf{$\text{deg}^{\text{out}}(X)$}: The out-degree of $X$ is the number of outgoing edges emanating from that vertex.
   \item \textbf{Subgraph}: A subgraph $H$ of a graph $G$ is a graph whose vertices are a subset of the vertex set of $G$, and whose edges are a subset of the edge set of $G$.
   \item \textbf{Sink vertex}: A sink vertex is a vertex in a directed graph that has out-degree of zero.
-  \item \textbf{Knot}: In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot rech any vertex that is not in the knot.
+  \item \textbf{Knot}: In a directed graph, a knot is a set of vertices with out-edges such that while traversing the directed edges of that directed graph, once a vertex in the knot is reached, you cannot reach any vertex that is not in the knot.
 \end{itemize}
 
 \end{document}
