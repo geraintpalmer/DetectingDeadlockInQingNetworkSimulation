@@ -23,6 +23,7 @@
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 
 \title{On Deadlocking in Queueing Networks}
 \author{Geraint Ian Palmer}
@@ -711,7 +712,7 @@ Consider the one node network with feedback loop shown in Figure~\ref{fig:queuei
 This shows an \(M/M/1\) queue with room for $n$ customers to queue at any one time, customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
 Once a customer has finished service they rejoin the queue with probability $r_{11}$, and so exit the system with probability $1 - r_{11}$.
 
-Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $n$, $r_{11})$.
+Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $n$, $r_{11})$, and the time to deadlock of this system be denoted by $\omega_1$.
 
 \begin{figure}[!htbp]
   \includestandalone[width=\textwidth]{images/1nodeexample}
@@ -796,25 +797,38 @@ Again this is intuitive, as increasing the queueing capacity allows more custome
 \end{figure}
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
-This behaviour can be interpreted as follows:
+This behaviour is described in the following lemma.\\
+
+\begin{lemma}\label{lem:oneminima}
+The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one minima and no maximia critical points for $\mu \in (0, \infty)$.
+\end{lemma}
+
+\begin{proof}
+
+This proof is by interpretation.
+The behaviour of $\omega_1(\mu)$ can be interpreted as follows:
 \begin{itemize}
-\item At low service rates below a certain threshold, the arrival rate is relatively large compared to the service rate, and we can assume a saturated system.
+\item At $\lim_{\mu \to 0} \omega_1 (\mu)$ there is infinite service time, and so infinite time until deadlock.
+\item At $\lim_{\mu \to \infty} \omega_1 (\mu)$ there is zero service time, the queue can never fill up, and so infinite time to deadlock.
+\item At low service rates below a certain threshold $\hat{\mu}$, the arrival rate is relatively large compared to the service rate, and we can assume a saturated system.
 At this point services where a customer exits the system does not have much of an effect, as we can assume another arrival immediately.
 However services where a customer wishes to rejoin the queue results in a blockage as the system is saturated.
 Therefore, increasing the service rate here increases the chance of a blockage, and so the chance of deadlock.
-\item Above this threshold the service rate is large enough that we cannot assume a saturated system, and so services where the customer exits the system does have an affect on the number of customers in the system.
+\item Above $\hat{\mu}$ the service rate is large enough that we cannot assume a saturated system, and so services where the customer exits the system does have an affect on the number of customers in the system.
 Thus increasing the service rate removes people from the system, and as such there is less chance of getting blocked and deadlocked.
 \end{itemize}
+
+\end{proof}
 
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
 
-Figures~\ref{fig:threshold_r11}, \ref{fig:threshold_L} and \ref{fig:threshold_n} show the effect of varying $r_{11}$, $\Lambda$ and $n$ on this threshold respectively.
+Figures~\ref{fig:threshold_r11}, \ref{fig:threshold_L} and \ref{fig:threshold_n} show the effect of varying $r_{11}$, $\Lambda$ and $n$ on this threshold $\hat{\mu}$ respectively.
 In Figure~\ref{fig:threshold_n} it is shown that increasing the queueing capacity lowers the threshold; this is due to the system becoming saturated easier at lower queueing capacities and therefore requiring a larger service rate to escape this saturated zone.
 In Figure~\ref{fig:threshold_r11} it is shown that increasing the rejoining probability raises the threshold.
 Lower rejoining probabilities make the system escape the saturated zone quicker, and only a low service rate is required to escape; however at high rejoin probabilities a higher service rate fills the system up quicker, and so an even higher service rate is required to escape the saturated zone.
 Figure~\ref{fig:threshold_L} implies a positive linear relationship between the arrival rate and the threshold.
-Again, at lower arrival rates the system does not fill up as easily, and so is easier to escape the saturated zone.
+Again, at lower arrival rates the system does not fill up as easily, and so is easier to escape the saturated zone.\\
 
 \begin{figure}[!htbp]
   \begin{subfigure}[b]{0.5\textwidth}
@@ -824,22 +838,35 @@ Again, at lower arrival rates the system does not fill up as easily, and so is e
   \end{subfigure}
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/plot_thresholds_r11}
-    \caption{The effect of $r_{11}$ on the threshold.}
+    \caption{The effect of $r_{11}$ on $\hat{\mu}$.}
     \label{fig:threshold_r11}
   \end{subfigure}
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/plot_thresholds_L}
-    \caption{The effect of $\Lambda$ on the threshold.}
+    \caption{The effect of $\Lambda$ on $\hat{\mu}$.}
     \label{fig:threshold_L}
   \end{subfigure}
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/plot_thresholds_n}
-    \caption{The effect of $n$ on the threshold.}
+    \caption{The effect of $n$ on $\hat{\mu}$.}
     \label{fig:threshold_n}
   \end{subfigure}
   \caption{Investigating the service rate threshold.}
   \label{fig:threshold_investigate}
 \end{figure}
+
+\begin{lemma}\label{lem:maximaoninterval}
+$\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
+\end{lemma}
+
+\begin{proof}
+There are three possible scenarios:
+\begin{itemize}
+\item If $a > \hat{\mu}$ then $\omega_1(\mu)$ is monotonically increasing on $[a, b]$, and $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = b$.
+\item If $b < \hat{\mu}$ then $\omega_1(\mu)$ is monotonically decreasing on $[a, b]$, and $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = a$.
+\item If $\hat{\mu} \in [a, b]$ then $\omega_1(\mu)$ is monotonically decreasing on $[a, \hat{\mu})$, and $\arg\max_{\mu \in [a, \hat{\mu})} \omega_1(\mu) = a$, and is monotonically increasing on $(\hat{\mu}, b]$ and $\arg\max_{\mu \in (\hat{\mu}, b]} \omega_1(\mu) = b$. Therefore $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = \arg\max_{\mu \in \{a, b\}} \max \{\omega_1(a), \omega_1(b) \}$.
+\end{itemize}
+\end{proof}
 
 \subsection{Two Node Network without Self Loops}\label{sec:2nodewithoutselfloops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
@@ -1573,7 +1600,7 @@ This process will repeat if Node 1 is blocked before Node 2 releases a customer,
 And so the longest effective service time is:
 
 \begin{align*}
-  & = \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \bigg( \dotsi \right. \right. \\
+  \frac{1}{m_1} & = \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \bigg( \dotsi \right. \right. \\
   & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( 1 + P_{\text{repeat}} + P_{\text{repeat}}^2 + P_{\text{repeat}}^3 + \dots \right) \\
   & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( \frac{1}{1 - P_{\text{repeat}}} \right)
 \end{align*}
@@ -1584,18 +1611,17 @@ Now $P_{\text{repeat}} = P(S_1 < S_2) = \frac{\mu_1}{\mu_1 + \mu_2}$.
 Therefore the smallest effective service rate is:
 
 \begin{align*}
-  & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-P_{\text{repeat}}} \right) } \\
+  m_1 & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-P_{\text{repeat}}} \right) } \\
   & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-\frac{\mu_1}{\mu_1 + \mu_2}} \right) } \\
   & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{\mu_1 + \mu_2}{\mu_2} \right) } \\
   & = \frac{\mu_2}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \mu_1 + \mu_2 \right) } \\
   & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
-  & = m_1
 \end{align*}
 
 As time to deadlock does not increase monotonically with service rate (see Figure~\ref{fig:timestodeadlock_mu}) we cannot simply compare $\widetilde{\Omega}_{1_1}$ with the system that has the largest of smallest service rate; instead we must compare $\widetilde{\Omega}_{1_1}$ with either the system with the smallest service rate or the largest, whichever yields the longest time to deadlock.
 
 The largest service rate is $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and the smallest is $m$ corresponding to $\Omega_{1_1}^{\star\star}$.
-And so we compare with whichever system takes longer to reach deadlock, we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
+And so we compare with whichever system takes longer to reach deadlock. Using Lemma~\ref{lem:maximaoninterval} we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
 
 And so comparing this to $\widetilde{\Omega}_{1_1}$: the effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in that system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
 
