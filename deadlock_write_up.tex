@@ -128,32 +128,7 @@ This idea is expanded on in Section~\ref{sec:typesofdeadlock}.
 
 \section{Literature Review}\label{sec:litreview}
 
-Restricted queueing networks, or queueing networks with no or limited intermediate queues between service stations are more complicated to analyse than unrestriced networks, those with infinite queueing capacity.
-In these systems, if a customer finishes service at one node but is unable to join a queue at his destination node due to lack of queueing space, that customer remains in the current node, restricting his server from starting the next customer's service.
-This is known as blocking.
-Since blocking introduces interdependencies between nodes, the standard product form solution of unrestricted networks is not appropriate.
-One of the first papers to consider these sorts of systems was \cite{hunt56}.
-Results are derived by writing out and solving the systems' difference equations.
-The same method is used in \cite{baber08}.
-The thesis investigates two and three node systems, as well as systems with one service centre with infinite queueing capacity routing into a number of these two and three node systems.
-
-A two node system with no intermediate queue and blocking is studied in \cite{aviitzhakyadin65}. In this paper the moment generating functions of waiting time and number of customers in the system are derived, from which further performance measures can be obtained.
-
-Two features of blocking are described in \cite{koizumietal05}: $(i)$ patients completing service at a blocked station remain there until there is sufficient queueing space at the next station, and $(ii)$ these patients block other patients from entering that station.
-If a station only has characteristic (i) then it is referred to as `classic congestion', and if a station has both characteristics it is referred to as `blocking'.
-Three blocking situations are studied in \cite{latoucheneuts80}, defined by rules on the system reaching `full blocking' and their `unblocking rule'.
-If the node that is subject to blocking has $r$ parallel servers, then once $r^*$ ($1\leq r^*\leq r$) servers become blocked all remaining unblocked servers stop service and the node becomes fully blocked.
-Given that there is $c$ parallel servers, and room for $M - 1$ customers to wait between nodes, once there are only $k^*$ ($0\leq k^*\leq M+r^*-2$) customers waiting between the nodes all services may start again and the node becomes unblocked.
-The most common blocking rules studied, and those studied in this report, correspond to $r^* = c$, and $k^* = M + c - 2$.
-
-And approximation method for solving queueing networks with downstream blocking only in presented in \cite{takahashi80}.
-The algorithm finds the mean values of a queueing network with feedforward flows and single server nodes.
-Iteratively working from the node furthest downstream and working backwards, if that station does exhibit blocking it finds the \textit{effective service time}, that is the weighted sum of service time and the mean time blocked and waiting to transition to the next node, and computes the effective service time for the next upstream node with a recursive formula.
-This method is adapted to multi-server queues in \cite{koizumietal05}, and a similar iterative method was used in \cite{korporaaletal00}.
-
-Restricted queueing networks can give rise to the phenomenon of deadlock.
-This can cause problems for both analytical and simulation models, and most of the literature on blocking either does not consider networks with feedback loops, ignores the possibility of deadlock, or conveniently assumes the networks are
-deadlock-free.
+Restricted queueing networks that exhibit blocking are well discussed in the literature \cite{hunt56, baber08, aviitzhakyadin65, takahashi80, koizumietal05, latoucheneuts80, korporaaletal00}. Restricted queueing networks with feedback loops, that may exhibit deadlock are sparse however.
 
 General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
 Conditions for this type of deadlock, also referred to as deadly embraces, to potentially occur are given:
@@ -164,7 +139,7 @@ Conditions for this type of deadlock, also referred to as deadly embraces, to po
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
 
-In open unrestricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satified in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity.
+In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satified in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is feedback loops.
 
 In general there are three strategies for dealing with deadlock \cite{kawadkaretal14, elmagarmid86}:
 
@@ -174,6 +149,8 @@ In general there are three strategies for dealing with deadlock \cite{kawadkaret
   \item Detection and recovery.
 \end{itemize}
 
+\subsection{Deadlock Prevention}
+
 Deadlock prevention has been discussed in queueing networks.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs, for closed cactus networks, where no two cycles have more than one node in common.
@@ -181,8 +158,12 @@ This result is extended to multiple classes of customer in \cite{liebeherrakyild
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 The literature does not discuss deadlock properties in open restricted queueing networks.
 
+\subsection{Deadlock Avoidance}
+
 There are algorithms discussed in the literature for the dynamic avoidance of deadlock.
 In the Banker's Algorithm \cite{dijkstra82, kawadkaretal14}, unsafe states, those that will lead to deadlock, are avoided by ensuring actions leading to these states are not carried out.
+
+\subsection{Deadlock Detection \& Recovery}
 
 General deadlock detection in systems unspecific to queueing networks are discussed in \cite{coffmanelphick71}.
 A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and their variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}.
