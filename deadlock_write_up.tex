@@ -24,6 +24,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
 
 \title{On Deadlocking in Queueing Networks}
 \author{Geraint Ian Palmer}
@@ -800,7 +801,7 @@ The behaviour as the service rate $\mu$ varies is not monotonic, as the service 
 This behaviour is described in the following lemma.\\
 
 \begin{lemma}\label{lem:oneminima}
-The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one minima and no maximia critical points for $\mu \in (0, \infty)$.
+The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
 \end{lemma}
 
 \begin{proof}
@@ -855,18 +856,13 @@ Again, at lower arrival rates the system does not fill up as easily, and so is e
   \label{fig:threshold_investigate}
 \end{figure}
 
-\begin{lemma}\label{lem:maximaoninterval}
+\begin{remark}
 $\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
-\end{lemma}
 
-\begin{proof}
-There are three possible scenarios:
-\begin{itemize}
-\item If $a > \hat{\mu}$ then $\omega_1(\mu)$ is monotonically increasing on $[a, b]$, and $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = b$.
-\item If $b < \hat{\mu}$ then $\omega_1(\mu)$ is monotonically decreasing on $[a, b]$, and $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = a$.
-\item If $\hat{\mu} \in [a, b]$ then $\omega_1(\mu)$ is monotonically decreasing on $[a, \hat{\mu})$, and $\arg\max_{\mu \in [a, \hat{\mu})} \omega_1(\mu) = a$, and is monotonically increasing on $(\hat{\mu}, b]$ and $\arg\max_{\mu \in (\hat{\mu}, b]} \omega_1(\mu) = b$. Therefore $\arg\max_{\mu \in [a, b]} \omega_1(\mu) = \arg\max_{\mu \in \{a, b\}} \max \{\omega_1(a), \omega_1(b) \}$.
-\end{itemize}
-\end{proof}
+From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interal $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
+The critical points in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Lemma~\ref{lem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
+Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
+\end{remark}
 
 \subsection{Two Node Network without Self Loops}\label{sec:2nodewithoutselfloops}
 Consider the queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
