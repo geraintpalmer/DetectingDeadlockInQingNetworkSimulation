@@ -856,7 +856,7 @@ Again, at lower arrival rates the system does not fill up as easily, and so is e
   \label{fig:threshold_investigate}
 \end{figure}
 
-\begin{remark}
+\begin{remark}\label{rem:findmaximum}
 $\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
 
 From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interal $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
@@ -1525,12 +1525,12 @@ This section will derive a bound for the mean time to deadlock of the $\Omega$ s
 In order to do this, six deadlocking queueing networks are defined as follows:
 
 \begin{itemize}
-  \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $\mu_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
-  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_1$, $m_1$, $n_1$, $r_{11}\}$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
-  \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $\mu_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
-  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $\{\Lambda_2$, $m_2$, $n_2$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
-  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21}\}$. Let its mean time to deadlock be denoted by $\omega_2$.
-  \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $\{\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22}\}$. Let its mean time to deadlock be denoted by $\omega$.
+  \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_1$, $\mu_1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
+  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_1$, $m_1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
+  \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_2$, $\mu_2$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
+  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_2$, $m_2$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
+  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$. Let its mean time to deadlock be denoted by $\omega_2$.
+  \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega$.
 \end{itemize}
 where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
 
@@ -1558,7 +1558,7 @@ Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $
 \label{fig:decomposeqnet}
 \end{figure}
 
-Defining $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ and $\omega_{1_2} = \max(\omega_{1_2}^{\star}, \omega_{1_2}^{\star\star})$ we get the following bound:\\
+Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ we get the following bound:\\
 
 \begin{theorem}
 For any parameter sets the following inequality holds:
@@ -1621,7 +1621,7 @@ Therefore the smallest effective service rate is:
 As time to deadlock does not increase monotonically with service rate (see Figure~\ref{fig:timestodeadlock_mu}) we cannot simply compare $\widetilde{\Omega}_{1_1}$ with the system that has the largest of smallest service rate; instead we must compare $\widetilde{\Omega}_{1_1}$ with either the system with the smallest service rate or the largest, whichever yields the longest time to deadlock.
 
 The largest service rate is $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and the smallest is $m$ corresponding to $\Omega_{1_1}^{\star\star}$.
-And so we compare with whichever system takes longer to reach deadlock. Using Lemma~\ref{lem:maximaoninterval} we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
+And so we compare with whichever system takes longer to reach deadlock. Using Lemma~\ref{lem:oneminima} and Remark~\ref{rem:findmaximum} we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
 
 And so comparing this to $\widetilde{\Omega}_{1_1}$: the effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in that system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
 
