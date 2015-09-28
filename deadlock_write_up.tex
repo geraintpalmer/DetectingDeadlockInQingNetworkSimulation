@@ -1422,30 +1422,34 @@ This formulation of the Markov chain makes use of the following proposition:\\
 \end{proposition}
 
 \begin{proof}
-  Each blocked individual is counted in the state space twice, once as an $i$ and once as a $j$. A blocked customer is counted as existing in the Node they is occupying, but also has a blocked part counted at the other node.
+  Each new blocked individual contributes $(1, 1)$ to the state space. A blocked customer is counted as existing in the Node they are occupying, but also has a blocked part counted at the other node.
 
-  Now an unblocking where a customer transitions from being blocked at Node 1 to being at Node 2 yields $\delta = (-1, 0)$; his blocked part at $j$ disappears, while his existence part at $i$ transitions to Node 2 to become a $j$.
+  Now an unblocking where a customer transitions from being blocked at Node 1 to being at Node 2 yields $\delta = (-1, 0)$; the customer's blocked part is no longer blocked, while they themselves transition to Node 2.
   This type of unblocking leaves space at Node 1 for more potential unblockings.
 
-  Similarly an unblocking where a customer transitions from being blocked at Node 2 to being at Node 1 yields $\delta = (0, -1)$; his blocked part at $i$ disappears, while his existence part at $j$ transitions to Node 2 to become an $i$.
+  Similarly an unblocking where a customer transitions from being blocked at Node 2 to being at Node 1 yields $\delta = (0, -1)$; the customer's blocked part is no longer blocked, while they themselves transition to Node 1.
   This type of unblocking leaves space at Node 2 for more potential unblockings.
 
   Consider a customer finishing service and exiting the system at Node 1.
-  Breaking down the overall unblocking process into subprocesses, we can break down the overall difference $\delta$ into sub-differences $\delta_1$, $\delta_2$, $\delta_3$, etc, where $\delta = \sum_i \delta_i$.
-  These subprocesses are:
+  Breaking down the overall unblocking process into subprocesses, we can break down the overall difference $\delta$ into sub-differences $\delta_1$, $\delta_2$, $\delta_3$, etc, where $\delta = \sum_{i \in I} \delta_i$.
 
-  \begin{itemize}
-    \item Exit at 1: $\delta_1 = (-1, 0)$
-    \item Unblock customer from Node 2: $\delta_2 = (0, -1)$ if there is someone at Node 2 to unblock, else stop.
-    \item Unblock customer from Node 1: $\delta_3 = (-1, 0)$ if there is someone at Node 1 to unblock, else stop.
-    \item Repeat the last two steps until stopping criteria is reached.
-  \end{itemize}
+  The set $I$ is the number of sub-differences that happen until no more unblockings can happen.
+
+  An unblockage at Node 1 always occurs after space at Node 2 is created, by an unblockage at Node 2.
+  Therefore the maximium number of times a customer can be unblocked from Node 1 is either until there are no more blocked customers at Node 1, or no more unblockages at Node 2, as there are no more customers at Node 2 to unblock.
+  Therefore $\min(b_1, b_2)$ unblockages of this kind.
+
+  An unblockage at Node 2 occurs after an unblockage at Node 1 if there are enough blocked customers to do so.
+  An unblockage at Node 2 causes an unblockage at Node 1, and so directly proceeds an unblockage at Node 1.
+  If $b_2 > b_1$ there are $b_1$ unblockages at Node 1, and so $b_1$ unblockages at Node 2.
+  If $b_1 > b_2$ there are $b_2$ unblockages at Node 1, and so $b_2+1$ unblockages at Node 2.
+  Therefore $\min(b_1, b_2+1)$ unblockages of this kind.
 
   Now:
   \begin{align*}
-    \delta &= \sum_i \delta_i\\
+    \delta &= \sum_{i \in I} \delta_i\\
     &= (-1, 0) + (0, -1) + (-1, 0) + (0, -1) + \dots\\
-    &= (-1, 0) + \min(b_1, b_2+1)(0, -1) + \min(b_2, b_1)(-1, 0)\\
+    &= (-1, 0) + \min(b_1, b_2+1)\times(0, -1) + \min(b_2, b_1)\times(-1, 0)\\
     &= (-\min(b_1+1, b_2+1), -\min(b_1, b_2+1))
   \end{align*}
 
