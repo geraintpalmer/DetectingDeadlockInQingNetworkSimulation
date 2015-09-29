@@ -93,6 +93,9 @@ Note however that on part of the network need be in deadlock, as the bottom node
 This paper is structured as follows: Section~\ref{sec:litreview} discusses the exsisting literature on deadlock and deadlock strategies. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in discrete event simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives expected time to deadlock, and compares with resutls obtain through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
 
+
+
+
 \section{Literature Review}\label{sec:litreview}
 
 
@@ -144,7 +147,146 @@ Using these labels \textit{simple bounded circuits} are defined whose existence 
 
 
 
+
+
 \section{Detecting Deadlock}\label{sec:detectingdeadlock}
+
+In order to detect when deadlock has occured in a queueing network simulation, the state digraph is used, defined below.\\
+
+\begin{definition}
+The state digraph $D(t)$ of a queueing network defines that network's state at any time $t$.
+Vertices of the state digraph correspond to servers of the network.
+A directed edge denotes a blockage relationship in the following manner: if a customer at the $k$th server of node $i$ is blocked from entering node $j$, then there are directed edges from the vertex corresponding to node $i$'s $k$th server to every vertex corresponding to the servers of node $j$.
+\end{definition}
+
+To illustrate this concept Figure~\ref{fig:exampledigraph_deadlock} and Figure~\ref{fig:exampledigraph_nodeadlock} show a three node network in and out of deadlock, and the corresponding state digraph in each case.
+
+
+\begin{figure}[!htbp]
+\begin{subfigure}[b]{0.9\textwidth}
+  \begin{center}
+  \includestandalone[width=0.6\textwidth]{images/exampledigraph_in}
+  \end{center}
+  \caption{A three node queueing network in deadlock, with state digraph.}
+  \label{fig:exampledigraph_deadlock}
+\end{subfigure}
+\begin{subfigure}[b]{0.9\textwidth}
+  \begin{center}
+  \includestandalone[width=0.6\textwidth]{images/exampledigraph_out}
+  \end{center}
+  \caption{A three node queueing network not in deadlock, with state digraph.}
+  \label{fig:exampledigraph_nodeadlock}
+\end{subfigure}
+\caption{Example of the state digraph.}
+\label{fig:exampledigraph}
+\end{figure}
+
+Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X_a \in G(t)$. Some observations:
+
+\begin{itemize}
+
+  \item Consider the node $X_a \in G(t)$. If $X_a$ is unoccupied, then $X_a$ has no incident edges.
+  \item Consider the case when $X_a$ is occupied by individual $a$, whose next destination is node $j$. Then $X_a$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
+  \item It can interpreted that all $X_a$'s descendants are the servers whose occupants are directly or indirectly blocking $a$, and interpret all $X_a$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+  \item Note that the only possibilities for $\text{deg}^{\text{out}}(X_a)$ are 0 or $c_j$. If $\text{deg}^{\text{out}}(X_a) = c_j$ then $a$ is blocked by all its direct successors. The only other situation is that $a$ is not blocked, and $X_a \in G(t)$ because $a$ is in service at $X_a$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X_a) = 0$.
+  \item It is clear that if all of $X_a$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
+  \item By definition all of $X_a$'s ancestors are occupied by blocked individuals.
+
+\end{itemize}
+
+The following results detect deadlock for open restricted queueing networks.
+
+\begin{theorem}
+A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
+\end{theorem}
+
+\begin{proof}
+Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
+All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+
+Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
+This implies that $X$'s occupant is not blocked and is a descendant of another vertex.
+Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendants are all blocked.
+
+Now assume that we have deadlock.
+For a vertex $X$ who is deadlocked, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
+And so there is no path from $X$ to a vertex with out-degree of 0.
+
+\end{proof}
+
+
+\begin{proposition}
+For queueing networks:
+\begin{itemize}
+  \item with one node
+  \item with two nodes, each with two or fewer parallel servers
+  \item with a finite amount of nodes, each with a single server
+\end{itemize}
+a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
+\end{proposition}
+
+\begin{proof}
+Consider a one node queueing network.
+
+If there is deadlock, then all servers are occupied by blocked individuals, and so all servers have an out-edge.
+
+Consider a two node queueing network, each node with 2 or fewer parallel servers.
+
+If both nodes are involved in the deadlock, so there is a customer in node 1 blocked from entering node 2, and a customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
+The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
+
+Now consider the case when only one node is involved in the deadlock.
+Without loss of generality, let's say that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
+For the servers of node 2 to be part of that weakly connected component, there either needs to be an edge from a server in node 1 to a server in node 2, or and edge from a server in node 2 to a server in node 1.
+An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
+An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
+In this case one server in node 2 has an out-edge.
+Now either the other server of node two is still in server, and so isn't part of that weakly connected component, or the other server's customer is blocked and so has an out edge.
+
+For the case of a queueing network with two nodes and more than 2 servers at node 2, consider the following counter-example:
+
+Node $A$ has two parallel server, node $B$ has three parallel sevrers.
+Begin with all servers occupied by customers in service and full queues.
+The customer at server $A_1$ is blocked to node $A$.
+The customer at server $B_1$ is blocked to node $A$.
+The customer at server $B_2$ is blocked to node $B$.
+The customer at server $A_2$ is blockec to node $A$.
+The resulting state digraph in Figure~\ref{fig:counter_example_1} has a weakly connected component with a sink.
+
+Consider a queueing network with $N$ nodes, each with a single server.
+
+If $1 \leq n \leq N$ nodes are involved in the deadlock, then each server in those $n$ nodes has a blocked customer, and so has an out-edge.
+Of the other nodes, they can only be in the same weakly connected component if either they contain a indiviual blocked by those in deadlock, in which case they will have an out edge; or they contain a blocked individual blocked by those directly or indirectly blocked by those in deadlock, in which case they will have an out edge; or they are blocking someone who is blocked directly or indirectly by those in deadlock.
+However this last case cannot happen, as every node is single server each person can only be blocked by one other individual at a time.
+
+For the case of a queueing network with more than two nodes with multiple servers, the following counter-example proves the claim:
+
+Node $A$ has one parallel server, node $B$ has two parallel servers, and node $C$ has three parallel servers.
+Begin with all servers occupied by customers in service and full queues.
+The customer at server $B_1$ is blocked from entering node $A$.
+Then the customer at server $C_1$ is blocked from entering node $B$.
+Then the customer at server $A_1$ is blocked from entering node $A$.
+The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
+
+\end{proof}
+
+\begin{figure}
+\begin{subfigure}{0.5\textwidth}
+\begin{center}
+\includestandalone[width=0.8\textwidth]{images/counter_example_digraph_1}
+\end{center}
+\caption{State Digraph of Counter-Example 1.}
+\label{fig:counter_example_1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\begin{center}
+\includestandalone[width=0.65\textwidth]{images/counter_example_digraph_2}
+\end{center}
+\caption{State Digraph of Counter-Example 2.}
+\label{fig:counter_example_2}
+\end{subfigure}
+\end{figure}
+
 
 \section{Simulation Model}\label{sec:simulation}
 
