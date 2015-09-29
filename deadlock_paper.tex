@@ -84,7 +84,7 @@ Note however that on part of the network need be in deadlock, as the bottom node
 
 \begin{figure}[!htbp]
   \begin{center}
-  \includestandalone[width=0.5\textwidth]{images/transientdeadlock}
+  \includestandalone[width=0.4\textwidth]{images/transientdeadlock}
   \caption{A three node queueing network in deadlock.}
   \label{fig:firstexample}
   \end{center}
@@ -161,24 +161,20 @@ A directed edge denotes a blockage relationship in the following manner: if a cu
 
 To illustrate this concept Figure~\ref{fig:exampledigraph_deadlock} and Figure~\ref{fig:exampledigraph_nodeadlock} show a three node network in and out of deadlock, and the corresponding state digraph in each case.
 
-
 \begin{figure}[!htbp]
-\begin{subfigure}[b]{0.9\textwidth}
   \begin{center}
-  \includestandalone[width=0.6\textwidth]{images/exampledigraph_in}
+  \includestandalone[width=0.5\textwidth]{images/exampledigraph_in}
   \end{center}
   \caption{A three node queueing network in deadlock, with state digraph.}
   \label{fig:exampledigraph_deadlock}
-\end{subfigure}
-\begin{subfigure}[b]{0.9\textwidth}
+\end{figure}
+
+\begin{figure}[!htbp]
   \begin{center}
-  \includestandalone[width=0.6\textwidth]{images/exampledigraph_out}
+  \includestandalone[width=0.5\textwidth]{images/exampledigraph_out}
   \end{center}
   \caption{A three node queueing network not in deadlock, with state digraph.}
   \label{fig:exampledigraph_nodeadlock}
-\end{subfigure}
-\caption{Example of the state digraph.}
-\label{fig:exampledigraph}
 \end{figure}
 
 Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X_a \in G(t)$. Some observations:
@@ -194,7 +190,7 @@ Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X_a
 
 \end{itemize}
 
-The following results detect deadlock for open restricted queueing networks.
+The following results detect deadlock for open restricted queueing networks.\\
 
 \begin{theorem}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
@@ -285,6 +281,8 @@ The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly c
 \caption{State Digraph of Counter-Example 2.}
 \label{fig:counter_example_2}
 \end{subfigure}
+\caption{Counter examples.}
+\label{fig:counter_examples}
 \end{figure}
 
 
