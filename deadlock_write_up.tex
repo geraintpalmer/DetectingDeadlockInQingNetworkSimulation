@@ -1290,14 +1290,15 @@ If we define $\delta = i_2 - i_1$ for all $i_k \in S$, then the transitions are 
   q_{i_1, i_2} = \left\{
   \begin{matrix*}[ r ]
     \left. \begin{matrix*}[ r ]
-      (c-k)r_{11}\mu & \text{if } \delta = 1 \\
-      (1-r_{11})(c-k)\mu & \text{if } \delta = -j-1\\
+      (c-b)r_{11}\mu & \text{if } \delta = 1 \\
+      (1-r_{11})(b-k)\mu & \text{if } \delta = -b-1\\
       0 & \text{otherwise}
-    \end{matrix*} \right\} & \text{if } i_1 = n + c + j \\
+    \end{matrix*} \right\} & \text{if } i_1 = n + c + b \\
   \end{matrix*} \right.
-  \quad \forall \quad 0 \leq j \leq c
+  \quad \forall \quad 0 \leq b \leq c
 \end{equation}
 
+where $b$ denotes the number of blocked customers.
 The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 
 \begin{figure}[!htbp]
