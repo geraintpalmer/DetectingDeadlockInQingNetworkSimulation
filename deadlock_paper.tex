@@ -18,6 +18,7 @@
 \usepackage[ruled]{algorithm2e}
 \usepackage{adjustbox}
 \usepackage{enumerate}
+\usepackage{hyperref}
 \usepackage[nocompress]{cite}
 
 \newtheorem{definition}{Definition}
@@ -321,6 +322,7 @@ A routing matrix with entries $r_{ij}$ describes how every node is connected to 
 
 The simulation model is built in an object-orientated manor using Python.
 Customers, nodes, servers and the queueing network itself are objects that interact or contain each other.
+The code for the simulation can be found here: \url{https://github.com/geraintpalmer/SimulatingAQingNetwork}.
 
 The state digraph $D(t)$ described in Section~\ref{sec:detectingdeadlock} is an attribute of the queueing network.
 Edges are drawn or removed whenever the following events take place: a customer begins service at a server, a customer becomes blocked, a customer leaves a server.
