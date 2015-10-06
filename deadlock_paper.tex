@@ -49,7 +49,7 @@ A bound on the time to deadlock of the two node single server with loops network
 
 Restricted open queueing networks that can experience deadlock are under-discussed in the literature.
 This paper addresses this by investigating deadlock properties in these queueing networks.
-A method of detecting deadlock in discrete event simulations of queueing networks is presented, and markovian models of five open restricted queueing networks are analysed, and the properties of their time to deadlock investigated.
+A method of detecting deadlock in simulations of queueing networks is presented, and markovian models of five open restricted queueing networks are analysed, and the properties of their time to deadlock investigated.
 Finally a bound on the time to deadlock is given for one of these queueing networks.
 
 Central to the study of deadlock in restricted queueing networks is the concept of blocking.
@@ -72,7 +72,7 @@ Exponential service times and Poisson arrivals are assumed.
 For the purposes of this paper, deadlock is defined as follows.\\
 
 \begin{definition}
-    When a simulation is in a situation where at least one service station,
+    When a queueing network is in a state where at least one service station,
     despite having arrivals, ceases to begin or finish any more services
     due to recursive upstream blocking, the system is said to be in deadlock.
 \end{definition}
@@ -90,7 +90,7 @@ Note however that only part of the network need be in deadlock, as the bottom no
   \end{center}
 \end{figure}
 
-This paper is structured as follows: Section~\ref{sec:litreview} discusses the exsisting literature on deadlock and deadlock strategies. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in discrete event simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives expected time to deadlock, and compares with resutls obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
+This paper is structured as follows: Section~\ref{sec:litreview} discusses the exsisting literature on deadlock and deadlock strategies. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives expected time to deadlock, and compares with resutls obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
 
 
@@ -196,6 +196,7 @@ Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X \
   \item If $X$ is unoccupied, then $X$ has no incident edges.
   \item Consider the case when $X$ is occupied by individual $a$, whose next destination is node $j$. Then $X$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
   \item It can interpreted that all $X$'s descendants are the servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+  \item All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
   \item Note that the only possibilities for $\text{deg}^{\text{out}}(X)$ are 0 or $c_j$. If $\text{deg}^{\text{out}}(X) = c_j$ then $a$ is blocked by all its direct successors. The only other situation is that $a$ is not blocked, and $X \in G(t)$ because $a$ is in service at $X$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X) = 0$.
   \item It is clear that if all of $X$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
   \item By definition all of $X$'s ancestors are occupied by blocked individuals.
@@ -210,7 +211,6 @@ A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 
 \begin{proof}
 Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
-All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
 
 Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
 This implies that $X$'s occupant is not blocked and is a descendant of another vertex.
@@ -481,7 +481,7 @@ Again this is intuitive, as increasing the queueing capacity allows more custome
 \label{fig:timestodeadlock}
 \end{figure}
 
-The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
+The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributes towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
 This behaviour is described in the following lemma.\\
 
 \begin{lemma}\label{lem:oneminima}
@@ -777,7 +777,7 @@ If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then
   q_{-3, s} = 0
 \end{align}
 
-Note that the there are only two differences between this formulation and the formulation given in Subsection~\ref{sec:2nodewithoutselfloops}: the probabilities of leaving nodes 1 and 2 are now $(1-r_{11}-r_{12})\mu_1$ and $(1-r_{21}-r_{22})\mu_2$; and there are now two more ways to reach deadlock, Equation~\ref{equ:todeadlock2} and Equation~\ref{equ:todeadlock3}.
+Note that the there are only two differences between this formulation and the formulation given in Subsection~\ref{sec:2nodewithoutselfloops}: the rates at which customers leave nodes 1 and 2 are now $(1-r_{11}-r_{12})\mu_1$ and $(1-r_{21}-r_{22})\mu_2$; and there are now two more ways to reach deadlock, Equation~\ref{equ:todeadlock2} and Equation~\ref{equ:todeadlock3}.
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMCfeedback}.
 
@@ -855,7 +855,7 @@ This is an $\Omega_1$ system with $c$ parallel servers.
 
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
-where \(i\) denotes the number of individuals at the node plus the number of individuals blocked at that node.
+where \(i\) denotes the number of individuals in the system plus the number of individuals blocked who are blocked.
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
 The state $i=n+2c$ denotes the deadlocked state.
 
@@ -896,7 +896,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 \end{figure}
 
 Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
-Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i=n+c+1$ to $i=n+2c$) can jump back to state $i=n+c-1$ simply with a service and an exit.
+Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i \in [n+c+1, i=n+2c]$) can jump back to state $i=n+c-1$ simply with a service and an exit.
 Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
 
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
@@ -1127,6 +1127,7 @@ Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is grea
 As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_2 \leq \omega_2$
 
 Consider $\widetilde{\Omega}_{1_1}$.
+
 Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
 
 The shortest expected effective service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
@@ -1162,14 +1163,12 @@ Therefore the smallest effective service rate is:
   & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
 \end{align*}
 
-As time to deadlock does not increase monotonically with service rate $\widetilde{\Omega}_{1_1}$ must be compared with either the system with the smallest service rate or the largest, whichever yields the longest time to deadlock.
+Now the actual effective service rate $\widetilde{\mu}_1$ for $\widetilde{\Omega}_{1_1}$ must lie in the interval $(\mu_1, m_1)$. Using Lemma~\ref{lem:oneminima} and Remark~\ref{rem:findmaximum}, we can conclude that $\widetilde{\omega}_{1_1} \leq \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ when all other parameters are fixed.
 
-The largest service rate is $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and the smallest is $m$ corresponding to $\Omega_{1_1}^{\star\star}$.
-Therefore using Lemma~\ref{lem:oneminima} and Remark~\ref{rem:findmaximum} $\widetilde{\omega}_{1_1}$ is compared $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
+Consider the effective arrival rate of $\widetilde{\Omega}_{1_1}$.
+The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in an $\Omega_{1_1}$ system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
 
-Comparing this system to $\widetilde{\Omega}_{1_1}$: the effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in that system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
-
-It is concluded that $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$ at $\widetilde{\omega}_{1_1}$'s worst case scenrio, and so $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$ in general.
+Combining the above, it is concluded that $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$.
 
 A similar argument yields $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
 
