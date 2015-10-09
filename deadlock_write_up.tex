@@ -43,10 +43,10 @@ Open queueing networks are those networks that have at least one node to which c
 
 \section{Introduction}
 
-A simple representation of deadlock is shown in Figure~\ref{fig:gridlock}.
+A simple representation of deadlock in the context of road traffic is shown in Figure~\ref{fig:gridlock}.
 Here deadlock, or gridlock, is caused by the mutual blocking of vehicles.
 The blue vehicles are blocked from movement due to the yellow vehicles; the yellow vehicles are blocked from movement due to the green vehicles, the green vehicles are blocked from movement due to the red vehicles; and the red vehicles are blocked from movement due to the blue vehicles.
-This can be interperated as the blue vehicles indirectly blocking themselves, and similarly for the other colours.
+This can be interpreted as the blue vehicles indirectly blocking themselves, and similarly for the other colours.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -82,15 +82,15 @@ In open queueing networks with at least one cycle containing all service station
 For the purposes of this report, deadlock is defined as follows.\\
 
 \begin{definition}
-    When a simulation is in a situation where at least one service station,
-    despite having arrivals, ceases to begin or finish any more services
+    When a queueing network process is in a situation where at least one service station
+    ceases to begin or finish any more services
     due to recursive upstream blocking, the system is said to be in deadlock.
 \end{definition}
 
 In Figure~\ref{fig:2in_deadlock} a simple two node queueing network is shown in a deadlocked state.
-Customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
+The customer occupying server $A_1$ has finished service at node $A$, but remains there as there is not
 enough queueing space at node $B$ to accept them.
-We say the customer at server $A_1$ is blocked by the customer at server $B_1$, as they are waiting for that customer to be released.
+The customer at server $A_1$ is said to be blocked by the customer at server $B_1$, as they are waiting for that customer to be released.
 Similarly, the customer occupying server $B_1$ has finished service at node $B$, but remains there as there is not enough queueing space at node $A$, and so the customer at server $B_1$ is blocked by the customer at server $A_1$.
 
 When there are multiple servers, individuals become blocked by all customers in
@@ -175,7 +175,9 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
-For the purposes of this section a queueing network can be described as connected and complete according to the following definitions.\\
+
+In this report the term deadlocked is used to describe a queueing network in deadlock, a node that is part of the deadlock, and components of the network where all nodes are experiencing the same deadlock.
+For the purposes of this section a queueing network can be described as \textbf{connected} and \textbf{complete} according to the following definitions.\\
 
 \begin{definition}
 A queueing network is connected if there is a possible path from every node to every other node regardless of direction.\\
@@ -186,8 +188,8 @@ A queueing network is complete if, from any node, there is a non zero probabilit
 \end{definition}
 
 Figure~\ref{fig:connectedcomplete} illustrates these concepts.
-Note that a complete queueing network is equivalent to the underlying routing matrix being a complete graph with loops.
-Also note that a complete queueing network is also connected.
+Note that a complete queueing network is equivalent to the underlying network being a complete graph with loops.
+Also note that a complete queueing network is connected.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -214,7 +216,7 @@ Also note that a complete queueing network is also connected.
 The different configurations of which nodes experience deadlock can be thought
 of as different types of deadlock.
 
-For connected queueing networks, these deadlocks can be classified into transient deadlocked states and the absorbing deadlocked state.\\
+For connected queueing networks, these deadlocks can be classified into \textbf{transient deadlocked} states and \textbf{absorbing deadlocked} states.\\
 
 
 \begin{definition}
@@ -230,7 +232,7 @@ For connected queueing networks, these deadlocks can be classified into transien
 Figure~\ref{fig:transabsorb} shows a three node network in a transient deadlocked state, and an absorbing deadlocked state.
 In Figure~\ref{fig:trans} the occupants of servers $B_1$ and $B_2$ are blocked from entering node $A$; and the occupant of server $A_1$ is blocked from entering node $B$, and so these two nodes are in deadlock.
 However, node $C$ can continue with regular services, until the occupants of every server of $C$ attempt to join a deadlocked node.
-At which point, the whole system is deadlocked, and so has reached absorbing deadlock, show in Figure~\ref{fig:absorb}.
+At which point, the whole system is deadlocked, and so has reached absorbing deadlock, shown in Figure~\ref{fig:absorb}.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -252,8 +254,6 @@ At which point, the whole system is deadlocked, and so has reached absorbing dea
 It should be clear that if the queueing network is connected, then there is a non-zero probability that once one part of the network is in deadlock, all nodes will fall into a deadlocked state, simply by the individuals in the non-deadlocked nodes attempting to transition into a deadlocked node, or those non-deadlocked nodes also becoming deadlocked themselves.
 That is, once a queueing network falls into one of the transient deadlocked states, it will eventually transition, either directly or through other transient deadlocked states, into an absorbing deadlocked state.
 
-The number of different deadlocked states is equal to the number of combinations of cycles in the routing matrix.
-
 \subsection{Deadlock types in Complete Queueing Network}
 
 Figure~\ref{fig:4nodecombinations} illustrates the number of different types of deadlock configurations possible in a complete queueing network with four nodes.
@@ -270,7 +270,7 @@ Before proceeding, remember that a Bell number $B_n$ is the number of ways a set
 Now the following theorem gives the number of possible deadlocked states in a complete queueing network.\\
 
 \begin{proposition}
-  If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_i$ denotes the $i$th Bell number.
+  If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $n$th Bell number.
 \end{proposition}
 
 \begin{proof}
@@ -321,7 +321,7 @@ Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ 
 
 \begin{proof}
 In an absorbing deadlocked state every node is involved in some configuration of deadlock.
-The number of deadlock configurations where there are no undeadlocked nodes is simply the number of partitions of $N$ nodes, where each partition represents a seperate deadlocked component.
+The number of deadlock configurations where there are no undeadlocked nodes is simply the number of partitions of $N$ nodes, where each partition represents a separate deadlocked component.
 Therefore the number of absorbing states is $B_N$ from the definition of a Bell number.
 
 A deadlocked state is either absorbing or transient.
@@ -329,11 +329,11 @@ If there are $B_N$ absorbing states, and $B_{N+1}-1$ in total, then there must b
 \end{proof}
 
 Some deadlock configurations cannot be reached without first having gone through another deadlock state.
-For example, a deadlock configuration that consists of two seperate components in deadlock must have been in a state with one deadlocked component prior to reaching that configuration.
+For example, a deadlock configuration that consists of two separate components in deadlock must have been in a state with one deadlocked component prior to reaching that configuration.
 
 The remainder of this report will only be concerned with the first instance of deadlock, that is the deadlocked states that can be reached from a non-deadlocked state directly.
 That is deadlock configurations with only one deadlocked component.
-The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity.
+The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity. % Explain this a little more....
 
 \section{Detecting Deadlock}\label{sec:detectdeadlock}
 In the following subsections, a method will be presented to detect deadlock in discrete event simulations of queueing networks.
