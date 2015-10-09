@@ -275,19 +275,37 @@ Now the following theorem gives the number of possible deadlocked states in a co
 
 \begin{proof}
 
-Define $S_N$ as a set of of $N$ nodes.
-Define $D_N$ as the set of possible deadlocks on a queueing network $Q$ with $N$ nodes.
-Define $\xi$ as a dummy node.
-Define $P_N$ as the set of all partitions of $S_N\cup\{\xi\}$ not including the set that counts all nodes in one partition.
+\begin{itemize}
 
-Now $|S_N| = B_{N+1}-1$.
+\item Define $S_N$ as a set of $N$ nodes.
+\item Define $D_N$ as the set of possible deadlocks on a queueing network $Q$ with $N$ nodes.
+\item Define $\xi$ as a dummy node.
+\item Define $P_N$ as the set of all partitions of $S_N\cup\{\xi\}$ not including the set that counts all nodes in one partition.
+
+\end{itemize}
+
+By definition $|P_N| = B_{N+1}-1$.
 
 Consider the mapping $g:D_N \mapsto P_N$ defined by:
 
 \begin{itemize}
-  \item The node $x \in Q$ maps to a node $x' \in S_N$.
-  \item If $x'$ belongs to the same partition as $\xi$ then $x$ is not involved in deadlock.
-  \item If $x'$ does not belong to the same partition as $\xi$ then all nodes in $x'$'s partition are in deadlock together.
+  \item Order the nodes of $Q$ and $S_N$.
+  \item The node $x \in Q$ maps to the corresponding node node $x' \in S_N$.
+  \item Partition $S_N\cup\{\xi\}$ in such a way that:
+  \begin{itemize}
+    \item For all $x \in Q$ that are in the same deadlocked component, all corresponding $x' \in S_N$ are placed in the same partition of $P_N$.
+    \item For all $x \in Q$ that are not deadlocked, all corresponding $x' \in S_N$ are placed in the same partition as $\xi$.
+  \end{itemize}
+\end{itemize}
+
+Consider the inverse mapping $g^{-1}:P_N \mapsto D_N$:
+
+\begin{itemize}
+  \item Consider a set $Y \in P_N$:
+  \begin{itemize}
+    \item If $\xi \in Y$ then all other elements of $Y$ correspond to nodes in $Q$ that are not deadlocked.
+    \item If $\xi \notin Y$ then all other elements of $Y$ correspond to nodes in $Q$ that are deadlocked together.
+  \end{itemize}
 \end{itemize}
 
 The mapping $g$ is both 1-1 and onto, and so is a bijection.
