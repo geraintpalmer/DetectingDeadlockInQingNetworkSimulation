@@ -398,7 +398,7 @@ As an example, a customer labelled $(A_2, 10, C)$ would have an i.d. number of 2
 If a customer isn't occupying a server the notation $\emptyset$ is used.
 Similarly for customers occupying a server and still in service, their next destination is yet undecided, so $\emptyset$ is used.
 
-The simulation starts with full queues, and every server occupied by a customer in service. This is shown in Figure~\ref{fig:general_buildup_1}.
+Consider the simulation that starts with full queues, and every server occupied by a customer in service. This is shown in Figure~\ref{fig:general_buildup_1}.
 
 \begin{figure}[H]
   \begin{tabular}{ c c c }
@@ -461,7 +461,7 @@ A deadlock situation arises as customer 5 is waiting for customer 4 to move, who
 The rules on how edges are removed from the state graph will now be shown.
 For illustrative purposes the queueing network here is a different queueing network than discussed above.
 
-The simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
+This simulation begins with four customers occupying servers; those at node $A$ blocked to node $B$, the customer at node $C$ blocked to node $A$, and the customer at node $B$ still in service.
 This is shown in Figure~\ref{fig:general_builddown_1}.
 
 \begin{figure}[H]
@@ -594,7 +594,7 @@ Now either the other server of node two is still in server, and so isn't part of
 
 For the case of a queueing network with two nodes and more than 2 servers at node 2, consider the following counter-example:
 
-Node $A$ has two parallel server, node $B$ has three parallel sevrers.
+Node $A$ has two parallel servers, node $B$ has three parallel sevrers.
 Begin with all servers occupied by customers in service and full queues.
 The customer at server $A_1$ is blocked to node $A$.
 The customer at server $B_1$ is blocked to node $A$.
