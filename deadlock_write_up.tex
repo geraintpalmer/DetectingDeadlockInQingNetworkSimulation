@@ -678,10 +678,10 @@ This brute force algorithm was adapted from the NetworkX developer zone ticket \
 
 \section{Markov Chain Models}\label{sec:markovmodels}
 
-This section will build analytical models of systems' behaviour to deadlock.
+This section will build analytical models of systems' behaviour with regards to deadlock.
 The section is structured as follows:
 \begin{itemize}
-  \item Section~\ref{sec:analysisMC} shows how to analyse a general Markov model of a deadlocking queueing system.
+  \item Section~\ref{sec:analysisMC} presents a general Markov model of a deadlocking queueing system.
   \item Section~\ref{sec:1nodenet} gives the Markov formulation for a one node queueing network with single servers.
   \item Section~\ref{sec:2nodewithoutselfloops} gives the Markov formulation for a two node queueing network with single servers without self loops.
   \item Section~\ref{sec:2nodeselfloops} gives the Markov formulation for a two node complete queueing network with single servers.
@@ -708,7 +708,7 @@ The canonical form of an absorbing Markov chain is
 P = \left(\begin{matrix} T & U\\ 0 & I \end{matrix} \right)
 \end{equation*}
 
-where $I$ is an identity matrix.
+where $I$ is the identity matrix.
 
 Now the expected number of time steps until absorption starting from state $i$ is the $i\text{th}$ element of the vector
 
@@ -721,13 +721,12 @@ where $e$ is a vector of 1s.
 Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the number expected of time steps to absorption, or deadlock can be found.
 
 When there are more than one deadlock state, there is more than one absorbing state in the Markov chain.
-The probabilities of which absorbing state a Markov chain will reach can be found.
-Now the $(i, j)^{\text{th}}$ element of the vector
+The probabilities of which absorbing state a Markov chain will reach are given by the $(i, j)^{\text{th}}$ element of the vector
 \begin{equation}
   (I - T)^{-1}U
 \end{equation}
 
-corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
+which corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
 
 \subsection{One Node Network}\label{sec:1nodenet}
 Consider the one node network with feedback loop shown in Figure~\ref{fig:queueingnetwork_1node}.
