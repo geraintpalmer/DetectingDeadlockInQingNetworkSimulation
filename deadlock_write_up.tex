@@ -19,6 +19,7 @@
 \usepackage{adjustbox}
 \usepackage{enumerate}
 \usepackage[nocompress]{cite}
+\usepackage{hyperref}
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -39,7 +40,7 @@
 This report will define and discuss the properties and detection of deadlock in queueing networks.
 Throughout the section, when discussing queueing networks, it is assumed that
 the queueing network is open and connected.
-Open queueing networks are those networks that have at least one node to which customers arrive from the exterior, and and least one node from which customers leave to the exterior.
+Open queueing networks are those networks that have at least one node to which customers arrive from the exterior, and least one node from which customers leave to the exterior.
 
 \section{Introduction}
 
@@ -353,6 +354,9 @@ The remainder of this report will only be concerned with the first instance of d
 That is deadlock configurations with only one deadlocked component.
 The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity. % Explain this a little more....
 
+
+
+
 \section{Detecting Deadlock}\label{sec:detectdeadlock}
 In the following subsections, a method will be presented to detect deadlock in discrete event simulations of queueing networks.
 
@@ -365,7 +369,7 @@ Define $D(t)=(V(t), E(t))$ as the state digraph of $Q$ at time $t$.
 
 The vertices at time \(t\), \(V(t)\) correspond to servers in the
 queueing system.
-Thus, $\left| V\left(D\left(t\right)\right) \right| = \sum_{i=1}^N c_i$ for all $t \geq 0$.
+Thus, $\left| V\left(t\right) \right| = \sum_{i=1}^N c_i$ for all $t \geq 0$.
 
 The edges at time \(t\), \(E(t)\) correspond to a blocking relationship.
 There is a directed edge at time \(t\) from vertex \(X_a\in V(t)\) to vertex \(X_b\in
@@ -385,6 +389,8 @@ At this point $c_j$ directed edges between this individual's server and the vert
 When an individual is released and another customer who wasn't blocked occupies their server, that servers out-edges are removed.
 When an individual is released and another customer who was previously blocked occupies their server, that server's out-edges are removed along with the in-edge from the server who that previously blocked customer occupied.
 When an individual is released and there isn't another customer to occupy that server, then all edges incident to that server are removed.
+
+\subsubsection{Adding Edges}
 
 This general process of building up the state digraph as the queueing network is simulated will now be shown.
 Customers are labelled $(i, j, k)$ where $i$ denotes the server that customer is occupying, $j$ denotes that individuals i.d. number, and $k$ denotes the service station that customer is waiting to enter.
@@ -448,6 +454,10 @@ A deadlock situation arises as customer 5 is waiting for customer 4 to move, who
   \label{fig:general_buildup_5}
 \end{figure}
 
+
+
+\subsubsection{Removing Edges}
+
 The rules on how edges are removed from the state graph will now be shown.
 For illustrative purposes the queueing network here is a different queueing network than discussed above.
 
@@ -492,7 +502,7 @@ Notice that the edge $A_2 \longrightarrow B_1$ remains in the state graph, as cu
   \label{fig:general_builddown_3}
 \end{figure}
 
-The customers queueing at node $A$ move along the queue, with customer 3 begining service.
+The customers queueing at node $A$ move along the queue, with customer 3 beginning service.
 This leaves enough room for customer 7 to join the back of the queue at $A$ (Figure~\ref{fig:general_builddown_4}).
 
 \begin{figure}[H]
@@ -527,6 +537,9 @@ This does not necessarily mean there is deadlock.
 
 \subsection{Results on the State Digraph}
 
+The definition of a knot is given in the Appendix.
+The following result is used to identify deadlock:\\
+
 \begin{theorem}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 \end{theorem}
@@ -546,22 +559,27 @@ And so there is no path from $X$ to a vertex with out-degree of 0.
 \end{proof}
 
 
+For queueing networks with certain properties, this results can be simplified:\\
+
 \begin{proposition}
 For queueing networks:
-\begin{itemize}
+\begin{enumerate}
   \item with one node
   \item with two nodes, each with two or fewer parallel servers
   \item with a finite amount of nodes, each with a single server
-\end{itemize}
-a deadlocked state arises if and only if there exists a weakly connected component without a sink node.
+\end{enumerate}
+a deadlocked state arises if and only if a weakly connected component without a sink node exists in $D(t)$.
 \end{proposition}
 
 \begin{proof}
-Consider a one node queueing network.
+
+\begin{enumerate}
+
+\item Consider a one node queueing network.
 
 If there is deadlock, then all servers are occupied by blocked individuals, and so all servers have an out-edge.
 
-Consider a two node queueing network, each node with 2 or fewer parallel servers.
+\item Consider a two node queueing network, each node with 2 or fewer parallel servers.
 
 If both nodes are involved in the deadlock, so there is a customer in node 1 blocked from entering node 2, and a customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
 The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
@@ -584,7 +602,7 @@ The customer at server $B_2$ is blocked to node $B$.
 The customer at server $A_2$ is blockec to node $A$.
 The resulting state digraph in Figure~\ref{fig:counter_example_1} has a weakly connected component with a sink.
 
-Consider a queueing network with $N$ nodes, each with a single server.
+\item Consider a queueing network with $N$ nodes, each with a single server.
 
 If $1 \leq n \leq N$ nodes are involved in the deadlock, then each server in those $n$ nodes has a blocked customer, and so has an out-edge.
 Of the other nodes, they can only be in the same weakly connected component if either they contain a indiviual blocked by those in deadlock, in which case they will have an out edge; or they contain a blocked individual blocked by those directly or indirectly blocked by those in deadlock, in which case they will have an out edge; or they are blocking someone who is blocked directly or indirectly by those in deadlock.
@@ -598,6 +616,8 @@ The customer at server $B_1$ is blocked from entering node $A$.
 Then the customer at server $C_1$ is blocked from entering node $B$.
 Then the customer at server $A_1$ is blocked from entering node $A$.
 The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
+
+\end{enumerate}
 
 \end{proof}
 
@@ -618,6 +638,8 @@ The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly c
 \end{subfigure}
 \end{figure}
 
+Absorbing deadlocked states can be found using a simpler result:\\
+
 \begin{proposition}
 An absorbing deadlocked state arises at time $t$ if $D(t)$ doesn't contain a sink vertex.
 \end{proposition}
@@ -637,7 +659,7 @@ Finding knots is discussed in Section~\ref{sec:findknots}.
 By definition knots are strongly connected subgraphs where every member has descendants, and every member's descendants belong to that subgraph.
 
 An implementation of an algorithm to find strongly connected components in the Python package NetworkX is used, in the following algorithm.
-The following algorithm, taken and adapted from the NetworkX developer zone ticket \#663, is sufficient to identify knots in a directed graph.
+This brute force algorithm was adapted from the NetworkX developer zone ticket \#663 (\url{https://networkx.lanl.gov/trac/ticket/663}), is sufficient to identify knots in a directed graph.
 
 \begin{algorithm}[H]
     \DontPrintSemicolon
