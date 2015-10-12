@@ -1343,7 +1343,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 \end{figure}
 
 Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
-Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i=n+c+1$ to $i=n+2c$) can jump back to state $i=n+c-1$ simply with a service and an exit.
+Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i \in [n+c+1, n+2c]$) can jump back to state $i=n+c-1$ simply with a service and an exit.
 Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
 
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
