@@ -818,15 +818,13 @@ Again this is intuitive, as increasing the queueing capacity allows more custome
 \end{figure}
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributed towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
-This behaviour is described in the following lemma.\\
+This behaviour is described in the following remark.\\
 
-\begin{lemma}\label{lem:oneminima}
+\begin{remark}\label{rem:oneminima}
 The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
-\end{lemma}
+\end{remark}
 
-\begin{proof}
-
-This proof is by interpretation.
+This can be seen by interpretation.
 The behaviour of $\omega_1(\mu)$ can be interpreted as follows:
 \begin{itemize}
 \item At $\lim_{\mu \to 0} \omega_1 (\mu)$ there is infinite service time, and so infinite time until deadlock.
@@ -838,8 +836,6 @@ Therefore, increasing the service rate here increases the chance of a blockage, 
 \item Above $\hat{\mu}$ the service rate is large enough that we cannot assume a saturated system, and so services where the customer exits the system does have an affect on the number of customers in the system.
 Thus increasing the service rate removes people from the system, and as such there is less chance of getting blocked and deadlocked.
 \end{itemize}
-
-\end{proof}
 
 This effect is closely related to the transition rate $r_{11}$, as the rate at which the system enters deadlock from a full queue is $r_{11}\mu$.
 Figure~\ref{fig:varymuandr} shows the effect of the transition rate on the behaviour of varying the service rate.
@@ -880,7 +876,7 @@ Again, at lower arrival rates the system does not fill up as easily, and so is e
 $\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
 
 From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interal $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
-The critical points in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Lemma~\ref{lem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
+The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Remark~\ref{rem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
 
@@ -1594,16 +1590,21 @@ First, define the following systems:
   \item Let $\widetilde{\Omega}_2$ denote the $\Omega_2$ system embedded within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
 \end{itemize}
 
-Now $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
-Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3), whichever comes first.
+It follows that $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
+Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3).
 
-Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
+This proof compares each embedded system with its respective non-embedded counterpart.
+
+\begin{enumerate}
+
+\item Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
 The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$.
 This is due to the extra customers who are rejoining the queue after service.
 Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 2 in $\Omega_2$.
 As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_2 \leq \omega_2$
 
-Consider $\widetilde{\Omega}_{1_1}$.
+\item Consider $\widetilde{\Omega}_{1_1}$.
+
 Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
 
 The shortest expected effective service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
@@ -1639,18 +1640,18 @@ Therefore the smallest effective service rate is:
   & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
 \end{align*}
 
-As time to deadlock does not increase monotonically with service rate (see Figure~\ref{fig:timestodeadlock_mu}) we cannot simply compare $\widetilde{\Omega}_{1_1}$ with the system that has the largest of smallest service rate; instead we must compare $\widetilde{\Omega}_{1_1}$ with either the system with the smallest service rate or the largest, whichever yields the longest time to deadlock.
+Now the actual effective service rate $\widetilde{\mu}_1$ for $\widetilde{\Omega}_{1_1}$ must lie in the interval $(\mu_1, m_1)$. Using Remarks~\ref{rem:oneminima} and \ref{rem:findmaximum}, we can conclude that $\widetilde{\omega}_{1_1} \leq \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ when all other parameters are fixed.
 
-The largest service rate is $\mu_1$, corresponding to system $\Omega_{1_1}^{\star}$ and the smallest is $m$ corresponding to $\Omega_{1_1}^{\star\star}$.
-And so we compare with whichever system takes longer to reach deadlock. Using Lemma~\ref{lem:oneminima} and Remark~\ref{rem:findmaximum} we compare with $\omega_{1_1} = \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$.
+Consider the effective arrival rate of $\widetilde{\Omega}_{1_1}$.
+The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in an $\Omega_{1_1}$ system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
 
-And so comparing this to $\widetilde{\Omega}_{1_1}$: the effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in that system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
+Combining the above, it is concluded that $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$.
 
-We can conclude that $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$ at $\widetilde{\omega}_{1_1}$'s worst case scenrio, and so $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$ in general.
+\item A similar argument yields $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
 
-Similarly we can conclude $\widetilde{\omega}_{1_2} \leq \omega_{1_2}$.
+\end{enumerate}
 
-And so
+Therefore
 
 \begin{align*}
 \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
