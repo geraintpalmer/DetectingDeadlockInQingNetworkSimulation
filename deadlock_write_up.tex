@@ -1661,46 +1661,6 @@ Therefore
 \end{proof}
 
 
-% \section{Resolving Deadlock}
-% Once the system falls into a deadlocked state for the first time, that is the first transient deadlocked state since the last resolution, the simulated needs to automatically resolve the deadlock and allow services to resume again.
-% This is not necessarily as simple as moving a blocked customer to his next node, as we need to conserve the numbers of customers at each service station.
-% Closer inspection of the state digraph is required in order to find a way to resolve deadlock whilst conserving this property.
-
-% At deadlock, the service stations can be classified into the following three mutually exclusive categories:
-% \begin{itemize}
-%     \item Nodes that are not deadlocked: These are nodes that do not contain any blocked individuals.
-%     \item Causation nodes, nodes causing deadlock: These are nodes where every server is occupied by a blocked individual, and there is at least one blocked individual waiting to enter that node who is directly or indirectly being blocked by an individual in this node.
-%     \item Affected nodes, nodes affected by deadlock: These are nodes containing at least one blocked individual who is directly or indirectly being blocked by an individual at a node that is causing deadlock, but is not classified as causing deadlock itself.
-% \end{itemize}
-
-% At the first instance of deadlock, there will only be one knot in $D(t)$.
-% Let us denote the knot as $K$.
-% The vertices of $K$ correspond to servers.
-% As there is no sink node, all vertices of $K$ have an out-edge, and so all vertices in $K$ contain a blocked individual.
-% Therefore, there are no vertices in $K$ belonging to nodes that are not deadlocked.
-% All vertices of $K$ correspond to servers of causation nodes, and a causation node has all its servers belonging to $K$.
-% An affected node has servers belonging to the same weakly connected component as $K$, but does not have servers in $K$.
-
-% When choosing which customer to move in order to resolve deadlock, we must be careful to conserve the number of customers at each service station.
-% Causation nodes have full queues, and a customer may only be moved into a full queue if this causes another customer to simultaneously move from this node.
-% Another complication arises due to the blocking mechanism used, in which those customers who have been blocked longer must be moved first.
-% This property may have to be broken in order to ensure the conservation property is not.
-% Assume that we have weighted the edges of the digraph with the time that they were created. % If this works then I'll include this in the write up of how state digraph is formed
-
-% The following algorithm is proposed in order to resolve deadlock:
-
-% \begin{algorithm}[H]
-%     \DontPrintSemicolon
-%     Find the knot $K$ in $D(t)$\;
-%     Find the cycle $C \in K$ whose average edge weight is minimum\;
-%     Start at $V_0$\;
-%     \For{$V_i$ in $C$}{
-%     Move the individual who is waiting to get to $V_{i+1}$\;}
-%     Redraw $D(t)$\;
-% \end{algorithm}
-
-
-
 \bibliographystyle{plain}
 \bibliography{refs}
 
