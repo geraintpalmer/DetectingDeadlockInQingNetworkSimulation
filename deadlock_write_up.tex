@@ -1597,29 +1597,33 @@ This proof compares each embedded system with its respective non-embedded counte
 
 \begin{enumerate}
 
-\item Comparing $\widetilde{\Omega}_2$ to $\Omega_2$:
-The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$.
-This is due to the extra customers who are rejoining the queue after service.
+\item Consider $\widetilde{\Omega}_2$.
+The effective arrival rate to Node 1 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 1 in $\Omega_2$, due to the extra customers who are rejoining the queue after service.
 Similarly the effective arrival rate to Node 2 in $\widetilde{\Omega}_2$ is greater than or equal to the effective arrival rate to Node 2 in $\Omega_2$.
 As an increase in the arrival rate causes the mean time to deadlock to decrease, we can conclude $\widetilde{\omega}_2 \leq \omega_2$
 
-\item Consider $\widetilde{\Omega}_{1_1}$.
+\item Consider $\widetilde{\Omega}_{1_1}$. Both the service rate and arrival rate differ in the embedded system to the non-embedded system.
 
-Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
+\begin{itemize}
 
-The shortest expected effective service time is equal to $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
-Therefore the largest effective service rate is $\mu_1$.
+\item Consider the expected effective service time, the time that $\widetilde{\Omega}_{1_1}$'s state does not change due to services or outside factors.
 
-The longest service time corresponds to when Node 2 is full, Node 1 finishes service and gets blocked.
-Here the customer in service at Node 1 spends $\frac{1}{\mu_1}$ in service, then gets blocked.
-That customer remains blocked until there is room at Node 2, that is when Node 2 has a service.
-As all service rates are Markovian, the time spent blocked is $\frac{1}{\mu_2}$.
+\begin{itemize}
 
-If the customer finishing service at Node 2 transitions to Node 1, then $\widetilde{\Omega}_{1_1}$'s state hasn't changed, and Node 2 is full again.
-The next customer at Node 1 now spends $\frac{1}{\mu_1}$ in service.
-This process will repeat if Node 1 is blocked before Node 2 releases a customer, and so the process is repeated with probability $P_{\text{repeat}}$.
+\item The lower bound on the effective service time is $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
+Therefore the upper bound on the effective service rate is $\mu_1$.
 
-And so the longest effective service time is:
+\item The upper bound on the effective service time corrseponds to the following cycle of events:
+
+\begin{itemize}
+  \item A customer, $a$, begins service at Node 1: $\frac{1}{\mu_1}$
+  \item Customer $a$ finishes service at Node 1, but is blocked from transitioning to Node 2: $\frac{1}{\mu_2}$
+  \item A customer, $b$, finishes service at Node 2 and transitions to Node 1. Now the $a$ moves to Node 2, and another the customer begins service at Node 1: $\frac{1}{\mu_1}$
+\end{itemize}
+
+This cycle is repeated with probability $P_{\text{repeat}}$.
+As all rates are Markovian then whatever point in $b$'s service $a$ gets blocked, $a$'s expected wait is $\frac{1}{\mu_2}$.
+Therefore the upper bound for the effective service time is:
 
 \begin{align*}
   \frac{1}{m_1} & = \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \bigg( \dotsi \right. \right. \\
@@ -1627,10 +1631,10 @@ And so the longest effective service time is:
   & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( \frac{1}{1 - P_{\text{repeat}}} \right)
 \end{align*}
 
-If $S_1$ is the time the customer at Node 1 spends in service, and $S_2$ is the time the customer at node 2 spends in service, then $S_1 \sim \text{Exp}(\mu_1)$ and $S_2 \sim \text{Exp}(\mu_2)$.
+If $S_1$ is the time $a$ spends in service, and $S_2$ is the time $b$ spends in service, then $S_1 \sim \text{Exp}(\mu_1)$ and $S_2 \sim \text{Exp}(\mu_2)$.
 Now $P_{\text{repeat}} = P(S_1 < S_2) = \frac{\mu_1}{\mu_1 + \mu_2}$.
 
-Therefore the smallest effective service rate is:
+Therefore the lower bound on the effective service rate is:
 
 \begin{align*}
   m_1 & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-P_{\text{repeat}}} \right) } \\
@@ -1640,10 +1644,14 @@ Therefore the smallest effective service rate is:
   & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
 \end{align*}
 
+\end{itemize}
+
 Now the actual effective service rate $\widetilde{\mu}_1$ for $\widetilde{\Omega}_{1_1}$ must lie in the interval $(\mu_1, m_1)$. Using Remarks~\ref{rem:oneminima} and \ref{rem:findmaximum}, we can conclude that $\widetilde{\omega}_{1_1} \leq \max(\omega_{1_1}^{\star}, \omega_{1_1}^{\star\star})$ when all other parameters are fixed.
 
-Consider the effective arrival rate of $\widetilde{\Omega}_{1_1}$.
+\item Consider the effective arrival rate of $\widetilde{\Omega}_{1_1}$.
 The effective arrival rate in $\widetilde{\Omega}_{1_1}$ is greater than or equal to the effective arrival rate in an $\Omega_{1_1}$ system; this is due to the extra customers who have transitioned from the Node 2 to Node 1. An increase in the arrival rate causes the mean time to deadlock to decrease.
+
+\end{itemize}
 
 Combining the above, it is concluded that $\widetilde{\omega}_{1_1} \leq \omega_{1_1}$.
 
