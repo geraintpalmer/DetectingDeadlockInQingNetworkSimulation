@@ -54,63 +54,17 @@ It is hoped that this paper addresses a gap in the literature on the deadlocking
 
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction \& Background}
 
 Restricted open queueing networks that can experience deadlock are under-discussed in the literature.
 This paper addresses this by investigating deadlock properties in these queueing networks.
 A method of detecting deadlock in simulations of queueing networks is presented, and markovian models of five open restricted queueing networks are analysed, and the properties of their time to deadlock investigated.
 Finally a bound on the time to deadlock is given for one of these queueing networks.
 
-Central to the study of deadlock in restricted queueing networks is the concept of blocking.
-Given two queues in tandem such that customers leaving the first service station enter the second, and the second queue has limited queueing capacity.
-If the second queue is full, and a customer finishes service at the first queue, that customer cannot join the next queue due to lack of capacity. This customer remains with the server, blocking other customers from beginning service with that server, until space becomes available at the second queue.
-This is referred to as blocking.
-
-Throughout this paper service centers will be referred to as nodes, and for the $i$th node of an open restricted queueing network the following notation is used:
-
-\begin{itemize}
-	\item $\Lambda_i$ denotes the external arrival rate.
-	\item $\mu_i$ denotes the service rate.
-	\item $c_i$ denotes the number of parallel servers.
-	\item $n_i$ denotes the queueing capacity.
-	\item $r_{ij}$ denotes the routing probability from node $i$ to node $j$ upon completion of service at node $i$.
-\end{itemize}
-
-Exponential service times and Poisson arrivals are assumed.
-
-For the purposes of this paper, deadlock is defined as follows.\\
-
-\begin{definition}
-    When a queueing network is in a state where at least one service station,
-    despite having arrivals, ceases to begin or finish any more services
-    due to recursive upstream blocking, the system is said to be in deadlock.
-\end{definition}
-
-Figure~\ref{fig:firstexample} shows a three node queueing network in a deadlocked state.
-The customers occupying servers $B_1$ and $B_2$ are blocked from entering the top node, while the customer occupying server $A_1$ is blocked from entering the middle node.
-Due to mutual blocking, these customers are preventing any more natural movement in these two nodes.
-Note however that only part of the network need be in deadlock, as the bottom node is free to continue services as normal.
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \includestandalone[width=0.4\textwidth]{images/transientdeadlock}
-  \caption{A three node queueing network in deadlock.}
-  \label{fig:firstexample}
-  \end{center}
-\end{figure}
-
-This paper is structured as follows: Section~\ref{sec:litreview} discusses the exsisting literature on deadlock and deadlock strategies. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives expected time to deadlock, and compares with resutls obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
+This paper is structured as follows: This section discusses the exsisting literature on deadlock and deadlock strategies for queueing networks, and sets up the notation for the rest of the paper. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives expected time to deadlock, and compares with resutls obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
 
-
-
-
-
-
-
-
-
-\section{Literature Review}\label{sec:litreview}
+\subsection{Literature Review}\label{sec:litreview}
 
 
 Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88} and approximate methods \cite{takahashi80, korporaaletal00, onvural90, perrosetal88}. Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
@@ -137,7 +91,7 @@ In general there are three strategies for dealing with the problem of deadlock \
   \item Detection and recovery.
 \end{itemize}
 
-\subsection{Deadlock Prevention}
+\subsubsection{Deadlock Prevention}
 
 Deadlock prevention has been discussed in queueing networks under the blocked at service mechanism (BAS, Type I, transfer blocking).
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
@@ -148,7 +102,7 @@ The literature does not discuss deadlock properties in open restricted queueing 
 
 Further conditions on deadlock prvention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such at blocked before service (BBS, Type II, service blocking) and repetitive services (RS-FD and RS-RD, Type III, rejection blocking).
 
-\subsection{Deadlock Avoidance}
+\subsubsection{Deadlock Avoidance}
 
 There are algorithms discussed in the literature for the dynamic avoidance of deadlock.
 In the Banker's Algorithm \cite{dijkstra82, kawadkaretal14}, unsafe states, those that will lead to deadlock, are avoided by ensuring actions leading to these states are not carried out.
@@ -158,7 +112,7 @@ Some resource allocations are disallowed if that allocaton will lead to deadlock
 
 Another deadlock avoidance algorithm in \cite{belik90}, for systems with one type of each resource, makes use of a directed resource allocation graph. Resource requests are not allocated resources if that allocation leads to a directed cycle in the resource allocation graph.
 
-\subsection{Deadlock Detection \& Recovery}
+\subsubsection{Deadlock Detection \& Recovery}
 
 A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and their variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}.
 These wait-for graphs, keep track of all circular wait relations between tasks.
@@ -171,6 +125,43 @@ This type strategy of is used in this paper to detect deadlock in queueing syste
 
 Deadlock detection and recovery through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resove deadlock may not be negligible in reality.
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible soulutions for handling deadlock in queueing networks, although this isn't discussed further.
+
+
+\subsection{Open Restricted Queueing Networks}
+
+Queueing networks are described as open if customers can enter and leave the system from the exterior.
+Restricted networks are those where at lease one service centre has limited queueing space or capacity before it.
+
+This paper is concerned with open restricted queueing networks only.
+Throughout this paper service centers will be referred to as nodes, and for the $i$th node of an open restricted queueing network the following notation is used:
+
+\begin{itemize}
+	\item $\Lambda_i$ denotes the external arrival rate.
+	\item $\mu_i$ denotes the service rate.
+	\item $c_i$ denotes the number of parallel servers.
+	\item $n_i$ denotes the queueing capacity.
+	\item $r_{ij}$ denotes the routing probability from node $i$ to node $j$ upon completion of service at node $i$.
+\end{itemize}
+
+Exponential service times and Poisson arrivals are assumed.
+
+For the purposes of this paper, deadlock is defined as follows.\\
+
+\begin{definition}
+    When a queueing network is in a state where at least one service station,
+    despite having arrivals, ceases to begin or finish any more services
+    due to recursive upstream blocking, the system is said to be in deadlock.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -265,6 +256,7 @@ And so there is no path from $X$ to a vertex with out-degree of 0.
 
 \end{proof}
 
+The knot condition can be simplified for specific cases.\\
 
 \begin{proposition}
 For queueing networks:
@@ -386,11 +378,11 @@ Once a knot is found the simulation terminates and the time elapsed recorded.
 In this section markov models are build for the following deadlocking queueing networks, and their expected time to deadlock found:
 
 \begin{itemize}
-  \item Open one node, single-server restricted queueing network with feedback loop.
-  \item Open two node, single-server restricted queueing network with routes between nodes.
-  \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops.
-  \item Open one node, multi-server restricted queueing network with feedback loop.
-  \item Open two node, mutli server restricted queueing network with routes between nodes.
+  \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet})
+  \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops})
+  \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops. (Section~\ref{sec:2nodeselfloops})
+  \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS})
+  \item Open two node, mutli server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
 \end{itemize}
 
 In general a continuous Markov chain model of a deadlocking queueing network is a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
@@ -879,7 +871,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 
 
 
-\subsection{One Node Multi-Server}
+\subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
 Consider the open one node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
 This is an $\Omega_1$ system with $c$ parallel servers.
@@ -983,7 +975,7 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
 
 
 
-\subsection{Two Node Multi-Server without Self-Loops}
+\subsection{Two Node Multi-Server without Self-Loops}\label{sec:2nodeMS}
 
 Consider the open two node mutli server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodemulti}.
 This is an $\Omega_2$ system with $c_i$ parallel servers at node $i$.
