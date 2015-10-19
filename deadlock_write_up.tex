@@ -129,8 +129,8 @@ This idea is expanded on in Section~\ref{sec:typesofdeadlock}.
 
 \section{Literature Review}\label{sec:litreview}
 
-Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80} and approximate methods \cite{takahashi80, korporaaletal00, onvural90}. Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
-In fact, the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature \cite{onvural90}.
+Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88} and approximate methods \cite{takahashi80, korporaaletal00, onvural90, perrosetal88}. Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
+In fact, the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature \cite{onvural90, perrosetal88}.
 
 General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
 These deadlocks occur in flexible manufacturing systems and distributed communication systems.
@@ -183,6 +183,7 @@ For scenarios where there is only one type of each resource, deadlock arises if 
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 
+Deadlock detection and recovery through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resove deadlock may not be negligible in reality.
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible soulutions for handling deadlock in queueing networks, although this isn't discussed further.
 
 \section{Types of Deadlock}\label{sec:typesofdeadlock}
