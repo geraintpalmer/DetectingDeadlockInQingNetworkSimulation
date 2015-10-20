@@ -123,7 +123,7 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 This type strategy of is used in this paper to detect deadlock in queueing systems.
 
-Deadlock detection and recovery through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resove deadlock may not be negligible in reality.
+Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resove deadlock may not be negligible in reality.
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible soulutions for handling deadlock in queueing networks, although this isn't discussed further.
 
 
@@ -173,7 +173,7 @@ For the purposes of this paper, deadlock is defined as follows.\\
 
 
 
-\section{The State Digraph}\label{sec:detectingdeadlock}
+\section{Deadlock Detection}\label{sec:detectingdeadlock}
 
 In order to detect when deadlock has occured in a queueing network simulation, the state digraph is used.
 This is a form of wait-for graph, and is defined below.\\
@@ -213,7 +213,7 @@ To illustrate this concept Figure~\ref{fig:exampledigraphs} show examples of que
   \end{subfigure}
   \begin{subfigure}{\textwidth}
     \begin{center}
-      \includestandalone[width=0.6\textwidth]{images/exampledigraph_4}
+      \includestandalone[width=0.7\textwidth]{images/exampledigraph_4}
     \end{center}
     \caption{A three node queueing network in deadlock, with state digraph.}
     \label{fig:exampledigraph_nodeadlock}
@@ -289,7 +289,7 @@ For the servers of node 2 to be part of that weakly connected component, there e
 An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
 An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
 In this case one server in node 2 has an out-edge.
-Now either the other server of node two isempty or still in service, and so isn't part of that weakly connected component, or the other server's customer is blocked and so has an out edge.
+Now either the other server of node two is empty or still in service, and so isn't part of that weakly connected component, or the other server's customer is blocked and so has an out edge.
 
 For the case of a two node queueing network with at least one node with more than 2 servers, consider the following counter-example:
 
@@ -408,7 +408,7 @@ Now the expected number of time steps until absorption starting from state $i$ i
 
 where $e$ is a vector of 1s.
 
-Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the number expected of time steps to absorption, or deadlock can be found.
+Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the expected number of time steps to absorption, or deadlock can be found.
 
 When there is more than one deadlocked state, there is more than one absorbing state in the Markov chain.
 Here the expected time to absorbtion is the expected time to a deadlocked state, whichever one that may be.
@@ -440,16 +440,16 @@ Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $
 
 State space:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 1
-        \}\cup\{-1\}\]
-where \(i\) denotes the number of individuals in service or waiting, and $-1$ denotes the deadlocked state.
+        \}\cup\{(-1)\}\]
+where \(i\) denotes the number of individuals in service or waiting, and $(-1)$ denotes the deadlocked state.
 
-If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$ then the transitions are given by:
+Define $\delta = i_2 - i_1$ for all $i_k \geq 0$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
   \begin{matrix*}[ r ]
     \left. \begin{matrix*}[ r ]
-      \Lambda & \text{if } i < n + 1 \\
+      \Lambda & \text{if } i_1 < n + 1 \\
       0 & \text{otherwise}
     \end{matrix*} \right\} & \text{if } \delta = 1 \\
     (1 - r_{11})\mu & \text{if } \delta = -1 \\
@@ -458,7 +458,7 @@ If we define $\delta = i_2 - i_1$ for all $i_k \geq 0$ then the transitions are 
 \end{equation}
 
 \begin{equation}
-  q_{i, -1} = \left\{
+  q_{i, (-1)} = \left\{
   \begin{matrix*}[ r ]
     r_{11}\mu & \text{if } i = n + 1 \\
     0 & \text{otherwise}
@@ -588,7 +588,7 @@ State space:
         \end{itemize}
     and the state $(-1)$ denotes the deadlocked state.
 
-If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then the transitions are given by:
+Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by:
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -741,7 +741,7 @@ State space:
         \end{itemize}
     and the state $(-3)$ denotes the deadlocked state cause by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
 
-If we define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$, then the transitions are given by:
+Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by:
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -890,7 +890,7 @@ where \(i\) denotes the number of individuals in the system plus the number of i
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
 The state $i=n+2c$ denotes the deadlocked state.
 
-If we define $\delta = i_2 - i_1$ for all $i_k \in S$, then the transitions are given by:
+Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
@@ -1133,7 +1133,7 @@ Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $
 \label{fig:decomposeqnet}
 \end{figure}
 
-Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ we get the following bound:\\
+Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ for $j \in [1, 2]$, we get the following bound:\\
 
 \begin{theorem}
 For any parameter sets the following inequality holds:
@@ -1239,7 +1239,7 @@ Therefore
 
 This paper, motivated by a gap in the literature, has explored deadlock in open restricted queueing networks.
 It has been shown that analysing a queueing network's corresponding state digraph is sufficient to detect when deadlock occurs in queueing network systems.
-In general the presence of a knot in the state digraph will highlight that deadlock has occured in the network, but for special cases then only the presence of a weakly connected component with no sink is required.
+In general the presence of a knot in the state digraph will highlight that deadlock has occured in the network, however for special cases only the presence of a weakly connected component with no sink is required.
 Encorporating this into a simulation model, time to deadlock could be recorded.
 
 Markov models of five deadlocking queueing networks were built.
