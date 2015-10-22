@@ -76,8 +76,8 @@ Type I blocking (blocked at service, BAS, transfer blocking) occurs when a custo
 Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
 In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat thier service if there is no capacity at theor destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repitition of service, and random destination, where the customer's destination is resamples from a probability distribution after each repitition.
 
-General deadlock situations that are not specific to queueing networks are discussed in \cite{coffmanelphick71}.
-These deadlocks occur in flexible manufacturing systems and distributed communication systems.
+There has been a body of reseach into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
+These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
 Conditions for this type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, to potentially occur are given:
 \begin{itemize}
   \item Mutual exclusion: Tasks have exclusive control over resources.
