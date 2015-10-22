@@ -372,7 +372,7 @@ Customers, nodes, servers and the queueing network itself are objects that inter
 The code for the simulation can be found here: \url{https://github.com/geraintpalmer/SimulatingAQingNetwork}.
 
 The state digraph $D(t)$ described in Section~\ref{sec:detectingdeadlock} is an attribute of the queueing network.
-Edges are drawn or removed whenever the following events take place: a customer begins service at a server, a customer becomes blocked, a customer leaves a server.
+Edges are created or removed whenever the following events take place: a customer begins service at a server, a customer becomes blocked, a customer leaves a server.
 The model is a discrete event simulation, and the deadlocked condition is checked immediately before the clock is moved on.
 Here a brute force algorithm is used to check whether each strongly connected component of $D(t)$ is a knot.
 Once a knot is found the simulation terminates and the time elapsed recorded.
@@ -536,7 +536,6 @@ This behaviour is described in the following remark.\\
 The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
 \end{remark}
 
-This can be seen by interpretation.
 The behaviour of $\omega_1(\mu)$ can be interpreted as follows:
 \begin{itemize}
 \item At $\lim_{\mu \to 0} \omega_1 (\mu)$ there is infinite service time, and so infinite time until deadlock.
