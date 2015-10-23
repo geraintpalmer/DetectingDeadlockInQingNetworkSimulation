@@ -106,10 +106,10 @@ Restricted queueing networks that exhibit blocking are well discussed in the lit
 In fact, the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature \cite{onvural90, perrosetal88}.
 
 Central to the study of deadlock in queueing networks is the concept of blocking.
-In \cite{onvural90} three types of blocking are described:
+In \cite{onvuralperros86} three types of blocking are described:
 Type I blocking (blocked at service, BAS, transfer blocking) occurs when a customer is blocked after completing service, remains with the server until capacity at their destination node becomes available.
 Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
-In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat thier service if there is no capacity at theor destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repitition of service, and random destination, where the customer's destination is resamples from a probability distribution after each repitition.
+In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat thier service if there is no capacity at theor destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is resamples from a probability distribution after each repitition.
 
 There has been a body of reseach into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
@@ -200,38 +200,40 @@ A directed edge denotes a blockage relationship in the following manner: if a cu
 To illustrate this concept Figure~\ref{fig:exampledigraphs} show examples of queueing network in and out of deadlock, and the corresponding state digraph in each case.
 
 \begin{figure}[!htbp]
-  \begin{subfigure}{\textwidth}
+\begin{center}
+  \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includestandalone[width=0.5\textwidth]{images/exampledigraph_1}
+      \includestandalone[width=0.8\textwidth]{images/exampledigraph_1}
     \end{center}
     \caption{A three node queueing network in deadlock, with state digraph.}
     \label{fig:exampledigraph_deadlock}
-    \vspace{6 mm}
   \end{subfigure}
-  \begin{subfigure}{\textwidth}
+  \hspace{6 mm}
+  \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includestandalone[width=0.5\textwidth]{images/exampledigraph_2}
+      \includestandalone[width=0.8\textwidth]{images/exampledigraph_2}
     \end{center}
     \caption{A three node queueing network not in deadlock, with state digraph.}
     \label{fig:exampledigraph_nodeadlock}
     \vspace{6 mm}
   \end{subfigure}
-  \begin{subfigure}{\textwidth}
+  \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includestandalone[width=0.6\textwidth]{images/exampledigraph_3}
+      \includestandalone[width=0.9\textwidth]{images/exampledigraph_3}
     \end{center}
     \caption{A three node queueing network in not deadlock, with state digraph.}
     \label{fig:exampledigraph_nodeadlock}
-    \vspace{6 mm}
   \end{subfigure}
-  \begin{subfigure}{\textwidth}
+  \hspace{6 mm}
+  \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includestandalone[width=0.7\textwidth]{images/exampledigraph_4}
+      \includestandalone[width=0.9\textwidth]{images/exampledigraph_4}
     \end{center}
     \caption{A three node queueing network in deadlock, with state digraph.}
     \label{fig:exampledigraph_nodeadlock}
     \vspace{6 mm}
   \end{subfigure}
+  \end{center}
   \caption{Examples of state digraphs with their corresponding queueing networks.}
   \label{fig:exampledigraphs}
 \end{figure}
