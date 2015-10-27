@@ -1,5 +1,5 @@
 """
-Usage: draw_graph_vary_L.py <dir_name> <stateth> <state> <begin> <end> <step> <var> <legend_loc>
+Usage: draw_graph_vary_L.py <dir_name> <stateth> <state> <begin> <end> <step> <var> <legend_loc> <line_colour> <plot_colour>
 
 Arguments
     dir_name    : name of the directory from which to read in data files
@@ -22,7 +22,8 @@ import matplotlib.pyplot as plt
 from csv import reader
 import numpy as np
 import pylab
-# import seaborn
+import seaborn as sns
+sns.set(style="whitegrid")
 
 
 arguments = docopt.docopt(__doc__)
@@ -34,6 +35,8 @@ end = float(arguments['<end>'])
 step = float(arguments['<step>'])
 var = str(arguments['<var>'])
 leg_loc = str(arguments['<legend_loc>'])
+line_colour = str(arguments['<line_colour>'])
+plot_colour = str(arguments['<plot_colour>'])
 
 Ls = [i*step + begin for i in range(int((end-begin)/step)+1)]
 
@@ -86,35 +89,42 @@ for data_series in simulation_results:
     new_data = [obs for obs in data_series if obs > lower and obs < upper]
     simulation_results_no_outliers.append(new_data)
 
-
+if var[0] == 'c' or var[0] == 'n':
+    Ls_show = [int(obs) for obs in Ls]
+else:
+    Ls_show = Ls
 
 fig, ax = plt.subplots()
-plt.plot(Ls, mean_times_to_deadlock, linewidth=2, label='Analytical Mean')
-plt.plot([], [], 'r', linewidth=2, label='Simulation Results')
+plt.plot(Ls_show, mean_times_to_deadlock, linewidth=2, label='Analytical Mean', color=line_colour)
+plt.plot([], [], 'r', linewidth=2, label='Simulation Results', color=plot_colour)
+meanpointprops = dict(marker='D', markeredgecolor='black',
+                      markerfacecolor=plot_colour)
+bp = plt.boxplot(simulation_results, positions=Ls_show, widths=step/2, meanprops=meanpointprops, meanline=False, showmeans=True, sym='')
+for median in bp['medians']:
+    median.set(color=plot_colour, linewidth=2)
+pylab.setp(bp['boxes'], color=plot_colour)
+pylab.setp(bp['whiskers'], color=plot_colour)
 
-bp = plt.boxplot(simulation_results, positions=Ls, widths=step/2, showmeans=True, sym='')
-pylab.setp(bp['boxes'], color='red')
-pylab.setp(bp['whiskers'], color='red')
 
 vp = plt.violinplot(simulation_results_no_outliers, widths=step/1.5, positions=Ls, showmeans=False, showmedians=False, showextrema=False)
-pylab.setp(vp['bodies'], color='red')
+pylab.setp(vp['bodies'], color=plot_colour)
 
 if var[0] == 'L':
-    ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$')
+    ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$', fontsize=16)
 if var[0] == 'm':
-    ax.set_xlabel(r'$\mu_{'+var[2:]+'}$')
+    ax.set_xlabel(r'$\mu_{'+var[2:]+'}$', fontsize=16)
 if var[0] == 'n':
-    ax.set_xlabel(r'$n_{'+var[1:]+'}$')
+    ax.set_xlabel(r'$n_{'+var[1:]+'}$', fontsize=16)
 if var[0] == 'c':
-    ax.set_xlabel(r'$c_{'+var[1:]+'}$')
+    ax.set_xlabel(r'$c_{'+var[1:]+'}$', fontsize=16)
 if var[0] == 'r':
-    ax.set_xlabel(r'$r_{'+var[1:]+'}$')
+    ax.set_xlabel(r'$r_{'+var[1:]+'}$', fontsize=16)
 
-ax.set_ylabel('Time to Deadlock from (0)')
-ax.set_title('Expected Time to Deadlock From State (0)')
+ax.set_ylabel('Time to Deadlock from (0, 0)')
+ax.set_title('Expected Time to Deadlock From State (0, 0)', fontsize=20)
 
 if leg_loc == 'l':
-    plt.legend(loc=2)
+    plt.legend(loc=2, prop={'size':16})
 if leg_loc == 'r':
-    plt.legend(loc=1)
+    plt.legend(loc=1, prop={'size':16})
 plt.show()
