@@ -14,6 +14,8 @@ from csv import reader
 import yaml
 import docopt
 import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style="whitegrid")
 
 arguments = docopt.docopt(__doc__)
 directory = arguments['<dir_name>']
@@ -45,10 +47,10 @@ for i in range(ran):
 fig, ax1 = plt.subplots()
 
 ax1.set_xlabel(r'$n_{'+node+'}$')
-ax1.set_ylabel('Mean Time to Deadlock', color='b')
+ax1.set_ylabel('Mean Time to Deadlock', color='royalblue')
 for tl in ax1.get_yticklabels():
-    tl.set_color('b')
-ax1.plot(range(ran), mean_times_to_deadlock, lw=1, color='b')
+    tl.set_color('royalblue')
+ax1.plot(range(ran), mean_times_to_deadlock, lw=1.5, color='royalblue')
 
 if node == '1':
 	indx = 1
@@ -56,12 +58,12 @@ if node == '2':
 	indx = 0
 
 ax2 = ax1.twinx()
-# ax2.bar(range(ran), [absorbtion_probs[i][indx] for i in range(len(absorbtion_probs))], width=0.5, color='g', alpha=0.6)
-ax2.plot(range(ran), [absorbtion_probs[i][indx] for i in range(len(absorbtion_probs))], lw=1, color='g')
-ax2.set_ylabel('Probability to Deadlock State (-' + str(indx+1) + ')', color='g')
+# ax2.bar(range(ran), [absorbtion_probs[i][indx] for i in range(len(absorbtion_probs))], width=0.5, color='darkgreen', alpha=0.6)
+ax2.plot(range(ran), [absorbtion_probs[i][indx] for i in range(len(absorbtion_probs))], lw=1.5, color='darkgreen')
+ax2.set_ylabel('Probability to Deadlock State (-' + str(indx+1) + ')', color='darkgreen')
 for tl in ax2.get_yticklabels():
-    tl.set_color('g')
+    tl.set_color('darkgreen')
 
-ax1.set_title('Comparison of Time to Deadlock and Absorption Probabiliy - Varying ' + r'$n_{'+node+'}$')
+ax1.set_title('Comparison of Time to Deadlock and Absorption Probabiliy - Varying ' + r'$n_{'+node+'}$', fontsize=16)
 
 plt.show()

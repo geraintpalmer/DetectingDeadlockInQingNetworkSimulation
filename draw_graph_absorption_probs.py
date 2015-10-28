@@ -22,6 +22,8 @@ import matplotlib.pyplot as plt
 from csv import reader
 import numpy as np
 import pylab
+import seaborn as sns
+sns.set(style="whitegrid")
 
 
 arguments = docopt.docopt(__doc__)
@@ -56,11 +58,11 @@ fig, ax = plt.subplots()
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.78, box.height])
 
-p1 = plt.bar(params, todeadlock1, width=step, color='cyan', bottom=[todeadlock3[i]+todeadlock2[i] for i in range(len(todeadlock3))],  label='Deadlock (-1)')
-p2 = plt.bar(params, todeadlock2, width=step, color='yellow', bottom=todeadlock3, label='Deadlock (-2)')
-p3 = plt.bar(params, todeadlock3, width=step, color='red', label='Deadlock (-3)')
+p1 = plt.bar(params, todeadlock1, width=step, color='dodgerblue', bottom=[todeadlock3[i]+todeadlock2[i] for i in range(len(todeadlock3))],  label='Deadlock (-1)')
+p2 = plt.bar(params, todeadlock2, width=step, color='gold', bottom=todeadlock3, label='Deadlock (-2)')
+p3 = plt.bar(params, todeadlock3, width=step, color='firebrick', label='Deadlock (-3)')
 
-plt.title("Absorbtion Probabilities of Deadlocking from State (0, 0)")
+plt.title("Absorption Probabilities of Deadlocking from State (0, 0)", fontsize=18)
 ax.set_ylabel('Probability')
 if var[0] == 'L':
     ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$')
@@ -70,7 +72,7 @@ if var[0] == 'n':
     ax.set_xlabel(r'$n_{'+var[1:]+'}$')
 if var[0] == 'r':
     ax.set_xlabel(r'$r_{'+var[1:]+'}$')
-legend = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+legend = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':14})
 
 pylab.ylim([0,1])
 pylab.xlim([begin,end+step])

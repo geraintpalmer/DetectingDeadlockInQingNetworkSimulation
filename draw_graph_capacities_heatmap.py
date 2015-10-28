@@ -18,6 +18,7 @@ import numpy as np
 import seaborn as sns
 sns.set(style="whitegrid")
 
+
 arguments = docopt.docopt(__doc__)
 dirname = arguments['<dir_name>']
 state = arguments['<state>']
@@ -49,7 +50,7 @@ data = np.array(mean_times_to_deadlock)
 masked_data = np.ma.masked_where(np.isnan(data),data)
 
 # plt.pcolor(X, Y, masked_data, cmap='YlOrBr', linewidth=1, linestyle='solid', edgecolor='black')
-plt.pcolor(X, Y, masked_data, cmap='hot_r', linewidth=1, linestyle='solid', edgecolor='black')
+plt.pcolor(X, Y, masked_data, cmap='hot_r', linewidth=1, linestyle='solid'gecolor='black')
 # plt.pcolor(X, Y, masked_data, cmap='BrBG')
 # plt.pcolor(X, Y, masked_data, linewidth=1, linestyle='solid', edgecolor='black')
 plt.colorbar()
