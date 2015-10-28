@@ -16,6 +16,8 @@ import yaml
 import docopt
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
+sns.set(style="whitegrid")
 
 arguments = docopt.docopt(__doc__)
 dirname = arguments['<dir_name>']
@@ -88,10 +90,10 @@ plt.pcolor(X, Y, masked_data, cmap='hot_r')
 # plt.pcolor(X, Y, masked_data, cmap='BrBG')
 # plt.pcolor(X, Y, masked_data)
 plt.colorbar()
-plt.xlabel(r'$r_{12}$')
-plt.ylabel(r'$r_{11}$')
+plt.xlabel(r'$r_{22}$')
+plt.ylabel(r'$r_{21}$')
 if anorsim == 'err':
-    plt.title('Error in Times to Deadlock')
+    plt.title('Error in Times to Deadlock', fontsize=18)
 else:
-    plt.title('Mean Times to Deadlock from (0, 0) - Varying ' + r'$r_{11}$' + ' and ' + r'$r_{12}$')
+    plt.title('Mean Times to Deadlock from (0, 0) - Varying ' + r'$r_{21}$' + ' and ' + r'$r_{22}$', fontsize=18)
 plt.show()

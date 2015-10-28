@@ -15,6 +15,8 @@ import yaml
 import docopt
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
+sns.set(style="whitegrid")
 
 arguments = docopt.docopt(__doc__)
 dirname = arguments['<dir_name>']
@@ -53,5 +55,5 @@ plt.pcolor(X, Y, masked_data, cmap='hot_r', linewidth=1, linestyle='solid', edge
 plt.colorbar()
 plt.xlabel(r'$n_2$')
 plt.ylabel(r'$n_1$')
-plt.title('Mean Times to Deadlock from (0, 0) - Varying ' + r'$n_1$' + ' and ' + r'$n_2$')
+plt.title('Mean Times to Deadlock from (0, 0) - Varying ' + r'$n_1$' + ' and ' + r'$n_2$', fontsize=18)
 plt.show()
