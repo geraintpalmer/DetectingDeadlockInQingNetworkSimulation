@@ -1,5 +1,5 @@
 """
-Usage: draw_graph_threshold.py <dir_name> <var> <legend_loc>
+Usage: draw_graph_threshold.py <dir_name> <var> <legend_loc> <line_colour>
 
 Arguments
     dir_name    : name of the directory from which to read in data files
@@ -18,12 +18,15 @@ import matplotlib.pyplot as plt
 from csv import reader
 import numpy as np
 import pylab
+import seaborn as sns
+sns.set(style="whitegrid")
 
 
 arguments = docopt.docopt(__doc__)
 dirname = arguments['<dir_name>']
 var = str(arguments['<var>'])
 leg_loc = str(arguments['<legend_loc>'])
+line_colour = str(arguments['<line_colour>'])
 
 root = os.getcwd()
 directory = os.path.join(root, dirname)
@@ -40,7 +43,7 @@ parameter_file.close()
 
 fig, ax = plt.subplots()
 
-plt.plot(threshold_results[1], threshold_results[0], 'g', linewidth=2, label='Threshold')
+plt.plot(threshold_results[1], threshold_results[0], line_colour, linewidth=3, label='Threshold')
 
 if var[0] == 'L':
     ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$')
@@ -54,10 +57,10 @@ if var[0] == 'r':
     ax.set_xlabel(r'$r_{'+var[1:]+'}$')
 
 ax.set_ylabel('Threshold')
-ax.set_title('Effect of varying parameters on the ' + r'$\mu$' + ' Threshold.')
+ax.set_title('Effect of varying parameters on the ' + r'$\mu$' + ' Threshold.', fontsize=20)
 
 if leg_loc == 'l':
-    plt.legend(loc=2)
+    plt.legend(loc=2, prop={'size':16})
 if leg_loc == 'r':
-    plt.legend(loc=1)
+    plt.legend(loc=1, prop={'size':16})
 plt.show()
