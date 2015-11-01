@@ -8,7 +8,9 @@
 *.pyc
 data_for_graphs/bound_stuff/
 data_for_graphs/test/
-*.ipynb
+*.ipynb_checkpoints
 *.dvi
 *.out
 venv*
+data_for_graphs/clustered_bound_data.csv
+data_for_graphs/ratio_bound_data.csv
