@@ -136,6 +136,8 @@ In general there are three strategies for dealing with the problem of deadlock \
   \item Detection and recovery.
 \end{itemize}
 
+The third of these, detection and recovery, will be discussed in this paper.
+
 \subsection{Deadlock Prevention}
 
 Deadlock prevention has been discussed in queueing networks under Type I blocking.
@@ -376,6 +378,7 @@ A routing matrix with entries $r_{ij}$ describes how every node is connected to 
 
 The simulation model is built in an object-orientated manor using Python.
 Customers, nodes, servers and the queueing network itself are objects that interact or contain each other.
+A dummy arrival node and exit node exist to spawn customers and collect data.
 The code for the simulation can be found here: \url{https://github.com/geraintpalmer/SimulatingAQingNetwork}.
 
 The main simulation loop is carried out as follows:
@@ -394,6 +397,31 @@ The main simulation loop is carried out as follows:
         }\;
         next active node $\leftarrow$ node with closest next event date\;
         current time $\leftarrow$ next event date of next active node\;
+    }\;
+\end{algorithm}
+
+Where each node has a `have event' subroutine.
+The arrival node's `have event' subroutine creates a new customer and sends that customer to their correct starting node.
+The exit node has no `have event' subroutine.
+All other nodes' `have event' subroutine occurs when a customer finishes service at that node, and is carried out as follows:
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    Identify customer finishing service\;
+    Identify customer's destination node\;
+    \eIf{destination node has spare capacity}{
+        Send customer to destination node\;
+        \If{Customer able to start service at destination}{
+            Start service
+        }\;
+        \If{Customer at front of queue can start service}{
+            Start service
+        }\;
+        \If{Blocked individuals waiting to enter}{
+            Unblock and accept blocked individual
+        }\;
+    }{
+        Block individual
     }\;
 \end{algorithm}
 
@@ -1293,6 +1321,9 @@ Markov models of five deadlocking queueing networks were built.
 Using linear algebraic techniques the expected time to deadlock from each state was found, and its behaviour as system parameters varied explored.
 These analytical results were compared with results obtained from the simulation model.
 Finally a bound on the expected time to deadlock for one of these models was given.
+
+For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
+A future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
 
 
 
