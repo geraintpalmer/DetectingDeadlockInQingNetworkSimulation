@@ -1718,6 +1718,13 @@ To investigate which parameters effect $E$, and so which parameters effect the t
   \caption{Effect of $r^{\star}$ on $E$.}
   \label{fig:ratio_rs}
 \end{subfigure}
+\begin{center}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/ratio_actual_rho_ratios}
+  \caption{Effect of $\rho^{\star}$ on $E$.}
+  \label{fig:ratio_rho_ratio}
+\end{subfigure}
+\end{center}
 \caption{Preliminary analysis of parameters on $E$.}
 \label{fig:prelim_ratio_analysis}
 \end{figure}
@@ -1733,6 +1740,13 @@ The histograms are split by $r^{\star} = \min(r_{12}, r_{21})$, that is grouping
 This split was chosen to highlight the difference in $E$ as the probability to deadlocked state (-3) increased.
 It can be seen that higher $r^{\star}$ values yield higher $E$ values in general.
 This suggests that the bound is tighter for parameter sets with high probability if reaching deadlocked state (-3).
+
+Figure~\ref{fig:ratio_rho_ratio} shows the effect of the relative difference in traffic intensities of each node on $E$.
+Again the y-axis has been normalised.
+The groups are groupes by $\rho^{\star}$, defined by $\rho^{\star} = \max(\frac{\rho_1}{\rho_2}, \frac{\rho_2}{\rho_1}) = \max(\frac{\Lambda_1\mu_2}{\Lambda_2\mu_1}, \frac{\Lambda_2\mu_1}{\Lambda_1\mu_2})$.
+If this measure $\rho^{\star}$ is close to 1 then both nodes have similar traffic intensities, however the larger this measure the larger the difference in the business of the nodes.
+It can be seen that when the nodes have similar traffic intensities the bound is less tight that when the traffic intensities are very different.
+This may be related to the effect seen in Figure~\ref{fig:ratio_rs}, as very unequal traffic intensities are less likely to reach deadlocked state (-3).
 
 In order to determine for which parameter sets the bound's tightness is good, average or bad, a k-means clustering algorithm was used on the $E$ values.
 This partitioned the observations into 3 clusters:
