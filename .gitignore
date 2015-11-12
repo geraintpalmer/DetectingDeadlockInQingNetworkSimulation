@@ -14,3 +14,4 @@ data_for_graphs/test/
 venv*
 data_for_graphs/clustered_bound_data.csv
 data_for_graphs/ratio_bound_data.csv
+data_for_graphs/ratio_data.csv
