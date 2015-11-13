@@ -1590,7 +1590,7 @@ Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $
 
 Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ we get the following bound:\\
 
-\begin{theorem}
+\begin{theorem}\label{thrm:bound}
 For any parameter sets the following inequality holds:
 $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
 \end{theorem}
@@ -1714,17 +1714,20 @@ To investigate which parameters effect $E$, and so which parameters effect the t
   \label{fig:ratio_ns}
 \end{subfigure}
 \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{images/ratio_actual_rs}
-  \caption{Effect of $r^{\star}$ on $E$.}
-  \label{fig:ratio_rs}
-\end{subfigure}
-\begin{center}
-\begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/ratio_actual_rho_ratios}
   \caption{Effect of $\rho^{\star}$ on $E$.}
   \label{fig:ratio_rho_ratio}
 \end{subfigure}
-\end{center}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/ratio_actual_rs}
+  \caption{Effect of $r^{\star}$ on $E$.}
+  \label{fig:ratio_rs}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{images/ratio_actual_bound_p3}
+  \caption{Effect of $p_{(-3)}$ on $E$.}
+  \label{fig:ratio_p3s}
+\end{subfigure}
 \caption{Preliminary analysis of parameters on $E$.}
 \label{fig:prelim_ratio_analysis}
 \end{figure}
@@ -1734,6 +1737,12 @@ Figure~\ref{fig:ratio_ns} shows a stacked plot of the estimated pdf of $E$ split
 It can be seen that although $E$ has the same range for each $n_1$, the mode and mean shift to the right as $n_1$ increases.
 This suggests that the bound is tighter for parameter sets with a larger queueing capacities.
 
+Figure~\ref{fig:ratio_rho_ratio} shows the effect of the relative difference in traffic intensities of each node on $E$.
+Again the y-axis has been normalised.
+The groups are groupes by $\rho^{\star}$, defined by $\rho^{\star} = \max(\frac{\rho_1}{\rho_2}, \frac{\rho_2}{\rho_1}) = \max(\frac{\Lambda_1\mu_2}{\Lambda_2\mu_1}, \frac{\Lambda_2\mu_1}{\Lambda_1\mu_2})$.
+If this measure $\rho^{\star}$ is close to 1 then both nodes have similar traffic intensities, however the larger this measure the larger the difference in the business of the nodes.
+It can be seen that when the nodes have similar traffic intensities the bound is less tight that when the traffic intensities are very different.
+
 Figure~\ref{fig:ratio_rs} shows the effect of the transition probabilities on $E$.
 This time the histograms are overlayed on top of eachother rather than stacked, and the y-axis has been normalised for each histogram as some groups have vastly different sample sizes to others.
 The histograms are split by $r^{\star} = \min(r_{12}, r_{21})$, that is grouping high values of both $r_{12}$ and $r_{21}$ together.
@@ -1741,12 +1750,9 @@ This split was chosen to highlight the difference in $E$ as the probability to d
 It can be seen that higher $r^{\star}$ values yield higher $E$ values in general.
 This suggests that the bound is tighter for parameter sets with high probability if reaching deadlocked state (-3).
 
-Figure~\ref{fig:ratio_rho_ratio} shows the effect of the relative difference in traffic intensities of each node on $E$.
-Again the y-axis has been normalised.
-The groups are groupes by $\rho^{\star}$, defined by $\rho^{\star} = \max(\frac{\rho_1}{\rho_2}, \frac{\rho_2}{\rho_1}) = \max(\frac{\Lambda_1\mu_2}{\Lambda_2\mu_1}, \frac{\Lambda_2\mu_1}{\Lambda_1\mu_2})$.
-If this measure $\rho^{\star}$ is close to 1 then both nodes have similar traffic intensities, however the larger this measure the larger the difference in the business of the nodes.
-It can be seen that when the nodes have similar traffic intensities the bound is less tight that when the traffic intensities are very different.
-This may be related to the effect seen in Figure~\ref{fig:ratio_rs}, as very unequal traffic intensities are less likely to reach deadlocked state (-3).
+Figure~\ref{fig:ratio_p3s} shows the effect of $p_{(-3)}$, the probability of reaching deadlocked state (-3), of the performance of the bound.
+It can clearly be seen that the bound is much tighter for queueing networks with a high $p_{(-3)}$ than those with a lower probability to deadlcoked state (-3).
+This clearly highlights that the assumptions made about the $\widetilde{\Omega}_{1_1}$ and $\widetilde{\Omega}_{1_2}$ systems in the proof of Theorem~\ref{thrm:bound} overestimate the difference between $\widetilde{\omega}_{1_1}$ and $\omega_{1_1}$, and between $\widetilde{\omega}_{1_2}$ and $\omega_{1_2}$.
 
 In order to determine for which parameter sets the bound's tightness is good, average or bad, a k-means clustering algorithm was used on the $E$ values.
 This partitioned the observations into 3 clusters:
