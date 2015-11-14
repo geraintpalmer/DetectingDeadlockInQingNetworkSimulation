@@ -283,7 +283,7 @@ Figure~\ref{fig:4nodecombinations} illustrates the number of different types of 
 Before proceeding, remember that a Bell number $B_n$ is the number of ways a set of $n$ elements can be partitioned into non-empty subsets \cite{cameron94}.
 Now the following theorem gives the number of possible deadlocked states in a complete queueing network.\\
 
-\begin{proposition}
+\begin{proposition}\label{prop:number_deadlocks}
   If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible deadlocked states is $B_{N+1} - 1$, where $B_n$ denotes the $n$th Bell number.
 \end{proposition}
 
@@ -327,7 +327,7 @@ Therefore $|D_N| = |P_N| = B_{N+1}-1$.
 
 \end{proof}
 
-Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ and $N=3$.
+Figure~\ref{fig:exampleofmapping} gives an example of the mapping $g$ for $N=2$ and $N=3$.\\
 
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{\textwidth}
@@ -365,7 +365,29 @@ For example, a deadlock configuration that consists of two separate components i
 
 The remainder of this report will only be concerned with the first instance of deadlock, that is the deadlocked states that can be reached from a non-deadlocked state directly.
 That is deadlock configurations with only one deadlocked component.
-The number of different deadlocked states that can reached at first instance is equal to the number of directed cycles where every node has finite queueing capacity. % Explain this a little more....
+The following proposition gives the number of different deadlocked states that can reached at first instance.
+First recall that Stirling numbers of the second kind $S(n, k)$ give the number of ways to partition a set of $n$ elements into $k$ subsets.\\
+
+\begin{proposition}
+  If the queueing network $Q$ with $N$ nodes is complete, and every node has finite queueing capacity, then the number of possible deadlocked states that can be reached at first instance is $S(N, 2)$, where $S(n, k)$ denotes a Stirling number with parameters $n$ and $k$.
+\end{proposition}
+
+\begin{proof}
+
+\begin{itemize}
+\item Define $S_N$, $D_N$, $P_N$, $\xi$ and $g$ as in Proposition~\ref{prop:number_deadlocks}.
+\item Define $F_N$ as the set of possible deadlocks that can be reached at first instance on a queueing network $Q$ with $N$ nodes.
+\item Define $T_N$ as the number of ways $S_N\cup\{\xi\}$ can be partitioned into two subsets.
+\end{itemize}
+
+Note that $F_N \subset D_N$ and $T_N \subset P_N$.
+By definition $|T_N| = S(N, 2)$.
+
+Noting that a deadlocked state that can be reached at first instance only has one deadlocked component then the following must be true: if $y \in F_N$ then $g(y)$ is a partition of two subsets, one subset containing all the nodes in the sole deadlocked component, and one subset containing all undeadlocked nodes.
+
+Thus $g$ maps $F_N \to T_N$.
+Recall that $g$ is both 1-1 and onto, thus $|F_N| = |T_N| = S(N, 2)$. 
+\end{proof}
 
 
 
