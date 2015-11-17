@@ -52,7 +52,7 @@ It is hoped that this paper addresses a gap in the literature on the deadlocking
 
 \section{Introduction \& Background}
 
-The study and modelling of queueing networks with blocking is an important tool in many aspects of operational research, both analyically and through simulation.
+The study and modelling of queueing networks with blocking is an important tool in many aspects of operational research, both analytically and through simulation.
 These models have applications in many varied settings such as healthcare, supply chains, manufacturing and communications systems.
 However, these types of models have their limitations, due to their potential to become permanently blocked in deadlock, or a deadly embrace of resources.
 These deadlocks can be real in which case accurate modelling of deadlock is needed, or they can occur in models where deadlock situations are easily adjusted in reality. In the latter case, such as by swapping two customers, a good understanding of deadlock is needed in order to model the adjusted reality.
@@ -65,14 +65,24 @@ It is clear that by following the rules of a queueing network, no more natural m
   \begin{center}
   \includestandalone[width=0.3\textwidth]{images/2nodesindeadlock}
   \end{center}
-  \caption{Example of as open two node restricted queueing network in deadlock.}
+  \caption{Example of an open two node restricted queueing network in deadlock.}
   \label{fig:1st_example}
 \end{figure}
 
 Restricted open queueing networks that can experience deadlock are under-discussed in the literature.
 This paper aims to explore deadlock to gain this understanding in order to build more accurate models of deadlocking systems
 
-This paper is structured as follows: the remainder of this section sets up the notation and definitions used for the rest of the paper. Section~\ref{sec:litreview} discusses the exsisting literature on deadlock in queueing networks. Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:simulation} briefly describes the discrete event simulation model used to obtain the results in this paper. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
+This paper is structured as follows: the remainder of this section sets up the
+notation and definitions used for the rest of the paper.
+Section~\ref{sec:litreview} discusses the existing literature on deadlock in
+queueing networks. Section~\ref{sec:detectingdeadlock} presents a method of
+detecting deadlock in simulations of queueing networks.
+Section~\ref{sec:simulation} briefly describes the discrete event simulation
+model used to obtain the results in this paper. Section~\ref{sec:markovmodels}
+presents Markov models of five deadlocking queueing networks, derives their
+expected time to deadlock, and compares these with results obtained through the
+simulation model. Finally Section~\ref{sec:bound} derives a bound for the
+expected time to deadlock for one of the queueing networks discussed.
 
 \subsection{Open Restricted Queueing Networks}
 
