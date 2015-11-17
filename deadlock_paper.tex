@@ -125,11 +125,14 @@ In fact, the problem of deadlock in queueing networks has either been ignored, n
 
 Central to the study of deadlock in queueing networks is the concept of blocking.
 In \cite{onvuralperros86} three types of blocking are described:
-Type I blocking (blocked at service, BAS, transfer blocking) occurs when a customer is blocked after completing service, and remains with the server until capacity at their destination node becomes available.
-Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
-In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat thier service if there is no capacity at theor destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is resampled from a probability distribution after each repitition.
 
-There has been a body of reseach into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
+\begin{itemize}
+    \item Type I blocking (blocked at service, BAS, transfer blocking) occurs when a customer is blocked after completing service, and remains with the server until capacity at their destination node becomes available.
+    \item Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
+    \item In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat their service if there is no capacity at their destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is re sampled from a probability distribution after each repetition.
+\end{itemize}
+
+There has been a lot of research into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
 Conditions for this type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, to potentially occur are given:
 \begin{itemize}
@@ -139,7 +142,7 @@ Conditions for this type of deadlock, also referred to as deadly embraces \cite{
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
 
-In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satified in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is feedback loops.
+In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satisfied in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is feedback loops.
 
 Allowing a system to reach deadlock can be problamatic in cases where automated systems cannot continue operations, or where simulations cannot accurately model reality.
 In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
@@ -180,32 +183,15 @@ A popular method of detecting general deadlock is the use of wait-for graphs, st
 These wait-for graphs, keep track of all circular wait relations between tasks.
 
 In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
-For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cylce.
+For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cycle.
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 This type of strategy is used in this paper to detect deadlock in queueing systems.
 
-Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resove deadlock may not be negligible in reality.
-In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible soulutions for handling deadlock in queueing networks, although this isn't discussed further.
+Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resole deadlock may not be negligible in reality.
+In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks, although this isn't discussed further.
 
-The next section introduces a method of detecting when deadlock occurs in simulations of open restricted queueing networks.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The next section introduces a method of detecting when deadlock occurs in open restricted queueing networks.
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 
