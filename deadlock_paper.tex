@@ -933,18 +933,9 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{subfigure}
 \end{center}
 \caption{Time to deadlock in $\Omega$, analytical \& simulation results (10,000 iterations).}
+% You cannot see the violins in these plots. Not sure how to fix.
 \label{fig:timestodeadlockfeedback}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
 
 \subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
@@ -1306,19 +1297,26 @@ Therefore
 
 \end{proof}
 
-This bound has been tested for over 7 mllion parameter sets.
-In order to gain an understanding of how loose or tight this bound is, the following ratio is taken:
+A numerical analysis of this bound has been carried out over 7 million parameter
+sets: the corresponding data set is available here URL.  In order to gain an
+understanding of how loose or tight this bound is, the following ratio, as a
+measure of the performance of the bound is defined:
 
 \begin{equation}
 E = \frac{\omega}{\min(\omega_{1_1}, \omega_{1_2}, \omega_2)}
+% I don't like the choice of E: go for something like beta.
 \end{equation}
 
-As both the numerator and denominator are positive, and $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$, then $0 \leq E \leq 1$.
-If $E$ is close to 1 then the bound is tight, and if the $E$ is close to 0 then there is a large percentage difference between the bound and the actual value for $\omega$.
+As both the numerator and denominator are positive, and (by Theorem ?) $\omega
+\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$, then $0 \leq E \leq 1$.  If
+$E$ is close to 1 then the bound is tight, and if the $E$ is close to 0 then
+there is a large percentage difference between the bound and the actual value
+for $\omega$.
 
 Figure~\ref{fig:bound_ratio_hist} shows a histogram of $E$ for over 7 million parameter sets.
-20 equally spaced bins are used.
-It can be seen that although the bound holds, it isn't tight.
+It can be seen that although Theorem ? is confirmed (all values are less that
+1), it isn't tight (with some parameter sets giving a value of \(E\) as low as
+?).
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -1328,16 +1326,26 @@ It can be seen that although the bound holds, it isn't tight.
   \label{fig:bound_ratio_hist}
 \end{figure}
 
+Recalling Section ? Let $p_{(-1)}$, $p_{(-2)}$ and $p_{(-3)}$ denoted the
+probabilities of $\Omega$ reaching deadlocked state (-1), (-2) and (-3)
+respectively, calculated using Equation~\ref{eq:abs_probs}.
 
-Let $p_{(-1)}$, $p_{(-2)}$ and $p_{(-3)}$ denoted the probabilities of $\Omega$ reaching deadlocked state (-1), (-2) and (-3) respecitvely, calculated using Equation~\ref{eq:abs_probs}.
+Figures~\ref{fig:scatter_p1} and \ref{fig:scatter_p3} show scatter plots of
+$p_{(-1)}$ and $p_{(-3)}$ against the ratio $E$ respectively (each taking a
+random sample of 100000 data points for ease of graphing).  It can be seen that
+$p_{(-3)}$ has a strong affect on the tightness of the bound, as the probability
+of reaching deadlocked state (-3) increases, the bound becomes tighter.  This
+effect seems to only begin as the probability increases above $p_{(-3)}
+\approx 0.175$.
 
-Figures~\ref{fig:scatter_p1} and \ref{fig:scatter_p3} show scatterplots of $p_{(-1)}$ and $p_{(-3)}$ against the ratio $E$ respectively (each taking a random sample of 100000 data points for ease of graphing).
-It can be seen that $p_{(-3)}$ has a strong affect on the tightness of the bound, as the probability of reaching deadlocked state (-3) increases the bound becomes tighter.
-This effect is seems to only begin as the probability increases above $p_{(-3)} \approx 0.175$.
-Queueing networks with absorption probability $p_{(-3)} \leq 0.175$ are either unaffected by this effect, or there are more complicated effects occuring simultaneously to obscure this effect.
+% The sentence below is not well written at all.
+Queueing networks with absorption probability $p_{(-3)} \leq
+0.175$ are either unaffected by this effect, or there are more complicated
+effects occurring simultaneously to obscure this effect.
 
-Apart from $p_{(-1)}$ not being independent from $p_{(-3)}$, the probability of reaching deadlocked state (-1) does not seem to affect the tightness of the bound.
-The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the $\Omega$ system is symmertical.
+The probability of reaching deadlocked state (-1) does not seem to affect the
+tightness of the bound.  The same conclusion can be deduced for $p_{(-2)}$ as
+the mechanics of the $\Omega$ system are symmetrical.
 
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
@@ -1354,33 +1362,40 @@ The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the $\Omeg
 \label{fig:pscatterplot_ratio_analysis}
 \end{figure}
 
-This clearly highlights that the assumptions made about the $\widetilde{\Omega}_{1_1}$ and $\widetilde{\Omega}_{1_2}$ systems in the proof of Theorem~\ref{thrm:bound} overestimate the difference between $\widetilde{\omega}_{1_1}$ and $\omega_{1_1}$, and between $\widetilde{\omega}_{1_2}$ and $\omega_{1_2}$.
-
-
-
-
-
-
-
-
-
+This clearly highlights that the assumptions made about the
+$\widetilde{\Omega}_{1_1}$ and $\widetilde{\Omega}_{1_2}$ systems in the proof
+of Theorem~\ref{thrm:bound} overestimate the difference between
+$\widetilde{\omega}_{1_1}$ and $\omega_{1_1}$, and between
+$\widetilde{\omega}_{1_2}$ and $\omega_{1_2}$.
+% Add a sentence here highlighting the positives and when the bound is good as a
+% last sentence.
 
 \section{Conclusions}
 
-This paper, motivated by a gap in the literature, has explored deadlock in open restricted queueing networks.
-It has been shown that analysing a queueing network's corresponding state digraph is sufficient to detect when deadlock occurs in queueing network systems.
-In general the presence of a knot in the state digraph will highlight that deadlock has occured in the network, however for special cases only the presence of a weakly connected component with no sink is required.
-Encorporating this into a simulation model, time to deadlock could be recorded.
+This paper, motivated by a gap in the literature, has explored deadlock in open
+restricted queueing networks.  It has been shown that analysing a queueing
+network's corresponding state digraph is sufficient to detect when deadlock
+occurs in queueing network systems.  In general the presence of a knot in the
+state digraph will highlight that deadlock has occurred in the network, however
+for special cases only the presence of a weakly connected component with no sink
+is required.  Incorporating this into a simulation model, time to deadlock could
+be recorded.
 
-Markov models of five deadlocking queueing networks were built.
-Using linear algebraic techniques the expected time to deadlock from each state was found, and its behaviour as system parameters varied explored.
-These analytical results were compared with results obtained from the simulation model.
-Finally a bound on the expected time to deadlock for one of these models was given, that was found to be tighter for those networks that have high probability of reaching deadlocked state (-3).
+Markov models of five deadlocking queueing networks were built.  Using linear
+algebraic techniques the expected time to deadlock from each state was found,
+and its behaviour as system parameters varied explored.  These analytical
+results were compared with results obtained from the simulation model.  Finally
+a bound on the expected time to deadlock for one of these models was given, that
+was found to be tighter for those networks that have high probability of
+reaching deadlocked state \((-3)\).
 
-For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
-A future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
+This analysis of deadlock is a contribution to the literature and methodological
+understanding of the study of queueing networks.
 
-
+For the Markov models built in this paper Poisson arrivals and exponential
+service rates were assumed.  A future research direction could be to model other
+service and arrival distributions using phase-type distributions, and
+incorporating these into the Markov models of deadlocking queueing networks.
 
 \bibliographystyle{plain}
 \bibliography{refs}
