@@ -445,7 +445,8 @@ The next section builds Markov models of five queueing networks, and discusses t
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-In this section markov models are build for the following deadlocking queueing networks, and their expected time to deadlock found:
+% Are you using Markov or markov? Should be Markov throughout
+In this section Markov models are built for the following deadlocking queueing networks, and their expected time to deadlock found:
 
 \begin{itemize}
   \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet})
@@ -455,13 +456,18 @@ In this section markov models are build for the following deadlocking queueing n
   \item Open two node, mutli server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
 \end{itemize}
 
-In general a continuous Markov chain model of a deadlocking queueing network is a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
-Each state $s$ uniquely defines a configuration of customers around the queueing network.
-Deadlocked states are also present, either denoted by that specific configuration of customers, or by negative numbers, for example $-1$.
-Deadlocked states cannot transition to any other state, and so are absorbing states of the Markov chain.
-Therefore any queueing network that can experience deadlock is guaranteed to experience deadlock, as absorbing Markov chains are guaranteed to enter one of its absorbing states.
+In general a continuous Markov chain model of a deadlocking queueing network is
+defined by a set of states $s \in S$ and the transition rates between these
+states $q_{s_1,s_2}$.  Each state $s$ uniquely defines a configuration of
+customers around the queueing network.  Deadlocked states are also present,
+either denoted by that specific configuration of customers, or by negative
+numbers, for example $-1$.  Deadlocked states cannot transition to any other
+state, and so are absorbing states of the Markov chain.  Therefore any queueing
+network that can experience deadlock is guaranteed to experience deadlock, as
+absorbing Markov chains are guaranteed to enter one of its absorbing states.
 
-The expected time until deadlock is reached is equivalent to the expected time to absorbtion of the Markov chain, which can easily be found \cite{stewart09}.
+The expected time until deadlock is reached is equivalent to the expected time
+to absorption of the Markov chain, which can easily be found \cite{stewart09}.
 The canonical form of an absorbing Markov chain is
 
 \begin{equation*}
@@ -478,24 +484,20 @@ Now the expected number of time steps until absorption starting from state $i$ i
 
 where $e$ is a vector of 1s.
 
-Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the expected number of time steps to absorption, or deadlock can be found.
+% My spell checker says that discretising is not a word: check :)
+Therefore by discretising the continuous Markov chain and ensuring the correct
+order of states, the expected number of time steps to absorption, which
+corresponds to deadlock, can be found.
 
 When there is more than one deadlocked state, there is more than one absorbing state in the Markov chain.
-Here the expected time to absorbtion is the expected time to a deadlocked state, whichever one that may be.
-The probabilities of which absorbing state a Markov chain will reach are given by the $(i, j)^{\text{th}}$ element of the vector
+Here the expected time to absorption is the expected time to a deadlocked state, whichever one that may be.
+The probabilities of which absorbing state a Markov chain will reach are given
+by the $(i, j)^{\text{th}}$ element of the follow matrix:
 \begin{equation}
   (I - T)^{-1}U
 \end{equation}
 
 which corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
-
-
-
-
-
-
-
-
 
 \subsection{One Node Single-Server}\label{sec:1nodenet}
 
