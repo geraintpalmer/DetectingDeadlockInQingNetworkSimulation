@@ -195,11 +195,12 @@ The next section introduces a method of detecting when deadlock occurs in open r
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 
-In order to detect when deadlock has occured in a queueing network simulation, the state digraph is used.
+In order to detect when deadlock has occurred in a queueing network simulation,
+a state digraph is used.
 This is a form of wait-for graph, and is defined below.\\
 
 \begin{definition}
-The state digraph $D(t)$ of a queueing network defines that network's state at any time $t$.
+The state digraph $D(t)$ of a queueing network is defined by that network's state at any time $t$.
 Vertices of the state digraph correspond to servers of the network.
 A directed edge denotes a blockage relationship in the following manner: if a customer at the $k$th server of node $i$ is blocked from entering node $j$, then there are directed edges from the vertex corresponding to node $i$'s $k$th server to every vertex corresponding to the servers of node $j$.
 \end{definition}
@@ -245,18 +246,20 @@ To illustrate this concept Figure~\ref{fig:exampledigraphs} show examples of que
   \label{fig:exampledigraphs}
 \end{figure}
 
-Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X \in G(t)$. Some observations:
+Consider one weakly connected component $G(t)$ of $D(t)$ and a node $X \in G(t)$. Some observations:
 
 \begin{itemize}
 
-  \item If $X$ is unoccupied, then $X$ has no incident edges.
-  \item Consider the case when $X$ is occupied by individual $a$, whose next destination is node $j$. Then $X$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
-  \item It can interpreted that all $X$'s descendants are the servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
-  \item All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+  \item If the server corresponding to $X$ is unoccupied, then $X$ has no incident edges.
+  \item Consider the case when the server corresponding to $X$ is occupied by
+      individual $a$, whose next destination is node $j$. Then $X$'s direct
+      successors correspond to servers occupied by individuals who are blocked or in service at node $j$.
+  \item It can interpreted that all $X$'s descendants correspond to the servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+  \item All vertices of $G(t)$ are either descendants of another vertex and so
+      corresponds to a servers who are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
   \item Note that the only possibilities for $\text{deg}^{\text{out}}(X)$ are 0 or $c_j$. If $\text{deg}^{\text{out}}(X) = c_j$ then $a$ is blocked by all its direct successors. The only other situation is that $a$ is not blocked, and $X \in G(t)$ because $a$ is in service at $X$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X) = 0$.
   \item It is clear that if all of $X$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
   \item By definition all of $X$'s ancestors are occupied by blocked individuals.
-
 \end{itemize}
 
 The following results detect deadlock for open restricted queueing networks.\\
@@ -362,25 +365,21 @@ The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly c
 
 The next section briefly discusses the simulation model used to conduct numerical experiments for this paper.
 
-
-
-
-
-
-
-
-
 \section{Simulation Model}\label{sec:simulation}
+
+% I have reorded these two paragraphs but this still needs to be cleaned up. I
+% don't think this is quite right.
+The simulation model is built in an object-orientated manner using Python.
+Customers, nodes, servers and the queueing network itself are objects that interact or contain each other.
+A dummy arrival node and exit node exist to spawn customers and collect data.
+The code for the simulation can be found here: \url{https://github.com/geraintpalmer/QNetSim}.
+% Wrong url?
 
 A simulation model is used to run a discrete event simulation of the open restricted queueing network, detect deadlock and stop the simulation at this point.
 The time the simulation ran for until deadlock is recorded.
 The model is generic, and can handle any number of service center nodes, each defined by its external arrival rate, service rate, number of servers and queueing capacity, which may be set to $\infty$ is needed.
 A routing matrix with entries $r_{ij}$ describes how every node is connected to every other node.
 
-The simulation model is built in an object-orientated manor using Python.
-Customers, nodes, servers and the queueing network itself are objects that interact or contain each other.
-A dummy arrival node and exit node exist to spawn customers and collect data.
-The code for the simulation can be found here: \url{https://github.com/geraintpalmer/QNetSim}.
 
 The main simulation loop is carried out as follows:
 
@@ -427,22 +426,22 @@ All other nodes' `have event' subroutine occurs when a customer finishes service
 \end{algorithm}
 
 The state digraph $D(t)$ described in Section~\ref{sec:detectingdeadlock} is an attribute of the queueing network.
-Edges are created or removed whenever the following events take place: a customer begins service at a server, a customer becomes blocked, a customer leaves a server.
+Edges are created or removed whenever the following events take place:
+
+\begin{itemize}
+    \item a customer begins service at a server
+    \item a customer becomes blocked
+    \item a customer leaves a server
+\end{itemize}
+
+% This paragraphs below doesn't make much sense in connection to the previous
+% one?
 The model is a discrete event simulation, and the deadlocked condition is checked immediately before the clock is moved on.
 Here a brute force algorithm is used to check whether each strongly connected component of $D(t)$ is a knot.
 Once a knot is found the simulation terminates and the time elapsed recorded.
 
-
+% It feels like something is missing here\dots
 The next section builds Markov models of five queueing networks, and discusses their deadlocking properties.
-
-
-
-
-
-
-
-
-
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
