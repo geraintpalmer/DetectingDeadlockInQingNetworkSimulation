@@ -144,7 +144,7 @@ Conditions for this type of deadlock, also referred to as deadly embraces \cite{
 
 In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no preemption condition is satisfied in networks that have no or non-preemptive priority (this report will only look at networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is feedback loops.
 
-Allowing a system to reach deadlock can be problamatic in cases where automated systems cannot continue operations, or where simulations cannot accurately model reality.
+Allowing a system to reach deadlock can be problematic in cases where automated systems cannot continue operations, or where simulations cannot accurately model reality.
 In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
 
 \begin{itemize}
@@ -158,12 +158,12 @@ The third of these, detection and recovery, will be discussed in this paper, alt
 \subsection{Deadlock Prevention}
 
 Deadlock prevention has been discussed in queueing networks under Type I blocking.
-For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum subcycle of the network.
+For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum sub cycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs for closed cactus networks, where no two cycles have more than one node in common.
 This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 
-Further conditions on deadlock prvention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
+Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
 The literature does not discuss deadlock properties in open restricted queueing networks.
 
 
@@ -172,8 +172,8 @@ The literature does not discuss deadlock properties in open restricted queueing 
 There are algorithms discussed in the literature for the dynamic avoidance of deadlock.
 In the Banker's Algorithm \cite{dijkstra82, kawadkaretal14}, unsafe states, those that will lead to deadlock, are avoided by ensuring actions leading to these states are not carried out.
 
-A common deadlock avoidance technique in flexible manufacturing systems is the use of dynamic resource allocation policies using petri net nodels of the system \cite{viswanadhametal90, ezpeletaetal02}.
-Some resource allocations are disallowed if that allocaton will lead to deadlock.
+A common deadlock avoidance technique in flexible manufacturing systems is the use of dynamic resource allocation policies using petri net models of the system \cite{viswanadhametal90, ezpeletaetal02}.
+Some resource allocations are disallowed if that allocation will lead to deadlock.
 
 Another deadlock avoidance algorithm in \cite{belik90}, for systems with one type of each resource, makes use of a directed resource allocation graph. Resource requests are not allocated resources if that allocation leads to a directed cycle in the resource allocation graph.
 
@@ -318,19 +318,19 @@ Now either the other server of node two is empty or still in service, and so isn
 
 For the case of a two node queueing network with at least one node with more than 2 servers, consider the following counter-example:
 
-Node $A$ has two parallel server, node $B$ has three parallel sevrers.
+Node $A$ has two parallel server, node $B$ has three parallel servers.
 Begin with all servers occupied by customers in service and full queues.
 The customer at server $A_1$ is blocked to node $A$.
 The customer at server $B_1$ is blocked to node $A$.
 The customer at server $B_2$ is blocked to node $B$.
-The customer at server $A_2$ is blockec to node $A$.
+The customer at server $A_2$ is blocked to node $A$.
 The resulting state digraph in Figure~\ref{fig:counter_example_1} has a weakly connected component with a sink.
 
 \item
 Consider a queueing network with $N$ nodes, each with a single-server.
 
 If $1 \leq n \leq N$ nodes are involved in the deadlock, then each server in those $n$ nodes has a blocked customer, and so has an out-edge.
-Of the other nodes, they can only be in the same weakly connected component if either they contain a indiviual blocked by those in deadlock, in which case they will have an out edge; or they contain a blocked individual blocked by those directly or indirectly blocked by those in deadlock, in which case they will have an out edge; or they are blocking someone who is blocked directly or indirectly by those in deadlock.
+Of the other nodes, they can only be in the same weakly connected component if either they contain a individual blocked by those in deadlock, in which case they will have an out edge; or they contain a blocked individual blocked by those directly or indirectly blocked by those in deadlock, in which case they will have an out edge; or they are blocking someone who is blocked directly or indirectly by those in deadlock.
 However this last case cannot happen, as every node is single-server each person can only be blocked by one other individual at a time.
 
 For the case of a queueing network with more than two nodes with multiple servers, the following counter-example proves the claim:
@@ -615,7 +615,7 @@ Thus increasing the service rate removes people from the system, and as such the
 \begin{remark}\label{rem:findmaximum}
 $\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
 
-From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interal $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
+From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
 The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Remark~\ref{rem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
@@ -1180,9 +1180,10 @@ In order to do this, six deadlocking queueing networks are defined as follows, a
   \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$. Let its mean time to deadlock be denoted by $\omega_2$.
   \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega$.
 \end{itemize}
-where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
 
-Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
+Where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
+
+Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up from, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
 
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
@@ -1210,7 +1211,7 @@ Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ 
 
 \begin{theorem}\label{thrm:bound}
 For any parameter sets the following inequality holds:
-$\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
+$\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$.
 \end{theorem}
 
 \begin{proof}
@@ -1244,7 +1245,7 @@ As an increase in the arrival rate causes the mean time to deadlock to decrease,
 \item The lower bound on the effective service time is $\frac{1}{\mu_1}$, corresponding to when neither Node 1 nor Node 2 are full.
 Therefore the upper bound on the effective service rate is $\mu_1$.
 
-\item The upper bound on the effective service time corrseponds to the following cycle of events:
+\item The upper bound on the effective service time corresponds to the following cycle of events:
 
 \begin{itemize}
   \item A customer, $a$, begins service at Node 1: $\frac{1}{\mu_1}$
@@ -1271,7 +1272,6 @@ Therefore the lower bound on the effective service rate is:
   m_1 & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-P_{\text{repeat}}} \right) } \\
   & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{1}{1-\frac{\mu_1}{\mu_1 + \mu_2}} \right) } \\
   & = \frac{1}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \frac{\mu_1 + \mu_2}{\mu_2} \right) } \\
-  & = \frac{\mu_2}{ \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \left( \mu_1 + \mu_2 \right) } \\
   & = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}} \\
 \end{align*}
 
@@ -1352,12 +1352,12 @@ the mechanics of the $\Omega$ system are symmetrical.
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/scatter_p1_ratio_p}
-  \caption{Scatterplot of $p_{(-1)}$ against $E$.}
+  \caption{Scatter plot of $p_{(-1)}$ against $E$.}
   \label{fig:scatter_p1}
 \end{subfigure}
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/scatter_p3_ratio_p}
-  \caption{Scatterplot of $p_{(-3)}$ against $E$.}
+  \caption{Scatter plot of $p_{(-3)}$ against $E$.}
   \label{fig:scatter_p3}
 \end{subfigure}
 \caption{Scatter plots of absorption probabilities against $E$.}
