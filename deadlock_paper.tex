@@ -261,7 +261,7 @@ Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X \
 
 The following results detect deadlock for open restricted queueing networks.\\
 
-\begin{theorem}
+\begin{theorem}\label{thrm:knot}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 \end{theorem}
 
@@ -363,15 +363,15 @@ The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly c
 For the purposes of this paper, in order to verify that the results of this
 section and Section \ref{sec:markovmodels} are in agreement a simulation model
 is used. The model is built using an object oriented framework in Python
-(\cite{Python}) with great care taken to ensure reproducibility of the results
-(\cite{Citation about reproducible research}).  The code for the simulation can
-be found here: \url{https://github.com/geraintpalmer/QNetSim} with documentation
-available here: \url{docs}.
+\cite{python} with great care taken to ensure reproducibility of the results
+\cite{hongetal15}. The code for the simulation can
+be found here: \url{https://github.com/geraintpalmer/ASQ} with documentation
+available here: \url{http://asq-simulates-queues.readthedocs.org}.
 
 The digraph \(D(t)\) is implemented as an attribute of the queueing network and
 is updated at the appropriate events. Note that a brute force algorithm is used
 to check whether each strongly connected component of $D(t)$ is a knot in order
-to implement Theorem~\ref{the:}. More efficient algorithms could be used for
+to implement Theorem~\ref{thrm:knot}. More efficient algorithms could be used for
 other specific use cases.
 
 The next section builds Markov models of five queueing networks, and discusses their deadlocking properties.
