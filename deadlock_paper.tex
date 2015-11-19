@@ -360,89 +360,21 @@ The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly c
 \label{fig:counter_examples}
 \end{figure}
 
-The next section briefly discusses the simulation model used to conduct numerical experiments for this paper.
+For the purposes of this paper, in order to verify that the results of this
+section and Section \ref{sec:markovmodels} are in agreement a simulation model
+is used. The model is built using an object oriented framework in Python
+(\cite{Python}) with great care taken to ensure reproducibility of the results
+(\cite{Citation about reproducible research}).  The code for the simulation can
+be found here: \url{https://github.com/geraintpalmer/QNetSim} with documentation
+available here: \url{docs}.
 
-
-
-
-
-
-
-
-
-\section{Simulation Model}\label{sec:simulation}
-
-A simulation model is used to run a discrete event simulation of the open restricted queueing network, detect deadlock and stop the simulation at this point.
-The time the simulation ran for until deadlock is recorded.
-The model is generic, and can handle any number of service center nodes, each defined by its external arrival rate, service rate, number of servers and queueing capacity, which may be set to $\infty$ is needed.
-A routing matrix with entries $r_{ij}$ describes how every node is connected to every other node.
-
-The simulation model is built in an object-orientated manor using Python.
-Customers, nodes, servers and the queueing network itself are objects that interact or contain each other.
-A dummy arrival node and exit node exist to spawn customers and collect data.
-The code for the simulation can be found here: \url{https://github.com/geraintpalmer/QNetSim}.
-
-The main simulation loop is carried out as follows:
-
-\begin{algorithm}[H]
-    \DontPrintSemicolon
-    Find next active node\;
-    \While{not deadlocked}{
-        Next active node has event\;
-        \For{all nodes}{
-            update next event date\;
-        }
-        detect deadlock\;
-        \If{deadlocked}{
-            record current time\;
-        }
-        next active node $\leftarrow$ node with closest next event date\;
-        current time $\leftarrow$ next event date of next active node\;
-    }
-\end{algorithm}
-
-Where each node has a `have event' subroutine.
-The arrival node's `have event' subroutine creates a new customer and sends that customer to their correct starting node.
-The exit node has no `have event' subroutine.
-All other nodes' `have event' subroutine occurs when a customer finishes service at that node, and is carried out as follows:
-
-\begin{algorithm}[H]
-    \DontPrintSemicolon
-    Identify customer finishing service\;
-    Identify customer's destination node\;
-    \eIf{destination node has spare capacity}{
-        Send customer to destination node\;
-        \If{Customer able to start service at destination}{
-            Start service
-        }
-        \If{Customer at front of queue can start service}{
-            Start service
-        }
-        \If{Blocked individuals waiting to enter}{
-            Unblock and accept blocked individual
-        }
-    }{
-        Block individual
-    }
-\end{algorithm}
-
-The state digraph $D(t)$ described in Section~\ref{sec:detectingdeadlock} is an attribute of the queueing network.
-Edges are created or removed whenever the following events take place: a customer begins service at a server, a customer becomes blocked, a customer leaves a server.
-The model is a discrete event simulation, and the deadlocked condition is checked immediately before the clock is moved on.
-Here a brute force algorithm is used to check whether each strongly connected component of $D(t)$ is a knot.
-Once a knot is found the simulation terminates and the time elapsed recorded.
-
+The digraph \(D(t)\) is implemented as an attribute of the queueing network and
+is updated at the appropriate events. Note that a brute force algorithm is used
+to check whether each strongly connected component of $D(t)$ is a knot in order
+to implement Theorem~\ref{the:}. More efficient algorithms could be used for
+other specific use cases.
 
 The next section builds Markov models of five queueing networks, and discusses their deadlocking properties.
-
-
-
-
-
-
-
-
-
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
@@ -453,7 +385,7 @@ In this section markov models are build for the following deadlocking queueing n
   \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops})
   \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops. (Section~\ref{sec:2nodeselfloops})
   \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS})
-  \item Open two node, mutli server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
+  \item Open two node, mutli-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
 \end{itemize}
 
 In general a continuous Markov chain model of a deadlocking queueing network is a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
