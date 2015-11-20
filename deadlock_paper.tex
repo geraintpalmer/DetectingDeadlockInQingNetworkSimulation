@@ -29,7 +29,7 @@
 \newtheorem{remark}{Remark}
 
 \title{On Deadlocking in Queueing Networks}
-\author{Geraint Ian Palmer, Paul Harper, Vincent Knight}
+\author{Geraint I. Palmer, Paul R. Harper, Vincent A. Knight}
 \date{\today}
 
 
@@ -41,16 +41,16 @@
 \maketitle
 
 \begin{abstract}
-Open restricted queueing networks give rise to the phenomenon of deadlock, that is some customers may be unable to ever leave a server due to recursive upstream blocking.
+Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
 This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
 These models are compared to results obtained using a simulation and the above deadlock detection method.
 Finally a bound on the time to deadlock of the two node single-server network with loops is derived by comparing its properties with other queueing networks that are embedded within it.
-It is hoped that this paper addresses a gap in the literature on the deadlocking properties of open restricted queueing networks.
+This paper aims to address the apparent gap in the literature on the deadlocking properties of open restricted queueing networks.
 
 \end{abstract}
 
-\section{Introduction \& Background}
+\section{Introduction}
 
 The study and modelling of queueing networks with blocking is an important tool in many aspects of operational research, both analytically and through simulation.
 These models have applications in many varied settings such as healthcare, supply chains, manufacturing and communications systems.
@@ -78,7 +78,6 @@ This paper is structured as follows: the remainder of this section sets up the n
 
 Queueing networks are described as open if customers can enter and leave the system from the exterior.
 Restricted networks are those where at lease one service centre has limited queueing space or capacity before it.
-
 This paper is concerned with open restricted queueing networks that experience Type I blocking.
 Throughout this paper service centres will be referred to as nodes, and for the $i$th node of an open restricted queueing network the following notation is used:
 
@@ -113,7 +112,7 @@ Central to the study of deadlock in queueing networks is the concept of blocking
 In \cite{onvuralperros86} three types of blocking are described:
 Type I blocking (blocked at service, BAS, transfer blocking) occurs when a customer is blocked after completing service, and remains with the server until capacity at their destination node becomes available.
 Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
-In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat their service if there is no capacity at their destination. This type of blocking comes in two flavours, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is re-sampled from a probability distribution after each repetition.
+In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat their service if there is no capacity at their destination. This type of blocking comes in two forms, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is re-sampled from a probability distribution after each repetition.
 
 There has been a body of research into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
@@ -306,7 +305,7 @@ If both nodes are involved in the deadlock, so there is a customer in node 1 blo
 The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
 
 Now consider the case when only one node is involved in the deadlock.
-Without loss of generality, let's say that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
+Without loss of generality, consider that node 1 is in deadlock with itself, then the servers of node 1 have out-edges.
 For the servers of node 2 to be part of that weakly connected component, there either needs to be an edge from a server in node 1 to a server in node 2, or an edge from a server in node 2 to a server in node 1.
 An edge from a server in node 1 to a server in node 2 implies that a customer from node 1 is blocked from entering node 2, and so node 1 is not in deadlock with itself.
 An edge from a server in node 2 to a server in node 1 implies that a customer in node 2 is blocked from entering node 1.
