@@ -195,11 +195,11 @@ The next section introduces a method of detecting when deadlock occurs in simula
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 
-In order to detect when deadlock has occurred in a queueing network simulation, the state digraph is used.
+In order to detect when deadlock has occurred in a queueing network simulation, a state digraph is used.
 This is a form of wait-for graph, and is defined below.\\
 
 \begin{definition}
-The state digraph $D(t)$ of a queueing network defines that network's state at any time $t$.
+The state digraph $D(t)$ of a queueing network is defined by that network's state at any time $t$.
 Vertices of the state digraph correspond to servers of the network.
 A directed edge denotes a blockage relationship in the following manner: if a customer at the $k$th server of node $i$ is blocked from entering node $j$, then there are directed edges from the vertex corresponding to node $i$'s $k$th server to every vertex corresponding to the servers of node $j$.
 \end{definition}
@@ -245,17 +245,17 @@ To illustrate this concept Figure~\ref{fig:exampledigraphs} show examples of que
   \label{fig:exampledigraphs}
 \end{figure}
 
-Consider one weakly connected component $G(t)$ of $D(t)$. Consider the node $X \in G(t)$. Some observations:
+Consider one weakly connected component $G(t)$ of $D(t)$ and a node $X \in G(t)$. Some observations:
 
 \begin{itemize}
 
-  \item If $X$ is unoccupied, then $X$ has no incident edges.
-  \item Consider the case when $X$ is occupied by individual $a$, whose next destination is node $j$. Then $X$'s direct successors are the servers occupied by individuals who are blocked or in service at node $j$.
-  \item It can interpreted that all $X$'s descendants are the servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
-  \item All vertices of $G(t)$ are either descendants of another vertex and so are occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+  \item If the server corresponding to $X$ is unoccupied, then $X$ has no incident edges.
+  \item Consider the case when the server corresponding to $X$ is occupied by individual $a$, whose next destination is node $j$. Then $X$'s direct successors correspond to servers occupied by individuals who are blocked or in service at node $j$.
+  \item It can interpreted that all $X$'s descendants correspond to servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals who are being blocked directly or indirectly by $a$.
+  \item All vertices of $G(t)$ are either descendants of another vertex and so correspond to servers occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
   \item Note that the only possibilities for $\text{deg}^{\text{out}}(X)$ are 0 or $c_j$. If $\text{deg}^{\text{out}}(X) = c_j$ then $a$ is blocked by all its direct successors. The only other situation is that $a$ is not blocked, and $X \in G(t)$ because $a$ is in service at $X$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X) = 0$.
-  \item It is clear that if all of $X$'s descendants are occupied by blocked individuals, then the system is deadlocked at time $t$.
-  \item By definition all of $X$'s ancestors are occupied by blocked individuals.
+  \item It is clear that if all of $X$'s descendants correspond to servers occupied by blocked individuals, then the system is deadlocked at time $t$.
+  \item By definition all of $X$'s ancestors correspond to servers occupied by blocked individuals.
 
 \end{itemize}
 
@@ -388,7 +388,7 @@ In this section Markov models are build for the following deadlocking queueing n
   \item Open two node, multi-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
 \end{itemize}
 
-In general a continuous Markov chain model of a deadlocking queueing network is a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
+In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
 Each state $s$ uniquely defines a configuration of customers around the queueing network.
 Deadlocked states are also present, either denoted by that specific configuration of customers, or by negative numbers, for example $-1$.
 Deadlocked states cannot transition to any other state, and so are absorbing states of the Markov chain.
@@ -411,11 +411,12 @@ Now the expected number of time steps until absorption starting from state $i$ i
 
 where $e$ is a vector of 1s.
 
-Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the expected number of time steps to absorption, or deadlock can be found.
+Therefore by discretising the continuous Markov chain and ensuring the correct order of states, the expected number of time steps to absorption, which corresponds to deadlock, can be found.
 
 When there is more than one deadlocked state, there is more than one absorbing state in the Markov chain.
 Here the expected time to absorption is the expected time to a deadlocked state, whichever one that may be.
-The probabilities of which absorbing state a Markov chain will reach are given by the $(i, j)^{\text{th}}$ element of the vector
+The probabilities of which absorbing state a Markov chain will reach are given by the $(i, j)^{\text{th}}$ element of the following matrix:
+
 \begin{equation}
   (I - T)^{-1}U
 \end{equation}
