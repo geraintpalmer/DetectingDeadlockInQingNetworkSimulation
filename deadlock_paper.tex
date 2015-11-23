@@ -353,15 +353,23 @@ The next section builds Markov models of five queueing networks, and discusses t
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-In this section Markov models are build for the following deadlocking queueing networks, and their expected time to deadlock found:
+The following five networks describe all possible configurations of deadlocking queueing networks with two or fewer nodes:
 
-\begin{itemize}
-  \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet})
-  \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops})
-  \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops. (Section~\ref{sec:2nodeselfloops})
-  \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS})
-  \item Open two node, multi-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS})
-\end{itemize}
+\begin{enumerate}
+  \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet}) \label{itm:1Nss}
+  \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops}) \label{itm:2Nsss}
+  \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops. (Section~\ref{sec:2nodeselfloops}) \label{itm:2Nssf}
+  \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS}) \label{itm:1Nms}
+  \item Open two node, multi-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS}) \label{itm:2Nmss}
+  \item Open two node, multi-server restricted queueing network with routes between nodes and feedback loops. \label{itm:2Nmsf}
+\end{enumerate}
+
+In fact, many of these are special cases of each other: the single-server networks are simply a special case of the multi-server networks, Network~\ref{itm:2Nsss} is a special case of Network~\ref{itm:2Nssf}, and Network~\ref{itm:2Nmss} is a special case of Network~\ref{itm:2Nmsf}.
+
+In this section Markov models are build for the Networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and their expected time to deadlock found.
+Due to the importance of the order of customers getting blocked, and so the order in which unblockages happen, it was found that the state space for Network~\ref{itm:2Nmsf} was too large to model in a similar way to the others. As a customer can either get blocked to Node 1 or Node 2, then every possible ordering of blocked customers and their destination nodes is required for each node.
+
+In Section~\ref{sec:bound} a relationship (a bound) is given between Network~\ref{itm:2Nssf} and Networks~\ref{itm:2Nsss} and \ref{itm:1Nss}.
 
 In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
 Each state $s$ uniquely defines a configuration of customers around the queueing network.
