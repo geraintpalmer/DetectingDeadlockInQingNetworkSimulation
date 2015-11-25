@@ -1127,6 +1127,7 @@ Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $
 \label{fig:decomposeqnet}
 \end{figure}
 
+
 Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ for $j \in [1, 2]$, we get the following bound:\\
 
 \begin{theorem}\label{thrm:bound}
@@ -1243,7 +1244,7 @@ It can be seen that although Theorem~\ref{thrm:bound} is confirmed (all values a
 
 Recalling Section~\ref{sec:markovmodels}, let $p_{(-1)}$, $p_{(-2)}$ and $p_{(-3)}$ denote the probabilities of $\Omega$ reaching deadlocked state (-1), (-2) and (-3) respectively, calculated using Equation~\ref{eq:abs_probs}.
 
-Figures~\ref{fig:scatter_p1} and \ref{fig:scatter_p3} show scatter plots of $p_{(-1)}$ and $p_{(-3)}$ against the ratio $\beta$ respectively (each taking a random sample of 100000 data points for ease of graphing).
+Figures~\ref{fig:hexbin_p1} and \ref{fig:hexbin_p3} show hexbin plots with x-axis $p_{(-1)}$ and $p_{(-3)}$ against the y-axis $\beta$ respectively.
 It can be seen that $p_{(-3)}$ has a strong affect on the tightness of the bound, as the probability of reaching deadlocked state (-3) increases the bound becomes tighter.
 This effect is seems to only begin as the probability increases above $p_{(-3)} \approx 0.175$.
 % Queueing networks with absorption probability $p_{(-3)} \leq 0.175$ are either unaffected by this effect, or there are more complicated effects occurring simultaneously to obscure this effect.
@@ -1253,22 +1254,21 @@ The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the $\Omeg
 
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{images/scatter_p1_ratio_png}
-  \caption{Scatter plot of $p_{(-1)}$ against $\beta$.}
-  \label{fig:scatter_p1}
+  \includegraphics[width=\textwidth]{images/hexbin-1}
+  \caption{Hexbin plot of $p_{(-1)}$ against $\beta$.}
+  \label{fig:hexbin_p1}
 \end{subfigure}
 \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{images/scatter_p3_ratio_png}
-  \caption{Scatter plot of $p_{(-3)}$ against $\beta$.}
-  \label{fig:scatter_p3}
+  \includegraphics[width=\textwidth]{images/hexbin-3}
+  \caption{Hexbin plot of $p_{(-3)}$ against $\beta$.}
+  \label{fig:hexbin_p3}
 \end{subfigure}
-\caption{Scatter plots of absorption probabilities against $\beta$.}
-\label{fig:pscatterplot_ratio_analysis}
+\caption{Hexbin plots of absorption probabilities against $\beta$.}
+\label{fig:hexbinplot_ratio_analysis}
 \end{figure}
 
 This clearly highlights that the assumptions made about the $\widetilde{\Omega}_{1_1}$ and $\widetilde{\Omega}_{1_2}$ systems in the proof of Theorem~\ref{thrm:bound} overestimate the difference between $\widetilde{\omega}_{1_1}$ and $\omega_{1_1}$, and between $\widetilde{\omega}_{1_2}$ and $\omega_{1_2}$.
 The bound is however tighter for those networks that have a high probability of reaching deadlocked state (-3).
-
 
 
 
