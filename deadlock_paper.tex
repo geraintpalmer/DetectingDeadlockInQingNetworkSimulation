@@ -59,7 +59,7 @@ These deadlocks can be real in which case accurate modelling of deadlock is need
 
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing network in deadlock.
 The customer at the top server is blocked from entering the bottom node as there is a full queue, and similarly the customer at the bottom server is blocked from entering the top node as there is a full queue.
-It is clear that by following the rules of a queueing network, no more natural movement can happen.
+It is clear that by following the standard rules of a queueing network, no more natural movement can happen.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -117,7 +117,7 @@ Allowing a system to reach deadlock can be problematic in cases where automated 
 In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
 
 \begin{itemize}
-  \item Prevention, in which the system cannot possibly deadlock in the first place.
+  \item Prevention, in which the system is designed such that in cannot possibly deadlock in the first place.
   \item Avoidance, in which decisions are made as time unfolds to avoid reaching deadlock.
   \item Detection and recovery.
 \end{itemize}
@@ -150,7 +150,7 @@ Deadlock detection and recovery in closed queueing networks through swapping cus
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks, although this isn't discussed further.
 
 
-This paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
+The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
 
 
@@ -170,7 +170,7 @@ Vertices of the state digraph correspond to servers of the network.
 A directed edge denotes a blockage relationship in the following manner: if a customer at the $k$th server of node $i$ is blocked from entering node $j$, then there are directed edges from the vertex corresponding to node $i$'s $k$th server to every vertex corresponding to the servers of node $j$.
 \end{definition}
 
-To illustrate this concept Figure~\ref{fig:exampledigraphs} show examples of queueing network in and out of deadlock, and the corresponding state digraph in each case.
+To illustrate this concept Figure~\ref{fig:exampledigraphs} shows examples of queueing network in and out of deadlock, and the corresponding state digraph in each case.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -268,7 +268,7 @@ If there is deadlock, then all servers are occupied by blocked individuals, and 
 \item
 Consider a two node queueing network, each node with 2 or fewer parallel servers.
 
-If both nodes are involved in the deadlock, so there is a customer in node 1 blocked from entering node 2, and a customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
+If both nodes are involved in the deadlock, so there is at lease one customer in node 1 blocked from entering node 2, and at lease one customer from node 2 blocked from entering node 1, then all servers in node 1 and node 2 in $D(t)$ will have out edges as they are occupied by a blocked individual.
 The servers of node 1 and 2 consist of the entirety of $D(t)$, and so there is no sink nodes.
 
 Now consider the case when only one node is involved in the deadlock.
@@ -281,12 +281,13 @@ Now either the other server of node two is empty or still in service, and so isn
 
 For the case of a two node queueing network with at least one node with more than 2 servers, consider the following counter-example:
 
-Node $A$ has two parallel server, node $B$ has three parallel servers.
+Node $A$ has two parallel servers, node $B$ has three parallel servers.
 Begin with all servers occupied by customers in service and full queues.
 The customer at server $A_1$ is blocked to node $A$.
 The customer at server $B_1$ is blocked to node $A$.
 The customer at server $B_2$ is blocked to node $B$.
 The customer at server $A_2$ is blocked to node $A$.
+Node $A$ is a deadlocked.
 The resulting state digraph in Figure~\ref{fig:counter_example_1} has a weakly connected component with a sink.
 
 \item
@@ -303,6 +304,7 @@ Begin with all servers occupied by customers in service and full queues.
 The customer at server $B_1$ is blocked from entering node $A$.
 Then the customer at server $C_1$ is blocked from entering node $B$.
 Then the customer at server $A_1$ is blocked from entering node $A$.
+Node $A$ is deadlocked.
 The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
 \end{enumerate}
 \end{proof}
@@ -353,26 +355,26 @@ The next section builds Markov models of five queueing networks, and discusses t
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-The following five networks describe all possible configurations of deadlocking queueing networks with two or fewer nodes:
+The following six networks describe all possible configurations of deadlocking queueing networks with two or fewer nodes:
 
 \begin{enumerate}
   \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet}) \label{itm:1Nss}
   \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops}) \label{itm:2Nsss}
-  \item Open two node, single-server restricted queueing network with routes between nodes and feedback loops. (Section~\ref{sec:2nodeselfloops}) \label{itm:2Nssf}
+  \item Open two node, single-server restricted queueing network with routes between nodes and self-loops. (Section~\ref{sec:2nodeselfloops}) \label{itm:2Nssf}
   \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS}) \label{itm:1Nms}
   \item Open two node, multi-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS}) \label{itm:2Nmss}
-  \item Open two node, multi-server restricted queueing network with routes between nodes and feedback loops. \label{itm:2Nmsf}
+  \item Open two node, multi-server restricted queueing network with routes between nodes and self-loops. \label{itm:2Nmsf}
 \end{enumerate}
 
 In fact, many of these are special cases of each other: the single-server networks are simply a special case of the multi-server networks, Network~\ref{itm:2Nsss} is a special case of Network~\ref{itm:2Nssf}, and Network~\ref{itm:2Nmss} is a special case of Network~\ref{itm:2Nmsf}.
 
 In this section Markov models are build for Networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
-Due to the importance of the order in which customers get unblocked, it was found that the state space for Network~\ref{itm:2Nmsf} was too large to model in a similar way to the others. This is discussed in Section~\ref{sec:conclusions}.
+Due to the importance of the order in which customers get unblocked, it was found that the state space for Network~\ref{itm:2Nmsf} was too large to model in a similar way to the others. This is further discussed in Section~\ref{sec:conclusions}.
 In Section~\ref{sec:bound} a relationship (a bound) is given between Network~\ref{itm:2Nssf} and Networks~\ref{itm:2Nsss} and \ref{itm:1Nss}.
 
 In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
 Each state $s$ uniquely defines a configuration of customers around the queueing network.
-Deadlocked states are also present, either denoted by that specific configuration of customers, or by negative numbers, for example $-1$.
+Deadlocked states are also present, either denoted by that specific configuration of customers, or by negative numbers, for example (-1).
 Deadlocked states cannot transition to any other state, and so are absorbing states of the Markov chain.
 Therefore any queueing network that can experience deadlock is guaranteed to experience deadlock, as absorbing Markov chains are guaranteed to enter one of its absorbing states.
 
@@ -511,7 +513,7 @@ The behaviour as the service rate $\mu$ varies is not monotonic, as the service 
 This behaviour is described in the following remark.\\
 
 \begin{remark}\label{rem:oneminima}
-The function $\omega_1(\mu)$ that describes the time to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
+The function $\omega_1(\mu)$ that describes the time expected to deadlock of an $\Omega_1$ system as the service rate $\mu$ varies, and all other parameters are fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
 \end{remark}
 
 The behaviour of $\omega_1(\mu)$ can be interpreted as follows:
@@ -526,9 +528,10 @@ Therefore, increasing the service rate here increases the chance of a blockage, 
 Thus increasing the service rate removes people from the system, and as such there is less chance of getting blocked and deadlocked.
 \end{itemize}
 
+The following remark identifies the maximum of $\omega_1(\mu)$ on a closed interval.\\
 
 \begin{remark}\label{rem:findmaximum}
-$\arg\max_{\mu \in [a, b]} \omega_1(\mu)$ is either $a$ or $b$.
+$\arg\max_{\mu \in [a, b]} \omega_1(\mu) \in \{a, b\}$.
 
 From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
 The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Remark~\ref{rem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
@@ -728,7 +731,7 @@ State space:
             \item Occupying a server but having finished service at the
                 first node waiting to join the second.
         \end{itemize}
-    and the state $(-3)$ denotes the deadlocked state cause by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
+    and the state $(-3)$ denotes the deadlocked state caused by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
 
 Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by:
 
@@ -916,7 +919,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 \end{figure}
 
 Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
-Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i \in [n+c+1, i=n+2c]$) can jump back to state $i=n+c-1$ simply with a service and an exit.
+Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked ($i \in [n+c+1, n+2c]$) can jump back to state $i=n+c-1$ simply with a service and an exit.
 Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but not the rates at which $i$ is increased.
 
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
@@ -1102,7 +1105,7 @@ In order to do this, six deadlocking queueing networks are defined as follows, a
 \end{itemize}
 where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
 
-Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$.
+Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, the $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$ systems.
 
 \begin{figure}[!htbp]
 \begin{subfigure}[b]{0.5\textwidth}
@@ -1170,7 +1173,7 @@ Therefore the upper bound on the effective service rate is $\mu_1$.
 \begin{itemize}
   \item A customer, $a$, begins service at Node 1: $\frac{1}{\mu_1}$
   \item Customer $a$ finishes service at Node 1, but is blocked from transitioning to Node 2: $\frac{1}{\mu_2}$
-  \item A customer, $b$, finishes service at Node 2 and transitions to Node 1. Now the $a$ moves to Node 2, and another the customer begins service at Node 1: $\frac{1}{\mu_1}$
+  \item A customer, $b$, finishes service at Node 2 and transitions to Node 1. Now $a$ moves to Node 2, and another the customer begins service at Node 1: $\frac{1}{\mu_1}$
 \end{itemize}
 
 This cycle is repeated with probability $P_{\text{repeat}}$.
@@ -1231,7 +1234,8 @@ As both the numerator and denominator are positive, and (by Theorem~\ref{thrm:bo
 If $\beta$ is close to 1 then the bound is tight, and if the $\beta$ is close to 0 then there is a large percentage difference between the bound and the actual value for $\omega$.
 
 Figure~\ref{fig:bound_ratio_hist} shows a histogram of $\beta$ for over 7 million parameter sets.
-It can be seen that although Theorem~\ref{thrm:bound} is confirmed (all values are less than 1), it isn't tight (with some parameter sets giving a value of $\beta$ as low as $1.98 \times 10^{-5}$.
+It can be seen that although Theorem~\ref{thrm:bound} is confirmed (all values are less than 1), it isn't tight, with some parameter sets giving a value of $\beta$ as low as $1.98 \times 10^{-5}$.
+That's equivalent to the bound being over 50,000 times greater than $\omega$.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -1293,8 +1297,8 @@ Finally a bound on the expected time to deadlock for one of these models was giv
 Further research is needed to build a Markov model of the open two node, multi-server restricted queueing network with routes between nodes and feedback loops, that is Network~\ref{itm:2Nmsf} from Section ~\ref{sec:markovmodels}.
 In Networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one destination, and so one destination to get blocked to. In Network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In Network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any states with blocked customers are required to record these customers' destination nodes.
 
-In addition to this, the order in which customers become blocked is important. In Networks~\ref{itm:1Nss}-\ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in Network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers is also required to record the order in which the customers become blocked.
-Combining the two requirements above, it is clear that as the number of servers increases, the state space for this queueing network quickly grows combinatorially, and must denote state is a different format to the networks considered in this paper.
+In addition to this, the order in which customers become blocked is important. In Networks~\ref{itm:1Nss}-\ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in Network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
+Combining the two requirements above, it is clear that as the number of servers increases, the state space for this queueing network quickly grows combinatorially, and must denote the state space is a different format to the networks considered in this paper.
 
 For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
 Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
