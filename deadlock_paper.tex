@@ -20,6 +20,7 @@
 \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage[nocompress]{cite}
+\usepackage{booktabs}
 
 
 \newtheorem{definition}{Definition}
@@ -46,7 +47,7 @@ This paper explores deadlock in restricted queueing networks, presents a method 
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
 These models are compared to results obtained using a simulation and the above deadlock detection method.
 Finally a bound on the time to deadlock of the two node single-server network with loops is derived by comparing its properties with other queueing networks that are embedded within it.
-This paper aims to address the apparent gap in the literature on the deadlocking properties of open restricted queueing networks.
+This paper aims to address the apparent gap in the literature on the deadlocking properties of open restricted queueing networks and will be of value to simulation modelling of queues.
 
 \end{abstract}
 
@@ -368,8 +369,8 @@ The following six networks describe all possible configurations of deadlocking q
 
 In fact, many of these are special cases of each other: the single-server networks are simply a special case of the multi-server networks, Network~\ref{itm:2Nsss} is a special case of Network~\ref{itm:2Nssf}, and Network~\ref{itm:2Nmss} is a special case of Network~\ref{itm:2Nmsf}.
 
-In this section Markov models are build for Networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
-Due to the importance of the order in which customers get unblocked, it was found that the state space for Network~\ref{itm:2Nmsf} was too large to model in a similar way to the others. This is further discussed in Section~\ref{sec:conclusions}.
+In this section Markov models are built for Networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
+The state space for Network~\ref{itm:2Nmsf} is too large to model in a similar way to the others, and so isn't considered in this paper, but will be discussed in Section~\ref{sec:conclusions}.
 In Section~\ref{sec:bound} a relationship (a bound) is given between Network~\ref{itm:2Nssf} and Networks~\ref{itm:2Nsss} and \ref{itm:1Nss}.
 
 In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
@@ -467,7 +468,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
 
 \begin{figure}[!htbp]
   \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/markov_chain_1node}
+    \includestandalone[width=0.75\textwidth]{images/markov_chain_1node_bw}
   \end{center}
   \caption{Diagrammatic representation of the Markov chain for $\Omega_1$.}
   \label{fig:1nodeMC}
@@ -633,7 +634,7 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 \begin{figure}[!htbp]
     \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/markov_chain}
+    \includestandalone[width=0.75\textwidth]{images/markov_chain_bw}
     \end{center}
     \caption{Diagrammatic representation of the Markov chain for $\Omega_2$ with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMC}
@@ -806,7 +807,7 @@ For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{
 
 \begin{figure}[!htbp]
     \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/markov_chain_feedback}
+    \includestandalone[width=0.75\textwidth]{images/markov_chain_feedback_bw}
     \end{center}
     \caption{Diagrammatic representation of the Markov chain for $\Omega$ with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMCfeedback}
@@ -912,7 +913,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 
 \begin{figure}[!htbp]
     \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/MC1nodemultiserv}
+    \includestandalone[width=0.75\textwidth]{images/MC1nodemultiserv_bw}
     \end{center}
     \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_1$ system.}
     \label{fig:1nodeMCms}
@@ -989,7 +990,7 @@ The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
 The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
 
 \begin{figure}[!htbp]
-    \includestandalone[width=\textwidth]{images/MC2nodemultiserv}
+    \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
     \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
     \label{fig:2nodeMCms}
 \end{figure}
@@ -1001,11 +1002,16 @@ Then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:tra
 \begin{table}
 \begin{center}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{ l | l | l | l |}
-  & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\ \hline
-  $i_1 < n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
-  $i_1 = n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\ \hline
-  $i_1 > n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\ \hline
+\begin{tabular}{ l l l l }
+  \toprule
+  & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\
+  \midrule
+  $i_1 < n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
+  \midrule
+  $i_1 = n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
+  \midrule
+  $i_1 > n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\
+  \bottomrule
 \end{tabular}
 }
 \caption{Table of transitions $q_{(i_1, j_1),(i_2, j_2)}$ for a multi-server two node network.}
@@ -1295,10 +1301,10 @@ These analytical results were compared with results obtained from the simulation
 Finally a bound on the expected time to deadlock for one of these models was given, that was found to be tighter for those networks that have high probability of reaching deadlocked state (-3).
 
 Further research is needed to build a Markov model of the open two node, multi-server restricted queueing network with routes between nodes and feedback loops, that is Network~\ref{itm:2Nmsf} from Section ~\ref{sec:markovmodels}.
-In Networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one destination, and so one destination to get blocked to. In Network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In Network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any states with blocked customers are required to record these customers' destination nodes.
+In Networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so one destination to get blocked from moving to. In Network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In Network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any states with blocked customers are required to record these customers' destination nodes.
 
 In addition to this, the order in which customers become blocked is important. In Networks~\ref{itm:1Nss}-\ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in Network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
-Combining the two requirements above, it is clear that as the number of servers increases, the state space for this queueing network quickly grows combinatorially, and must denote the state space is a different format to the networks considered in this paper.
+Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially. Therefore it is not possible to consider this state space in the same way as for Networks~\ref{itm:1Nss}-\ref{itm:2Nmss}.
 
 For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
 Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.

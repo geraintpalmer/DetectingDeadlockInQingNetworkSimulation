@@ -1,0 +1,263 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tikzstyle{state}=[minimum width=1.5cm, font=\boldmath];
+    % First row
+    \node (00) at (0,0) [state] {$(0, 0)$};
+    \node (01) at ($(00)+(3,0)$) [state] {$(0, 1)$};
+    \node (02) at ($(01)+(3,0)$) [state] {$(0, 2)$};
+    \node (03) at ($(02)+(3,0)$) [state] {$(0, 3)$};
+    \node (04) at ($(03)+(3,0)$) [state] {$(0, 4)$};
+
+    % Second row
+    \node (10) at ($(00)+(0,-3)$) [state] {$(1, 0)$};
+    \node (11) at ($(10)+(3,0)$) [state] {$(1, 1)$};
+    \node (12) at ($(11)+(3,0)$) [state] {$(1, 2)$};
+    \node (13) at ($(12)+(3,0)$) [state] {$(1, 3)$};
+    \node (14) at ($(13)+(3,0)$) [state] {$(1, 4)$};
+    \node (15) at ($(14)+(3,0)$) [state] {$(1, 5)$};
+
+    % Third row
+    \node (20) at ($(10)+(0,-3)$) [state] {$(2, 0)$};
+    \node (21) at ($(20)+(3,0)$) [state] {$(2, 1)$};
+    \node (22) at ($(21)+(3,0)$) [state] {$(2, 2)$};
+    \node (23) at ($(22)+(3,0)$) [state] {$(2, 3)$};
+    \node (24) at ($(23)+(3,0)$) [state] {$(2, 4)$};
+    \node (25) at ($(24)+(3,0)$) [state] {$(2, 5)$};
+    \node (26) at ($(25)+(3,0)$) [state] {$(2, 6)$};
+
+    % Fourth row
+    \node (30) at ($(20)+(0,-3)$) [state] {$(3, 0)$};
+    \node (31) at ($(30)+(3,0)$) [state] {$(3, 1)$};
+    \node (32) at ($(31)+(3,0)$) [state] {$(3, 2)$};
+    \node (33) at ($(32)+(3,0)$) [state] {$(3, 3)$};
+    \node (34) at ($(33)+(3,0)$) [state] {$(3, 4)$};
+    \node (35) at ($(34)+(3,0)$) [state] {$(3, 5)$};
+    \node (36) at ($(35)+(3,0)$) [state] {$(3, 6)$};
+
+    % Third row
+    \node (41) at ($(31)+(0,-3)$) [state] {$(4, 1)$};
+    \node (42) at ($(41)+(3,0)$) [state] {$(4, 2)$};
+    \node (43) at ($(42)+(3,0)$) [state] {$(4, 3)$};
+    \node (44) at ($(43)+(3,0)$) [state] {$(4, 4)$};
+    \node (45) at ($(44)+(3,0)$) [state] {$(4, 5)$};
+    \node (46) at ($(45)+(3,0)$) [state] {$(4, 6)$};
+
+    % Third row
+    \node (52) at ($(42)+(0,-3)$) [state] {$(5, 2)$};
+    \node (53) at ($(52)+(3,0)$) [state] {$(5, 3)$};
+    \node (54) at ($(53)+(3,0)$) [state] {$(5, 4)$};
+    \node (55) at ($(54)+(3,0)$) [state] {$(5, 5)$};
+    \node (56) at ($(55)+(3,0)$) [state] {$(5, 6)$};
+
+
+    %%% TRANSITIONS
+
+    % Right curve up
+    \draw (00) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (01);
+    \draw (01) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (02);
+    \draw (02) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (03);
+    \draw (03) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (04);
+
+    \draw (10) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (11);
+    \draw (11) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (12);
+    \draw (12) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (13);
+    \draw (13) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (14);
+    \draw (14) edge[out=45,in=135,->,thick] node [below] {\tiny$r_{12}\mu_1$} (15);
+
+    \draw (20) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (21);
+    \draw (21) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (22);
+    \draw (22) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (23);
+    \draw (23) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (24);
+    \draw (24) edge[out=45,in=135,->,thick] node [below] {\tiny$2r_{12}\mu_1$} (25);
+    \draw (25) edge[out=45,in=135,->,thick] node [below] {\tiny$2r_{12}\mu_1$} (26);
+
+    \draw (30) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (31);
+    \draw (31) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (32);
+    \draw (32) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (33);
+    \draw (33) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (34);
+
+    \draw (41) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (42);
+    \draw (42) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (43);
+    \draw (43) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (44);
+
+    \draw (52) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (53);
+    \draw (53) edge[out=45,in=135,->,thick] node [below] {\tiny$\Lambda_2$} (54);
+
+    % Left
+    \draw (00) edge[<-,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (01);
+    \draw (01) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (02);
+    \draw (02) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (03);
+    \draw (03) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (04);
+
+    \draw (10) edge[<-,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (11);
+    \draw (11) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (12);
+    \draw (12) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (13);
+    \draw (13) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (14);
+    \draw (14) edge[<-,thick] node [below] {\tiny$r_{21}\mu_2$} (15);
+
+    \draw (20) edge[<-,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (21);
+    \draw (21) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (22);
+    \draw (22) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (23);
+    \draw (23) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (24);
+    \draw (24) edge[<-,thick] node [below] {\tiny$2r_{21}\mu_2$} (25);
+    \draw (25) edge[<-,thick] node [below] {\tiny$2r_{21}\mu_2$} (26);
+
+    \draw (30) edge[<-,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (31);
+    \draw (31) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (32);
+    \draw (32) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (33);
+    \draw (33) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (34);
+
+    \draw (41) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (42);
+    \draw (42) edge[<-,thick] node [above] {\tiny$2(1-r_{21})\mu_2$} (43);
+    \draw (43) edge[<-,thick] node [above] {\tiny$(1-r_{21})\mu_2$} (44);
+
+    % Down curve left
+    \draw (00) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (10);
+    \draw (10) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (20);
+    \draw (20) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (30);
+
+    \draw (01) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (11);
+    \draw (11) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (21);
+    \draw (21) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (31);
+    \draw (31) edge[out=-135,in=135,->,thick] node [below right] {\tiny$r_{21}\mu_2$} (41);
+
+    \draw (02) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (12);
+    \draw (12) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (22);
+    \draw (22) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (32);
+    \draw (32) edge[out=-135,in=135,->,thick] node [below right] {\tiny$2r_{21}\mu_2$} (42);
+    \draw (42) edge[out=-135,in=135,->,thick] node [below right] {\tiny$r_{21}\mu_2$} (52);
+
+    \draw (03) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (13);
+    \draw (13) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (23);
+    \draw (23) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (33);
+    \draw (33) edge[out=-135,in=135,->,thick] node [below right] {\tiny$2r_{21}\mu_2$} (43);
+    \draw (43) edge[out=-135,in=135,->,thick] node [below right] {\tiny$r_{21}\mu_2$} (53);
+
+    \draw (04) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (14);
+    \draw (14) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (24);
+    \draw (24) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (34);
+
+    \draw (15) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (25);
+    \draw (25) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (35);
+
+    \draw (26) edge[out=-135,in=135,->,thick] node [left] {\tiny$\Lambda_1$} (36);
+
+    % Right
+    \draw (34) edge[->,thick] node [below] {\tiny$2r_{12}\mu_1$} (35);
+    \draw (35) edge[->,thick] node [below] {\tiny$r_{12}\mu_1$} (36);
+
+    \draw (44) edge[->,thick] node [below] {\tiny$2r_{12}\mu_1$} (45);
+    \draw (45) edge[->,thick] node [below] {\tiny$r_{12}\mu_1$} (46);
+
+    \draw (54) edge[->,thick] node [below] {\tiny$2r_{12}\mu_1$} (55);
+    \draw (55) edge[->,thick] node [below] {\tiny$r_{12}\mu_1$} (56);
+
+    % Down
+
+    \draw (34) edge[->,thick] node [right] {\tiny$2r_{21}\mu_2$} (44);
+    \draw (44) edge[->,thick] node [right] {\tiny$r_{21}\mu_2$} (54);
+
+    \draw (35) edge[->,thick] node [right] {\tiny$2r_{21}\mu_2$} (45);
+    \draw (45) edge[->,thick] node [right] {\tiny$r_{21}\mu_2$} (55);
+
+    \draw (36) edge[->,thick] node [right] {\tiny$2r_{21}\mu_2$} (46);
+    \draw (46) edge[->,thick] node [right] {\tiny$r_{21}\mu_2$} (56);
+
+    % Up
+
+    \draw (10) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (00);
+    \draw (20) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (10);
+    \draw (30) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (20);
+
+    \draw (11) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (01);
+    \draw (21) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (11);
+    \draw (31) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (21);
+    \draw (41) edge[->,thick] node [right] {\tiny$r_{12}\mu_1$} (31);
+
+    \draw (12) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (02);
+    \draw (22) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (12);
+    \draw (32) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (22);
+    \draw (42) edge[->,thick] node [right] {\tiny$2r_{12}\mu_1$} (32);
+    \draw (52) edge[->,thick] node [right] {\tiny$2r_{12}\mu_1$} (42);
+
+    \draw (13) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (03);
+    \draw (23) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (13);
+    \draw (33) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (23);
+    \draw (43) edge[->,thick] node [right] {\tiny$2r_{12}\mu_1$} (33);
+    \draw (53) edge[->,thick] node [right] {\tiny$2r_{12}\mu_1$} (43);
+
+    \draw (14) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (04);
+    \draw (24) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (14);
+    \draw (34) edge[->,thick] node [below] {\tiny$2(1-r_{12})\mu_1$} (24);
+
+    \draw (25) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (15);
+    \draw (35) edge[->,thick] node [below] {\tiny$(1-r_{12})\mu_1$} (25);
+
+
+    % Diagonal backslash
+    \draw (15) edge[->,thick] node [above right] {\tiny$2(1-r_{21})\mu_2$} (04);
+
+    \draw (25) edge[->,thick] node [above right] {\tiny$2(1-r_{21})\mu_2$} (14);
+    \draw (26) edge[->,thick] node [above right] {\tiny$2(1-r_{21})\mu_2$} (15);
+
+    \draw (35) edge[->,thick] node [above right] {\tiny$2(1-r_{21})\mu_2$} (24);
+    \draw (36) edge[->,thick] node [above right] {\tiny$2(1-r_{21})\mu_2$} (25);
+
+    \draw (41) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (30);
+    \draw (42) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (31);
+    \draw (43) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (32);
+    \draw (44) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (33);
+
+    \draw (52) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (41);
+    \draw (53) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (42);
+    \draw (54) edge[->,thick] node [below left] {\tiny$2(1-r_{12})\mu_1$} (43);
+
+    % Diagonal forwardslash curve
+    \draw (10) edge[out=90,in=180,->,thick] node [right] {\tiny$r_{12}\mu_1$} ($(01)+(-0.5,-0.2)$);
+    \draw (11) edge[out=90,in=180,->,thick] node [right] {\tiny$r_{12}\mu_1$} ($(02)+(-0.5,-0.2)$);
+    \draw (12) edge[out=90,in=180,->,thick] node [right] {\tiny$r_{12}\mu_1$} ($(03)+(-0.5,-0.2)$);
+    \draw (13) edge[out=90,in=180,->,thick] node [right] {\tiny$r_{12}\mu_1$} ($(04)+(-0.5,-0.2)$);
+
+    \draw (20) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(11)+(-0.5,-0.2)$);
+    \draw (21) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(12)+(-0.5,-0.2)$);
+    \draw (22) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(13)+(-0.5,-0.2)$);
+    \draw (23) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(14)+(-0.5,-0.2)$);
+
+    \draw (30) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(21)+(-0.5,-0.2)$);
+    \draw (31) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(22)+(-0.5,-0.2)$);
+    \draw (32) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(23)+(-0.5,-0.2)$);
+    \draw (33) edge[out=90,in=180,->,thick] node [right] {\tiny$2r_{12}\mu_1$} ($(24)+(-0.5,-0.2)$);
+
+    % Diagonal forwardslash
+    \draw ($(01)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(10)+(0.1,0.3)$);
+    \draw ($(02)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(11)+(0.1,0.3)$);
+    \draw ($(03)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(12)+(0.1,0.3)$);
+    \draw ($(04)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(13)+(0.1,0.3)$);
+
+    \draw ($(11)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(20)+(0.1,0.3)$);
+    \draw ($(12)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(21)+(0.1,0.3)$);
+    \draw ($(13)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(22)+(0.1,0.3)$);
+    \draw ($(14)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(23)+(0.1,0.3)$);
+
+    \draw ($(21)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$r_{21}\mu_2$} ($(30)+(0.1,0.3)$);
+    \draw ($(22)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(31)+(0.1,0.3)$);
+    \draw ($(23)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(32)+(0.1,0.3)$);
+    \draw ($(24)+(-0.4,-0.2)$) edge[->,thick] node [left] {\tiny$2r_{21}\mu_2$} ($(33)+(0.1,0.3)$);
+
+    % Extra transitions
+    \draw ($(45)+(-0.2,0.4)$) edge[->,thick] node [above left,text=blue] {\tiny$(1-r_{12})\mu_1$} ($(24)+(0.2,-0.4)$);
+    \draw ($(45)+(-0.4,0.2)$) edge[->,thick] node [above right] {\tiny$(1-r_{21})\mu_2$} ($(33)+(0.4,-0.2)$);
+    \draw (46) edge[out=112.5,in=-22.5,->,thick] node [right] {\tiny$(1-r_{21})\mu_2$} ($(24)+(0.4,-0.2)$);
+    \draw (55) edge[out=157.5,in=-67.5,->,thick] node [right,text=blue] {\tiny$(1-r_{12})\mu_1$} ($(33)+(0.15,-0.3)$);
+
+\end{tikzpicture}
+
+\end{document}
