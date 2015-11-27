@@ -231,7 +231,7 @@ Deadlock avoidance has been implemented using various methods such as the Banker
 These techniques generally determine when resources cannot be allocated.
 
 
-A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and their variants (\cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}).
+A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants (\cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}).
 These wait-for graphs, keep track of all circular wait relations between tasks.
 
 In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
@@ -245,12 +245,6 @@ In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the tw
 
 
 The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
-
-
-
-
-
-
 
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
@@ -351,7 +345,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
 \end{proposition}
 
 \begin{proof}{Proof}
-  There are three parts to this proof.
+  There are three parts to this proof:
 
   \begin{enumerate}
 
@@ -425,7 +419,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
 \end{figure}
 
 For the purposes of this paper, in order to verify that the results of this
-section and Section \ref{sec:markovmodels} are in agreement, a simulation model
+section and Section~\ref{sec:markovmodels} are in agreement, a simulation model
 is used. The model is built using an object oriented framework in Python
 (\cite{python13}) with great care taken to ensure reproducibility of the results
 (\cite{hongetal15}). The code for the simulation can
@@ -439,14 +433,6 @@ to implement Theorem~\ref{thrm:knot}. More efficient algorithms could be used fo
 other specific use cases.
 
 The next section builds Markov models of five queueing networks, and discusses their deadlocking properties.
-
-
-
-
-
-
-
-
 
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
@@ -466,7 +452,7 @@ In fact, many of these are special cases of each other: the single-server networ
 
 In this section Markov models are built for networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
 The state space for network~\ref{itm:2Nmsf} is too large to model in a similar way to the others, and so isn't considered in this paper, but will be discussed in Section~\ref{sec:conclusions}.
-In Section~\ref{sec:bound} a relationship (a bound) is given between network~\ref{itm:2Nssf} and networks~\ref{itm:2Nsss} and \ref{itm:1Nss}.
+In Section~\ref{sec:bound} a relationship (a bound) is given between network~\ref{itm:2Nssf} and networks~\ref{itm:2Nsss} and~\ref{itm:1Nss}.
 
 In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
 Each state $s$ uniquely defines a configuration of customers around the queueing network.
@@ -502,13 +488,6 @@ The probabilities of which absorbing state a Markov chain will reach are given b
 \end{equation}
 
 which corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
-
-
-
-
-
-
-
 
 
 \subsection{One Node Single-Server}\label{sec:1nodenet}
@@ -574,7 +553,7 @@ Base parameters of $\Lambda = 10$, $n = 3$, $\mu = 5$ and $r_{11} = 0.25$ are us
 
 It can be seen that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the queue filling up quicker.
-Increasing the queueing capacity $n$ results in reaching deadlock slower.
+Increasing the queueing capacity $n$ results in reaching deadlock later.
 Again this is intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlocked.
 
 
@@ -633,15 +612,6 @@ From the closed interval method of finding absolute maximum (\cite{tan09}), the 
 The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Remark~\ref{rem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
-
-
-
-
-
-
-
-
-
 
 
 \subsection{Two Node Single-Server without Self-Loops}\label{sec:2nodewithoutselfloops}
@@ -787,12 +757,6 @@ Similar behaviour to Figure~\ref{fig:timestodeadlock} can be seen.
 \label{fig:timestodeadlock2}
 \end{figure}
 \end{center}
-
-
-
-
-
-
 
 
 \subsection{Two Node Single-Server with Self-Loops}\label{sec:2nodeselfloops}
@@ -950,15 +914,6 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{figure}
 
 
-
-
-
-
-
-
-
-
-
 \subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
 Consider the open one node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
@@ -1052,15 +1007,6 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
   \caption{Time to deadlock in multi-server $\Omega_1$, analytical \& simulation results (10,000 iterations).}
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
-
-
-
-
-
-
-
-
-
 
 
 \subsection{Two Node Multi-Server without Self-Loops}\label{sec:2nodeMS}
@@ -1179,16 +1125,6 @@ Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\m
 \end{figure}
 
 The next section derives a bound on the expected time to deadlock for the single-server $\Omega$ system.
-
-
-
-
-
-
-
-
-
-
 
 
 \section{A Bound on the Time to Deadlock}\label{sec:bound}
@@ -1351,7 +1287,6 @@ Recalling Section~\ref{sec:markovmodels}, let $p_{(-1)}$, $p_{(-2)}$ and $p_{(-3
 Figures~\ref{fig:hexbin_p1} and \ref{fig:hexbin_p3} show hexbin plots with x-axis $p_{(-1)}$ and $p_{(-3)}$ against the y-axis $\beta$ respectively.
 It can be seen that $p_{(-3)}$ has a strong affect on the tightness of the bound, as the probability of reaching deadlocked state (-3) increases the bound becomes tighter.
 This effect is seems to only begin as the probability increases above $p_{(-3)} \approx 0.175$.
-% Queueing networks with absorption probability $p_{(-3)} \leq 0.175$ are either unaffected by this effect, or there are more complicated effects occurring simultaneously to obscure this effect.
 
 The probability of reaching deadlocked state (-1) does not seem to affect the tightness of the bound.
 The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the $\Omega$ system are symmetrical.
@@ -1375,21 +1310,14 @@ This clearly highlights that the assumptions made about the $\widetilde{\Omega}_
 The bound is however tighter for those networks that have a high probability of reaching deadlocked state (-3).
 
 
-
-
-
-
-
-
-
 \section{Conclusions}\label{sec:conclusions}
 
 This paper, motivated by a gap in the literature, has explored deadlock in open restricted queueing networks.
 It has been shown that analysing a queueing network's corresponding state digraph is sufficient to detect when deadlock occurs in queueing network systems.
 In general the presence of a knot in the state digraph will highlight that deadlock has occurred in the network, however for special cases only the presence of a weakly connected component with no sink is required.
-Incorporating this into a simulation model, time to deadlock could be recorded.
+Incorporating this into a simulation model, time to deadlock can be observed.
 
-Markov models of five deadlocking queueing networks were built.
+Markov models of five deadlocking queueing networks are built.
 Using linear algebraic techniques the expected time to deadlock from each state was found, and its behaviour as system parameters varied explored.
 
 These analytical results were compared with results obtained from the simulation model.
@@ -1403,7 +1331,6 @@ Combining the two requirements above, it is clear that as the number of servers 
 
 For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
 Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
-
 
 
 \bibliographystyle{ormsv080}
