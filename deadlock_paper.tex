@@ -108,7 +108,7 @@
 %   \EMAIL field can be repeated if more than one author
 \ARTICLEAUTHORS{%
 \AUTHOR{Geraint I. Palmer, Paul, R. Harper, Vincent A. Knight}
-\AFF{School of Mathematics, Cardiff University, } %, \URL{}}
+\AFF{School of Mathematics, Cardiff University} %, \URL{}}
 % Enter all authors
 } % end of the block
 
@@ -126,7 +126,7 @@ This paper aims to address the apparent gap in the literature on the deadlocking
 %  existence of optimal policies; semi-Markov decision process; cyclic schedule}
 
 % Fill in data. If unknown, outcomment the field
-\KEYWORDS{queueing networks, deadlock}
+\KEYWORDS{queueing networks, deadlock, markov models}
 
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,7 +167,7 @@ It is clear that by following the standard rules of a queueing network, no more 
 
 Queueing networks are described as open if customers can enter and leave the system from the exterior.
 Restricted networks are those where at lease one service centre has limited queueing space or capacity before it.
-Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact (\cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88}) and approximate methods (\cite{takahashi80, korporaaletal00, onvural90, perrosetal88}). Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
+Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact (\cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88, gordonnewell67}) and approximate methods (\cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93, allonetal13}). Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
 In fact the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature (\cite{onvural90, perrosetal88}).
 
 Central to the study of deadlock in queueing networks is the concept of blocking.
@@ -1251,7 +1251,7 @@ Combining the above, it is concluded that $\widetilde{\omega}_{1_1} \leq \omega_
 
 \end{enumerate}
 
-Therefore
+Therefore:
 
 \begin{align*}
 \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
@@ -1260,7 +1260,7 @@ Therefore
 
 \end{proof}
 
-This bound has been tested for over 7 million parameter sets. A sample of the data can be found here \url{http://www.geraintianpalmer.org.uk/Assets/deadlock_bound_data.csv}.
+This bound has been tested for over 7 million parameter sets. A sample of the data can be found here \url{http://www.geraintianpalmer.org.uk/assets}.
 In order to gain an understanding of how loose or tight this bound is, the following ratio is taken:
 
 \begin{equation}
