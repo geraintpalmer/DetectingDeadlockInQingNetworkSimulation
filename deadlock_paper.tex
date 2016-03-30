@@ -1,150 +1,55 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Author template for Operations Reseacrh (opre) for articles with no e-companion (EC)
-%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
-%% ver. 0.95, December 2010
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\documentclass[opre,blindrev]{informs3}
-\documentclass[opre,nonblindrev]{informs3} % current default for manuscript submission
+\documentclass{article}
 
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{mathtools}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{calc}
 \usepackage{standalone}
 \usepackage{float}
-\usepackage{booktabs}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[ruled]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[nocompress]{cite}
+\usepackage{booktabs}
 
 
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
 
+\title{On Deadlock in Queueing Networks}
+\author{Geraint I. Palmer, Paul R. Harper, Vincent A. Knight}
+\date{\today}
 
-\DoubleSpacedXI % Made default 4/4/2014 at request
-%%\OneAndAHalfSpacedXI % current default line spacing
-%%\OneAndAHalfSpacedXII
-%%\DoubleSpacedXII
+\numberwithin{equation}{section}
 
-% If hyperref is used, dvi-to-ps driver of choice must be declared as
-%   an additional option to the \documentclass. For example
-%\documentclass[dvips,opre]{informs3}      % if dvips is used
-%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.
-
-%%% OPRE uses endnotes. If you do not use them, put a percent sign before
-%%% the \theendnotes command. This template does show how to use them.
-\usepackage{endnotes}
-\let\footnote=\endnote
-\let\enotesize=\normalsize
-\def\notesname{Endnotes}%
-\def\makeenmark{$^{\theenmark}$}
-\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.75em
-  \leavevmode\llap{\theenmark.\enskip}}
-
-% Private macros here (check that there is no clash with the style)
-
-% Natbib setup for author-year style
-\usepackage{natbib}
- \bibpunct[, ]{(}{)}{,}{a}{}{,}%
- \def\bibfont{\small}%
- \def\bibsep{\smallskipamount}%
- \def\bibhang{24pt}%
- \def\newblock{\ }%
- \def\BIBand{and}%
-
-%% Setup of theorem styles. Outcomment only one.
-%% Preferred default is the first option.
-\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
-%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
-\ECRepeatTheorems
-
-%% Setup of the equation numbering system. Outcomment only one.
-%% Preferred default is the first option.
-\EquationsNumberedThrough    % Default: (1), (2), ...
-%\EquationsNumberedBySection % (1.1), (1.2), ...
-
-% In the reviewing and copyediting stage enter the manuscript number.
-%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
-                 %   this manuscript number is no longer necessary
-
-%%%%%%%%%%%%%%%%
 \begin{document}
-%%%%%%%%%%%%%%%%
 
-% Outcomment only when entries are known. Otherwise leave as is and
-%   default values will be used.
-%\setcounter{page}{1}
-%\VOLUME{00}%
-%\NO{0}%
-%\MONTH{Xxxxx}% (month or a similar seasonal id)
-%\YEAR{0000}% e.g., 2005
-%\FIRSTPAGE{000}%
-%\LASTPAGE{000}%
-%\SHORTYEAR{00}% shortened year (two-digit)
-%\ISSUE{0000} %
-%\LONGFIRSTPAGE{0001} %
-%\DOI{10.1287/xxxx.0000.0000}%
+\onehalfspacing
 
-% Author's names for the running heads
-% Sample depending on the number of authors;
-% \RUNAUTHOR{Jones}
-% \RUNAUTHOR{Jones and Wilson}
-% \RUNAUTHOR{Jones, Miller, and Wilson}
-% \RUNAUTHOR{Jones et al.} % for four or more authors
-% Enter authors following the given pattern:
-\RUNAUTHOR{Palmer, Harper \& Knight}
+\maketitle
 
-% Title or shortened title suitable for running heads. Sample:
-% \RUNTITLE{Bundling Information Goods of Decreasing Value}
-% Enter the (shortened) title:
-\RUNTITLE{On Deadlock in Queueing Networks}
 
-% Full title. Sample:
-% \TITLE{Bundling Information Goods of Decreasing Value}
-% Enter the full title:
-\TITLE{On Deadlock in Queueing Networks}
-
-% Block of authors and their affiliations starts here:
-% NOTE: Authors with same affiliation, if the order of authors allows,
-%   should be entered in ONE field, separated by a comma.
-%   \EMAIL field can be repeated if more than one author
-\ARTICLEAUTHORS{%
-\AUTHOR{Geraint I. Palmer, Paul, R. Harper, Vincent A. Knight}
-\AFF{School of Mathematics, Cardiff University} %, \URL{}}
-% Enter all authors
-} % end of the block
-
-\ABSTRACT{%
+\begin{abstract}
 Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
 This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
 These models are compared to results obtained using a simulation and the developed deadlock detection method.
 Finally a bound on the time to deadlock of the two node single-server network with loops is derived by comparing its properties with other queueing networks that are embedded within it.
 This paper aims to address the apparent gap in the literature on the deadlocking properties of open restricted queueing networks and will be of value to simulation modelling of queues.
-}%
-
-% Sample
-%\KEYWORDS{deterministic inventory theory; infinite linear programming duality;
-%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
-
-% Fill in data. If unknown, outcomment the field
-\KEYWORDS{queueing networks; deadlock; markov models}
-
-\maketitle
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Samples of sectioning (and labeling) in OPRE
-% NOTE: (1) \section and \subsection do NOT end with a period
-%       (2) \subsubsection and lower need end punctuation
-%       (3) capitalization is as shown (title style).
-%
-%\section{Introduction.}\label{intro} %%1.
-%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
-%\subsection{Outline.}\label{outline1} %% 1.2.
-%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
-%  \label{cyclic-schedules} %% 1.2.1
-%\section{Problem Description.}\label{problemdescription} %% 2.
-
-% Text of your paper here
-
+\end{abstract}
 
 \section{Introduction}
 
@@ -167,8 +72,8 @@ It is clear that by following the standard rules of a queueing network, no more 
 
 Queueing networks are described as open if customers can enter and leave the system from the exterior.
 Restricted networks are those where at lease one service centre has limited queueing space or capacity before it.
-Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact (\cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88, gordonnewell67}) and approximate methods (\cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93, allonetal13}). Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
-In fact the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature (\cite{onvural90, perrosetal88}).
+Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88, gordonnewell67} and approximate methods \cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93, allonetal13}. Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
+In fact the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature \cite{onvural90, perrosetal88}.
 
 Central to the study of deadlock in queueing networks is the concept of blocking.
 In \cite{onvuralperros86} three types of blocking are described.
@@ -178,7 +83,7 @@ In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) 
 
 There has been a body of research into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
-Conditions for this type of deadlock, also referred to as deadly embraces (\cite{coffmanelphick71}), to potentially occur are given:
+Conditions for this type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, to potentially occur are given:
 \begin{itemize}
   \item Mutual exclusion: Tasks have exclusive control over resources.
   \item Wait for: Tasks do not release resources while waiting for other resources.
@@ -210,7 +115,7 @@ For the purposes of this paper, deadlock is defined as follows.\\
 
 
 Allowing a system to reach deadlock can be problematic in cases where automated systems cannot continue operations, or where simulations cannot accurately model reality.
-In general there are three strategies for dealing with the problem of deadlock (\cite{kawadkaretal14, elmagarmid86}):
+In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
 
 \begin{itemize}
   \item Prevention, in which the system is designed such that in cannot possibly deadlock in the first place.
@@ -227,11 +132,11 @@ Here a integer linear program is formulated to find the minimum queueing space a
 Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
 The literature does not discuss deadlock properties in open restricted queueing networks.
 
-Deadlock avoidance has been implemented using various methods such as the Banker's algorithm (\cite{dijkstra82, kawadkaretal14}), petri net models (\cite{viswanadhametal90, ezpeletaetal02}), and resource allocation graphs (\cite{belik90}).
+Deadlock avoidance has been implemented using various methods such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
 These techniques generally determine when resources cannot be allocated.
 
 
-A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants (\cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}).
+A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}.
 These wait-for graphs, keep track of all circular wait relations between tasks.
 
 In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
@@ -328,7 +233,7 @@ Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendan
 
 Now assume that we have deadlock.
 For a vertex $X$ who is deadlocked, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-And so there is no path from $X$ to a vertex with out-degree of 0. \Halmos
+And so there is no path from $X$ to a vertex with out-degree of 0.
 
 \end{proof}
 
@@ -395,7 +300,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
   Then the customer at server $C_1$ is blocked from entering node $B$.
   Then the customer at server $A_1$ is blocked from entering node $A$.
   Node $A$ is deadlocked.
-  The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink. \Halmos
+  The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
   \end{enumerate}
 \end{proof}
 
@@ -421,8 +326,8 @@ a deadlocked state arises if and only if there exists a weakly connected compone
 For the purposes of this paper, in order to verify that the results of this
 section and Section~\ref{sec:markovmodels} are in agreement, a simulation model
 is used. The model is built using an object oriented framework in Python
-(\cite{python13}) with great care taken to ensure reproducibility of the results
-(\cite{hongetal15}). The code for the simulation can
+\cite{python13} with great care taken to ensure reproducibility of the results
+\cite{hongetal15}. The code for the simulation can
 be found here: \url{https://github.com/geraintpalmer/ASQ} with documentation
 available here: \url{http://asq-simulates-queues.readthedocs.org}.
 
@@ -460,11 +365,11 @@ Deadlocked states are also present, either denoted by that specific configuratio
 Deadlocked states cannot transition to any other state, and so are absorbing states of the Markov chain.
 Therefore any queueing network that can experience deadlock is guaranteed to experience deadlock, as absorbing Markov chains are guaranteed to enter one of its absorbing states.
 
-The expected time until deadlock is reached is equivalent to the expected time to absorption of the Markov chain, which can easily be found (\cite{stewart09}).
+The expected time until deadlock is reached is equivalent to the expected time to absorption of the Markov chain, which can easily be found \cite{stewart09}.
 The canonical form of an absorbing Markov chain is
 
 \begin{equation*}
-P = \left(\begin{Matrix}{cc} T & U\\ 0 & I \end{Matrix} \right)
+P = \left(\begin{matrix}{cc} T & U\\ 0 & I \end{matrix} \right)
 \end{equation*}
 
 where $I$ is the identity matrix.
@@ -515,22 +420,22 @@ Define $\delta = i_2 - i_1$ for all $i_k \geq 0$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{Matrix}{rr}
-    \left. \begin{Matrix}{rr}
+  \begin{matrix}{rr}
+    \left. \begin{matrix}{rr}
       \Lambda & \text{if } i_1 < n + 1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = 1 \\
+    \end{matrix} \right\} & \text{if } \delta = 1 \\
     (1 - r_{11})\mu & \text{if } \delta = -1 \\
     0 & \text{otherwise}
-  \end{Matrix} \right.
+  \end{matrix} \right.
 \end{equation}
 
 \begin{equation}
   q_{i, (-1)} = \left\{
-  \begin{Matrix}{rr}
+  \begin{matrix}{rr}
     r_{11}\mu & \text{if } i = n + 1 \\
     0 & \text{otherwise}
-  \end{Matrix}
+  \end{matrix}
   \right.
 \end{equation}
 
@@ -608,7 +513,7 @@ The following remark identifies the maximum of $\omega_1(\mu)$ on a closed inter
 \begin{remark}\label{rem:findmaximum}
 $\arg\max_{\mu \in [a, b]} \omega_1(\mu) \in \{a, b\}$.
 
-From the closed interval method of finding absolute maximum (\cite{tan09}), the absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
+From the closed interval method of finding absolute maximum \cite{tan09}, the absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either the critical points in $(a, b)$, $a$ or $b$.
 The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum (from Remark~\ref{rem:oneminima}), and so $\hat{\mu} \leq a$ and $\hat{\mu} \leq b$.
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
@@ -652,42 +557,42 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transi
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
-  \begin{Matrix}{rr}
-    \left. \begin{Matrix}{rr}
+  \begin{matrix}{rr}
+    \left. \begin{matrix}{rr}
       \Lambda_1 & \text{if } i_1 < n_1 + 1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (1, 0) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{matrix}{rr}
       \Lambda_2 & \text{if } j_1 < n_2 + 1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (0, 1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (0, 1) \\
+    \left. \begin{matrix}{rr}
       (1 - r_{12})\mu_1 & \text{if } j_1 < n_2 + 2 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (-1, 0) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (-1, 0) \\
+    \left. \begin{matrix}{rr}
       (1 - r_{21})\mu_2 & \text{if } i_1 < n_1 + 2 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (0, -1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (0, -1) \\
+    \left. \begin{matrix}{rr}
       r_{12}\mu_1 & \text{if } j_1 < n_2 + 2 \text{ and } (i_1, j_1) \neq (n_1 + 2, n_2) \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (-1, 1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (-1, 1) \\
+    \left. \begin{matrix}{rr}
       r_{21}\mu_2 & \text{if } i_1 < n_1 + 2 \text{ and } (i_1, j_1) \neq (n_1, n_2 + 2) \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (1, -1) \\
+    \end{matrix} \right\} & \text{if } \delta = (1, -1) \\
     0 & \text{otherwise}
-  \end{Matrix} \right.
+  \end{matrix} \right.
 \end{equation}
 
 \begin{equation}
   q_{(i_1, j_1), (-1)} = \left\{
-  \begin{Matrix}{rr}
+  \begin{matrix}{rr}
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
     0 & \text{otherwise}
-  \end{Matrix}
+  \end{matrix}
   \right.
 \end{equation}
 
@@ -797,60 +702,60 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transi
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
-  \begin{Matrix}{rr}
-    \left. \begin{Matrix}{rr}
+  \begin{matrix}{rr}
+    \left. \begin{matrix}{rr}
       \Lambda_1 & \text{if } i_1 < n_1 + 1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (1, 0) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{matrix}{rr}
       \Lambda_2 & \text{if } j_1 < n_2 + 1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (0, 1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (0, 1) \\
+    \left. \begin{matrix}{rr}
       (1 - r_{11} - r_{12})\mu_1 & \text{if } j_1 < n_2 + 2 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (-1, 0) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (-1, 0) \\
+    \left. \begin{matrix}{rr}
       (1 - r_{21} - r_{22})\mu_2 & \text{if } i_1 < n_1 + 2 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (0, -1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (0, -1) \\
+    \left. \begin{matrix}{rr}
       r_{12}\mu_1 & \text{if } j_1 < n_2 + 2 \text{ and } (i_1, j_1) \neq (n_1 + 2, n_2) \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (-1, 1) \\
-    \left. \begin{Matrix}{rr}
+    \end{matrix} \right\} & \text{if } \delta = (-1, 1) \\
+    \left. \begin{matrix}{rr}
       r_{21}\mu_2 & \text{if } i_1 < n_1 + 2 \text{ and } (i_1, j_1) \neq (n_1, n_2 + 2) \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } \delta = (1, -1) \\
+    \end{matrix} \right\} & \text{if } \delta = (1, -1) \\
     0 & \text{otherwise}
-  \end{Matrix} \right.
+  \end{matrix} \right.
 \end{equation}
 
 \begin{equation}\label{equ:todeadlock2}
   q_{(i_1, j_1), (-1)} = \left\{
-  \begin{Matrix}{rr}
+  \begin{matrix}{rr}
     r_{11}\mu_1 & \text{if } i > n_1 \text{ and } j < n_2 + 2 \\
     0 & \text{otherwise}
-  \end{Matrix}
+  \end{matrix}
   \right.
 \end{equation}
 
 \begin{equation}\label{equ:todeadlock3}
   q_{(i_1, j_1), (-2)} = \left\{
-  \begin{Matrix}{rr}
+  \begin{matrix}{rr}
     r_{22}\mu_2 & \text{if } j > n_2 \text{ and } i < n_1 + 2 \\
     0 & \text{otherwise}
-  \end{Matrix}
+  \end{matrix}
   \right.
 \end{equation}
 
 \begin{equation}
   q_{(i_1, j_1), (-3)} = \left\{
-  \begin{Matrix}{rr}
+  \begin{matrix}{rr}
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
     0 & \text{otherwise}
-  \end{Matrix}
+  \end{matrix}
   \right.
 \end{equation}
 
@@ -937,24 +842,24 @@ Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{Matrix}{rr}
-    \left. \begin{Matrix}{rr}
+  \begin{matrix}{rr}
+    \left. \begin{matrix}{rr}
       \Lambda & \text{if } \delta = 1 \\
       (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } i_1 < n + c \\
-  \end{Matrix} \right.
+    \end{matrix} \right\} & \text{if } i_1 < n + c \\
+  \end{matrix} \right.
 \end{equation}
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{Matrix}{rr}
-    \left. \begin{Matrix}{rr}
+  \begin{matrix}{rr}
+    \left. \begin{matrix}{rr}
       (c-b)r_{11}\mu & \text{if } \delta = 1 \\
       (1-r_{11})(b-k)\mu & \text{if } \delta = -b-1\\
       0 & \text{otherwise}
-    \end{Matrix} \right\} & \text{if } i_1 = n + c + b \\
-  \end{Matrix} \right.
+    \end{matrix} \right\} & \text{if } i_1 = n + c + b \\
+  \end{matrix} \right.
   \quad \forall \quad 0 \leq b \leq c
 \end{equation}
 
@@ -1255,7 +1160,7 @@ Therefore:
 
 \begin{align*}
 \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
-\omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \Halmos
+\omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)
 \end{align*}
 
 \end{proof}
@@ -1333,7 +1238,7 @@ For the Markov models built in this paper Poisson arrivals and exponential servi
 Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
 
 
-\bibliographystyle{ormsv080}
+\bibliographystyle{plain}
 \bibliography{refs}
 
 \end{document}
