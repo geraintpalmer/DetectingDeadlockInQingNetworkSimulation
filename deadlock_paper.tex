@@ -225,6 +225,7 @@ Consider one weakly connected component $G(t)$ of $D(t)$ and a node $X \in G(t)$
 
 The following results detect deadlock for open restricted queueing networks.
 
+
 \begin{theorem}\label{thrm:knot}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 \end{theorem}
@@ -374,7 +375,7 @@ The expected time until deadlock is reached is equivalent to the expected time t
 The canonical form of an absorbing Markov chain is
 
 \begin{equation*}
-P = \left(\begin{matrix}{cc} T & U\\ 0 & I \end{matrix} \right)
+P = \left(\begin{array}{cc} T & U\\ 0 & I \end{array} \right)
 \end{equation*}
 
 where $I$ is the identity matrix.
@@ -425,22 +426,22 @@ Define $\delta = i_2 - i_1$ for all $i_k \geq 0$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{matrix}{rr}
-    \left. \begin{matrix}{rr}
+  \begin{array}{rr}
+    \left. \begin{array}{rr}
       \Lambda & \text{if } i_1 < n + 1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = 1 \\
+    \end{array} \right\} & \text{if } \delta = 1 \\
     (1 - r_{11})\mu & \text{if } \delta = -1 \\
     0 & \text{otherwise}
-  \end{matrix} \right.
+  \end{array} \right.
 \end{equation}
 
 \begin{equation}
   q_{i, (-1)} = \left\{
-  \begin{matrix}{rr}
+  \begin{array}{rr}
     r_{11}\mu & \text{if } i = n + 1 \\
     0 & \text{otherwise}
-  \end{matrix}
+  \end{array}
   \right.
 \end{equation}
 
@@ -562,42 +563,42 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transi
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
-  \begin{matrix}{rr}
-    \left. \begin{matrix}{rr}
+  \begin{array}{rr}
+    \left. \begin{array}{rr}
       \Lambda_1 & \text{if } i_1 < n_1 + 1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (1, 0) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{array}{rr}
       \Lambda_2 & \text{if } j_1 < n_2 + 1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (0, 1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (0, 1) \\
+    \left. \begin{array}{rr}
       (1 - r_{12})\mu_1 & \text{if } j_1 < n_2 + 2 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (-1, 0) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (-1, 0) \\
+    \left. \begin{array}{rr}
       (1 - r_{21})\mu_2 & \text{if } i_1 < n_1 + 2 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (0, -1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (0, -1) \\
+    \left. \begin{array}{rr}
       r_{12}\mu_1 & \text{if } j_1 < n_2 + 2 \text{ and } (i_1, j_1) \neq (n_1 + 2, n_2) \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (-1, 1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (-1, 1) \\
+    \left. \begin{array}{rr}
       r_{21}\mu_2 & \text{if } i_1 < n_1 + 2 \text{ and } (i_1, j_1) \neq (n_1, n_2 + 2) \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (1, -1) \\
+    \end{array} \right\} & \text{if } \delta = (1, -1) \\
     0 & \text{otherwise}
-  \end{matrix} \right.
+  \end{array} \right.
 \end{equation}
 
 \begin{equation}
   q_{(i_1, j_1), (-1)} = \left\{
-  \begin{matrix}{rr}
+  \begin{array}{rr}
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
     0 & \text{otherwise}
-  \end{matrix}
+  \end{array}
   \right.
 \end{equation}
 
@@ -707,60 +708,60 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transi
 
 \begin{equation}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
-  \begin{matrix}{rr}
-    \left. \begin{matrix}{rr}
+  \begin{array}{rr}
+    \left. \begin{array}{rr}
       \Lambda_1 & \text{if } i_1 < n_1 + 1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (1, 0) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (1, 0) \\
+    \left. \begin{array}{rr}
       \Lambda_2 & \text{if } j_1 < n_2 + 1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (0, 1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (0, 1) \\
+    \left. \begin{array}{rr}
       (1 - r_{11} - r_{12})\mu_1 & \text{if } j_1 < n_2 + 2 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (-1, 0) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (-1, 0) \\
+    \left. \begin{array}{rr}
       (1 - r_{21} - r_{22})\mu_2 & \text{if } i_1 < n_1 + 2 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (0, -1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (0, -1) \\
+    \left. \begin{array}{rr}
       r_{12}\mu_1 & \text{if } j_1 < n_2 + 2 \text{ and } (i_1, j_1) \neq (n_1 + 2, n_2) \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (-1, 1) \\
-    \left. \begin{matrix}{rr}
+    \end{array} \right\} & \text{if } \delta = (-1, 1) \\
+    \left. \begin{array}{rr}
       r_{21}\mu_2 & \text{if } i_1 < n_1 + 2 \text{ and } (i_1, j_1) \neq (n_1, n_2 + 2) \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } \delta = (1, -1) \\
+    \end{array} \right\} & \text{if } \delta = (1, -1) \\
     0 & \text{otherwise}
-  \end{matrix} \right.
+  \end{array} \right.
 \end{equation}
 
 \begin{equation}\label{equ:todeadlock2}
   q_{(i_1, j_1), (-1)} = \left\{
-  \begin{matrix}{rr}
+  \begin{array}{rr}
     r_{11}\mu_1 & \text{if } i > n_1 \text{ and } j < n_2 + 2 \\
     0 & \text{otherwise}
-  \end{matrix}
+  \end{array}
   \right.
 \end{equation}
 
 \begin{equation}\label{equ:todeadlock3}
   q_{(i_1, j_1), (-2)} = \left\{
-  \begin{matrix}{rr}
+  \begin{array}{rr}
     r_{22}\mu_2 & \text{if } j > n_2 \text{ and } i < n_1 + 2 \\
     0 & \text{otherwise}
-  \end{matrix}
+  \end{array}
   \right.
 \end{equation}
 
 \begin{equation}
   q_{(i_1, j_1), (-3)} = \left\{
-  \begin{matrix}{rr}
+  \begin{array}{rr}
     r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
     r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
     0 & \text{otherwise}
-  \end{matrix}
+  \end{array}
   \right.
 \end{equation}
 
@@ -847,24 +848,24 @@ Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by:
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{matrix}{rr}
-    \left. \begin{matrix}{rr}
+  \begin{array}{rr}
+    \left. \begin{array}{rr}
       \Lambda & \text{if } \delta = 1 \\
       (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } i_1 < n + c \\
-  \end{matrix} \right.
+    \end{array} \right\} & \text{if } i_1 < n + c \\
+  \end{array} \right.
 \end{equation}
 
 \begin{equation}
   q_{i_1, i_2} = \left\{
-  \begin{matrix}{rr}
-    \left. \begin{matrix}{rr}
+  \begin{array}{rr}
+    \left. \begin{array}{rr}
       (c-b)r_{11}\mu & \text{if } \delta = 1 \\
       (1-r_{11})(b-k)\mu & \text{if } \delta = -b-1\\
       0 & \text{otherwise}
-    \end{matrix} \right\} & \text{if } i_1 = n + c + b \\
-  \end{matrix} \right.
+    \end{array} \right\} & \text{if } i_1 = n + c + b \\
+  \end{array} \right.
   \quad \forall \quad 0 \leq b \leq c
 \end{equation}
 
@@ -989,7 +990,7 @@ Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\m
     \label{fig:2Nms_L2}
   \end{subfigure}
   \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varymu_1Nms}
+    \includegraphics[width=\textwidth]{images/varymu1_2Nms}
     \caption{Varying $\mu_1$}
     \label{fig:2Nms_mu1}
   \end{subfigure}
