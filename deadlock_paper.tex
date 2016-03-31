@@ -118,10 +118,13 @@ Allowing a system to reach deadlock can be problematic in cases where automated 
 In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
 
 \begin{itemize}
-  \item Prevention, in which the system is designed such that in cannot possibly deadlock in the first place.
   \item Avoidance, in which decisions are made as time unfolds to avoid reaching deadlock.
+  \item Prevention, in which the system is designed such that in cannot possibly deadlock in the first place.
   \item Detection and recovery.
 \end{itemize}
+
+The first two of these strategies, prevention and avoidance, have been researched extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}. Various techniques and methods have bene used to implement deadlock avoidance such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
+These techniques generally determine when resources cannot be allocated.
 
 Deadlock prevention has been discussed in queueing networks under Type I blocking.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum sub-cycle of the network.
@@ -130,20 +133,21 @@ This result is extended to multiple classes of customer in \cite{liebeherrakyild
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 
 Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
-The literature does not discuss deadlock properties in open restricted queueing networks.
+For simulation modellers however, prevention and avoidance techniques may not be appropriate as they can potentially inhibit realism in the simulation. \cite{venkateshetal98}.
 
-Deadlock avoidance has been implemented using various methods such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
-These techniques generally determine when resources cannot be allocated.
-
-
-A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95}.
+A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95, deuermeyeretal97, venkateshetal98}.
 These wait-for graphs, keep track of all circular wait relations between tasks.
-
 In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
 For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cycle.
 In \cite{choetal95} the vertices and edges of the state graph are given labels in relation to a reference node.
 Using these labels \textit{simple bounded circuits} are defined whose existence within the state graph is sufficient to detect deadlock.
 This type of strategy is used in this paper to detect deadlock in queueing systems.
+
+In \cite{deuermeyeretal97} dynamic entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock, and a deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
+These E/R graphs contain resources and entities as vertices, and edges as request or holding relationships, and strongly connected components and closed strongly connected components indicate a deadlock situation.
+Transient deadlock here is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper.
+However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) that there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
+This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
 
 Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resolve deadlock may not be negligible in reality.
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks, although this isn't discussed further.
@@ -156,6 +160,7 @@ The remainder of this paper is structured as follows: Section~\ref{sec:detecting
 
 In order to detect when deadlock has occurred in a queueing network simulation, a state digraph is used.
 This is a form of wait-for graph, and is defined below.
+
 
 \begin{definition}
 The state digraph $D(t)$ of a queueing network is defined by that network's state at any time $t$.
