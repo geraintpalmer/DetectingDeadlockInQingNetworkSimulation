@@ -237,7 +237,7 @@ Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
 
 Assume that $G(t)$ contains a vertex $X$ such that $\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other non-sink vertex to $X$.
 This implies that $X$'s occupant is not blocked and is a descendant of another vertex.
-Therefore $Q$ is not deadlocked as there does not exist a vertex whose descendants are all blocked.
+Therefore the queueing network is not deadlocked as there does not exist a vertex whose descendants are all blocked.
 
 Now assume that we have deadlock.
 For a vertex $X$ which corresponds to a server involved in the deadlock, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
