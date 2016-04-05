@@ -115,7 +115,7 @@ For the purposes of this paper, deadlock is defined as follows.\\
 
 
 Allowing a system to reach deadlock can be problematic in cases where automated systems cannot continue operations, or where simulations cannot accurately model reality.
-In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86}:
+In general there are three strategies for dealing with the problem of deadlock \cite{kawadkaretal14, elmagarmid86, venkateshsmith05}:
 
 \begin{itemize}
   \item Avoidance, in which decisions are made as time unfolds to avoid reaching deadlock.
@@ -123,7 +123,13 @@ In general there are three strategies for dealing with the problem of deadlock \
   \item Detection and recovery.
 \end{itemize}
 
-The first two of these strategies, prevention and avoidance, have been researched extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}. Various techniques and methods have been used to implement deadlock avoidance such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
+Although \cite{holt72} lists the three strategies as prevention, detection and crashing, which is equavalent to having no deadlock strategy. Allowing the system to crash now and again may be more economical in some systems where deadlocks do not occur often enough to warrant the effort of dealing with them.
+
+The first two of these strategies, prevention and avoidance, have been researched extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}.
+A distinction between \textit{online} and \textit{offline} resource allocation strategies is made \cite{venkateshsmith05}.
+Deadlock avoidance techniques are online strategies, decisions are made as the system runs, whereas deadlock prevention techniques are offline strategies as decisions are made in the planning and designing of the system.
+
+Various techniques and methods have been used to implement deadlock avoidance such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
 These techniques generally determine when resources cannot be allocated.
 
 Deadlock prevention has been discussed in closed queueing networks under Type I blocking.
@@ -135,7 +141,7 @@ Here a integer linear program is formulated to find the minimum queueing space a
 Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
 For simulation modellers however, prevention and avoidance techniques may not be appropriate as they can potentially inhibit realism in the simulation. \cite{venkateshetal98}.
 
-A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95, deuermeyeretal97, venkateshetal98}.
+A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95, deuermeyeretal97, venkateshetal98, venkateshsmith03, venkateshsmith05, hotl72}.
 These wait-for graphs, keep track of all circular wait relations between tasks.
 In \cite{coffmanelphick71} dynamic state-graphs are defined with resources as vertices and requests as edges.
 For scenarios where there is only one type of each resource, deadlock arises if and only if the state-graph contains a cycle.
@@ -143,7 +149,8 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels `simple bounded circuits' are defined whose existence within the state graph is sufficient to detect deadlock.
 This type of strategy is used in this paper to detect deadlock in queueing systems.
 
-In \cite{deuermeyeretal97} dynamic entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock, and a deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
+Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of redicibility and knots are used to detect deadlock in certain situations.
+These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03}where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or holding relationships as edges; strongly connected components and closed strongly connected components indicate a deadlock situation.
 Transient deadlock here is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper.
 However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
