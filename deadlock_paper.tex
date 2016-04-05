@@ -152,9 +152,17 @@ This type of strategy is used in this paper to detect deadlock in queueing syste
 Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of redicibility and knots are used to detect deadlock in certain situations.
 These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03}where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or holding relationships as edges; strongly connected components and closed strongly connected components indicate a deadlock situation.
-Transient deadlock here is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper.
+Transient deadlock here is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper. Figure~\ref{fig:deadlocktypes} illustrates these differences.
 However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
 This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
+
+\begin{figure}[!htbp]
+  \begin{center}
+  \includestandalone[width=0.9\textwidth]{images/deadlockdiffliterature}
+  \end{center}
+  \caption{Illustrating the types of deadlock, and the differences between the meaning of deadlock in this paper and in some of the literature (adapted from \cite{venkateshetal98}). States considered as deadlock are shaded.}
+  \label{fig:deadlocktypes}
+\end{figure}
 
 Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resolve deadlock may not be negligible in reality.
 In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks, although this isn't discussed further.
