@@ -46,8 +46,8 @@
 Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
 This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
-These models are compared to results obtained using a simulation and the developed deadlock detection method.
-Finally a bound on the time to deadlock of the two node single-server network with loops is derived by comparing its properties with other queueing networks that are embedded within it.
+These models are compared to results obtained using a simulation together with the developed deadlock detection method.
+Finally, a bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
 This paper aims to be of value to simulation modelling of queues.
 \end{abstract}
 
@@ -56,7 +56,7 @@ This paper aims to be of value to simulation modelling of queues.
 The study and modelling of queueing networks with blocking is an important tool in many aspects of operational research, both analytically and through simulation.
 These models have applications in many varied settings such as healthcare, supply chains, manufacturing and communications systems.
 However, these types of models have their limitations, due to their potential to become permanently blocked in deadlock, or a deadly embrace of resources.
-These deadlocks can be real in which case accurate modelling of deadlock is needed, or they can occur in models where deadlock situations are easily adjusted in reality. In the latter case, such as by swapping two customers, a good understanding of deadlock is needed in order to model the adjusted reality.
+These deadlocks can be real, in which case accurate modelling of deadlock is needed, or they can occur in models where deadlock situations are easily adjusted in reality. In the latter case, such as by swapping two customers, a good understanding of deadlock is needed in order to model the adjusted reality.
 
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing network in deadlock.
 The customer at the top server is blocked from entering the bottom node as there is a full queue, and similarly the customer at the bottom server is blocked from entering the top node as there is a full queue.
@@ -83,7 +83,7 @@ In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) 
 
 There has been a body of research into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71, reveliotis15a, reveliotis15b}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
-Conditions for this type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, to potentially occur are given:
+This type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, can potentially occur under under the following conditions:
 \begin{itemize}
   \item Mutual exclusion: Tasks have exclusive control over resources.
   \item Wait for: Tasks do not release resources while waiting for other resources.
@@ -123,7 +123,7 @@ In general there are three strategies for dealing with the problem of deadlock \
   \item Detection and recovery.
 \end{itemize}
 
-Although \cite{holt72} lists the three strategies as prevention, detection and crashing, which is equavalent to having no deadlock strategy. Allowing the system to crash now and again may be more economical in some systems where deadlocks do not occur often enough to warrant the effort of dealing with them.
+Although \cite{holt72} lists the three strategies as prevention, detection and crashing, which is equavalent to having no deadlock strategy. Allowing the system to crash now and again may be more economical in some systems where deadlocks do not occur often enough to justify the investment and effort of implementing a strategy.
 
 The first two of these strategies, prevention and avoidance, have been researched extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}.
 A distinction between \textit{online} and \textit{offline} resource allocation strategies is made \cite{venkateshsmith05}.
@@ -135,7 +135,7 @@ These techniques generally determine when resources cannot be allocated.
 Deadlock prevention has been discussed in closed queueing networks under Type I blocking.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum sub-cycle of the network.
 The paper also presents algorithms for finding the minimum queueing space required to ensure deadlock never occurs for closed cactus networks, where no two cycles have more than one node in common.
-This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers and each class having the same service time distribution.
+This result is extended to multiple classes of customer in \cite{liebeherrakyildiz95}, with more restrictions such as single servers, and each class having the same service time distribution.
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 
 Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
@@ -149,10 +149,10 @@ In \cite{choetal95} the vertices and edges of the state graph are given labels i
 Using these labels `simple bounded circuits' are defined whose existence within the state graph is sufficient to detect deadlock.
 This type of strategy is used in this paper to detect deadlock in queueing systems.
 
-Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of redicibility and knots are used to detect deadlock in certain situations.
+Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of reducibility and knots are used to detect deadlock in certain situations.
 These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03}where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or holding relationships as edges; strongly connected components and closed strongly connected components indicate a deadlock situation.
-Transient deadlock here is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper. Figure~\ref{fig:deadlocktypes} illustrates these differences.
+Transient deadlock is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper. Figure~\ref{fig:deadlocktypes} illustrates these differences.
 However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
 This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
 
@@ -165,7 +165,7 @@ This work is furthered in \cite{venkateshetal98} deadlock is detected and resolv
 \end{figure}
 
 Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resolve deadlock may not be negligible in reality.
-In \cite{akyildiz89}, deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks, although this isn't discussed further.
+Deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks in \cite{akyildiz89}, although there is no further discussion.
 
 
 The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
@@ -231,14 +231,14 @@ Consider one weakly connected component $G(t)$ of $D(t)$ and a node $X \in G(t)$
   \item If the server corresponding to $X$ is unoccupied, then $X$ has no incident edges.
   \item Consider the case when the server corresponding to $X$ is occupied by individual $a$, whose next destination is node $j$. Then $X$'s direct successors correspond to servers occupied by individuals who are blocked or in service at node $j$.
   \item It can interpreted that all $X$'s descendants correspond to servers whose occupants are directly or indirectly blocking $a$, and interpret all $X$'s ancestors as those servers whose individuals are being blocked directly or indirectly by $a$.
-  \item All vertices of $G(t)$ are either descendants of another vertex and so correspond to servers occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
+  \item All vertices of $G(t)$ are either descendants of another vertex, and so correspond to servers occupied by an individual who is blocking someone; or are ancestors of another vertex, and so are occupied by someone who is blocked.
   \item Note that the only possibilities for $\text{deg}^{\text{out}}(X)$ are 0 or $c_j$. If $\text{deg}^{\text{out}}(X) = c_j$ then $a$ is blocked by all its direct successors. The only other situation is that $a$ is not blocked, and $X \in G(t)$ because $a$ is in service at $X$ and blocking other individuals, in which case $\text{deg}^{\text{out}}(X) = 0$.
   \item It is clear that if all of $X$'s descendants correspond to servers occupied by blocked individuals, then the system is deadlocked at time $t$.
   \item By definition all of $X$'s ancestors correspond to servers occupied by blocked individuals.
 
 \end{itemize}
 
-Recall that a knot is defined as a strongly connected component containing no vertices with out-edge to vertices that are not in the strongly connected component.
+Recall that a knot is defined as a strongly connected component where no vertex has a path to any vertices not in that strongly connected component.
 Therefore there can be no path from a vertex in the knot to a vertex without any out-edges.
 The following results detect deadlock for open restricted queueing networks.
 
@@ -349,7 +349,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
 For the purposes of this paper, in order to verify that the results of this
 section and Section~\ref{sec:markovmodels} are in agreement, a simulation model
 is used. The model is built using an object oriented framework in Python
-\cite{python13} with care taken to ensure reproducibility of the results
+\cite{python13} with care taken to ensure reproducible results
 \cite{hongetal15}. The code for the simulation can
 be found here: \url{https://github.com/geraintpalmer/Ciw} with documentation
 available here: \url{http://ciw.readthedocs.org}.
@@ -691,7 +691,7 @@ Similar behaviour to Figure~\ref{fig:timestodeadlock} can be seen.
 
 Consider the open two node single-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodesfeedback}.
 This shows two \(M/M/1/n_i\) queues with service rates $\mu_i$  and external arrival rates $\Lambda_i$.
-All routing possibilities are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
+All routes are possible, where the routing probability from node $i$ to node $j$ is denoted by $r_{ij}$.
 
 Let this system be denoted by $\Omega$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$.
 
@@ -721,7 +721,7 @@ The state space is given by:
         \end{itemize}
     and the state $(-3)$ denotes the deadlocked state caused by both nodes; $(-1)$ denotes the deadlocked state caused by the first node only; and $(-2)$ denotes the deadlocked state caused by the second node only.
 
-Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by Equations~ref{eqn:2nssfA}, \ref{equ:todeadlock2}, \ref{equ:todeadlock3} and \ref{eqn:2nssfB}.
+Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by Equations~\ref{eqn:2nssfA}, \ref{equ:todeadlock2}, \ref{equ:todeadlock3} and \ref{eqn:2nssfB}.
 
 \begin{equation}\label{eqn:2nssfA}
   q_{(i_1, j_1),(i_2, j_2)} = \left\{
@@ -1110,7 +1110,7 @@ First, define the following systems:
   \item Let $\widetilde{\Omega}_2$ denote the $\Omega_2$ system embedded within $\Omega$. Let $\widetilde{\omega}_2$ denote the mean time to deadlock of $\widetilde{\Omega}_2$.
 \end{itemize}
 
-It follows that $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$ and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
+It follows that $\widetilde{\omega}_{1_1}$ is the mean time to state (-1) in $\Omega$, $\widetilde{\omega}_{1_2}$ is the mean time to state (-2) in $\Omega$, and $\widetilde{\omega}_2$ is the mean time to state (-3) in $\Omega$.
 Therefore $\omega = \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2)$, as the mean time to deadlock in $\Omega$ is the expected time it takes to reach either (-1), (-2) or (-3).
 
 This proof compares each embedded system with its respective non-embedded counterpart.
