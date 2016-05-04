@@ -46,8 +46,8 @@
 Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
 This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
-These models are compared to results obtained using a simulation together with the developed deadlock detection method.
-Finally, a bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
+These models are compared to results obtained using a simulation of the stochastic process, together with the developed deadlock detection method.
+Finally, an upper bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
 This paper aims to be of value to simulation modelling of queues.
 \end{abstract}
 
@@ -56,7 +56,8 @@ This paper aims to be of value to simulation modelling of queues.
 The study and modelling of queueing networks with blocking is an important tool in many aspects of operational research, both analytically and through simulation.
 These models have applications in many varied settings such as healthcare, supply chains, manufacturing and communications systems.
 However, these types of models have their limitations, due to their potential to become permanently blocked in deadlock, or a deadly embrace of resources.
-These deadlocks can be real, in which case accurate modelling of deadlock is needed, or they can occur in models where deadlock situations are easily adjusted in reality. In the latter case, such as by swapping two customers, a good understanding of deadlock is needed in order to model the adjusted reality.
+These deadlocks can be real, in which case accurate modelling of deadlock is needed, or they can occur in models where deadlock situations are easily adjusted in reality.
+In the latter case, such as by swapping two customers, a good understanding of deadlock is needed in order to model the adjusted reality.
 
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing network in deadlock.
 The customer at the top server is blocked from entering the bottom node as there is a full queue, and similarly the customer at the bottom server is blocked from entering the top node as there is a full queue.
@@ -72,18 +73,19 @@ It is clear that by following the standard rules of a queueing network, no more 
 
 Queueing networks are described as open if customers can enter and leave the system from the exterior.
 Restricted networks are those where at least one service centre has limited queueing space or capacity before it.
-Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88, gordonnewell67} and approximate methods \cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93, allonetal13}. Discussion on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
+Restricted queueing networks that exhibit blocking are well discussed in the literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05, latoucheneuts80, perrosetal88, gordonnewell67} and approximate methods \cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93, allonetal13}. Discussions on restricted queueing networks with feedback loops, that may exhibit deadlock, are sparse however.
 In fact the problem of deadlock in queueing networks has either been ignored, not studied, or assumed resolved in much of the literature \cite{onvural90, perrosetal88}.
 
 Central to the study of deadlock in queueing networks is the concept of blocking.
 In \cite{onvuralperros86} three types of blocking are described.
 Type I blocking (blocked at service, BAS, transfer blocking) occurs when a customer is blocked after completing service, and remains with the server until capacity at their destination node becomes available.
 Type II blocking (blocked before service, BBS, service blocking) occurs when a customer declares their destination before beginning service, and is only granted service if there is available capacity at their destination node.
-In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat their service if there is no capacity at their destination. This type of blocking comes in two forms, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is re-sampled from a probability distribution after each repetition.
+In Type III blocking (repetitive services, RS-FD and RS-RD, rejection blocking) instead of getting blocked a customer is required to repeat their service if there is no capacity at their destination.
+This type of blocking comes in two forms, fixed destination where the customer's destination does not change at each repetition of service, and random destination, where the customer's destination is re-sampled from a probability distribution after each repetition.
 
 There has been a body of research into detection and prevention of deadlock which doesn't consider the underlying stochastic structure of the system \cite{coffmanelphick71, reveliotis15a, reveliotis15b}.
 These general deadlocks occur in flexible manufacturing systems and distributed communication systems.
-This type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, can potentially occur under under the following conditions:
+This type of deadlock, also referred to as deadly embraces \cite{coffmanelphick71}, can potentially occur under the following conditions:
 \begin{itemize}
   \item Mutual exclusion: Tasks have exclusive control over resources.
   \item Wait for: Tasks do not release resources while waiting for other resources.
@@ -123,14 +125,15 @@ In general there are three strategies for dealing with the problem of deadlock \
   \item Detection and recovery.
 \end{itemize}
 
-Although \cite{holt72} lists the three strategies as prevention, detection and crashing, which is equavalent to having no deadlock strategy. Allowing the system to crash now and again may be more economical in some systems where deadlocks do not occur often enough to justify the investment and effort of implementing a strategy.
+Although \cite{holt72} lists the three strategies as prevention, detection and crashing, which is equavalent to having no deadlock strategy.
+Allowing the system to crash now and again may be more economical in some systems where deadlocks do not occur often enough to justify the investment and effort of implementing an avoidance/resolution strategy.
 
-The first two of these strategies, prevention and avoidance, have been researched extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}.
+The first two of these strategies, prevention and avoidance, have been used extensively in an area known as Discrete Event Systems (DES) \cite{reveliotis15a, reveliotis15b}.
 A distinction between \textit{online} and \textit{offline} resource allocation strategies is made \cite{venkateshsmith05}.
 Deadlock avoidance techniques are online strategies, decisions are made as the system runs, whereas deadlock prevention techniques are offline strategies as decisions are made in the planning and designing of the system.
 
 Various techniques and methods have been used to implement deadlock avoidance such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation graphs \cite{belik90}.
-These techniques generally determine when resources cannot be allocated.
+These techniques generally determine when resources cannot be allocated as that allocation would lead to deadlock.
 
 Deadlock prevention has been discussed in closed queueing networks under Type I blocking.
 For closed networks of $K$ customers with only one class of customer, \cite{kunduakyildiz89} proves the following condition to ensures no deadlock: for each minimum cycle $C$, $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total queueing capacity of each minimum sub-cycle of the network.
@@ -139,7 +142,7 @@ This result is extended to multiple classes of customer in \cite{liebeherrakyild
 Here a integer linear program is formulated to find the minimum queueing space assignment that prevents deadlock.
 
 Further conditions on deadlock prevention in closed queueing networks are reviewed in \cite{onvural90}, including closed networks under different blocking mechanisms such Type II and Type III blocking.
-For simulation modellers however, prevention and avoidance techniques may not be appropriate as they can potentially inhibit realism in the simulation. \cite{venkateshetal98}.
+For simulation modelling however, prevention and avoidance techniques may not be appropriate as they can potentially inhibit realism in the simulation by taking actions that do not occur in system being modelled \cite{venkateshetal98}.
 
 A popular method of detecting general deadlock is the use of wait-for graphs, state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71, choetal95, deuermeyeretal97, venkateshetal98, venkateshsmith03, venkateshsmith05, holt72}.
 These wait-for graphs, keep track of all circular wait relations between tasks.
@@ -150,9 +153,10 @@ Using these labels `simple bounded circuits' are defined whose existence within 
 This type of strategy is used in this paper to detect deadlock in queueing systems.
 
 Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of reducibility and knots are used to detect deadlock in certain situations.
-These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03}where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
+These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03} where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or holding relationships as edges; strongly connected components and closed strongly connected components indicate a deadlock situation.
-Transient deadlock is equivalent to blocking in this paper, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper. Figure~\ref{fig:deadlocktypes} illustrates these differences.
+Transient deadlock as defined in \cite{venkateshetal98} corresponds to the blocking considered in this manuscript, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper.
+Figure~\ref{fig:deadlocktypes} illustrates these differences.
 However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
 This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
 
@@ -164,11 +168,14 @@ This work is furthered in \cite{venkateshetal98} deadlock is detected and resolv
   \label{fig:deadlocktypes}
 \end{figure}
 
-Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state. Though time to resolve deadlock may not be negligible in reality.
+Deadlock detection and recovery in closed queueing networks through swapping customers is assumed in \cite{perrosetal88}, with zero transition time assumed between deadlocked states and the corresponding resolved state.
+Though time to resolve deadlock may not be negligible in reality.
 Deadlock detection and recovery is listed as one of the two possible solutions for handling deadlock in queueing networks in \cite{akyildiz89}, although there is no further discussion.
 
 
-The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks. Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model. Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
+The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks.
+Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model.
+Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
@@ -349,7 +356,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
 For the purposes of this paper, in order to verify that the results of this
 section and Section~\ref{sec:markovmodels} are in agreement, a simulation model
 is used. The model is built using an object oriented framework in Python
-\cite{python13} with care taken to ensure reproducible results
+\cite{python13} with care taken to ensure reproducibility of the results
 \cite{hongetal15}. The code for the simulation can
 be found here: \url{https://github.com/geraintpalmer/Ciw} with documentation
 available here: \url{http://ciw.readthedocs.org}.
