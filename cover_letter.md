@@ -1,13 +1,13 @@
 Dear editor,
 
-I am writing to submit our manuscript entitled “On deadlock in queueing networks” for consideration for publication in Operations Research.
+I am writing to submit our manuscript entitled “Modelling deadlock in open restricted queueing networks” for consideration for publication in Operations Research.
 
 The use of queueing theory to model real systems is widespread in many areas of operations research, however Markov models of systems that deadlock have been not been studied.
 
-In this paper open restricted queueing networks that can deadlock are explored. Results are presented about their state digraph and how these can indicate whether the system is in deadlock. These results are incorporated into simulation models. Next Markov models of five deadlocking queueing networks are built; these include single-server and multi-server systems for one and two node networks. It is shown that results obtained by using linear algebraic techniques on these transition matrices concur with results obtained through simulation. Finally a bound was found for the expected time to deadlock of a two node single server queueing network by calculating the expected time to deadlock of three smaller restricted queueing networks embedded within.
+In this paper open restricted queueing networks that can deadlock are explored. Results are presented about their state digraph and how these can indicate whether the system is in deadlock. These results are incorporated into simulation models. Markov models of five deadlocking queueing networks are built; these include single-server and multi-server systems for one and two node networks. It is shown that results obtained by using linear algebraic techniques on these transition matrices concur with results obtained through simulation. Finally a bound was found for the expected time to deadlock of a two node single server queueing network by calculating the expected time to deadlock of three smaller restricted queueing networks embedded within.
 
 Although deadlock prevention has been studied in closed restricted queueing network, this paper focuses on open restricted queueing networks. We believe this work will be of use to simulators and modellers of queueing systems to gain insight into the potential for restricted queueing networks to reach a deadlocked state, and also to be able to model small deadlocking queueing networks exactly.
 
-Thank you very much for considering our manuscript for review. We appreciate your time and anticipate your response.
+Thank you very much for considering our manuscript for review. We appreciate your time.
 
 Geraint Palmer, Paul Harper, Vincent Knight.
