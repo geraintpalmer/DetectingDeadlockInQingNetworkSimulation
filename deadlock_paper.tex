@@ -1,9 +1,9 @@
-\documentclass{article}
+\documentclass[mnsc,blindrev]{informs3}
 
-\usepackage{fullpage}
-\usepackage{parskip}
-\usepackage{setspace}
-\usepackage{mathtools}
+% \usepackage{fullpage}
+% \usepackage{parskip}
+% \usepackage{setspace}
+% \usepackage{mathtools}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.markings}
@@ -12,45 +12,85 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage[ruled]{algorithm2e}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amsthm}
 \usepackage{adjustbox}
-\usepackage{enumerate}
+% \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage[nocompress]{cite}
 \usepackage{booktabs}
 
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+
 \def\Vhrulefill{\leavevmode\leaders\hrule height 0.7ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
 
-\newtheorem{definition}{Definition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}
-\newtheorem{lemma}{Lemma}
-\newtheorem{remark}{Remark}
 
-\title{Modelling Deadlock in Open Restricted Queueing Networks}
-\author{Geraint I. Palmer, Paul R. Harper, Vincent A. Knight}
-\date{\today}
+% \newtheorem{definition}{Definition}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{remark}{Remark}
 
-\numberwithin{equation}{section}
+% \title{Modelling Deadlock in Open Restricted Queueing Networks}
+% \author{Geraint I. Palmer, Paul R. Harper, Vincent A. Knight}
+% \date{\today}
+
+% \numberwithin{equation}{section}
 
 \begin{document}
 
-\onehalfspacing
+% \onehalfspacing
+\OneAndAHalfSpacedXI
 
-\maketitle
+\RUNAUTHOR{Palmer, Harper \& Knight}
+
+\RUNTITLE{Modelling Deadlock in Open Restricted Queueing Networks}
+
+\TITLE{Modelling Deadlock in Open Restricted Queueing Networks}
+
+\ARTICLEAUTHORS{%
+\AUTHOR{Geraint I. Palmer, Paul, R. Harper, Vincent A. Knight}
+\AFF{School of Mathematics, Cardiff University} %, \URL{}
+}
 
 
-\begin{abstract}
+\ABSTRACT{%
 Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
 This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
 The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
 These models are compared to results obtained using a simulation of the stochastic process, together with the developed deadlock detection method.
 Finally, an upper bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
 This paper aims to be of value to simulation modelling of queues.
-\end{abstract}
+}%
+
+\KEYWORDS{queueing networks; deadlock; markov models}
+
+\maketitle
+
+% \begin{abstract}
+% Open restricted queueing networks give rise to the phenomenon of deadlock, whereby some customers may be unable to ever leave a server due to recursive upstream blocking.
+% This paper explores deadlock in restricted queueing networks, presents a method of detecting deadlock in these systems, and builds Markov chain models of these deadlocking networks.
+% The five networks for which Markov models are given include single and multi-server networks for one and two node systems.
+% These models are compared to results obtained using a simulation of the stochastic process, together with the developed deadlock detection method.
+% Finally, an upper bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
+% This paper aims to be of value to simulation modelling of queues.
+% \end{abstract}
 
 \section{Introduction}
 
