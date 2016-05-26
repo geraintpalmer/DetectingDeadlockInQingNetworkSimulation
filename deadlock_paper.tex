@@ -38,7 +38,7 @@
 \EquationsNumberedThrough    % Default: (1), (2), ...
 
 
-\def\Vhrulefill{\leavevmode\leaders\hrule height 0.7ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
+\def\Vhrulefill{\leavevmode\leaders\hrule height 0.1ex depth \dimexpr0.4pt-0.1ex\hfill\kern0pt}
 
 
 % \newtheorem{definition}{Definition}
@@ -104,7 +104,7 @@ Figure~\ref{fig:1st_example} shows an open two node restricted queueing network 
 The customer at the top server is blocked from entering the bottom node as there is a full queue, and similarly the customer at the bottom server is blocked from entering the top node as there is a full queue.
 It is clear that by following the standard rules of a queueing network, no more natural movement can happen.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.3\textwidth]{images/2nodesindeadlock}
   \end{center}
@@ -202,7 +202,7 @@ Figure~\ref{fig:deadlocktypes} illustrates these differences.
 However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
 This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.9\textwidth]{images/deadlockdiffliterature}
   \end{center}
@@ -237,7 +237,7 @@ A directed edge denotes a blockage relationship in the following manner: if a cu
 
 To illustrate this concept Figure~\ref{fig:exampledigraphs} shows examples of queueing networks in and out of deadlock, and the corresponding state digraph in each case.
 
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{center}
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
@@ -477,7 +477,7 @@ Once a customer has finished service they rejoin the queue with probability $r_{
 
 Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $n$, $r_{11})$, and the time to deadlock of this system be denoted by $\omega_1$.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.75\textwidth]{images/1nodeexample}
   \end{center}
@@ -519,7 +519,7 @@ Define $\delta = i_2 - i_1$ for all $i_k \geq 0$. The transitions are given by E
 
 The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
     \includestandalone[width=0.75\textwidth]{images/markov_chain_1node_bw}
   \end{center}
@@ -536,7 +536,7 @@ Increasing the queueing capacity $n$ results in reaching deadlock later.
 Again this is intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlocked.
 
 
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{center}
 \begin{subfigure}[b]{0.35\textwidth}
   \includegraphics[width=\textwidth]{images/varyL}
@@ -601,7 +601,7 @@ All routing possibilities $r_{ij}$ are possible except self-loops $r_{ii}$ for e
 
 Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.75\textwidth]{images/2nodeexample}
   \end{center}
@@ -676,7 +676,7 @@ Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transi
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMC}.
 
-\begin{figure}[!htbp]
+\begin{figure}
     \begin{center}
     \includestandalone[width=0.75\textwidth]{images/markov_chain_bw}
     \end{center}
@@ -689,7 +689,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 Similar behaviour to Figure~\ref{fig:timestodeadlock} can be seen.
 
 \begin{center}
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{center}
 \begin{subfigure}[b]{0.38\textwidth}
   \includegraphics[width=\textwidth]{images/varyL1}
@@ -746,7 +746,7 @@ All routes are possible, where the routing probability from node $i$ to node $j$
 
 Let this system be denoted by $\Omega$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.75\textwidth]{images/2nodefeedbackexample}
   \end{center}
@@ -843,7 +843,7 @@ Note that there are only two differences between this formulation and the formul
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMCfeedback}.
 
-\begin{figure}[!htbp]
+\begin{figure}
     \begin{center}
     \includestandalone[width=0.75\textwidth]{images/markov_chain_feedback_bw}
     \end{center}
@@ -855,7 +855,7 @@ Figure~\ref{fig:timestodeadlockfeedback} shows the effect on the time to deadloc
 Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{11} = 0.1$, $r_{12} = 0.25$, $r_{21} = 0.15$ and $r_{22} = 0.1$ are used.
 
 
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{center}
 \begin{subfigure}[b]{0.35\textwidth}
   \includegraphics[width=\textwidth]{images/vary_L1fb}
@@ -898,7 +898,7 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 Consider the open one node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
 This is an $\Omega_1$ system with $c$ parallel servers.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.75\textwidth]{images/1nodemultiserver}
   \end{center}
@@ -940,7 +940,7 @@ Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by Eq
 where $b$ denotes the number of blocked customers.
 The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 
-\begin{figure}[!htbp]
+\begin{figure}
     \begin{center}
     \includestandalone[width=0.75\textwidth]{images/MC1nodemultiserv_bw}
     \end{center}
@@ -955,7 +955,7 @@ Increasing the amount of servers also increases the rate at which $i$ are reduce
 Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$ were used.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \begin{subfigure}[b]{0.35\textwidth}
     \includegraphics[width=\textwidth]{images/varyL_1Nms}
@@ -993,7 +993,7 @@ Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$
 Consider the open two node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodemulti}.
 This is an $\Omega_2$ system with $c_i$ parallel servers at node $i$.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includestandalone[width=0.75\textwidth]{images/2nodemultiserver}
   \end{center}
@@ -1009,7 +1009,7 @@ The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
 
 The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
 
-\begin{figure}[!htbp]
+\begin{figure}
     \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
     \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
     \label{fig:2nodeMCms}
@@ -1046,7 +1046,7 @@ The values $s_1$ and $s_2$ correspond to the amount of people currently in servi
 Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and $c_2 = 2$ were used.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{subfigure}[b]{0.333\textwidth}
     \includegraphics[width=\textwidth]{images/varyL1_2Nms}
     \caption{Varying $\Lambda_1$}
@@ -1123,7 +1123,7 @@ where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and 
 
 Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, the $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$ systems.
 
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{subfigure}[b]{0.5\textwidth}
   \includestandalone[width=\textwidth]{images/omega11}
   \caption{$\Omega_{1_1}$ within $\Omega$}
@@ -1253,7 +1253,7 @@ Figure~\ref{fig:bound_ratio_hist} shows a histogram of $\beta$ for over 7 millio
 It can be seen that although Theorem~\ref{thrm:bound} is confirmed (all values are less than 1), it isn't tight, with some parameter sets giving a value of $\beta$ as low as $1.98 \times 10^{-5}$.
 That's equivalent to the bound being over 50,000 times greater than $\omega$.
 
-\begin{figure}[!htbp]
+\begin{figure}
   \begin{center}
   \includegraphics[width=0.5\textwidth]{images/ratio_actual_bound}
   \end{center}
@@ -1270,7 +1270,7 @@ This effect is seems to only begin as the probability increases above $p_{(-3)} 
 The probability of reaching deadlocked state (-1) does not seem to affect the tightness of the bound.
 The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the $\Omega$ system are symmetrical.
 
-\begin{figure}[!htbp]
+\begin{figure}
 \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{images/hexbin-1}
   \caption{Hexbin plot of $p_{(-1)}$ against $\beta$.}
