@@ -94,7 +94,7 @@ This type of deadlock, also referred to as deadly embraces \cite{coffmanelphick7
   \item Circular wait: A circular chain of tasks exists, where each task requests a resource from another task in the chain.
 \end{itemize}
 
-In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no pre-emption condition is satisfied in networks that have no or non-pre-emptive priority (this paper only considers networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is feedback loops.
+In open restricted queueing networks the mutual exclusion condition is satisfied as customers cannot share servers; the wait for condition is satisfied due to the blocking rules defined previously; the no pre-emption condition is satisfied in networks that have no or non-pre-emptive priority (this paper only considers networks with no priority); and the circular wait condition is satisfied if the queueing network contains a cycle where all nodes have limited queueing capacity, that is, a feedback loop.
 
 This paper is concerned with open restricted queueing networks that experience Type I blocking.
 Throughout the paper service centres will be referred to as nodes, and for the $i$th node of an open restricted queueing network the following notation is used:
@@ -166,7 +166,7 @@ This work is furthered in \cite{venkateshetal98} deadlock is detected and resolv
   \begin{center}
   \includestandalone[width=0.9\textwidth]{images/deadlockdiffliterature}
   \end{center}
-  \caption{Illustrating the types of deadlock, and the differences between the meaning of deadlock in this paper (top) and in some of the literature (bottom). Adapted from \cite{venkateshetal98}. States considered as deadlock are italicised.}
+  \caption{Illustrating the types of deadlock, and the differences between the meaning of deadlock in this paper (top writing) and in some of the literature (bottom writing). Adapted from \cite{venkateshetal98}. States considered as deadlock are italicised.}
   \label{fig:deadlocktypes}
 \end{figure}
 
@@ -1260,7 +1260,7 @@ These analytical results were compared with results obtained from the simulation
 Finally a bound on the expected time to deadlock for one of these models was given, that was found to be tighter for those networks that have high probability of reaching deadlocked state (-3).
 
 Further research is needed to build a Markov model of the open two node, multi-server restricted queueing network with routes between nodes and feedback loops, that is network~\ref{itm:2Nmsf} from Section ~\ref{sec:markovmodels}.
-In networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so one destination to get blocked from moving to. In network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
+In networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so customers may only get blocked from moving to one destination. In network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
 
 In addition to this, the order in which customers become blocked is important. In networks~\ref{itm:1Nss}-\ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
 Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially. Therefore it is not possible to consider this state space in the same way as for networks~\ref{itm:1Nss}-\ref{itm:2Nmss}.
