@@ -308,8 +308,7 @@ Therefore the queueing network is not deadlocked as there does not exist a verte
 
 Now assume that we have deadlock.
 For a vertex $X$ which corresponds to a server involved in the deadlock, all descendants of $X$ are are occupied by individuals who are blocked, and so must have out-degrees greater than 0.
-And so there is no path from $X$ to a vertex with out-degree of 0.
-
+And so there is no path from $X$ to a vertex with out-degree of 0. \Halmos
 \end{proof}
 
 The knot condition can be simplified for specific cases.
@@ -374,7 +373,7 @@ a deadlocked state arises if and only if there exists a weakly connected compone
   Then the customer at server $C_1$ is blocked from entering node $B$.
   Then the customer at server $A_1$ is blocked from entering node $A$.
   Node $A$ is deadlocked.
-  The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink.
+  The resulting state digraph in Figure~\ref{fig:counter_example_2} has a weakly connected component with a sink. \Halmos
   \end{enumerate}
 \end{proof}
 
@@ -1234,9 +1233,8 @@ Therefore:
 
 \begin{align*}
 \min(\widetilde{\omega}_{1_1}, \widetilde{\omega}_{1_2}, \widetilde{\omega}_2) &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \\
-\omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)
+\omega &\leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2) \Halmos
 \end{align*}
-
 \end{proof}
 
 This bound has been tested for over 7 million parameter sets. A sample of the data can be found here \url{http://www.geraintianpalmer.org.uk/assets}.
