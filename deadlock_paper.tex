@@ -21,6 +21,7 @@
 \usepackage{hyperref}
 \usepackage[nocompress]{cite}
 \usepackage{booktabs}
+\usepackage{authblk}
 
 
 \def\Vhrulefill{\leavevmode\leaders\hrule height 0.7ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
@@ -32,7 +33,10 @@
 \newtheorem{remark}{Remark}
 
 \title{Modelling Deadlock in Open Restricted Queueing Networks}
-\author{Geraint I. Palmer, Paul R. Harper, Vincent A. Knight}
+\author{Geraint I. Palmer}
+\author{Paul R. Harper\thanks{Correspondng author Prof. Paul Harper, harper@cardiff.ac.uk}}
+\author{Vincent A. Knight}
+\affil{\small{\textit{School of Mathematics, Cardiff University, Senghennydd Road, Cardiff, CF24 4AG}}}
 \date{\today}
 
 \numberwithin{equation}{section}
@@ -51,6 +55,8 @@ The five networks for which Markov models are given include single and multi-ser
 These models are compared to results obtained using a simulation of the stochastic process, together with the developed deadlock detection method.
 Finally, an upper bound on the time to deadlock of the two node single-server network with loops is derived, by comparing its properties with other queueing networks that are embedded within it.
 This paper aims to be of value to simulation modelling of queues.
+
+\textit{Keywords:} queues, queueing networks, deadlock, Markov models
 \end{abstract}
 
 \section{Introduction}

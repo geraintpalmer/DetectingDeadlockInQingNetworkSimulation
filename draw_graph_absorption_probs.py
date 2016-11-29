@@ -77,4 +77,5 @@ legend = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':14})
 pylab.ylim([0,1])
 pylab.xlim([begin,end+step])
 
+plt.savefig('images/absprob' + var + '.pdf')
 plt.show()
