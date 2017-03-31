@@ -164,10 +164,12 @@ This type of strategy is used in this paper to detect deadlock in queueing syste
 Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with both consumable and reusable resources, where the concept of reducibility and knots are used to detect deadlock in certain situations.
 These graphs are developed and used in \cite{deuermeyeretal97} and \cite{venkateshsmith03} where these dynamic bipartite entity-resource graphs (E/R graphs) are used to detect two different types of deadlock, transient deadlock and permanent deadlock. A deadlock resolution procedure is proposed that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or holding relationships as edges; strongly connected components and closed strongly connected components indicate a deadlock situation.
-Transient deadlock as defined in \cite{venkateshetal98} corresponds to the blocking considered in this manuscript, and isn't considered a deadlock situation here; whereas permanent deadlock is equivalent to the deadlock that is discussed in this paper.
-Figure~\ref{fig:deadlocktypes} illustrates these differences.
-However the authors state that in overlapping deadlock situations (the kind that arise the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, although using the definitions given in this paper transient deadlock is not considered a deadlock at all.
 This work is furthered in \cite{venkateshetal98} deadlock is detected and resolved for situations where entities may request more than one resource.
+
+A number of deadlock types are defined in \cite{venkateshetal98}, and their relationships to one another.
+This is shown in Figure~\ref{fig:deadlocktypes}.
+`Transient deadlock' defined there corresponds to the blocking considered in this manuscript, and isn't considered a deadlock situation here; whereas `permanent deadlock' and `absolute deadlock' defined there is equivalent to the type of deadlock that is discussed in this paper.
+The authors of \cite{venkateshetal98} state that in overlapping deadlock situations (the kind that arise in the queueing networks discussed in this paper) there is no conceptual difference between transient and permanent deadlocks, however using the definitions given in this paper transient deadlock is not considered a deadlock at all, and thus we consider these two deadlock situations as fundamentally different.
 
 \begin{figure}[!htbp]
   \begin{center}
