@@ -383,22 +383,18 @@ The next section builds Markov models of five queueing networks, and discusses t
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-The following six networks describe all possible configurations of deadlocking queueing networks with two or fewer nodes:
+The following three networks describe all possible configurations of deadlocking queueing networks with two or fewer nodes:
 
 \begin{enumerate}
-  \item Open one node, single-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodenet}) \label{itm:1Nss}
-  \item Open two node, single-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodewithoutselfloops}) \label{itm:2Nsss}
-  \item Open two node, single-server restricted queueing network with routes between nodes and self-loops. (Section~\ref{sec:2nodeselfloops}) \label{itm:2Nssf}
   \item Open one node, multi-server restricted queueing network with feedback loop. (Section~\ref{sec:1nodeMS}) \label{itm:1Nms}
   \item Open two node, multi-server restricted queueing network with routes between nodes. (Section~\ref{sec:2nodeMS}) \label{itm:2Nmss}
   \item Open two node, multi-server restricted queueing network with routes between nodes and self-loops. \label{itm:2Nmsf}
 \end{enumerate}
 
-In fact, many of these are special cases of each other: the single-server networks are simply a special case of the multi-server networks, network~\ref{itm:2Nsss} is a special case of network~\ref{itm:2Nssf}, and network~\ref{itm:2Nmss} is a special case of network~\ref{itm:2Nmsf}.
-
-In this section Markov models are built for networks~\ref{itm:1Nss}-\ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
-The state space for network~\ref{itm:2Nmsf} is too large to model in a similar way to the others, and so isn't considered in this paper, but will be discussed in Section~\ref{sec:conclusions}.
-In Section~\ref{sec:bound} a relationship (a bound) is given between network~\ref{itm:2Nssf} and networks~\ref{itm:1Nss} and~\ref{itm:2Nsss}.
+In this section Markov models are built for networks~\ref{itm:1Nms} and \ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
+The state space for network~\ref{itm:2Nmsf} is too large to model in a similar way to the others, and so isn't considered in this paper.
+A single server version is modelled however, and the multi server system will be discussed in Section~\ref{sec:conclusions}.
+In Section~\ref{sec:bound} a relationship (a bound) is given between single server versions of network~\ref{itm:2Nmsf} and networks~\ref{itm:1Nms} and~\ref{itm:2Nmss}.
 
 In general a continuous Markov chain model of a deadlocking queueing network is defined by a set of states $s \in S$ and the transition rates between these states $q_{s_1,s_2}$.
 Each state $s$ uniquely defines a configuration of customers around the queueing network.
@@ -436,99 +432,108 @@ The probabilities of which absorbing state a Markov chain will reach are given b
 which corresponds to the probability of reaching absorbing state $j$ from transient state $i$.
 
 
-\subsection{One Node Single-Server}\label{sec:1nodenet}
+\subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
-Consider the open one node single-server restricted queueing network with feedback loop shown in Figure~\ref{fig:queueingnetwork_1node}.
-This shows an \(M/M/1/n\) queue where customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
+
+Consider the open one node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
+This shows an \(M/M/c/n\) queue where customers arrive at a rate of $\Lambda$ and served at a rate $\mu$.
 Once a customer has finished service they rejoin the queue with probability $r_{11}$, and so exit the system with probability $1 - r_{11}$.
+Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $c$, $n$, $r_{11})$, and the time to deadlock of this system be denoted by $\omega_1$.
 
-Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$, $n$, $r_{11})$, and the time to deadlock of this system be denoted by $\omega_1$.
 
 \begin{figure}[!htbp]
   \begin{center}
-  \includestandalone[width=0.75\textwidth]{images/1nodeexample}
+  \includestandalone[width=0.75\textwidth]{images/1nodemultiserver}
   \end{center}
-  \caption{An open one node single-server restricted queueing network.}
-  \label{fig:queueingnetwork_1node}
+  \caption{An open one node multi-server restricted queueing network.}
+  \label{fig:queueingnetwork_1nodemulti}
 \end{figure}
 
 The state space is given by:
-        \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 1
-        \}\cup\{(-1)\}\]
-where \(i\) denotes the number of individuals in service or waiting, and $(-1)$ denotes the deadlocked state.
+        \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
+where \(i\) denotes the number of individuals in the system plus the number of individuals blocked who are blocked.
+For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
+The state $i=n+2c$ denotes the deadlocked state, that is every customer with a server is blocked.
 
-Define $\delta = i_2 - i_1$ for all $i_k \geq 0$. The transitions are given by Equations~\ref{eqn:1nssA}, \ref{eqn:1nssB} and \ref{eqn:1nssC}
+Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by Equations~\ref{eqn:1msA} and \ref{eqn:1msB}.
 
-\begin{equation}\label{eqn:1nssA}
+\begin{equation}\label{eqn:1msA}
   q_{i_1, i_2} = \left\{
   \begin{array}{rr}
     \left. \begin{array}{rr}
-      \Lambda & \text{if } i_1 < n + 1 \\
+      \Lambda & \text{if } \delta = 1 \\
+      (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
       0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = 1 \\
-    (1 - r_{11})\mu & \text{if } \delta = -1 \\
-    0 & \text{otherwise}
+    \end{array} \right\} & \text{if } i_1 < n + c \\
   \end{array} \right.
 \end{equation}
 
-\begin{equation}\label{eqn:1nssB}
-  q_{i, (-1)} = \left\{
+\begin{equation}\label{eqn:1msB}
+  q_{i_1, i_2} = \left\{
   \begin{array}{rr}
-    r_{11}\mu & \text{if } i = n + 1 \\
-    0 & \text{otherwise}
-  \end{array}
-  \right.
+    \left. \begin{array}{rr}
+      (c-b)r_{11}\mu & \text{if } \delta = 1 \\
+      (1-r_{11})(b-k)\mu & \text{if } \delta = -b-1\\
+      0 & \text{otherwise}
+    \end{array} \right\} & \text{if } i_1 = n + c + b \\
+  \end{array} \right.
+  \quad \forall \quad 0 \leq b \leq c
 \end{equation}
 
-\begin{equation}\label{eqn:1nssC}
-  q_{-1, i} = 0
-\end{equation}
+where $b$ denotes the number of blocked customers.
+The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
 
-The Markov chain is shown in Figure~\ref{fig:1nodeMC}.
+\begin{figure}[!htbp]
+    \begin{center}
+    \includestandalone[width=0.75\textwidth]{images/MC1nodemultiserv_bw}
+    \end{center}
+    \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_1$ system.}
+    \label{fig:1nodeMCms}
+\end{figure}
+
+Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$ were used.
 
 \begin{figure}[!htbp]
   \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/markov_chain_1node_bw}
+  \begin{subfigure}[b]{0.35\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL_1Nms}
+    \caption{Varying $\Lambda$}
+    \label{fig:1Nms_L}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.35\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu_1Nms}
+    \caption{Varying $\mu$}
+    \label{fig:1Nms_mu}
+  \end{subfigure}\\
+  \begin{subfigure}[b]{0.35\textwidth}
+    \includegraphics[width=\textwidth]{images/varyr11_1Nms}
+    \caption{Varying $r_{11}$}
+    \label{fig:1Nms_r11}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.35\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn_1Nms}
+    \caption{Varying $n$}
+    \label{fig:1Nms_n}
+  \end{subfigure}\\
+  \begin{subfigure}[b]{0.35\textwidth}
+    \includegraphics[width=\textwidth]{images/varyc_1Nms}
+    \caption{Varying $c$}
+    \label{fig:1Nms_c}
+  \end{subfigure}
   \end{center}
-  \caption{Diagrammatic representation of the Markov chain for $\Omega_1$.}
-  \label{fig:1nodeMC}
+  \caption{Time to deadlock in multi-server $\Omega_1$, analytical \& simulation results (10,000 iterations).}
+  \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
-
-Figure~\ref{fig:timestodeadlock} shows the effect of varying the parameters of the queueing network on times to deadlock.
-Base parameters of $\Lambda = 10$, $n = 3$, $\mu = 5$ and $r_{11} = 0.25$ are used.
 
 It can be seen that increasing the arrival rate $\Lambda$ and the transition probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the queue filling up quicker.
 Increasing the queueing capacity $n$ results in reaching deadlock later.
 Again this is intuitive, as increasing the queueing capacity allows more customers in the system before becoming deadlocked.
 
-
-\begin{figure}[!htbp]
-\begin{center}
-\begin{subfigure}[b]{0.35\textwidth}
-  \includegraphics[width=\textwidth]{images/varyL}
-  \caption{Varying $\Lambda$}
-  \label{fig:timestodeadlock_L}
-\end{subfigure}
-\begin{subfigure}[b]{0.35\textwidth}
-  \includegraphics[width=\textwidth]{images/varyr11}
-  \caption{Varying $r_{11}$}
-  \label{fig:timestodeadlock_r11}
-\end{subfigure}\\
-\begin{subfigure}[b]{0.35\textwidth}
-  \includegraphics[width=\textwidth]{images/varymu}
-  \caption{Varying $\mu$}
-  \label{fig:timestodeadlock_mu}
-\end{subfigure}
-\begin{subfigure}[b]{0.35\textwidth}
-  \includegraphics[width=\textwidth]{images/varyn}
-  \caption{Varying $n$}
-  \label{fig:timestodeadlock_n}
-\end{subfigure}
-\end{center}
-\caption{Time to deadlock in $\Omega_1$, analytical \& simulation results (10,000 iterations).}
-\label{fig:timestodeadlock}
-\end{figure}
+Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
+Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked, $i \in [n+c+1, n+2c]$, can jump back to state $i=n+c-1$ simply with a service where the customer doesn't rejoin the queue.
+Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but doesn't affect the rates at which $i$ is increased.
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the service rate contributes towards both moving customers from the system and allowing customers to rejoin the queue, causing blockages and deadlock.
 This behaviour is described in the following remark.\\
@@ -560,149 +565,124 @@ Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
 
 
-\subsection{Two Node Single-Server without Self-Loops}\label{sec:2nodewithoutselfloops}
+\subsection{Two Node Multi-Server without Self-Loops}\label{sec:2nodeMS}
 
-Consider the open two node single-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodes}.
-This shows two \(M/M/1/n_i\) queues, with service rates $\mu_i$ and external arrival rates $\Lambda_i$.
+Consider the open two node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodemulti}.
+This shows two \(M/M/c_i/n_i\) queues, with service rates $\mu_i$ and external arrival rates $\Lambda_i$.
 All routing possibilities $r_{ij}$ are possible except self-loops $r_{ii}$ for each node $i$.
 
-Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$.
+Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $c_1$, $c_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$, and the time to deadlock of this system be denoted by $\omega_2$.
 
 \begin{figure}[!htbp]
   \begin{center}
-  \includestandalone[width=0.75\textwidth]{images/2nodeexample}
+  \includestandalone[width=0.75\textwidth]{images/2nodemultiserver}
   \end{center}
-  \caption{An open two node single-server restricted queueing network.}
-  \label{fig:queueingnetwork_2nodes}
+  \caption{An open two node multi-server restricted queueing network.}
+  \label{fig:queueingnetwork_2nodemulti}
 \end{figure}
 
 The state space is given by:
-    \[S = \{(i,j)\in\mathbb{N}^{(n_1+2\times n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
-    \}\cup\{(-1)\}\]
+        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)} \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
+where $i$ denotes the number of individuals at Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
+For example, $(i, j) = (n_1+c_1+2, n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
+The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
 
-    where \(i\) denotes the number of individuals:
-        \begin{itemize}
-            \item In service or waiting at the first node.
-            \item Occupying a server but having finished service at the
-                second node waiting to join the first.
-        \end{itemize}
-    where \(j\) denotes the number of individuals:
-        \begin{itemize}
-            \item In service or waiting at the second node.
-            \item Occupying a server but having finished service at the
-                first node waiting to join the second.
-        \end{itemize}
-    and the state $(-1)$ denotes the deadlocked state.
-
-Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$. The transitions are given by Equations~\ref{eqn:2nsssA}, \ref{eqn:2nsssB} and \ref{eqn:2nsssC}.
-
-\begin{equation}\label{eqn:2nsssA}
-  q_{(i_1, j_1),(i_2, j_2)} = \left\{
-  \begin{array}{rr}
-    \left. \begin{array}{rr}
-      \Lambda_1 & \text{if } i_1 < n_1 + 1 \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (1, 0) \\
-    \left. \begin{array}{rr}
-      \Lambda_2 & \text{if } j_1 < n_2 + 1 \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (0, 1) \\
-    \left. \begin{array}{rr}
-      (1 - r_{12})\mu_1 & \text{if } j_1 < n_2 + 2 \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (-1, 0) \\
-    \left. \begin{array}{rr}
-      (1 - r_{21})\mu_2 & \text{if } i_1 < n_1 + 2 \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (0, -1) \\
-    \left. \begin{array}{rr}
-      r_{12}\mu_1 & \text{if } j_1 < n_2 + 2 \text{ and } (i_1, j_1) \neq (n_1 + 2, n_2) \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (-1, 1) \\
-    \left. \begin{array}{rr}
-      r_{21}\mu_2 & \text{if } i_1 < n_1 + 2 \text{ and } (i_1, j_1) \neq (n_1, n_2 + 2) \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } \delta = (1, -1) \\
-    0 & \text{otherwise}
-  \end{array} \right.
-\end{equation}
-
-\begin{equation}\label{eqn:2nsssB}
-  q_{(i_1, j_1), (-1)} = \left\{
-  \begin{array}{rr}
-    r_{21}\mu_2 & \text{if } (i, j) = (n_1, n_2 + 2) \\
-    r_{12}\mu_1 & \text{if } (i, j) = (n_1 + 2, n_2) \\
-    0 & \text{otherwise}
-  \end{array}
-  \right.
-\end{equation}
-
-\begin{equation}\label{eqn:2nsssC}
-  q_{-1, s} = 0
-\end{equation}
-
-For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in Figure~\ref{fig:2nodeMC}.
+The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
 
 \begin{figure}[!htbp]
-    \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/markov_chain_bw}
-    \end{center}
-    \caption{Diagrammatic representation of the Markov chain for $\Omega_2$ with $n_1=1$ and $n_2=2$.}
-    \label{fig:2nodeMC}
+    \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
+    \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
+    \label{fig:2nodeMCms}
 \end{figure}
 
-Figure~\ref{fig:timestodeadlock2} shows the effect on the time to deadlock of varying the parameters of the above Markov model.
-Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_1 = 10$, $\mu_2 = 8$, $r_{12} = 0.25$ and $r_{21} = 0.15$ are used.
-Similar behaviour to Figure~\ref{fig:timestodeadlock} can be seen.
+Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ for all $(i_k, j_k) \in S$.
+Then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:transitionsmultierv}.
 
+
+\begin{table}
 \begin{center}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ l l l l }
+  \toprule
+  & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\
+  \midrule
+  $i_1 < n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
+  \midrule
+  $i_1 = n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
+  \midrule
+  $i_1 > n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\
+  \bottomrule
+\end{tabular}
+}
+\caption{Table of transitions $q_{(i_1, j_1),(i_2, j_2)}$ for a multi-server two node network.}
+\label{tab:transitionsmultierv}
+\end{center}
+\end{table}
+
+
+The values $b_1$ and $b_2$ correspond to the number of people blocked to Node 1 and Node 2 respectively.
+The values $s_1$ and $s_2$ correspond to the amount of people currently in service at Node 1 and Node 2 respectively.
+
+Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
+Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and $c_2 = 2$ were used.
+
 \begin{figure}[!htbp]
-\begin{center}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyL1}
-  \caption{Varying $\Lambda_1$}
-  \label{fig:timestodeadlock2_L1}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyL2}
-  \caption{Varying $\Lambda_2$}
-  \label{fig:timestodeadlock2_L2}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyr12}
-  \caption{Varying $r_{12}$}
-  \label{fig:timestodeadlock2_r12}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyr21}
-  \caption{Varying $r_{21}$}
-  \label{fig:timestodeadlock2_r21}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varymu1}
-  \caption{Varying $\mu_1$}
-  \label{fig:timestodeadlock2_mu1}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varymu2}
-  \caption{Varying $\mu_2$}
-  \label{fig:timestodeadlock2_mu2}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyn1}
-  \caption{Varying $n_1$}
-  \label{fig:timestodeadlock2_n1}
-\end{subfigure}
-\begin{subfigure}[b]{0.38\textwidth}
-  \includegraphics[width=\textwidth]{images/varyn2}
-  \caption{Varying $n_2$}
-  \label{fig:timestodeadlock2_n2}
-\end{subfigure}
-\end{center}
-\caption{Time to deadlock in $\Omega_2$, analytical \& simulation results (10,000 iterations).}
-\label{fig:timestodeadlock2}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL1_2Nms}
+    \caption{Varying $\Lambda_1$}
+    \label{fig:2Nms_L1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyL2_2Nms}
+    \caption{Varying $\Lambda_2$}
+    \label{fig:2Nms_L2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu1_2Nms}
+    \caption{Varying $\mu_1$}
+    \label{fig:2Nms_mu1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varymu2_2Nms}
+    \caption{Varying $\mu_2$}
+    \label{fig:2Nms_mu2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyr12_2Nms}
+    \caption{Varying $r_{12}$}
+    \label{fig:2Nms_r12}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.333\textwidth}
+    \includegraphics[width=\textwidth]{images/varyr21_2Nms}
+    \caption{Varying $r_{21}$}
+    \label{fig:2Nms_r21}
+  \end{subfigure}
+  \begin{center}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn1_2Nms}
+    \caption{Varying $n_1$}
+    \label{fig:2Nms_n1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyn2_2Nms}
+    \caption{Varying $n_2$}
+    \label{fig:2Nms_n2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyc1_2Nms}
+    \caption{Varying $c_1$}
+    \label{fig:2Nms_c1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.34\textwidth}
+    \includegraphics[width=\textwidth]{images/varyc2_2Nms}
+    \caption{Varying $c_2$}
+    \label{fig:2Nms_c2}
+  \end{subfigure}
+  \end{center}
+  \caption{Time to deadlock in multi-server $\Omega_2$, analytical \& simulation results (10,000 iterations).}
+  \label{fig:timestodeadlock2nodemultiserver}
 \end{figure}
-\end{center}
+
 
 
 \subsection{Two Node Single-Server with Self-Loops}\label{sec:2nodeselfloops}
@@ -860,215 +840,6 @@ Base parameters of $\Lambda_1 = 4$, $\Lambda_2 = 5$, $n_1 = 3$, $n_2 = 2$, $\mu_
 \end{figure}
 
 
-\subsection{One Node Multi-Server}\label{sec:1nodeMS}
-
-Consider the open one node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_1nodemulti}.
-This is an $\Omega_1$ system with $c$ parallel servers.
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \includestandalone[width=0.75\textwidth]{images/1nodemultiserver}
-  \end{center}
-  \caption{An open one node multi-server restricted queueing network.}
-  \label{fig:queueingnetwork_1nodemulti}
-\end{figure}
-
-The state space is given by:
-        \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
-where \(i\) denotes the number of individuals in the system plus the number of individuals blocked who are blocked.
-For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node, and 2 of those individuals are also blocked.
-The state $i=n+2c$ denotes the deadlocked state, that is every customer with a server is blocked.
-
-Define $\delta = i_2 - i_1$ for all $i_k \in S$. The transitions are given by Equations~\ref{eqn:1msA} and \ref{eqn:1msB}.
-
-\begin{equation}\label{eqn:1msA}
-  q_{i_1, i_2} = \left\{
-  \begin{array}{rr}
-    \left. \begin{array}{rr}
-      \Lambda & \text{if } \delta = 1 \\
-      (1-r_{11})\mu\text{min}(i, c) & \text{if } \delta = -1 \\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } i_1 < n + c \\
-  \end{array} \right.
-\end{equation}
-
-\begin{equation}\label{eqn:1msB}
-  q_{i_1, i_2} = \left\{
-  \begin{array}{rr}
-    \left. \begin{array}{rr}
-      (c-b)r_{11}\mu & \text{if } \delta = 1 \\
-      (1-r_{11})(b-k)\mu & \text{if } \delta = -b-1\\
-      0 & \text{otherwise}
-    \end{array} \right\} & \text{if } i_1 = n + c + b \\
-  \end{array} \right.
-  \quad \forall \quad 0 \leq b \leq c
-\end{equation}
-
-where $b$ denotes the number of blocked customers.
-The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
-
-\begin{figure}[!htbp]
-    \begin{center}
-    \includestandalone[width=0.75\textwidth]{images/MC1nodemultiserv_bw}
-    \end{center}
-    \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_1$ system.}
-    \label{fig:1nodeMCms}
-\end{figure}
-
-Increasing the amount of servers has a similar effect to increasing the queueing capacity, there are now more transient states to go through before reaching the deadlocked state.
-Varying the amount of servers has a greater effect on the time to deadlock however, as any states in which customers are blocked, $i \in [n+c+1, n+2c]$, can jump back to state $i=n+c-1$ simply with a service where the customer doesn't rejoin the queue.
-Increasing the amount of servers also increases the rate at which $i$ are reduced for most states, but doesn't affect the rates at which $i$ is increased.
-
-Figure~\ref{fig:timestodeadlock1nodemultiserver} shows the effect of varying the parameters of the above Markov model.
-Base parameters of $\Lambda = 6$, $n = 3$, $\mu = 2$, $r_{11} = 0.5$ and $c = 2$ were used.
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/varyL_1Nms}
-    \caption{Varying $\Lambda$}
-    \label{fig:1Nms_L}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/varymu_1Nms}
-    \caption{Varying $\mu$}
-    \label{fig:1Nms_mu}
-  \end{subfigure}\\
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/varyr11_1Nms}
-    \caption{Varying $r_{11}$}
-    \label{fig:1Nms_r11}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/varyn_1Nms}
-    \caption{Varying $n$}
-    \label{fig:1Nms_n}
-  \end{subfigure}\\
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/varyc_1Nms}
-    \caption{Varying $c$}
-    \label{fig:1Nms_c}
-  \end{subfigure}
-  \end{center}
-  \caption{Time to deadlock in multi-server $\Omega_1$, analytical \& simulation results (10,000 iterations).}
-  \label{fig:timestodeadlock1nodemultiserver}
-\end{figure}
-
-
-\subsection{Two Node Multi-Server without Self-Loops}\label{sec:2nodeMS}
-
-Consider the open two node multi-server restricted queueing network shown in Figure~\ref{fig:queueingnetwork_2nodemulti}.
-This is an $\Omega_2$ system with $c_i$ parallel servers at node $i$.
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \includestandalone[width=0.75\textwidth]{images/2nodemultiserver}
-  \end{center}
-  \caption{An open two node multi-server restricted queueing network.}
-  \label{fig:queueingnetwork_2nodemulti}
-\end{figure}
-
-The state space is given by:
-        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)} \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
-where $i$ denotes the number of individuals at Node 1 plus the number of individuals blocked waiting to enter Node 1, and $j$ denotes the number of individuals at Node 2 plus the number of individuals blocked waiting to enter Node 2.
-For example, $(i, j) = (n_1+c_1+2, n_2+c_2+1)$ denotes a full system, $n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to enter Node 1.
-The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
-
-The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
-
-\begin{figure}[!htbp]
-    \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
-    \caption{Diagrammatic representation of the Markov chain for a multi-server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
-    \label{fig:2nodeMCms}
-\end{figure}
-
-Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$, $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and $s_2 = \min(i_2, c_2)-b_1$ for all $(i_k, j_k) \in S$.
-Then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by Table~\ref{tab:transitionsmultierv}.
-
-
-\begin{table}
-\begin{center}
-\resizebox{\textwidth}{!}{
-\begin{tabular}{ l l l l }
-  \toprule
-  & $j_1 < n_2 + c_2$ & $j_1 = n_2 + c_2$ & $ j_1 > n_2 + c_2$ \\
-  \midrule
-  $i_1 < n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $\Lambda_1$ if $\delta = (1, 0)$ \\ $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (0, -1)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
-  \midrule
-  $i_1 = n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, 0)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-1, -1)$ \end{tabular} \\
-  \midrule
-  $i_1 > n_1 + c_1$ & \begin{tabular}{ l } $\Lambda_2$ if $\delta = (0, 1)$ \\ $r_{12}s_1\mu_1$ if $\delta = (-1, 0)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-1, -1)$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (0, -1)$ \end{tabular} & \begin{tabular}{ l } $r_{12}s_1\mu_1$ if $\delta = (0, 1)$ \\ $r_{21}s_2\mu_2$ if $\delta = (1, 0)$ \\ $(1-r_{12})s_1\mu_1$ if $\delta = (-\min(b_1+1,b_2+1), -\min(b_1,b_2+1))$ \\ $(1-r_{21})s_2\mu_2$ if $\delta = (-\min(b_1+1,b_2), -\min(b_1+1,b_2+1))$ \end{tabular} \\
-  \bottomrule
-\end{tabular}
-}
-\caption{Table of transitions $q_{(i_1, j_1),(i_2, j_2)}$ for a multi-server two node network.}
-\label{tab:transitionsmultierv}
-\end{center}
-\end{table}
-
-
-The values $b_1$ and $b_2$ correspond to the number of people blocked to Node 1 and Node 2 respectively.
-The values $s_1$ and $s_2$ correspond to the amount of people currently in service at Node 1 and Node 2 respectively.
-
-Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying the parameters of the above Markov model.
-Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$, $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and $c_2 = 2$ were used.
-
-\begin{figure}[!htbp]
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varyL1_2Nms}
-    \caption{Varying $\Lambda_1$}
-    \label{fig:2Nms_L1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varyL2_2Nms}
-    \caption{Varying $\Lambda_2$}
-    \label{fig:2Nms_L2}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varymu1_2Nms}
-    \caption{Varying $\mu_1$}
-    \label{fig:2Nms_mu1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varymu2_2Nms}
-    \caption{Varying $\mu_2$}
-    \label{fig:2Nms_mu2}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varyr12_2Nms}
-    \caption{Varying $r_{12}$}
-    \label{fig:2Nms_r12}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.333\textwidth}
-    \includegraphics[width=\textwidth]{images/varyr21_2Nms}
-    \caption{Varying $r_{21}$}
-    \label{fig:2Nms_r21}
-  \end{subfigure}
-  \begin{center}
-  \begin{subfigure}[b]{0.34\textwidth}
-    \includegraphics[width=\textwidth]{images/varyn1_2Nms}
-    \caption{Varying $n_1$}
-    \label{fig:2Nms_n1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.34\textwidth}
-    \includegraphics[width=\textwidth]{images/varyn2_2Nms}
-    \caption{Varying $n_2$}
-    \label{fig:2Nms_n2}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.34\textwidth}
-    \includegraphics[width=\textwidth]{images/varyc1_2Nms}
-    \caption{Varying $c_1$}
-    \label{fig:2Nms_c1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.34\textwidth}
-    \includegraphics[width=\textwidth]{images/varyc2_2Nms}
-    \caption{Varying $c_2$}
-    \label{fig:2Nms_c2}
-  \end{subfigure}
-  \end{center}
-  \caption{Time to deadlock in multi-server $\Omega_2$, analytical \& simulation results (10,000 iterations).}
-  \label{fig:timestodeadlock2nodemultiserver}
-\end{figure}
 
 The next section derives a bound on the expected time to deadlock for the single-server $\Omega$ system.
 
@@ -1079,11 +850,11 @@ This section gives a bound on the mean time to deadlock of the $\Omega$ system.
 In order to do this, six deadlocking queueing networks are defined as follows, all single-server:
 
 \begin{itemize}
-  \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_1$, $\mu_1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
-  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_1$, $m_1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
-  \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_2$, $\mu_2$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
-  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodenet} with the parameter set $(\Lambda_2$, $m_2$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
-  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodewithoutselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$. Let its mean time to deadlock be denoted by $\omega_2$.
+  \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_1$, $\mu_1$, $c_1=1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
+  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_1$, $m_1$, $c_1=1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
+  \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_2$, $\mu_2$, $c_2=1$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
+  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_2$, $m_2$, $c_2=1$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
+  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeMS} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $c_1=1$, $c_2=1$, $n_1$, $n_2$, $r_{12}$, $r_{21})$. Let its mean time to deadlock be denoted by $\omega_2$.
   \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega$.
 \end{itemize}
 where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
@@ -1270,10 +1041,10 @@ These analytical results were compared with results obtained from the simulation
 Finally a bound on the expected time to deadlock for one of these models was given, that was found to be tighter for those networks that have high probability of reaching deadlocked state (-3).
 
 Further research is needed to build a Markov model of the open two node, multi-server restricted queueing network with routes between nodes and feedback loops, that is network~\ref{itm:2Nmsf} from Section ~\ref{sec:markovmodels}.
-In networks~\ref{itm:1Nss}, \ref{itm:2Nsss}, \ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so customers may only get blocked from moving to one destination. In network~\ref{itm:2Nssf}, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. In network~\ref{itm:2Nmsf} however, there are two destination nodes to which a customer may join when unblocked. Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
+In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so customers may only get blocked from moving to one destination. In network~\ref{itm:2Nmsf} with single servers, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. However in network~\ref{itm:2Nmsf} with multi servers, there are two destination nodes to which a customer may join when unblocked. Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
 
-In addition to this, the order in which customers become blocked is important. In networks~\ref{itm:1Nss}-\ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
-Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially. Therefore it is not possible to consider this state space in the same way as for networks~\ref{itm:1Nss}-\ref{itm:2Nmss}.
+In addition to this, the order in which customers become blocked is important. In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
+Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially. Therefore it is not possible to consider this state space in the same way as for networks~\ref{itm:1Nms} and \ref{itm:2Nmss}.
 
 For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
 Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
