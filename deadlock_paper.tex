@@ -187,10 +187,40 @@ This paper will investigate deadlock in open restricted queueing networks, in pa
 First, a method for detecting deadlock in simulations of queueing networks is presented.
 Then, Markov models of simple deadlocking queueing networks are built.
 
-The remainder of this paper is structured as follows: Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks.
+The remainder of this paper is structured as follows: Section~\ref{sec:motivatingexample} gives a motivating example to put the work in context.
+Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in simulations of queueing networks.
 Section~\ref{sec:markovmodels} presents Markov models of five deadlocking queueing networks, derives their expected time to deadlock, and compares these with results obtained through the simulation model.
 Finally Section~\ref{sec:bound} derives a bound for the expected time to deadlock for one of the queueing networks discussed.
 
+
+\section{A Motivating Example}\label{sec:motivatingexample}
+
+Here we present a motivating example of a healthcare system.
+In this example, deadlock would not be reached in reality, however using stochastic modelling and simulation the model would exhibit deadlock.
+Therefore and understanding of this phenomenon, and an ability to overcome this effect is discrete event simulations, is essential for modelling this system.
+
+Consider the interface between secondary care services at a hospital and community care services.
+Patients can be admitted to hospital via a variety of routes (through emergency services, outpatients), and via referral from community care services.
+Patients can begin receiving community care packages due to referral from GP, or via referral from the hospital.
+Considering only the hospital and community care services as nodes, this system is shown in Figure~\ref{fig:motivatingexample}.
+
+\begin{figure}
+\begin{center}
+\includestandalone[width=0.6\textwidth]{images/motivatingexample}
+\end{center}
+\caption{Diagram of patient flows at an interface between secondary care services at a hospital and community care services.}
+\label{fig:motivatingexample}
+\end{figure}
+
+If there are no free hospital beds, then patients being referred form community care services will be sustained by community care workers until beds become available.
+If there are no community care packages available, then patients requiring packages but unfit to return home after a hospital stay will remain in hospital, blocking beds until a community care package becomes available.
+Type II blocking occurs here, as patients and staff do not know the future capacity of their next destination prior to service.
+
+In this model there is a non-zero probability of everyone at the hospital blocking beds waiting for community care packages, and everyone at community care being sustained waiting for beds at the hospital.
+Thus the model will exhibit deadlock.
+In reality, there is communication between there services and patients can swap places.
+This ensures no deadlock.
+An understanding of how deadlock behaves in the model, and a deadlock detection method in the simulation model will ensure correct models can be built of systems with circular blocking.
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 

@@ -1,0 +1,23 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\node[draw=black, fill=none] (hosp) at (0, 2) {Hospital};
+\node[draw=black, fill=none] (comcare) at (0, 0) {Community Care};
+
+
+\draw[-triangle 90] (-3, 2) -- (hosp);
+\draw[-triangle 90] (-3, 0) -- (comcare);
+\draw[-triangle 90] (hosp) -- (3, 2);
+\draw[-triangle 90] (comcare) -- (3, 0);
+
+\draw[-triangle 90] (hosp) edge[out=-30, in=30] (comcare);
+\draw[-triangle 90] (comcare) edge[out=150, in=-150] (hosp);
+
+\end{tikzpicture}
+
+\end{document}
