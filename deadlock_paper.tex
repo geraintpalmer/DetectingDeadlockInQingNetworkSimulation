@@ -1073,13 +1073,24 @@ These analytical results were compared with results obtained from the simulation
 Finally a bound on the expected time to deadlock for one of these models was given, that was found to be tighter for those networks that have high probability of reaching deadlocked state (-3).
 
 Further research is needed to build a Markov model of the open two node, multi-server restricted queueing network with routes between nodes and feedback loops, that is network~\ref{itm:2Nmsf} from Section ~\ref{sec:markovmodels}.
-In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so customers may only get blocked from moving to one destination. In network~\ref{itm:2Nmsf} with single servers, although customers have two destinations, a blockage to the same node immediately results in deadlock. In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked. However in network~\ref{itm:2Nmsf} with multi servers, there are two destination nodes to which a customer may join when unblocked. Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
+In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} customers only have one potential destination, and so customers may only get blocked from moving to one destination.
+In network~\ref{itm:2Nmsf} with single servers, although customers have two destinations, a blockage to the same node immediately results in deadlock.
+In all these cases, the unblocking mechanism is simple, as there is only ever one option of which node a customer joins when unblocked.
+However in network~\ref{itm:2Nmsf} with multi servers, there are two destination nodes to which a customer may join when unblocked.
+Therefore, any representations of any states with blocked customers also need to hold information about these customers' destination nodes.
 
-In addition to this, the order in which customers become blocked is important. In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node. Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
-Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially. Therefore it is not possible to consider this state space in the same way as for networks~\ref{itm:1Nms} and \ref{itm:2Nmss}.
+In addition to this, the order in which customers become blocked is important.
+In networks~\ref{itm:1Nms} and \ref{itm:2Nmss} when space become available at a node there is only one other node from which a blocked customer can become unblocked, however in network~\ref{itm:2Nmsf} a node that has space available must accept the customer that has been blocked longest to that node.
+Therefore all states with blocked customers are also required to record the order in which the customers become blocked.
+Combining the two requirements above, it is clear that as the number of servers increases, the size of the state space for this queueing network quickly grows combinatorially.
+Therefore it is not possible to consider this state space in the same way as for networks~\ref{itm:1Nms} and \ref{itm:2Nmss}.
 
-For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed.
-Another future research direction is to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
+For the Markov models built in this paper Poisson arrivals and exponential service rates were assumed, and only blocking of Type I is considered.
+A future research direction could be to model other service and arrival distributions using phase-type distributions, and incorporating these into the Markov models of deadlocking queueing networks.
+Blocking of Type II and III should also be considered, both in the analytical models and whether the deadlock detection method presented here still holds.
+Systems under Type III blocking with random destination (RS-RD) will not reach deadlock, as there is a non-zero pribability of a blocked customer leaving the system.
+This type of blocking may be considered a deadlock prevention mechanism.
+
 
 
 \bibliographystyle{plain}
