@@ -878,45 +878,46 @@ The next section derives a bound on the expected time to deadlock for the single
 
 \section{A Bound on the Time to Deadlock}\label{sec:bound}
 
-This section gives a bound on the mean time to deadlock of the $\Omega$ system.
-In order to do this, six deadlocking queueing networks are defined as follows, all single-server:
+This section gives a bound on the expected time to deadlock of the $\Omega$ system.
+After the bound is given, considerations on its tightness are given.
+Let's define six deadlocking single-server queueing networks:
 
 \begin{itemize}
-  \item Define $\Omega_{1_1}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_1$, $\mu_1$, $c_1=1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
-  \item Define $\Omega_{1_1}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_1$, $m_1$, $c_1=1$, $n_1$, $r_{11})$. Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
-  \item Define $\Omega_{1_2}^{\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_2$, $\mu_2$, $c_2=1$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
-  \item Define $\Omega_{1_2}^{\star\star}$ as the 1 node queueing network described in Subsection~\ref{sec:1nodeMS} with the parameter set $(\Lambda_2$, $m_2$, $c_2=1$, $n_2$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
-  \item Define $\Omega_2$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeMS} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $c_1=1$, $c_2=1$, $n_1$, $n_2$, $r_{12}$, $r_{21})$. Let its mean time to deadlock be denoted by $\omega_2$.
-  \item Define $\Omega$ as the 2 node queueing network described in Subsection~\ref{sec:2nodeselfloops} with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$. Let its mean time to deadlock be denoted by $\omega$.
+  \item Define $\Omega_{1_1}^{\star}$ as an $\Omega_1$ system with the parameter set $(\Lambda_1$, $\mu_1$, $c_1=1$, $n_1$, $r_{11})$.\\Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star}$.
+  \item Define $\Omega_{1_1}^{\star\star}$ as an $\Omega_1$ system with the parameter set $(\Lambda_1$, $m_1$, $c_1=1$, $n_1$, $r_{11})$.\\Let its mean time to deadlock be denoted by $\omega_{1_1}^{\star\star}$.
+  \item Define $\Omega_{1_2}^{\star}$ as an $\Omega_1$ system with the parameter set $(\Lambda_2$, $\mu_2$, $c_2=1$, $n_2$, $r_{22})$.\\Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star}$.
+  \item Define $\Omega_{1_2}^{\star\star}$ as an $\Omega_1$ system with the parameter set $(\Lambda_2$, $m_2$, $c_2=1$, $n_2$, $r_{22})$.\\Let its mean time to deadlock be denoted by $\omega_{1_2}^{\star\star}$.
+  \item Define $\Omega_2$ with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $c_1=1$, $c_2=1$, $n_1$, $n_2$, $r_{12}$, $r_{21})$.\\Let its mean time to deadlock be denoted by $\omega_2$.
+  \item Define $\Omega$ as with the parameter set $(\Lambda_1$, $\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$, $r_{22})$.\\Let its mean time to deadlock be denoted by $\omega$.
 \end{itemize}
-where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
 
-Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, the $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$ systems.
+where $m_1 = \frac{\mu_2}{3 + 2\frac{\mu_2}{\mu_1} + \frac{\mu_1}{\mu_2}}$, and $m_2 = \frac{\mu_1}{3 + 2\frac{\mu_1}{\mu_2} + \frac{\mu_2}{\mu_1}}$.
+Also define $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ for $j \in [1, 2]$.
+
+Figure~\ref{fig:decomposeqnet} shows how $\Omega$ contains, and is made up by, two $\Omega_1$ systems and an $\Omega_2$ system.
 
 \begin{figure}[!htbp]
-\begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=\textwidth]{images/omega11}
-  \caption{$\Omega_{1_1}$ within $\Omega$}
-  \label{fig:omega11withinomega}
-\end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
-  \includestandalone[width=\textwidth]{images/omega12}
-  \caption{$\Omega_{1_2}$ within $\Omega$}
-  \label{fig:omega12withinomega}
-\end{subfigure}
 \begin{center}
-\begin{subfigure}[b]{0.5\textwidth}
+\begin{subfigure}[b]{0.85\textwidth}
+  \includestandalone[width=\textwidth]{images/omega1s}
+  \caption{Two $\Omega_1$ systems within $\Omega$}
+  \label{fig:omega1swithinomega}
+\end{subfigure}
+\end{center}
+\vspace{12mm}
+\begin{center}
+\begin{subfigure}[b]{0.85\textwidth}
   \includestandalone[width=\textwidth]{images/omega2}
-  \caption{$\Omega_2$ within $\Omega$}
+  \caption{An $\Omega_2$ system within $\Omega$}
   \label{fig:omega2withinomega}
 \end{subfigure}
 \end{center}
-\caption{Decomposition of $\Omega$ into $\Omega_{1_1}$, $\Omega_{1_2}$ and $\Omega_2$}
+\caption{Decomposition of $\Omega$ into two $\Omega_1$ systems, and an $\Omega_2$ system.}
 \label{fig:decomposeqnet}
 \end{figure}
 
 
-Defining $\omega_{1_j} = \max(\omega_{1_j}^{\star}, \omega_{1_j}^{\star\star})$ for $j \in [1, 2]$, we get the following bound:
+From these definitions, we get the following bound:
 
 \begin{theorem}\label{thrm:bound}
 For any parameter sets the following inequality holds:
@@ -1009,7 +1010,36 @@ Therefore:
 
 \end{proof}
 
-This bound has been tested for over 7 million parameter sets. A sample of the data can be found here \url{http://www.geraintianpalmer.org.uk/assets}.
+
+Table~\ref{tab:applybound} shows a few examples of this bound on some parameter sets
+This bound has been tested for over 7 million parameter sets.
+A sample of the data can be found here \url{http://www.geraintianpalmer.org.uk/assets}.
+
+\begin{table}
+\begin{center}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{rrrrrrrrrr|rr|rrrrr|r}
+\toprule
+$\Lambda_1$ & $\Lambda_2$ & $\mu_1$ & $\mu_2$ & $n_1$ & $n_2$ & $r_{11}$ & $r_{12}$ & $r_{21}$ & $r_{22}$ & $m_1$ & $m_2$ & $\omega_{1_1}^{\star\star}$ & $\omega_{1_1}^{\star}$ & $\omega_{1_2}^{\star\star}$ & $\omega_{1_2}^{\star}$ & $\omega_2$ & $\omega$\\
+\midrule
+1.5 & 0.7 & 1.0 & 2.5 & 2 & 3 & 0.2 & 0.6 & 0.6 & 0.2 & 0.297 & 0.158 & 22.185 & 12.748 & 45.067 & 278.568 & 20.564 & 5.859\\
+0.9 & 0.4 & 1.0 & 1.5 & 3 & 4 & 0.4 & 0.2 & 0.4 & 0.6 & 0.225 & 0.171 & 18.069 & 14.495 & 26.195 & 96.996 & 1673.394 & 8.099\\
+0.7 & 0.8 & 1.0 & 1.0 & 0 & 1 & 0.6 & 0.4 & 0.8 & 0.2 & 0.166 & 0.166 & 12.380 & 4.047 & 38.541 & 18.750 & 11.353 & 2.492\\
+0.8 & 0.6 & 1.0 & 2.5 & 3 & 4 & 0.2 & 0.2 & 0.2 & 0.4 & 0.297 & 0.158 & 30.233 & 37.500 & 28.253 & 335.531 & 3560.310 & 18.751\\
+0.2 & 1.0 & 1.0 & 0.5 & 3 & 3 & 0.2 & 0.2 & 0.2 & 0.4 & 0.083 & 0.133 & 115.925 & 2265.000 & 24.633 & 12.232 & 2128.407 & 11.327\\
+1.3 & 1.6 & 1.0 & 1.0 & 5 & 3 & 0.2 & 0.2 & 0.2 & 0.6 & 0.166 & 0.166 & 38.473 & 21.539 & 13.015 & 5.276 & 60.563 & 4.583\\
+0.4 & 0.9 & 1.0 & 2.0 & 0 & 5 & 0.4 & 0.2 & 0.4 & 0.2 & 0.266 & 0.166 & 15.625 & 8.750 & 42.816 & 268.428 & 200.039 & 5.015\\
+1.9 & 0.7 & 1.0 & 2.5 & 5 & 0 & 0.6 & 0.2 & 0.2 & 0.2 & 0.297 & 0.158 & 9.305 & 5.933 & 38.642 & 9.142 & 62.223 & 3.767\\
+1.1 & 2.0 & 1.0 & 0.5 & 4 & 5 & 0.2 & 0.4 & 0.4 & 0.6 & 0.083 & 0.133 & 68.647 & 25.206 & 15.910 & 6.975 & 19.703 & 5.546\\
+0.7 & 1.6 & 1.0 & 2.0 & 0 & 0 & 0.2 & 0.6 & 0.4 & 0.4 & 0.266 & 0.166 & 25.892 & 12.142 & 16.562 & 2.812 & 8.218 & 1.887\\
+\bottomrule
+\end{tabular}
+}
+\end{center}
+\caption{Table of example parameter sets illustrating the bound of Theorem~\ref{thrm:bound}.}
+\label{tab:applybound}
+\end{table}
+
 In order to gain an understanding of how loose or tight this bound is, the following ratio is taken:
 
 \begin{equation}
@@ -1090,6 +1120,10 @@ A future research direction could be to model other service and arrival distribu
 Blocking of Type II and III should also be considered, both in the analytical models and whether the deadlock detection method presented here still holds.
 Systems under Type III blocking with random destination (RS-RD) will not reach deadlock, as there is a non-zero pribability of a blocked customer leaving the system.
 This type of blocking may be considered a deadlock prevention mechanism.
+
+The work in Section~\ref{sec:bound}, could be expanded.
+Using the ideas presented here it is hoped that a general bound on larger networks could be found by decomposing the network into smaller known systems.
+Thus the ideas could be used to find an upper bound on networks that are yet to be modelled analytically.
 
 
 
