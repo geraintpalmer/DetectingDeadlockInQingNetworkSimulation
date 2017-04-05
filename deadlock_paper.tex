@@ -309,9 +309,9 @@ First, a method for detecting deadlock in simulations of queueing networks is
 presented.
 Then, Markov models of simple deadlocking queueing networks are built.
 
-The remainder of this paper is structured as follows: Section~
-\ref{sec:motivatingexample} gives a motivating example to put the work in
-context.
+The remainder of this paper is structured as follows:
+Section~\ref{sec:motivatingexample} gives a motivating example to put the work
+in context.
 Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in
 simulations of queueing networks.
 Section~\ref{sec:markovmodels} presents Markov models of five deadlocking
@@ -602,9 +602,13 @@ component without a sink node.
 \label{fig:counter_examples}
 \end{figure}
 
-For the purposes of this paper, in order to verify that the results of this
-section and Section~\ref{sec:markovmodels} are in agreement, a simulation
-model is used.
+
+For the purposes of this paper, a simulation model is used to verify that the
+results of this section and the analytical model in
+Section~\ref{sec:markovmodels} are in agreement.
+Specifically the time taken to reach deadlock from an empty system is
+investigated, and the simulation model gives information on the distribution
+of times to deadlock.
 The model is built using an object oriented framework in Python
 \cite{python13} with care taken to ensure reproducibility of the results
 \cite{hongetal15}.
@@ -613,10 +617,11 @@ The code for the simulation can be found here:
 \url{http://ciw.readthedocs.org}.
 
 The digraph \(D(t)\) is implemented as an attribute of the queueing network
-and is updated at the appropriate events. Note that a brute force algorithm is
-used to check whether each strongly connected component of $D(t)$ is a knot in
-order to implement Theorem~\ref{thrm:knot}. More efficient algorithms could be
-used for other specific use cases.
+and is updated at the appropriate events.
+Note that a brute force algorithm is used to check whether each strongly
+connected component of $D(t)$ is a knot in order to implement
+Theorem~\ref{thrm:knot}.
+More efficient algorithms could be used for other specific use cases.
 
 The next section builds Markov models of five queueing networks, and discusses
 their deadlocking properties.
