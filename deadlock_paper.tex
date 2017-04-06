@@ -97,10 +97,13 @@ service.
 For the purposes of this paper, deadlock is defined as follows.\\
 
 \begin{definition}
-    When a queueing network is in a state where at least one service
-    station ceases to begin or finish any more services due to
-    recursive upstream blocking, the system is said to be in deadlock.
+    A queueing network is in deadlock when at least one service station
+    permanently ceases to begin of finish any more services, due to circular
+    blocking.
+    That is, when there is a subset of blocked customers $B$ who are blocked,
+    directly or indirectly, by other customers in $B$ only.
 \end{definition}
+
 
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing
 network in deadlock.
