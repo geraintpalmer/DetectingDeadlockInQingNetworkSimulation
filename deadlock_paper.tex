@@ -34,7 +34,7 @@
 
 \title{Modelling Deadlock in Open Restricted Queueing Networks}
 \author{Geraint I. Palmer}
-\author{Paul R. Harper\thanks{Correspondng author Prof. Paul Harper, harper@cardiff.ac.uk}}
+\author{Paul R. Harper\thanks{Corresponding author Prof. Paul Harper, harper@cardiff.ac.uk}}
 \author{Vincent A. Knight}
 \affil{\small{\textit{School of Mathematics, Cardiff University, Senghennydd Road, Cardiff, CF24 4AG}}}
 \date{\today}
@@ -82,6 +82,26 @@ adjusted in reality.
 In the latter case, such as by swapping two customers, a good understanding of
 deadlock is needed in order to model the adjusted reality.
 
+Queueing networks are described as open if customers can enter and leave the
+system from the exterior.
+Restricted networks are those where at least one service centre has limited
+queueing space or capacity before it.
+Deadlock is caused by blocking.
+This paper considers Type I blocking: after service a customer will be blocked
+from joining a queue at another node if that node's queueing capacity is full.
+While blocked, that customer remains with its server until space becomes
+available at its destination.
+During this time that server is unavailable to begin another customer's
+service.
+
+For the purposes of this paper, deadlock is defined as follows.\\
+
+\begin{definition}
+    When a queueing network is in a state where at least one service
+    station ceases to begin or finish any more services due to
+    recursive upstream blocking, the system is said to be in deadlock.
+\end{definition}
+
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing
 network in deadlock.
 The customer at the top server is blocked from entering the bottom node as
@@ -98,10 +118,96 @@ more natural movement can happen.
   \label{fig:1st_example}
 \end{figure}
 
-Queueing networks are described as open if customers can enter and leave the
-system from the exterior.
-Restricted networks are those where at least one service centre has limited
-queueing space or capacity before it.
+This paper is concerned with open restricted queueing networks that experience
+Type I blocking.
+Throughout the paper service centres will be referred to as nodes, and for the
+$i$th node of an open restricted queueing network the following notation is
+used:
+
+\begin{itemize}
+  \item $\Lambda_i$ denotes the external arrival rate.
+  \item $\mu_i$ denotes the service rate.
+  \item $c_i$ denotes the number of parallel servers.
+  \item $n_i$ denotes the queueing capacity.
+  \item $r_{ij}$ denotes the routing probability from node $i$ to node $j$
+  upon completion of service at node $i$.
+\end{itemize}
+
+Exponential service times and Poisson arrivals are assumed.
+
+In particular this paper looks at detecting when deadlock occurs, and the time
+until a deadlock occurs from an empty system.
+First, a method for detecting deadlock in simulations of queueing networks is
+presented.
+Then, Markov models of simple deadlocking queueing networks are built.
+
+The remainder of this paper is structured as follows:
+Section~\ref{sec:motivatingexample} gives a motivating example to put the work
+in context.
+Section~\ref{sec:litreview} gives an overview of existing literature on the
+subject.
+Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in
+simulations of queueing networks.
+Section~\ref{sec:markovmodels} presents Markov models of five deadlocking
+queueing networks, derives their expected time to deadlock, and compares these
+with results obtained through the simulation model.
+Finally Section~\ref{sec:bound} derives a bound for the expected time to
+deadlock for one of the queueing networks discussed.
+
+
+
+
+\section{A Motivating Example}\label{sec:motivatingexample}
+
+Here we present a motivating example of a healthcare system.
+In this example, deadlock would not be reached in reality, however using
+stochastic modelling and simulation the model would exhibit deadlock.
+Therefore and understanding of this phenomenon, and an ability to overcome
+this effect is discrete event simulations, is essential for modelling this
+system.
+
+Consider the interface between secondary care services at a hospital and
+community care services.
+Patients can be admitted to hospital via a variety of routes (through
+emergency services, outpatients), and via referral from community care
+services.
+Patients can begin receiving community care packages due to referral from GP,
+or via referral from the hospital.
+Considering only the hospital and community care services as nodes, this
+system is shown in Figure~\ref{fig:motivatingexample}.
+
+\begin{figure}
+\begin{center}
+\includestandalone[width=0.6\textwidth]{images/motivatingexample}
+\end{center}
+\caption{Diagram of patient flows at an interface between secondary care
+services at a hospital and community care services.}
+\label{fig:motivatingexample}
+\end{figure}
+
+If there are no free hospital beds, then patients being referred form
+community care services will be sustained by community care workers until beds
+become available.
+If there are no community care packages available, then patients requiring
+packages but unfit to return home after a hospital stay will remain in
+hospital, blocking beds until a community care package becomes available.
+Type I blocking occurs here, as patients and staff do not know the future
+capacity of their next destination prior to service.
+
+In this model there is a non-zero probability of everyone at the hospital
+blocking beds waiting for community care packages, and everyone at community
+care being sustained waiting for beds at the hospital.
+Thus the model will exhibit deadlock.
+In reality, there is communication between there services and patients can
+swap places.
+This ensures no deadlock.
+An understanding of how deadlock behaves in the model, and a deadlock
+detection method in the simulation model will ensure correct models can be
+built of systems like this with circular blocking.
+
+
+\section{Literature Review}\label{sec:litreview}
+
 Restricted queueing networks that exhibit blocking are well discussed in the
 literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05,
 latoucheneuts80, perrosetal88, gordonnewell67} and approximate methods
@@ -154,32 +260,6 @@ condition is satisfied in networks that have no or non-pre-emptive priority
 condition is satisfied if the queueing network contains a cycle where all
 nodes have limited queueing capacity, that is, a feedback loop.
 
-This paper is concerned with open restricted queueing networks that experience
-Type I blocking.
-Throughout the paper service centres will be referred to as nodes, and for the
-$i$th node of an open restricted queueing network the following notation is
-used:
-
-\begin{itemize}
-  \item $\Lambda_i$ denotes the external arrival rate.
-  \item $\mu_i$ denotes the service rate.
-  \item $c_i$ denotes the number of parallel servers.
-  \item $n_i$ denotes the queueing capacity.
-  \item $r_{ij}$ denotes the routing probability from node $i$ to node $j$
-  upon completion of service at node $i$.
-\end{itemize}
-
-
-Exponential service times and Poisson arrivals are assumed.
-For the purposes of this paper, deadlock is defined as follows.\\
-
-\begin{definition}
-    When a queueing network is in a state where at least one service
-    station ceases to begin or finish any more services due to
-    recursive upstream blocking, the system is said to be in deadlock.
-\end{definition}
-
-
 Allowing a system to reach deadlock can be problematic in cases where
 automated systems cannot continue operations, or where simulations cannot
 accurately model reality.
@@ -195,7 +275,7 @@ In general there are three strategies for dealing with the problem of deadlock
 \end{itemize}
 
 Note that \cite{holt72} lists the three strategies as prevention, detection
-and crashing, which is equavalent to having no deadlock strategy.
+and crashing, which is equivalent to having no deadlock strategy.
 Allowing the system to crash now and again may be more economical in some
 systems where deadlocks do not occur often enough to justify the investment
 and effort of implementing an avoidance/resolution strategy.
@@ -303,70 +383,9 @@ Deadlock detection and recovery is listed as one of the two possible solutions
 for handling deadlock in queueing networks in \cite{akyildiz89}, although
 there is no further discussion.
 
-This paper will investigate deadlock in open restricted queueing networks, in
-particular looking at the time until a deadlock occurs from an empty system.
-First, a method for detecting deadlock in simulations of queueing networks is
-presented.
-Then, Markov models of simple deadlocking queueing networks are built.
-
-The remainder of this paper is structured as follows:
-Section~\ref{sec:motivatingexample} gives a motivating example to put the work
-in context.
-Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in
-simulations of queueing networks.
-Section~\ref{sec:markovmodels} presents Markov models of five deadlocking
-queueing networks, derives their expected time to deadlock, and compares these
-with results obtained through the simulation model.
-Finally Section~\ref{sec:bound} derives a bound for the expected time to
-deadlock for one of the queueing networks discussed.
 
 
-\section{A Motivating Example}\label{sec:motivatingexample}
 
-Here we present a motivating example of a healthcare system.
-In this example, deadlock would not be reached in reality, however using
-stochastic modelling and simulation the model would exhibit deadlock.
-Therefore and understanding of this phenomenon, and an ability to overcome
-this effect is discrete event simulations, is essential for modelling this
-system.
-
-Consider the interface between secondary care services at a hospital and
-community care services.
-Patients can be admitted to hospital via a variety of routes (through
-emergency services, outpatients), and via referral from community care services.
-Patients can begin receiving community care packages due to referral from GP,
-or via referral from the hospital.
-Considering only the hospital and community care services as nodes, this
-system is shown in Figure~\ref{fig:motivatingexample}.
-
-\begin{figure}
-\begin{center}
-\includestandalone[width=0.6\textwidth]{images/motivatingexample}
-\end{center}
-\caption{Diagram of patient flows at an interface between secondary care
-services at a hospital and community care services.}
-\label{fig:motivatingexample}
-\end{figure}
-
-If there are no free hospital beds, then patients being referred form
-community care services will be sustained by community care workers until beds
-become available.
-If there are no community care packages available, then patients requiring
-packages but unfit to return home after a hospital stay will remain in
-hospital, blocking beds until a community care package becomes available.
-Type II blocking occurs here, as patients and staff do not know the future
-capacity of their next destination prior to service.
-
-In this model there is a non-zero probability of everyone at the hospital
-blocking beds waiting for community care packages, and everyone at community
-care being sustained waiting for beds at the hospital.
-Thus the model will exhibit deadlock.
-In reality, there is communication between there services and patients can
-swap places.
-This ensures no deadlock.
-An understanding of how deadlock behaves in the model, and a deadlock
-detection method in the simulation model will ensure correct models can be
-built of systems with circular blocking.
 
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 
