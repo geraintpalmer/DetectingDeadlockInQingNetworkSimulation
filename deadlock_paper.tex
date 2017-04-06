@@ -208,6 +208,10 @@ An understanding of how deadlock behaves in the model, and a deadlock
 detection method in the simulation model will ensure correct models can be
 built of systems like this with circular blocking.
 
+Restricted feedback loops that exhibit mutual blocking such as this one have
+been observed in real healthcare systems, as described in a case study in
+\cite{osoriobierlaire09}.
+
 
 \section{Literature Review}\label{sec:litreview}
 
@@ -215,11 +219,12 @@ Restricted queueing networks that exhibit blocking are well discussed in the
 literature, both exact \cite{hunt56, baber08, aviitzhakyadin65, koizumietal05,
 latoucheneuts80, perrosetal88, gordonnewell67} and approximate methods
 \cite{takahashi80, korporaaletal00, onvural90, perrosetal88, dalleryfrein93,
-allonetal13}. Discussions on restricted queueing networks with feedback loops,
-that may exhibit deadlock, are sparse however.
+allonetal13, osoriobierlaire09}.
+Discussions on restricted queueing networks with feedback loops, that may
+exhibit deadlock, are sparse however.
 In fact the problem of deadlock in queueing networks has either been ignored,
 not studied, or assumed resolved in much of the literature \cite{onvural90,
-perrosetal88}.
+perrosetal88, osoriobierlaire09}.
 
 Central to the study of deadlock in queueing networks is the concept of
 blocking.
@@ -298,6 +303,11 @@ models \cite{viswanadhametal90, ezpeletaetal02}, and resource allocation
 graphs \cite{belik90}.
 These techniques generally determine when resources cannot be allocated as
 that allocation would lead to deadlock.
+In \cite{florianetal08} a priority based deadlock avoidance algorithm is
+implemented in a traffic simulation model.
+The purpose of the avoidance scheme here is not to reflect deadlock avoidance
+in reality, but to avoid deadlocks that will occur in the simulation due to
+missing information or incomplete models.
 
 The literature has discussed deadlock prevention in closed queueing networks
 when blocking of Type I occurs.
