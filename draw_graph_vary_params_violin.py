@@ -38,7 +38,7 @@ leg_loc = str(arguments['<legend_loc>'])
 line_colour = str(arguments['<line_colour>'])
 plot_colour = str(arguments['<plot_colour>'])
 
-Ls = [i*step + begin for i in range(int((end-begin)/step)+1)]
+Ls = [round(i*step + begin, 2) for i in range(int((end-begin)/step)+1)]
 
 mean_times_to_deadlock = []
 median_times_to_deadlock = []
@@ -94,12 +94,13 @@ if var[0] == 'c' or var[0] == 'n':
 else:
     Ls_show = Ls
 
+
 fig, ax = plt.subplots()
 plt.plot(Ls_show, mean_times_to_deadlock, linewidth=2, label='Analytical Mean', color=line_colour)
 plt.plot([], [], 'r', linewidth=2, label='Simulation Results', color=plot_colour)
 meanpointprops = dict(marker='D', markeredgecolor='black',
                       markerfacecolor=plot_colour)
-bp = plt.boxplot(simulation_results, positions=Ls_show, widths=step/2, meanprops=meanpointprops, meanline=False, showmeans=True, sym='')
+bp = ax.boxplot(simulation_results, positions=Ls_show, widths=step/2, meanprops=meanpointprops, meanline=False, showmeans=True, sym='')
 for median in bp['medians']:
     median.set(color=plot_colour, linewidth=2)
 pylab.setp(bp['boxes'], color=plot_colour)
@@ -110,21 +111,36 @@ vp = plt.violinplot(simulation_results_no_outliers, widths=step/1.5, positions=L
 pylab.setp(vp['bodies'], color=plot_colour)
 
 if var[0] == 'L':
-    ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$', fontsize=16)
+    ax.set_xlabel(r'$\Lambda_{'+var[1:]+'}$', fontsize=18)
 if var[0] == 'm':
-    ax.set_xlabel(r'$\mu_{'+var[2:]+'}$', fontsize=16)
+    ax.set_xlabel(r'$\mu_{'+var[2:]+'}$', fontsize=18)
 if var[0] == 'n':
-    ax.set_xlabel(r'$n_{'+var[1:]+'}$', fontsize=16)
+    ax.set_xlabel(r'$n_{'+var[1:]+'}$', fontsize=18)
 if var[0] == 'c':
-    ax.set_xlabel(r'$c_{'+var[1:]+'}$', fontsize=16)
+    ax.set_xlabel(r'$c_{'+var[1:]+'}$', fontsize=18)
 if var[0] == 'r':
-    ax.set_xlabel(r'$r_{'+var[1:]+'}$', fontsize=16)
+    ax.set_xlabel(r'$r_{'+var[1:]+'}$', fontsize=18)
 
-ax.set_ylabel('Time to Deadlock from (0, 0)')
-ax.set_title('Expected Time to Deadlock From State (0, 0)', fontsize=20)
+ax.set_ylabel('Time to Deadlock from ' + stateth, fontsize=18)
+# ax.set_title('Expected Time to Deadlock From State (0, 0)', fontsize=20)
+
+ax.set_xlim(begin - step/2, end + step/2)
+ax.set_ylim(bottom=0)
+
+for tick in ax.xaxis.get_major_ticks():
+    tick.label.set_fontsize(14)
+for tick in ax.yaxis.get_major_ticks():
+    tick.label.set_fontsize(14) 
 
 if leg_loc == 'l':
-    plt.legend(loc=2, prop={'size':16})
+    loc=2
 if leg_loc == 'r':
-    plt.legend(loc=1, prop={'size':16})
-plt.show()
+    loc=1
+
+legend = plt.legend(loc=loc, prop={'size':20}, frameon=1)
+frame = legend.get_frame()
+frame.set_facecolor('white')
+frame.set_edgecolor('grey')
+
+
+plt.savefig('newplots_paper/2Nmsfb_vary' + var + '.pdf')
