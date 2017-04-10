@@ -471,6 +471,31 @@ in each case.
   \label{fig:exampledigraphs}
 \end{figure}
 
+Recall some graph theoretical definitions \cite{gibbons85, wilson70}:
+
+\begin{itemize}
+  \item Two vertices $v_1$ and $v_2$ are said to be \textit{strongly
+  connected} if there is a directed path from $v_1$ to $v_2$ and a directed
+  path from $v_2$ to $v_1$.
+  \item Two vertices $v_1$ and $v_2$ are said to be \textit{weakly connected}
+  if there is either a directed path from $v_1$ to $v_2$ or a directed path
+  from $v_2$ to $v_1$.
+  \item A \textit{strongly connected component} of a digraph is a subgraph
+  induced by a maximal subset of strongly connected nodes.
+  \item A \textit{weakly connected component} of a digraph is a subgraph
+  induced by a maximal subset of weakly connected nodes.
+  \item $v_1$ is an \textit{ancestor} of $v_2$ if there is a path from $v_1$
+  to $v_2$.
+  \item $v_2$ is a \textit{descendant} of $v_1$ if $v_1$ is an ancestor of
+  $v_2$.
+  \item The \textit{in-degree} of $v_1$, denoted $\text{deg}^{\text{in}}(v_1)$
+  is the number of in-edges incident to $v_1$.
+  Similarly the \textit{out-degree} of $v_1$, denoted
+  $\text{deg}^{\text{out}}(v_1)$ is the number of out-edges incident to $v_1$.
+  \item A \textit{source} is a vertex whose in-degree is zero.
+  A \textit{sink} is a vertex whose out-degree is zero.
+\end{itemize}
+
 Consider one weakly connected component $G(t)$ of $D(t)$ and a node
 $X \in G(t)$. Some observations:
 
