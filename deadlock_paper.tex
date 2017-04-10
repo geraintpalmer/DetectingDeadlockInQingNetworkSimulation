@@ -408,8 +408,12 @@ there is no further discussion.
 \section{Deadlock Detection}\label{sec:detectingdeadlock}
 
 In order to detect when deadlock has occurred in a queueing network
-simulation, a state digraph is used.
-This is a form of wait-for graph, and is defined below.
+simulation, a state digraph is used, a form of wait-for graph.
+In previous literature on wait-for graphs these are bespoke graphs that
+represent system states, where edges denote some form of waiting or blockage
+relationships.
+Here we present a generic state digraph that is defined for all FIFO
+queueing networks that exhibit Type I blocking:
 
 
 \begin{definition}
