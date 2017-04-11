@@ -110,8 +110,8 @@ network in deadlock.
 The customer at the top server is blocked from entering the bottom node as
 there is a full queue, and similarly the customer at the bottom server is
 blocked from entering the top node as there is a full queue.
-It is clear that by following the standard rules of a queueing network, no
-more natural movement can happen.
+It is clear that by following the rules of a blocking defined above, no more
+natural movement can happen.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -151,7 +151,7 @@ Section~\ref{sec:litreview} gives an overview of existing literature on the
 subject.
 Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in
 simulations of queueing networks.
-Section~\ref{sec:markovmodels} presents Markov models of five deadlocking
+Section~\ref{sec:markovmodels} presents Markov models of three deadlocking
 queueing networks, derives their expected time to deadlock, and compares these
 with results obtained through the simulation model.
 Finally Section~\ref{sec:bound} derives a bound for the expected time to
@@ -188,7 +188,7 @@ services at a hospital and community care services.}
 \label{fig:motivatingexample}
 \end{figure}
 
-If there are no free hospital beds, then patients being referred form
+If there are no free hospital beds, then patients being referred from
 community care services will be sustained by community care workers until beds
 become available.
 If there are no community care packages available, then patients requiring
@@ -351,8 +351,8 @@ In \cite{choetal95} `simple bounded circuits' are defined by giving the
 vertices and edges of the state graph labels in relation to a reference node.
 The existence of these circuits within the state graph indicates if the system
 is in deadlock.
-This type of strategy is used in this paper to detect deadlock in queueing
-systems.
+A strategy of this type is developed in this paper to detect deadlock in
+queueing systems.
 
 Bipartite graphs are used in \cite{holt72} to detect deadlock in systems with
 both consumable and reusable resources, where the concept of reducibility and
@@ -365,8 +365,8 @@ that attempts to break cycles in the E/R graph
 These E/R graphs contain resources and entities as vertices, and request or
 holding relationships as edges; strongly connected components and closed
 strongly connected components indicate a deadlock situation.
-This work is furthered in \cite{venkateshetal98} deadlock is detected and
-resolved for situations where entities may request more than one resource.
+This work is furthered in \cite{venkateshetal98} where deadlock is detected
+and resolved for situations where entities may request more than one resource.
 
 A number of deadlock types are defined in \cite{venkateshetal98}, and their
 relationships to one another.
@@ -712,7 +712,7 @@ In this section Markov models are built for networks~\ref{itm:1Nms} and
 \ref{itm:2Nmss}, and expressions for their expected time to deadlock found.
 The state space for network~\ref{itm:2Nmsf} is too large to model in a similar
 way to the others, and so isn't considered in this paper.
-A single server version is modelled however, and the multi server system will
+A single server version is modelled however, and the multi-server system will
 be discussed in Section~\ref{sec:conclusions}.
 In Section~\ref{sec:bound} a relationship (a bound) is given between single
 server versions of network~\ref{itm:2Nmsf} and networks~\ref{itm:1Nms}
@@ -794,7 +794,7 @@ $\omega_1$.
 The state space is given by:
         \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
 where \(i\) denotes the number of individuals in the system plus the number of
-individuals blocked who are blocked.
+individuals who are blocked.
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node,
 and 2 of those individuals are also blocked.
 The state $i=n+2c$ denotes the deadlocked state, that is every customer with a
@@ -872,7 +872,7 @@ $c = 2$ were used.
   \end{subfigure}
   \end{center}
   \caption{Time to deadlock in multi-server $\Omega_1$, analytical \&
-  simulation results (10,000 iterations).}
+  simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
 
@@ -901,7 +901,7 @@ allowing customers to rejoin the queue, causing blockages and deadlock.
 This behaviour is described in the following remark.\\
 
 \begin{remark}\label{rem:oneminima}
-The function $\omega_1(\mu)$ that describes the time expected to deadlock of
+The function $\omega_1(\mu)$ that describes the expected time to deadlock of
 an $\Omega_1$ system as the service rate $\mu$ varies, and all other
 parameters are fixed, has one critical point and is a local minimum for
 $\mu \in (0, \infty)$.
@@ -938,9 +938,10 @@ $\arg\max_{\mu \in [a, b]} \omega_1(\mu) \in \{a, b\}$.
 From the closed interval method of finding absolute maximum \cite{tan09}, the
 absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either
 the critical points in $(a, b)$, $a$ or $b$.
-The only critical point in $(a, b)$ is $\hat{\mu}$, and is a local minimum
-(from Remark~\ref{rem:oneminima}), and so $\omega_1(\hat{\mu}) \leq \omega_1(a)$
-and $\omega_1(\hat{\mu}) \leq \omega_1(b)$.
+The only possible critical point in $(a, b)$ is $\hat{\mu}$, and is a local
+minimum (from Remark~\ref{rem:oneminima}), and so
+$\omega_1(\hat{\mu}) \leq \omega_1(a)$ and
+$\omega_1(\hat{\mu}) \leq \omega_1(b)$.
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
 
@@ -1057,7 +1058,7 @@ $c_2 = 2$ were used.
   \end{subfigure}
   \end{center}
   \caption{Time to deadlock in multi-server $\Omega_2$, analytical \&
-  simulation results (10,000 iterations).}
+  simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock2nodemultiserver}
 \end{figure}
 
@@ -1172,11 +1173,8 @@ The transitions are given by Equations~\ref{eqn:2nssfA}, \ref{equ:todeadlock2},
   q_{-3, s} = 0
 \end{align}
 
-Note that there are only two differences between this formulation and the
-formulation for $\Omega_2$: the rates at which customers leave nodes 1 and 2
-are now $(1-r_{11}-r_{12})\mu_1$ and $(1-r_{21}-r_{22})\mu_2$; and there are
-now two more ways to reach deadlock, Equation~\ref{equ:todeadlock2} and
-Equation~\ref{equ:todeadlock3}.
+Note that there are now three different deadlock states, thus two more ways to
+reach deadlock, Equation~\ref{equ:todeadlock2} and Equation~\ref{equ:todeadlock3}.
 
 For $n_1 = 1$ and $n_2 = 2$, the resulting Markov chain is shown in
 Figure~\ref{fig:2nodeMCfeedback}.
@@ -1231,7 +1229,7 @@ and $r_{22} = 0.1$ are used.
 \end{subfigure}
 \end{center}
 \caption{Time to deadlock in $\Omega$, analytical \& simulation results
-(10,000 iterations).}
+(10,000 repetitions).}
 \label{fig:timestodeadlockfeedback}
 \end{figure}
 
@@ -1309,10 +1307,10 @@ $\omega \leq \min(\omega_{1_1}, \omega_{1_2}, \omega_2)$
 \begin{proof}{Proof}
 First, define the following systems:
 \begin{itemize}
-  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}$ system
+  \item Let $\widetilde{\Omega}_{1_1}$ denote the $\Omega_{1_1}^{\star}$ system
   embedded within $\Omega$. Let $\widetilde{\omega}_{1_1}$ denote the mean
   time to deadlock of $\widetilde{\Omega}_{1_1}$.
-  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_2}$ system
+  \item Let $\widetilde{\Omega}_{1_2}$ denote the $\Omega_{1_2}^{\star}$ system
   embedded within $\Omega$. Let $\widetilde{\omega}_{1_2}$ denote the mean
   time to deadlock of $\widetilde{\Omega}_{1_2}$.
   \item Let $\widetilde{\Omega}_2$ denote the $\Omega_2$ system embedded
@@ -1365,17 +1363,17 @@ following cycle of events:
   \item Customer $a$ finishes service at Node 1, but is blocked from
   transitioning to Node 2: $\frac{1}{\mu_2}$
   \item A customer, $b$, finishes service at Node 2 and transitions to Node 1.
-  Now $a$ moves to Node 2, and another the customer begins service at Node 1:
+  Now $a$ moves to Node 2, and another customer begins service at Node 1:
   $\frac{1}{\mu_1}$
 \end{itemize}
 
 This cycle is repeated with probability $P_{\text{repeat}}$.
-As all rates are Markovian then whatever point in $b$'s service $a$ gets
+As all rates are Markovian, then whatever point in $b$'s service $a$ gets
 blocked, $a$'s expected wait is $\frac{1}{\mu_2}$.
 Therefore the upper bound for the effective service time is:
 
 \begin{align*}
-  \frac{1}{m_1} & = \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \bigg( \dotsi \right. \right. \\
+  \frac{1}{m_1} &= \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} + P_{\text{repeat}} \bigg( \dotsi \right. \right. \\
   & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( 1 + P_{\text{repeat}} + P_{\text{repeat}}^2 + P_{\text{repeat}}^3 + \dots \right) \\
   & = \left( \frac{2}{\mu_1} + \frac{1}{\mu_2} \right) \times \left( \frac{1}{1 - P_{\text{repeat}}} \right)
 \end{align*}
@@ -1427,7 +1425,10 @@ Therefore:
 
 
 Table~\ref{tab:applybound} shows a few examples of this bound on some
-parameter sets
+parameter sets.
+The first 10 columns show the parameters of the $\Omega$ system, the next
+seven columns show the intermediate derived parameters to use in the bound.
+The final column shows the actual time to deadlock of the $\Omega$ system.
 This bound has been tested for over 7 million parameter sets.
 A sample of the data can be found here
 \url{http://www.geraintianpalmer.org.uk/assets}.
@@ -1499,7 +1500,7 @@ bound becomes tighter.
 This effect is seems to only begin as the probability increases above
 $p_{(-3)} \approx 0.175$.
 
-The probability of reaching deadlocked state (-1) does not seem to affect the
+The probability of reaching deadlock state (-1) does not seem to affect the
 tightness of the bound.
 The same conclusion can be deduced for $p_{(-2)}$ as the mechanics of the
 $\Omega$ system are symmetrical.
@@ -1538,7 +1539,7 @@ deadlock has occurred in the network, however for special cases only the
 presence of a weakly connected component with no sink is required.
 Incorporating this into a simulation model, time to deadlock can be observed.
 
-Markov models of five deadlocking queueing networks have been built.
+Markov models of three deadlocking queueing networks have been built.
 Using linear algebraic techniques the expected time to deadlock from each
 state was found, and its behaviour as system parameters varied explored.
 
@@ -1558,7 +1559,7 @@ In network~\ref{itm:2Nmsf} with single servers, although customers have two
 destinations, a blockage to the same node immediately results in deadlock.
 In all these cases, the unblocking mechanism is simple, as there is only ever
 one option of which node a customer joins when unblocked.
-However in network~\ref{itm:2Nmsf} with multi servers, there are two
+However in network~\ref{itm:2Nmsf} with multiple servers, there are two
 destination nodes to which a customer may join when unblocked.
 Therefore, any representations of any states with blocked customers also need
 to hold information about these customers' destination nodes.
