@@ -277,7 +277,7 @@ Allowing a system to reach deadlock can be problematic in cases where
 automated systems cannot continue operations, or where simulations cannot
 accurately model reality.
 In general there are three strategies for dealing with the problem of deadlock
-\cite{kawadkaretal14, elmagarmid86, venkateshsmith05}:
+\cite{kawadkaretal14, elmagarmid86, venkateshsmith05, vis06}:
 
 \begin{itemize}
   \item Avoidance, in which decisions are made as time unfolds to avoid
@@ -306,6 +306,8 @@ Various techniques and methods have been used to implement deadlock avoidance
 such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net
 models \cite{viswanadhametal90, ezpeletaetal02, marchettimunierkordon09}, and
 resource allocation graphs \cite{belik90}.
+A survey of avoidance techniques for automated guided vehicle systems is given
+in \cite{vis06}.
 These techniques generally determine when resources cannot be allocated as
 that allocation would lead to deadlock.
 In \cite{florianetal08} a priority based deadlock avoidance algorithm is
@@ -337,6 +339,12 @@ For simulation modelling however, prevention and avoidance techniques may not
 be appropriate as they can potentially inhibit realism in the simulation by
 taking actions that do not occur in the system being modelled
 \cite{venkateshetal98}.
+
+In \cite{schmidtjackman00} a deadlock prevention/avoidance mechanism for open
+restricted queueing networks is given.
+Here, arrivals from outside the system are turned away if certain nodes are
+full.
+This ensures that the whole system cannot become saturated, and reach deadlock.
 
 A popular method of detecting general deadlock is the use of wait-for graphs,
 state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71,
