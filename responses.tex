@@ -1,0 +1,459 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\title{Responses to Reviewers}
+\author{}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\section*{Responses to the Editor}
+
+\begin{itemize}
+
+\item The editor wrote:
+\begin{quote}
+``Please ensure that you have cited recent and relevant publications in EJOR
+and other OR journals, to avoid the impression that your article would be
+misplaced in EJOR and to link your findings better to current OR trends
+(cf. Report \#5).''
+\end{quote}
+Some recent publications from EJOR have now been cited:
+\begin{itemize}
+\item ``An analytic finite capacity queueing network model capturing the
+propagation of congestion and blocking'', Osorio, C. and Bierlaire, M., 2009.
+\item ``Application of a simulation-based dynamic traffic assignment model'',
+Florian, M., Mahut, M. and Tremblay, N., 2008.
+\item ``A sufficient condition for the liveness of weighted event graphs'',
+Marchetti, O. and Munier-Kordon, A., 2009.
+\item ``Modeling recirculating conveyors with blocking'', Schmidt, L. C and
+Jackman, J., 2000.
+\item ``Survey of research in the design and control of automated guided
+vehicle systems'', Vis, I.F.A., 2006.
+\end{itemize}
+
+
+\item The editor wrote:
+\begin{quote}
+``I also would suggest to include a line of acknowledgement to the referees
+in your article.''
+\end{quote}
+This has been included as the final section.
+
+\end{itemize}
+
+
+\section*{Responses to Reviewer 1}
+
+\begin{itemize}
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``The Markov model presentation is quite repetitive and it could be simplified
+since the models are simple and the results can be easily related.
+I suggest the author to reduce Section 3 to avoid useless repetition of the
+models details and the observations on the model behaviour.
+The model definition and analysis is quite standard technique and there is no
+particular original contribution in this part of the work.''
+\end{quote}
+Of the original five networks modelled, only three are now considered.
+The single server one node system was a special case of the multi server one
+node system, and so that was removed.
+The single server two node system was a special case of the multi server two
+node system, and so that was removed.
+The single server $\Omega$ system was kept, along with multi server $\Omega_1$
+and $\Omega_2$ systems, as discussion on these models are needed for the
+section on the bound on the expected time to deadlock.
+
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``The bound definition could be interesting, however this section of the work
+is quite confused.
+It is not clear how to apply the bounds.''
+\end{quote}
+This section has been expanded and re-factored.
+A Table of values showing how the bound performs is included.
+This should also help clarify the meaning of the bound.
+Further work could build on the ideas presented in this section, to derive
+bounds for larger networks that have not yet been (and maybe unable to be)
+modelled analytically.
+This note on further work is added to the conclusions section.
+
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``It seems that the bound is defined just for one of the considered models,
+but it is not clear its applicability and accuracy''
+\end{quote}
+The bound is only defined for the considered models.
+However, discussion on further work, to apply the ideas presented here to
+networks that are not modelled explicitly, is included in the conclusions.
+For the considered models, accuracy and tightness of the bound is analysed and
+discussed in this section.
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``the figures are not readable for the state transition diagrams (Fig. 9, 12,
+15, 18)''
+\end{quote}
+These diagrams have been tidied up and figures enlarged.
+Labels for the transition rates do not overlap any more.
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``the graphs of the expected time to deadlock cannot be read (Fig. 7, 10, 13,
+16, 17, 23)''
+\end{quote}
+These plots have been redrawn, such that font size and legend are larger.
+The figures have been enlarged too.
+For two node networks, only plots for changing parameters of one of the nodes
+are given, as the behaviour observed would be symmetrical.
+This means less plots and so larger figures can be drawn.
+
+
+\item Reviewer 1 wrote:
+\begin{quote}
+``the presentation of the bound definition of the models (p. 24) can be
+simplified.''
+\end{quote}
+This section has been expanded, tidied up, and simplified.
+
+\end{itemize}
+
+
+
+\section*{Responses to Reviewer 2}
+
+\begin{itemize}
+
+\item Reviewer 2 wrote:
+\begin{quote}
+``There is no doubt that deadlock is a bad phenomenon in queuing networks.
+However, it is difficult to understand the importance of deadlock detection by
+applied researcher.
+Therefore, the author(s) should explain the importance of deadlock detection
+by using a concrete example.
+The author(s) should identify problems that occur because of deadlock in
+practice.''
+\end{quote}
+
+and:
+
+\begin{quote}
+``To ensure the paper is reader friendly, the author(s) should indicate which
+operational problems can be solved by using this study’s result.''
+\end{quote}
+
+and:
+
+\begin{quote}
+``The case is not really made for the importance of blocking/deadlock in
+practice for the systems discussed.
+I have seen real-world instances and am personally convinced of the importance
+of these phenomena, but the paper has to make the case.
+In my view, the paper is crying out for a motivating real-world example;''
+\end{quote}
+
+A motivational example is given in a new section.
+This example shows a potential relationship between community care and
+secondary care, and reflects the situation modelled as an $\Omega_2$ system.
+Further, a article is referenced in which potential deadlock is described as
+occurring in a real healthcare scenario, a Swiss hospital.
+We now emphasise that deadlock is a phenomenon and problem of the model, not
+of reality.
+In practice customers are swapped, but current modelling of circular Type I
+blocking does not account for this, and will deadlock.
+This emphasises the potential application of the work in developing simulation
+and analytical models that may exhibit deadlock despite the system itself not.
+
+
+\item Reviewer 2 wrote:
+\begin{quote}
+``Why does this study consider only Type 1 deadlock?
+The author(s) must indicate why this study does not consider deadlocks of
+Types 2 and 3.''
+\end{quote}
+
+Although this paper does only consider blocking of Type I, consideration of
+Types II and III blocking are now noted as future research directions.
+It is noted that blocking of type III with random destinations (RS-RD) cannot
+reach deadlock, although could be considered a method of deadlock prevention.
+
+\item Reviewer 2 wrote:
+\begin{quote}
+``The author(s) should justify some assumptions.
+For example, why does this study pay attention to no pre-emption?''
+\end{quote}
+?
+
+\item Reviewer 2 wrote:
+\begin{quote}
+``This paper has some references missing.
+For example, in [14], the journal name is mentioned as “Operations Research.”
+However, in [17] and [30], the journal name is mentioned as “Operations
+research”. The author(s) should check the format of the references.''
+\end{quote}
+Extra citations have been included, please see first response to the editor.
+Formatting and capitalisation of references have been cleaned up to ensure
+consistency.
+
+\end{itemize}
+
+
+
+\section*{Responses to Reviewer 5}
+
+\begin{itemize}
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Many of the terms used in the paper are not defined/explained with the
+clarity I would wish;''
+\end{quote}
+\begin{itemize}
+\item The introduction has been restructured, and now defines terms before
+using them.
+\item The definition of deadlock has been rewritten for clarity, and now does
+not use any undefined terms.
+\item A list of graph theoretical terms has been provided prior to discussion
+on graph theory.
+\end{itemize}
+
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``It is not made clear just how much of an advance the central result of
+Section 2 (Theorem 1) is on previous work.
+Is the construction in Definition 2 new, for example?''
+\end{quote}
+
+and:
+
+\begin{quote}
+``The contribution of Section 2 needs to be more clearly set in the context
+of the foregoing literature.
+The suggestion on p.4 is that rather similar approaches (using ‘wait-for
+graphs’) have been used previously to analyse other systems.
+Please identify more clearly what is the novel contribution here;''
+\end{quote}
+
+Yes the construction in Definition 2 is new.
+This methods is a generic method for all FIFO queueing networks under Type I
+blocking, whereas previous work seems bespoke to the system concerned.
+New introductory sentences to this Section have been included to explain and
+clarify this and to put the work in context.
+These sentences include a description of a wait-for graph.
+
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``I struggle to see the importance of much of the material in Sections 3 and 4.
+I would have thought that after the general discussion preceding Section 3.1
+a single illustrative example would suffice.
+Further, while the bounding result in Section 4 seems correct, what is its
+significance and where does it leave us?
+Is it meant to point to a general approach to bounding expected times to
+deadlock in more complex systems?
+If this is the intention, the case does not seem to have been made.
+The bound proposed does not appear particularly tight.
+But more than that, no case is made regarding why and when such a bound
+would be of value.''
+\end{quote}
+The bound isn't very tight, and the tightness and accuracy is discussed in
+this section.
+The ideas presented in the proof of the bound, however, could be used to
+develop bounds for systems that have not been modelled analytically, by
+considering the networks embedded within.
+Notes on this further work have been included in the conclusions.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Abstract. It is not good to have a number of unfamiliar yet undefined terms
+(eg, restricted queueing network, recursive upstream blocking, deadlock etc)
+in an abstract.''
+\end{quote}
+Some unfamiliar terms have been replaced, although some have remained.
+I feel that ``open restricted queueing network'', will be
+familiar to readers interested in queueing networks.
+As this is the central idea of the paper, I do not think that the abstract
+could be written without the word ``deadlock''.
+The abstract would not be an appropriate place to define this term either.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Further, the upper bound is on the expected time to deadlock.
+The time to deadlock is a random variable;''
+\end{quote}
+The description of the bound has been updated to clarify that it is for the
+expected time to deadlock.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Introduction: I found this very long and quite unclear in parts.
+While it collects together some interesting material, I feel it lacks clarity
+and direction.
+I strongly suggest that you begin with a clear and precise description of the
+phenomena of blocking/deadlock in the systems of interest to you.
+Explain why they matter.
+Then describe succinctly the contribution of the paper.
+Proceed to a review of the literature (or perhaps this could be a separate
+section?) and end with a summary of the contents of the paper;''
+\end{quote}
+The introduction has been restructured, following this suggestion.
+Literature review is now a section of its own, a motivating example is
+provided.
+The structure of the introduction is now:
+\begin{itemize}
+\item Define ``open restricted queueing networks'', and explain Type I blocking
+\item Define and explain deadlock.
+\item Explain notation used throughout paper
+\item Motivating example (section of its own)
+\item Literature review (section of its own)
+\end{itemize}
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``We really need to understand what blocking is and why you are taking the
+view of it you are.
+For example, in the one node single-server model of Section 3.1, why does the
+proposed ‘-1’ state mean deadlock for the system?
+In your deadlock state, why cannot the served customer to be rerouted to the
+queue when the waiting space is full take up the very space she vacates when
+she leaves service?
+Presumably your notion of blocking forbids this, but please explain clearly
+what your notions of blocking are and why they are natural/important for
+applications;''
+\end{quote}
+?
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``It would be great to include in the Introduction a motivating real-world
+example related to an open restricted queueing network;''
+\end{quote}
+This has now been given as its own section, showing the relationship between
+community care and secondary care, and is in fact an $\Omega_2$ system
+described here.
+Further, a article is referenced in which potential deadlock is described as
+occurring in a real healthcare scenario, a Swiss hospital.
+We now emphasise that deadlock is a phenomenon and problem of the model, not
+of reality.
+In practice customers are swapped, but current modelling of circular Type I
+blocking does not account for this, and will deadlock.
+This emphasises the potential application of the work in developing simulation
+and analytical models that may exhibit deadlock despite the system itself not.
+
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``There are several instances in the paper of using a term and only defining
+it later.
+For example, the terms ‘open’ and ‘restricted’ at the foot of p.1;''
+\end{quote}
+This has been addressed when restructuring the introduction.
+Definitions for these terms are given at the beginning of the paper.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Definition 1 is far from clear to me.
+What is ‘recursive upstream blocking’?
+Is the cessation of service referred to in the definition understood to be
+permanent?
+The term ‘deadlock’ would rather imply so.
+Please clarify.
+Your reference on p.4 to different types of deadlock suggests to me that
+further clarification around this definition would be very helpful.''
+\end{quote}
+The definition of deadlock has been rewritten for clarity, and to avoid using
+undefined terms.
+It now reads:
+``A queueing network is in deadlock when at least one service station
+permanently ceases to begin of finish any more services, due to circular
+blocking.
+That is, when there is a subset of blocked customers B who are blocked,
+directly or indirectly, by other customers in B only.''
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``On p.3 l.4 up, what is $B_j$?''
+\end{quote}
+$B_j$ is the total capacity of each node in the network.
+It corresponds to $n_j + c_j$ when using the notation of this paper.
+This has been clarified in the text.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``The discussion around Figure 2 is far from clear;''
+\end{quote}
+The discussion on this figure has been rewritten and hopefully this clarifies
+the differences between the definitions of deadlocks defined in this paper,
+and the deadlocks defined by those authors.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``Much of the graph-theoretic terminology used in Section 2 (including
+‘weakly’ and ‘strongly’ connected components) will be unfamiliar to many
+readers.
+What is a ‘wait-for’ graph? These and some other key terms need to be
+defined/explained;''
+\end{quote}
+More clarification of wait-for graphs, and the contribution of this paper,
+is given (see second response to reviewer 5).
+In addition, a list of graph theoretical terms has been provided before
+discussion on the digraph begins.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``On p.8 you say that the simulation model described is there to verify the
+results of Section 3.
+In fact, the latter concern the mean time to deadlock while the simulation
+results you report give a much richer description of the distributions of the
+time to deadlock (based on order statistics, it appears-thus possibly not
+explicitly including the mean);''
+\end{quote}
+This is correct, much more information of the distribution of the time to
+deadlock is available from the simulation results.
+This is clarified in the text.
+The simulation results and analytical results are used to verify one another.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``In your description on p.9 of the Markov chain modelling, you begin by
+discussing transition rates but later down the page appear to convert to
+transition probabilities (‘the canonical form of an absorbing Markov Chain’).
+Since transition rates are the key model descriptors you use throughout,
+I suggest you stick to those;''
+\end{quote}
+?
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``P.12 I believe you need to apply the function $\omega_1$ to both sides of the
+inequalities in l.3 of Remark 2;''
+\end{quote}
+Yes, this has been addressed.
+
+\item Reviewer 5 wrote:
+\begin{quote}
+``P.12, l.3 up Here (and elsewhere) the superscript of N (the natural numbers)
+is used incorrectly;''
+\end{quote}
+In the description of the state space of the two server system, the following
+was changed: $\mathbb{N}^{(n_1+2\times n_2+2)}$ is replaces with
+$\mathbb{N}^{(n_1+2)\times (n_2+2)}$.
+
+
+
+\end{itemize}
+
+\end{document}
