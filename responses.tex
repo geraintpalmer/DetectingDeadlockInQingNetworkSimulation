@@ -67,9 +67,9 @@ particular original contribution in this part of the work.''
 \end{quote}
 Of the original five networks modelled, only three are now considered.
 The single server one node system was a special case of the multi server one
-node system, and so that was removed.
+node system.
 The single server two node system was a special case of the multi server two
-node system, and so that was removed.
+node system.
 The single server $\Omega$ system was kept, along with multi server $\Omega_1$
 and $\Omega_2$ systems, as discussion on these models are needed for the
 section on the bound on the expected time to deadlock.
@@ -81,8 +81,8 @@ section on the bound on the expected time to deadlock.
 is quite confused.
 It is not clear how to apply the bounds.''
 \end{quote}
-This section has been expanded and re-factored.
-A Table of values showing how the bound performs is included.
+This section has been expanded and rewritten.
+A Table of values showing how the bound performs is now included.
 This should also help clarify the meaning of the bound.
 Further work could build on the ideas presented in this section, to derive
 bounds for larger networks that have not yet been (and maybe unable to be)
@@ -95,7 +95,8 @@ This note on further work is added to the conclusions section.
 ``It seems that the bound is defined just for one of the considered models,
 but it is not clear its applicability and accuracy''
 \end{quote}
-The bound is only defined for the considered models.
+The bound is only defined for model $\Omega$, in terms of $\Omega_1$ and
+$\Omega_2$.
 However, discussion on further work, to apply the ideas presented here to
 networks that are not modelled explicitly, is included in the conclusions.
 For the considered models, accuracy and tightness of the bound is analysed and
@@ -106,19 +107,16 @@ discussed in this section.
 ``the figures are not readable for the state transition diagrams (Fig. 9, 12,
 15, 18)''
 \end{quote}
-These diagrams have been tidied up and figures enlarged.
-Labels for the transition rates do not overlap any more.
 
-\item Reviewer 1 wrote:
+and:
+
 \begin{quote}
 ``the graphs of the expected time to deadlock cannot be read (Fig. 7, 10, 13,
 16, 17, 23)''
 \end{quote}
-These plots have been redrawn, such that font size and legend are larger.
-The figures have been enlarged too.
-For two node networks, only plots for changing parameters of one of the nodes
-are given, as the behaviour observed would be symmetrical.
-This means less plots and so larger figures can be drawn.
+
+The clarify of these diagrams and plots has been improved.
+We appreciate the reviewer pointing this out.
 
 
 \item Reviewer 1 wrote:
@@ -126,7 +124,7 @@ This means less plots and so larger figures can be drawn.
 ``the presentation of the bound definition of the models (p. 24) can be
 simplified.''
 \end{quote}
-This section has been expanded, tidied up, and simplified.
+This section has been simplified.
 
 \end{itemize}
 
@@ -164,11 +162,11 @@ of these phenomena, but the paper has to make the case.
 In my view, the paper is crying out for a motivating real-world example;''
 \end{quote}
 
-A motivational example is given in a new section.
+A motivational example is given in an introductory section.
 This example shows a potential relationship between community care and
 secondary care, and reflects the situation modelled as an $\Omega_2$ system.
-Further, a article is referenced in which potential deadlock is described as
-occurring in a real healthcare scenario, a Swiss hospital.
+Furthermore, an article is referenced in which potential deadlock is described
+as occurring in a real healthcare scenario, a Swiss hospital.
 We now emphasise that deadlock is a phenomenon and problem of the model, not
 of reality.
 In practice customers are swapped, but current modelling of circular Type I
@@ -203,9 +201,9 @@ For example, in [14], the journal name is mentioned as “Operations Research.�
 However, in [17] and [30], the journal name is mentioned as “Operations
 research”. The author(s) should check the format of the references.''
 \end{quote}
-Extra citations have been included, please see first response to the editor.
-Formatting and capitalisation of references have been cleaned up to ensure
-consistency.
+
+This has been addressed, we appreciate the reviewer taking the time to point
+these out.
 
 \end{itemize}
 
@@ -252,7 +250,6 @@ This methods is a generic method for all FIFO queueing networks under Type I
 blocking, whereas previous work seems bespoke to the system concerned.
 New introductory sentences to this Section have been included to explain and
 clarify this and to put the work in context.
-These sentences include a description of a wait-for graph.
 
 
 \item Reviewer 5 wrote:
@@ -334,7 +331,23 @@ Presumably your notion of blocking forbids this, but please explain clearly
 what your notions of blocking are and why they are natural/important for
 applications;''
 \end{quote}
-?
+
+The reviewer has touched on an excellent and important point.
+The fact that in reality a customer could take up the very space they vacate
+when they leave service in reality is of course important, however in a
+standard analytical model as well as most commercial simulation packages
+this would not happen: the model would become deadlocked.
+This is why an understanding of this phenomenon from a mathematical point of
+view is vital as it helps design modelling frameworks able to easily deal with
+deadlock.
+For example in the simulation library Ciw, all the theoretic deadlock detection
+methods have been implemented (based on the work presented here) and can be used
+by the user if they so choose.
+We appreciate the reviewer pointing out that this needed clarification and feel
+that the numerous amendments made to the paper ensure that this is now clear.
+
+The $-1$ state is simply used as a point of notation, any other symbol could be
+used.
 
 \item Reviewer 5 wrote:
 \begin{quote}
@@ -434,7 +447,13 @@ transition probabilities (‘the canonical form of an absorbing Markov Chain’)
 Since transition rates are the key model descriptors you use throughout,
 I suggest you stick to those;''
 \end{quote}
-?
+Previously there was a confusing duplication of terminology: 'Transition
+probabilities' were used to decribe both the probability of a cutomer joining
+another node after service, and also the transition probabilities of a Markov
+chain.
+We have now used 'Routing probabilities' to denote the first case, and retained
+'Transition probabilities' to denote the second case.
+
 
 \item Reviewer 5 wrote:
 \begin{quote}
