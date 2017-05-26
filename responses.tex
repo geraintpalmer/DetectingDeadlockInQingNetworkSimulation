@@ -16,6 +16,24 @@
 
 \maketitle
 
+We would like to express our gratitude to the editor and reviewers for their
+useful suggestions and remarks on the manuscript.
+These recommendation resulted in a significant restructure of parts of the
+paper, along with many other stylistic and content changes throughout.
+These changes include:
+
+\begin{itemize}
+	\item Restructure of the introduction.
+	\item Inclusion of a motivating real world example.
+	\item Rewritten definition of deadlock.
+	\item Inclusion of further references.
+	\item Improvements to diagrams and plots.
+	\item Removal of superfluous Markov chain models.
+\end{itemize}
+
+The rest of this document will address specific concerns raised by the editor
+and reviewers.
+
 \section*{Responses to the Editor}
 
 \begin{itemize}
@@ -27,7 +45,7 @@ and other OR journals, to avoid the impression that your article would be
 misplaced in EJOR and to link your findings better to current OR trends
 (cf. Report \#5).''
 \end{quote}
-Some recent publications from EJOR have now been cited:
+Some recent publications, including some from EJOR, have now been cited:
 \begin{itemize}
 \item ``An analytic finite capacity queueing network model capturing the
 propagation of congestion and blocking'', Osorio, C. and Bierlaire, M., 2009.
@@ -39,6 +57,8 @@ Marchetti, O. and Munier-Kordon, A., 2009.
 Jackman, J., 2000.
 \item ``Survey of research in the design and control of automated guided
 vehicle systems'', Vis, I.F.A., 2006.
+\item ``From bed-blocking to delayed discharges: precursors and
+interpretations of a contested concept'', Manzano-Santaella, A., 2010.
 \end{itemize}
 
 
@@ -82,7 +102,7 @@ is quite confused.
 It is not clear how to apply the bounds.''
 \end{quote}
 This section has been expanded and rewritten.
-A Table of values showing how the bound performs is now included.
+A table (Table 2) of values showing how the bound performs is now included.
 This should also help clarify the meaning of the bound.
 Further work could build on the ideas presented in this section, to derive
 bounds for larger networks that have not yet been (and maybe unable to be)
@@ -97,7 +117,7 @@ but it is not clear its applicability and accuracy''
 \end{quote}
 The bound is only defined for model $\Omega$, in terms of $\Omega_1$ and
 $\Omega_2$.
-However, discussion on further work, to apply the ideas presented here to
+However, a discussion of further work, to apply the ideas presented here to
 networks that are not modelled explicitly, is included in the conclusions.
 For the considered models, accuracy and tightness of the bound is analysed and
 discussed in this section.
@@ -115,7 +135,7 @@ and:
 16, 17, 23)''
 \end{quote}
 
-The clarify of these diagrams and plots has been improved.
+The clarity of these diagrams and plots has been improved.
 We appreciate the reviewer pointing this out.
 
 
@@ -192,7 +212,14 @@ reach deadlock, although could be considered a method of deadlock prevention.
 ``The author(s) should justify some assumptions.
 For example, why does this study pay attention to no pre-emption?''
 \end{quote}
-?
+
+In the literature review we state that there are four conditions that a system
+must satisfy for deadlock to occur.
+We then show that open restricted queueing network satisfy all four conditions.
+One of the conditions is no-preemption, and in queueing networks this is
+satisfies of there are either no priorities, or priorities with no-preemption.
+This work focuses on systems without priorities.
+This paragraph is clarified in the text.
 
 \item Reviewer 2 wrote:
 \begin{quote}
@@ -266,12 +293,17 @@ The bound proposed does not appear particularly tight.
 But more than that, no case is made regarding why and when such a bound
 would be of value.''
 \end{quote}
-The bound isn't very tight, and the tightness and accuracy is discussed in
-this section.
+The bound isn't very tight, and there is a discussion on its tightness and
+accuracy is this section.
+We have also included a table (Table 2) of example values to illustrate this.
 The ideas presented in the proof of the bound, however, could be used to
 develop bounds for systems that have not been modelled analytically, by
 considering the networks embedded within.
 Notes on this further work have been included in the conclusions.
+
+The number of examples in the modelling section has been reduced from 5 to 3.
+Three remain as discussion on these three systems is required in order to
+define the bound.
 
 \item Reviewer 5 wrote:
 \begin{quote}
@@ -314,8 +346,8 @@ The structure of the introduction is now:
 \item Define ``open restricted queueing networks'', and explain Type I blocking
 \item Define and explain deadlock.
 \item Explain notation used throughout paper
-\item Motivating example (section of its own)
-\item Literature review (section of its own)
+\item Motivating example (separate section)
+\item Literature review (separate section)
 \end{itemize}
 
 \item Reviewer 5 wrote:
@@ -364,7 +396,8 @@ of reality.
 In practice customers are swapped, but current modelling of circular Type I
 blocking does not account for this, and will deadlock.
 This emphasises the potential application of the work in developing simulation
-and analytical models that may exhibit deadlock despite the system itself not.
+and analytical models that may be constrained by deadlock despite the system
+itself often being able to recover from deadlock.
 
 
 \item Reviewer 5 wrote:
@@ -390,11 +423,11 @@ further clarification around this definition would be very helpful.''
 The definition of deadlock has been rewritten for clarity, and to avoid using
 undefined terms.
 It now reads:
-``A queueing network is in deadlock when at least one service station
-permanently ceases to begin of finish any more services, due to circular
-blocking.
-That is, when there is a subset of blocked customers B who are blocked,
-directly or indirectly, by other customers in B only.''
+``When there is a subset of blocked customers who are blocked directly or
+indirectly by customers in that subset only only, then the system is said to
+be in deadlock.''
+The text also now explains that deadlock implies permanent cessation of
+services.
 
 \item Reviewer 5 wrote:
 \begin{quote}
@@ -421,7 +454,7 @@ What is a ‘wait-for’ graph? These and some other key terms need to be
 defined/explained;''
 \end{quote}
 More clarification of wait-for graphs, and the contribution of this paper,
-is given (see second response to reviewer 5).
+is given, with new introductory sentences before defining the state digraph.
 In addition, a list of graph theoretical terms has been provided before
 discussion on the digraph begins.
 
@@ -448,11 +481,11 @@ Since transition rates are the key model descriptors you use throughout,
 I suggest you stick to those;''
 \end{quote}
 Previously there was a confusing duplication of terminology: 'Transition
-probabilities' were used to decribe both the probability of a cutomer joining
+probabilities' were used to describe both the probability of a customer joining
 another node after service, and also the transition probabilities of a Markov
 chain.
-We have now used 'Routing probabilities' to denote the first case, and retained
-'Transition probabilities' to denote the second case.
+We have now used `Routing probabilities' to denote the first case, and retained
+`Transition probabilities' to denote the second case.
 
 
 \item Reviewer 5 wrote:

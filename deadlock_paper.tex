@@ -97,14 +97,14 @@ service.
 For the purposes of this paper, deadlock is defined as follows.\\
 
 \begin{definition}
-    A queueing network is in deadlock when at least one service station
-    permanently ceases to begin of finish any more services, due to circular
-    blocking.
-    That is, when there is a subset of blocked customers $B$ who are blocked,
-    directly or indirectly, by other customers in $B$ only.
+    When there is a subset of blocked customers who are blocked directly or
+    indirectly by customers in that subset only only, then the system is said
+    to be in deadlock.
 \end{definition}
 
-
+This implies that a system is in deadlock when at least one service station
+permanently ceases to begin of finish any more services, due to circular
+blocking.
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing
 network in deadlock.
 The customer at the top server is blocked from entering the bottom node as
@@ -137,6 +137,7 @@ used:
 \end{itemize}
 
 Exponential service times and Poisson arrivals are assumed.
+First in first out, or FIFO service discipline is assumed.
 
 In particular this paper looks at detecting when deadlock occurs, and the time
 until a deadlock occurs from an empty system.
@@ -163,8 +164,8 @@ deadlock for one of the queueing networks discussed.
 \section{A Motivating Example}\label{sec:motivatingexample}
 
 Here we present a motivating example of a healthcare system.
-In this example, deadlock would not be reached in reality, however using
-stochastic modelling and simulation the model would exhibit deadlock.
+In this example deadlock may be easily resolved in reality, however analytical
+stochastic models and simulations may be restricted by deadlock.
 Therefore and understanding of this phenomenon, and an ability to overcome
 this effect is discrete event simulations, is essential for modelling this
 system.
@@ -196,12 +197,17 @@ packages but unfit to return home after a hospital stay will remain in
 hospital, blocking beds until a community care package becomes available.
 Type I blocking occurs here, as patients and staff do not know the future
 capacity of their next destination prior to service.
+This type of bed blocking is well known \cite{manzano10}.
+This causes problems for the patient as they are being cared for in an
+inappropriate setting for their condition; and also for the health care
+providers as secondary care may be more expensive than primary care, and
+resolution of this causes administrative stress.
 
 In this model there is a non-zero probability of everyone at the hospital
 blocking beds waiting for community care packages, and everyone at community
 care being sustained waiting for beds at the hospital.
 Thus the model will exhibit deadlock.
-In reality, there is communication between there services and patients can
+In reality, there is communication between these services and patients can
 swap places.
 This ensures no deadlock.
 An understanding of how deadlock behaves in the model, and a deadlock
@@ -211,10 +217,14 @@ built of systems like this with circular blocking.
 Restricted feedback loops that exhibit mutual blocking such as this one have
 been observed in real healthcare systems, as described in a case study in
 \cite{osoriobierlaire09}.
-However, just as in this motivating example, the authors here state that this
-type of blocking ``may be irrelevant in practice given that the swapping of
-patients can be identified and carried out easily''.
-This emphasises the discrepancies that occur between common modelling
+However the authors here state that this type of blocking ``may be irrelevant
+in practice given that the swapping of patients can be identified and carried
+out easily''.
+Further, in \cite{koizumietal05} a health and community care system is
+described as having restricted feedback loops.
+However due to ease of modelling and to avoid the restrictions caused by
+deadlock, these feedback loops are omitted from the model.
+These emphasise the discrepancies that occur between common modelling
 techniques and reality in systems that may reach deadlock.
 
 
@@ -386,9 +396,10 @@ the type of deadlock that is discussed in this paper.
 The authors of \cite{venkateshetal98} state that in overlapping deadlock
 situations (the kind that arise in the queueing networks discussed in this
 paper) there is no conceptual difference between transient and permanent
-deadlocks, however using the definitions given in this paper transient
-deadlock is not considered a deadlock at all, and thus we consider these two
-deadlock situations as fundamentally different.
+deadlocks.
+However using the definitions given in this paper transient deadlock is not
+considered a deadlock at all.
+We consider these two deadlock situations as fundamentally different.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -959,6 +970,8 @@ This shows two \(M/M/c_i/n_i\) queues, with service rates $\mu_i$ and external
 arrival rates $\Lambda_i$.
 All routing possibilities $r_{ij}$ are possible except self-loops $r_{ii}$ for
 each node $i$.
+Note that this system is equivalent to the one described in
+Section~\ref{sec:motivatingexample}.
 
 Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$,
 $\Lambda_2$, $\mu_1$, $\mu_2$, $c_1$, $c_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$,
@@ -1033,6 +1046,8 @@ the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$,
 $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and
 $c_2 = 2$ were used.
+Only plots for changing parameter of Node 1 are shown, Node 2 shows similar
+behaviour.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -1441,20 +1456,20 @@ A sample of the data can be found here
 \begin{table}
 \begin{center}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{rrrrrrrrrr|rr|rrrrr|r}
+\begin{tabular}{rrrrrrrrrr|rr|rrrrr|rr}
 \toprule
-$\Lambda_1$ & $\Lambda_2$ & $\mu_1$ & $\mu_2$ & $n_1$ & $n_2$ & $r_{11}$ & $r_{12}$ & $r_{21}$ & $r_{22}$ & $m_1$ & $m_2$ & $\omega_{1_1}^{\star\star}$ & $\omega_{1_1}^{\star}$ & $\omega_{1_2}^{\star\star}$ & $\omega_{1_2}^{\star}$ & $\omega_2$ & $\omega$\\
+$\Lambda_1$ & $\Lambda_2$ & $\mu_1$ & $\mu_2$ & $n_1$ & $n_2$ & $r_{11}$ & $r_{12}$ & $r_{21}$ & $r_{22}$ & $m_1$ & $m_2$ & $\omega_{1_1}^{\star\star}$ & $\omega_{1_1}^{\star}$ & $\omega_{1_2}^{\star\star}$ & $\omega_{1_2}^{\star}$ & $\omega_2$ & $\min(\omega_{1_1}, \omega_{1_2}, \omega_2)$ & $\omega$\\
 \midrule
-1.5 & 0.7 & 1.0 & 2.5 & 2 & 3 & 0.2 & 0.6 & 0.6 & 0.2 & 0.297 & 0.158 & 22.185 & 12.748 & 45.067 & 278.568 & 20.564 & 5.859\\
-0.9 & 0.4 & 1.0 & 1.5 & 3 & 4 & 0.4 & 0.2 & 0.4 & 0.6 & 0.225 & 0.171 & 18.069 & 14.495 & 26.195 & 96.996 & 1673.394 & 8.099\\
-0.7 & 0.8 & 1.0 & 1.0 & 0 & 1 & 0.6 & 0.4 & 0.8 & 0.2 & 0.166 & 0.166 & 12.380 & 4.047 & 38.541 & 18.750 & 11.353 & 2.492\\
-0.8 & 0.6 & 1.0 & 2.5 & 3 & 4 & 0.2 & 0.2 & 0.2 & 0.4 & 0.297 & 0.158 & 30.233 & 37.500 & 28.253 & 335.531 & 3560.310 & 18.751\\
-0.2 & 1.0 & 1.0 & 0.5 & 3 & 3 & 0.2 & 0.2 & 0.2 & 0.4 & 0.083 & 0.133 & 115.925 & 2265.000 & 24.633 & 12.232 & 2128.407 & 11.327\\
-1.3 & 1.6 & 1.0 & 1.0 & 5 & 3 & 0.2 & 0.2 & 0.2 & 0.6 & 0.166 & 0.166 & 38.473 & 21.539 & 13.015 & 5.276 & 60.563 & 4.583\\
-0.4 & 0.9 & 1.0 & 2.0 & 0 & 5 & 0.4 & 0.2 & 0.4 & 0.2 & 0.266 & 0.166 & 15.625 & 8.750 & 42.816 & 268.428 & 200.039 & 5.015\\
-1.9 & 0.7 & 1.0 & 2.5 & 5 & 0 & 0.6 & 0.2 & 0.2 & 0.2 & 0.297 & 0.158 & 9.305 & 5.933 & 38.642 & 9.142 & 62.223 & 3.767\\
-1.1 & 2.0 & 1.0 & 0.5 & 4 & 5 & 0.2 & 0.4 & 0.4 & 0.6 & 0.083 & 0.133 & 68.647 & 25.206 & 15.910 & 6.975 & 19.703 & 5.546\\
-0.7 & 1.6 & 1.0 & 2.0 & 0 & 0 & 0.2 & 0.6 & 0.4 & 0.4 & 0.266 & 0.166 & 25.892 & 12.142 & 16.562 & 2.812 & 8.218 & 1.887\\
+1.5 & 0.7 & 1.0 & 2.5 & 2 & 3 & 0.2 & 0.6 & 0.6 & 0.2 & 0.297 & 0.158 & 22.185 & 12.748 & 45.067 & 278.568 & 20.564 & 20.564 & 5.859\\
+0.9 & 0.4 & 1.0 & 1.5 & 3 & 4 & 0.4 & 0.2 & 0.4 & 0.6 & 0.225 & 0.171 & 18.069 & 14.495 & 26.195 & 96.996 & 1673.394 & 18.069 & 8.099\\
+0.7 & 0.8 & 1.0 & 1.0 & 0 & 1 & 0.6 & 0.4 & 0.8 & 0.2 & 0.166 & 0.166 & 12.380 & 4.047 & 38.541 & 18.750 & 11.353 & 11.353 & 2.492\\
+0.8 & 0.6 & 1.0 & 2.5 & 3 & 4 & 0.2 & 0.2 & 0.2 & 0.4 & 0.297 & 0.158 & 30.233 & 37.500 & 28.253 & 335.531 & 3560.310 & 37.500 & 18.751\\
+0.2 & 1.0 & 1.0 & 0.5 & 3 & 3 & 0.2 & 0.2 & 0.2 & 0.4 & 0.083 & 0.133 & 115.925 & 2265.000 & 24.633 & 12.232 & 2128.407 & 24.633 & 11.327\\
+1.3 & 1.6 & 1.0 & 1.0 & 5 & 3 & 0.2 & 0.2 & 0.2 & 0.6 & 0.166 & 0.166 & 38.473 & 21.539 & 13.015 & 5.276 & 60.563 & 13.015 & 4.583\\
+0.4 & 0.9 & 1.0 & 2.0 & 0 & 5 & 0.4 & 0.2 & 0.4 & 0.2 & 0.266 & 0.166 & 15.625 & 8.750 & 42.816 & 268.428 & 200.039 & 15.625 & 5.015\\
+1.9 & 0.7 & 1.0 & 2.5 & 5 & 0 & 0.6 & 0.2 & 0.2 & 0.2 & 0.297 & 0.158 & 9.305 & 5.933 & 38.642 & 9.142 & 62.223 & 9.305 & 3.767\\
+1.1 & 2.0 & 1.0 & 0.5 & 4 & 5 & 0.2 & 0.4 & 0.4 & 0.6 & 0.083 & 0.133 & 68.647 & 25.206 & 15.910 & 6.975 & 19.703 & 15.910 & 5.546\\
+0.7 & 1.6 & 1.0 & 2.0 & 0 & 0 & 0.2 & 0.6 & 0.4 & 0.4 & 0.266 & 0.166 & 25.892 & 12.142 & 16.562 & 2.812 & 8.218 & 8.218 & 1.887\\
 \bottomrule
 \end{tabular}
 }
