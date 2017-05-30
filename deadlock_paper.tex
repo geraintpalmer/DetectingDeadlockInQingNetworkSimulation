@@ -98,7 +98,7 @@ For the purposes of this paper, deadlock is defined as follows.\\
 
 \begin{definition}
     When there is a subset of blocked customers who are blocked directly or
-    indirectly by customers in that subset only only, then the system is said
+    indirectly by customers in that subset only, then the system is said
     to be in deadlock.
 \end{definition}
 
@@ -137,7 +137,7 @@ used:
 \end{itemize}
 
 Exponential service times and Poisson arrivals are assumed.
-First in first out, or FIFO service discipline is assumed.
+First in first out, or FIFO service discipline is also assumed.
 
 In particular this paper looks at detecting when deadlock occurs, and the time
 until a deadlock occurs from an empty system.
@@ -198,10 +198,11 @@ hospital, blocking beds until a community care package becomes available.
 Type I blocking occurs here, as patients and staff do not know the future
 capacity of their next destination prior to service.
 This type of bed blocking is well known \cite{manzano10}.
-This causes problems for the patient as they are being cared for in an
-inappropriate setting for their condition; and also for the health care
-providers as secondary care may be more expensive than primary care, and
-resolution of this causes administrative stress.
+This causes problems for patients as they are being cared for in an
+inappropriate setting for their condition.
+There are also for the health care providers as secondary care may be
+more expensive than primary care, and resolution of this causes
+administrative stress.
 
 In this model there is a non-zero probability of everyone at the hospital
 blocking beds waiting for community care packages, and everyone at community
@@ -220,11 +221,11 @@ been observed in real healthcare systems, as described in a case study in
 However the authors here state that this type of blocking ``may be irrelevant
 in practice given that the swapping of patients can be identified and carried
 out easily''.
-Further, in \cite{koizumietal05} a health and community care system is
-described as having restricted feedback loops.
+In \cite{koizumietal05} a health and community care system is described as
+having restricted feedback loops.
 However due to ease of modelling and to avoid the restrictions caused by
 deadlock, these feedback loops are omitted from the model.
-These emphasise the discrepancies that occur between common modelling
+This emphasises the discrepancies that occur between common modelling
 techniques and reality in systems that may reach deadlock.
 
 
@@ -398,7 +399,7 @@ situations (the kind that arise in the queueing networks discussed in this
 paper) there is no conceptual difference between transient and permanent
 deadlocks.
 However using the definitions given in this paper transient deadlock is not
-considered a deadlock at all.
+considered as deadlock at all.
 We consider these two deadlock situations as fundamentally different.
 
 \begin{figure}[!htbp]
@@ -1046,8 +1047,8 @@ the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$,
 $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and
 $c_2 = 2$ were used.
-Only plots for changing parameter of Node 1 are shown, Node 2 shows similar
-behaviour.
+Only plots for the parameter corresponding to Node 1 are shown, Node 2 shows
+similar behaviour.
 
 \begin{figure}[!htbp]
   \begin{center}
