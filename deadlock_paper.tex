@@ -50,16 +50,16 @@
 
 \begin{abstract}
 Open restricted queueing networks give rise to the phenomenon of deadlock,
-whereby some customers may be unable to ever leave a server due to mutual
-blocking.
-This paper explores deadlock in queueing networks with limited queueing
-capacity, presents a method of detecting deadlock in discrete event
-simulations, and builds Markov chain models of these deadlocking networks.
+whereby some customers may be unable to ever leave a server due to {\color{red}mutual
+blocking.}
+This paper explores deadlock in {\color{red}queueing networks with limited queueing
+capacity}, presents a method of detecting deadlock in {\color{red}discrete event
+simulations}, and builds Markov chain models of these deadlocking networks.
 The three networks for which Markov models are given include single and
 multi-server networks for one and two node systems.
 These models are compared to results obtained using a simulation of the
 stochastic process, together with the developed deadlock detection method.
-Finally, an upper bound on the expected time to deadlock of the two node
+Finally, an upper bound on the {\color{red}expected} time to deadlock of the two node
 single-server network with loops is derived, by comparing its properties with
 other queueing networks that are embedded within it.
 This paper aims to be of value to simulation modelling of queues.
@@ -86,25 +86,25 @@ Queueing networks are described as open if customers can enter and leave the
 system from the exterior.
 Restricted networks are those where at least one service centre has limited
 queueing space or capacity before it.
-Deadlock is caused by blocking.
+\textcolor{red}{Deadlock is caused by blocking.
 This paper considers Type I blocking: after service a customer will be blocked
 from joining a queue at another node if that node's queueing capacity is full.
 While blocked, that customer remains with its server until space becomes
 available at its destination.
 During this time that server is unavailable to begin another customer's
-service.
+service.}
 
 For the purposes of this paper, deadlock is defined as follows.\\
 
 \begin{definition}
-    When there is a subset of blocked customers who are blocked directly or
+    {\color{red}When there is a subset of blocked customers who are blocked directly or
     indirectly by customers in that subset only, then the system is said
-    to be in deadlock.
+    to be in deadlock.}
 \end{definition}
 
-This implies that a system is in deadlock when at least one service station
+\textcolor{red}{This implies that a system is in deadlock when at least one service station
 permanently ceases to begin of finish any more services, due to circular
-blocking.
+blocking.}
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing
 network in deadlock.
 The customer at the top server is blocked from entering the bottom node as
@@ -137,7 +137,7 @@ used:
 \end{itemize}
 
 Exponential service times and Poisson arrivals are assumed.
-First in first out, or FIFO service discipline is also assumed.
+\textcolor{red}{First in first out, or FIFO service discipline is also assumed.}
 
 In particular this paper looks at detecting when deadlock occurs, and the time
 until a deadlock occurs from an empty system.
@@ -160,7 +160,7 @@ deadlock for one of the queueing networks discussed.
 
 
 
-
+{\color{red}
 \section{A Motivating Example}\label{sec:motivatingexample}
 
 Here we present a motivating example of a healthcare system.
@@ -188,6 +188,7 @@ system is shown in Figure~\ref{fig:motivatingexample}.
 services at a hospital and community care services.}
 \label{fig:motivatingexample}
 \end{figure}
+
 
 If there are no free hospital beds, then patients being referred from
 community care services will be sustained by community care workers until beds
@@ -227,7 +228,7 @@ However due to ease of modelling and to avoid the restrictions caused by
 deadlock, these feedback loops are omitted from the model.
 This emphasises the discrepancies that occur between common modelling
 techniques and reality in systems that may reach deadlock.
-
+}
 
 \section{Literature Review}\label{sec:litreview}
 
@@ -317,21 +318,21 @@ Various techniques and methods have been used to implement deadlock avoidance
 such as the Banker's algorithm \cite{dijkstra82, kawadkaretal14}, petri net
 models \cite{viswanadhametal90, ezpeletaetal02, marchettimunierkordon09}, and
 resource allocation graphs \cite{belik90}.
-A survey of avoidance techniques for automated guided vehicle systems is given
-in \cite{vis06}.
+{\color{red}A survey of avoidance techniques for automated guided vehicle systems is given
+in \cite{vis06}.}
 These techniques generally determine when resources cannot be allocated as
 that allocation would lead to deadlock.
-In \cite{florianetal08} a priority based deadlock avoidance algorithm is
+{\color{red}In \cite{florianetal08} a priority based deadlock avoidance algorithm is
 implemented in a traffic simulation model.
 The purpose of the avoidance scheme here is not to reflect deadlock avoidance
 in reality, but to avoid deadlocks that will occur in the simulation due to
-missing information or incomplete models.
+missing information or incomplete models.}
 
 The literature has discussed deadlock prevention in closed queueing networks
 when blocking of Type I occurs.
 For closed networks of $K$ customers with only one class of customer,
 \cite{kunduakyildiz89} proves the following condition to ensures no deadlock:
-given that each node $j$ has total capacity $B_j$, for each minimum cycle $C$,
+{\color{red}given that each node $j$ has total capacity $B_j$,} for each minimum cycle $C$,
 $K < \sum_{j\in C} B_j$, the total number of customers cannot exceed the total
 queueing capacity of each minimum sub-cycle of the network.
 The paper also presents algorithms for finding the minimum queueing space
@@ -351,11 +352,11 @@ be appropriate as they can potentially inhibit realism in the simulation by
 taking actions that do not occur in the system being modelled
 \cite{venkateshetal98}.
 
-In \cite{schmidtjackman00} a deadlock prevention/avoidance mechanism for open
+{\color{red}In \cite{schmidtjackman00} a deadlock prevention/avoidance mechanism for open
 restricted queueing networks is given.
 Here, arrivals from outside the system are turned away if certain nodes are
 full.
-This ensures that the whole system cannot become saturated, and reach deadlock.
+This ensures that the whole system cannot become saturated, and reach deadlock.}
 
 A popular method of detecting general deadlock is the use of wait-for graphs,
 state-graphs and other variants \cite{cheng90, elmagarmid86, coffmanelphick71,
@@ -387,7 +388,7 @@ strongly connected components indicate a deadlock situation.
 This work is furthered in \cite{venkateshetal98} where deadlock is detected
 and resolved for situations where entities may request more than one resource.
 
-A number of deadlock types are defined in \cite{venkateshetal98}, and their
+{\color{red}A number of deadlock types are defined in \cite{venkateshetal98}, and their
 relationships to one another.
 This is shown in Figure~\ref{fig:deadlocktypes}.
 `Transient deadlock' defined there corresponds to the blocking considered in
@@ -400,7 +401,7 @@ paper) there is no conceptual difference between transient and permanent
 deadlocks.
 However using the definitions given in this paper transient deadlock is not
 considered as deadlock at all.
-We consider these two deadlock situations as fundamentally different.
+We consider these two deadlock situations as fundamentally different.}
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -429,11 +430,11 @@ there is no further discussion.
 
 In order to detect when deadlock has occurred in a queueing network
 simulation, a state digraph is used, a form of wait-for graph.
-In previous literature on wait-for graphs these are bespoke graphs that
+{\color{red}In previous literature on wait-for graphs these are bespoke graphs that
 represent system states, where edges denote some form of waiting or blockage
 relationships.
 Here we present a generic state digraph that is defined for all FIFO
-queueing networks that exhibit Type I blocking:
+queueing networks that exhibit Type I blocking:}
 
 
 \begin{definition}
@@ -491,6 +492,7 @@ in each case.
   \label{fig:exampledigraphs}
 \end{figure}
 
+{\color{red}
 These graph theoretic terms will be used throughout this paper
 \cite{gibbons85, wilson70}:
 
@@ -516,6 +518,7 @@ These graph theoretic terms will be used throughout this paper
   \item A \textit{source} is a vertex whose in-degree is zero.
   A \textit{sink} is a vertex whose out-degree is zero.
 \end{itemize}
+}
 
 Consider one weakly connected component $G(t)$ of $D(t)$ and a node
 $X \in G(t)$. Some observations:
@@ -689,7 +692,7 @@ component without a sink node.
 \label{fig:counter_examples}
 \end{figure}
 
-
+{\color{red}
 For the purposes of this paper, a simulation model is used to verify that the
 results of this section and the analytical model in
 Section~\ref{sec:markovmodels} are in agreement.
@@ -698,7 +701,7 @@ investigated, and the simulation model gives information on the distribution
 of times to deadlock.
 The model is built using Ciw \cite{ciwpython}.
 This is an object oriented framework in Python \cite{python15}, with care
-taken to ensure reproducibility of the results \cite{hongetal15}.
+taken to ensure reproducibility of the results \cite{hongetal15}.}
 
 The digraph \(D(t)\) is implemented as an attribute of the queueing network
 and is updated at the appropriate events.
@@ -707,13 +710,13 @@ connected component of $D(t)$ is a knot in order to implement
 Theorem~\ref{thrm:knot}.
 More efficient algorithms could be used for other specific use cases.
 
-The next section builds Markov models of five queueing networks, and discusses
+The next section builds Markov models of three queueing networks, and discusses
 their deadlocking properties.
 
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-The following three networks describe all possible configurations of 
+The following {\color{red}three} networks describe all possible configurations of 
 deadlocking queueing networks with two or fewer nodes:
 
 \begin{enumerate}
@@ -893,7 +896,7 @@ $c = 2$ were used.
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
 
-It can be seen that increasing the arrival rate $\Lambda$ and the routing
+It can be seen that increasing the arrival rate $\Lambda$ and the {\color{red}routing}
 probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the queue filling
 up quicker.
@@ -956,9 +959,9 @@ From the closed interval method of finding absolute maximum \cite{tan09}, the
 absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either
 the critical points in $(a, b)$, $a$ or $b$.
 The only possible critical point in $(a, b)$ is $\hat{\mu}$, and is a local
-minimum (from Remark~\ref{rem:oneminima}), and so
+minimum (from Remark~\ref{rem:oneminima}), and so {\color{red}
 $\omega_1(\hat{\mu}) \leq \omega_1(a)$ and
-$\omega_1(\hat{\mu}) \leq \omega_1(b)$.
+$\omega_1(\hat{\mu}) \leq \omega_1(b)$.}
 Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
 
@@ -1047,8 +1050,8 @@ the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$,
 $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and
 $c_2 = 2$ were used.
-Only plots for the parameter corresponding to Node 1 are shown, Node 2 shows
-similar behaviour.
+{\color{red}Only plots for the parameter corresponding to Node 1 are shown, Node 2 shows
+similar behaviour.}
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -1106,8 +1109,8 @@ $r_{22})$.
 \end{figure}
 
 The state space is given by:
-    \[S = \{(i,j)\in\mathbb{N}^{(n_1+2)\times (n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
-    \}\cup\{(-1), (-2), (-3)\}\]
+    {\color{red}\[S = \{(i,j)\in\mathbb{N}^{(n_1+2)\times (n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
+    \}\cup\{(-1), (-2), (-3)\}\]}
 
     where \(i\) denotes the number of individuals:
         \begin{itemize}
@@ -1264,7 +1267,7 @@ single-server $\Omega$ system.
 
 This section gives a bound on the expected time to deadlock of the $\Omega$
 system.
-After the bound is given, considerations on its tightness are given.
+{\color{red}After the bound is given, considerations on its tightness are given.}
 Let's define six deadlocking single-server queueing networks:
 
 \begin{itemize}
@@ -1444,16 +1447,17 @@ Therefore:
 
 \end{proof}
 
-
+{\color{red}
 Table~\ref{tab:applybound} shows a few examples of this bound on some
 parameter sets.
 The first 10 columns show the parameters of the $\Omega$ system, the next
 seven columns show the intermediate derived parameters to use in the bound.
-The final column shows the actual time to deadlock of the $\Omega$ system.
+The final column shows the actual time to deadlock of the $\Omega$ system.}
 This bound has been tested for over 7 million parameter sets.
 A sample of the data can be found here
 \url{http://www.geraintianpalmer.org.uk/assets}.
 
+{\color{red}
 \begin{table}
 \begin{center}
 \resizebox{\textwidth}{!}{
@@ -1479,6 +1483,7 @@ $\Lambda_1$ & $\Lambda_2$ & $\mu_1$ & $\mu_2$ & $n_1$ & $n_2$ & $r_{11}$ & $r_{1
 Theorem~\ref{thrm:bound}.}
 \label{tab:applybound}
 \end{table}
+}
 
 In order to gain an understanding of how loose or tight this bound is, the
 following ratio is taken:
@@ -1603,7 +1608,7 @@ service rates were assumed, and only blocking of Type I is considered.
 A future research direction could be to model other service and arrival
 distributions using phase-type distributions, and incorporating these into the
 Markov models of deadlocking queueing networks.
-Blocking of Type II and III should also be considered, both in the analytical
+{\color{red}Blocking of Type II and III should also be considered, both in the analytical
 models and whether the deadlock detection method presented here still holds.
 Systems under Type III blocking with random destination (RS-RD) will not reach
 deadlock, as there is a non-zero probability of a blocked customer leaving the
@@ -1619,7 +1624,7 @@ to be modelled analytically.
 \section{Acknowledgements}
 
 The authors would like to thank and express gratitude to all anonymous
-referees whose comments and suggestions have been very helpful.
+referees whose comments and suggestions have been very helpful.}
 
 \bibliographystyle{plain}
 \bibliography{refs}
