@@ -717,16 +717,6 @@ When there is more than one deadlocked state, there is more than one absorbing
 state in the Markov chain.
 Here the expected time to absorption is the expected time to a deadlocked
 state, whichever one that may be.
-The probabilities of which absorbing state a Markov chain will reach are given
-by the $(i, j)^{\text{th}}$ element of the following matrix:
-
-\begin{equation}
-  (I - T)^{-1}U
-\end{equation}
-
-which corresponds to the probability of reaching absorbing state $j$ from
-transient state $i$.
-
 
 \subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
@@ -737,10 +727,6 @@ This shows an \(M/M/c/n\) queue where customers arrive at a rate of $\Lambda$
 and served at a rate $\mu$.
 Once a customer has finished service they rejoin the queue with probability
 $r_{11}$, and so exit the system with probability $1 - r_{11}$.
-Let this system be denoted by $\Omega_1$ with parameter set $(\Lambda$, $\mu$,
-$c$, $n$, $r_{11})$, and the time to deadlock of this system be denoted by
-$\omega_1$.
-
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -793,7 +779,7 @@ The Markov chain is shown in Figure~\ref{fig:1nodeMCms}.
     \includestandalone[width=\textwidth]{images/MC1nodemultiserv_bw}
     \end{center}
     \caption{Diagrammatic representation of the Markov chain for a
-    multi-server $\Omega_1$ system.}
+    multi-server one node system.}
     \label{fig:1nodeMCms}
 \end{figure}
 
@@ -830,7 +816,7 @@ $c = 2$ were used.
     \label{fig:1Nms_c}
   \end{subfigure}
   \end{center}
-  \caption{Time to deadlock in multi-server $\Omega_1$, analytical \&
+  \caption{Time to deadlock in multi-server one node system, analytical \&
   simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
@@ -862,17 +848,16 @@ allowing customers to rejoin the queue, causing blockages and deadlock.
 This behaviour is described in the following remark.\\
 
 \begin{remark}\label{rem:oneminima}
-The function $\omega_1(\mu)$ that describes the expected time to deadlock of
-an $\Omega_1$ system as the service rate $\mu$ varies, and all other
-parameters are fixed, has one critical point and is a local minimum for
-$\mu \in (0, \infty)$.
+The function $\omega(\mu)$ that describes the expected time to deadlock of
+an this system as the service rate $\mu$ varies, and all other parameters are
+fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
 \end{remark}
 
-The behaviour of $\omega_1(\mu)$ can be interpreted as follows:
+The behaviour of $\omega(\mu)$ can be interpreted as follows:
 \begin{itemize}
-\item At $\lim_{\mu \to 0} \omega_1 (\mu)$ there is infinite service time,
+\item At $\lim_{\mu \to 0} \omega(\mu)$ there is infinite service time,
 and so infinite time until deadlock.
-\item At $\lim_{\mu \to \infty} \omega_1 (\mu)$ there is zero service time,
+\item At $\lim_{\mu \to \infty} \omega(\mu)$ there is zero service time,
 the queue can never fill up, and so infinite time to deadlock.
 \item At low service rates below a certain threshold $\hat{\mu}$, the arrival
 rate is relatively large compared to the service rate, and we can assume a
@@ -890,20 +875,20 @@ Thus increasing the service rate removes people from the system, and as such
 there is less chance of getting blocked and reaching deadlock.
 \end{itemize}
 
-The following remark identifies the maximum of $\omega_1(\mu)$ on a closed
+The following remark identifies the maximum of $\omega(\mu)$ on a closed
 interval.\\
 
 \begin{remark}\label{rem:findmaximum}
-$\arg\max_{\mu \in [a, b]} \omega_1(\mu) \in \{a, b\}$.
+$\arg\max_{\mu \in [a, b]} \omega(\mu) \in \{a, b\}$.
 
 From the closed interval method of finding absolute maximum \cite{tan09}, the
-absolute maximum of $\omega_1(\mu)$ on the closed interval $[a, b]$ is either
+absolute maximum of $\omega(\mu)$ on the closed interval $[a, b]$ is either
 the critical points in $(a, b)$, $a$ or $b$.
 The only possible critical point in $(a, b)$ is $\hat{\mu}$, and is a local
 minimum (from Remark~\ref{rem:oneminima}), and so
-$\omega_1(\hat{\mu}) \leq \omega_1(a)$ and
-$\omega_1(\hat{\mu}) \leq \omega_1(b)$.
-Therefore $\omega_1(\mu)$ obtains its maximum at either $a$ or $b$.
+$\omega(\hat{\mu}) \leq \omega(a)$ and
+$\omega(\hat{\mu}) \leq \omega(b)$.
+Therefore $\omega(\mu)$ obtains its maximum at either $a$ or $b$.
 \end{remark}
 
 
@@ -917,10 +902,6 @@ All routing probabilities $r_{ij}$ may be positive apart from self-loops
 $r_{ii}$, for each node $i$.
 Note that this system is equivalent to the one described in
 Section~\ref{sec:motivatingexample}.
-
-Let this system be denoted by $\Omega_2$ with parameter set $(\Lambda_1$,
-$\Lambda_2$, $\mu_1$, $\mu_2$, $c_1$, $c_2$, $n_1$, $n_2$, $r_{12}$, $r_{21})$,
-and the time to deadlock of this system be denoted by $\omega_2$.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -947,8 +928,8 @@ The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
 \begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
     \caption{Diagrammatic representation of the Markov chain for a
-    multi-server $\Omega_2$ system with $n_1=1$, $n_2=c_1=c_2=2$.
-    The deadlocked state is $(5,6)$.}
+    multi-server two node system without self-loops with $n_1=1$,
+    $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
     \label{fig:2nodeMCms}
 \end{figure}
 
@@ -1022,8 +1003,8 @@ similar behaviour.
     \label{fig:2Nms_c}
   \end{subfigure}
   \end{center}
-  \caption{Time to deadlock in multi-server $\Omega_2$, analytical \&
-  simulation results (10,000 repetitions).}
+  \caption{Time to deadlock in multi-server two node system without self loops,
+  analytical \& simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock2nodemultiserver}
 \end{figure}
 
@@ -1036,10 +1017,6 @@ This shows two \(M/M/1/n_i\) queues with service rates $\mu_i$  and external
 arrival rates $\Lambda_i$.
 All routes are possible, where the routing probability from node $i$ to node
 $j$ is denoted by $r_{ij}$.
-
-Let this system be denoted by $\Omega$ with parameter set $(\Lambda_1$,
-$\Lambda_2$, $\mu_1$, $\mu_2$, $n_1$, $n_2$, $r_{11}$, $r_{12}$, $r_{21}$,
-$r_{22})$.
 
 \begin{figure}[!htbp]
   \begin{center}
@@ -1148,8 +1125,8 @@ Figure~\ref{fig:2nodeMCfeedback}.
     \begin{center}
     \includestandalone[width=\textwidth]{images/markov_chain_feedback_bw}
     \end{center}
-    \caption{Diagrammatic representation of the Markov chain for $\Omega$ with
-    $n_1=1$ and $n_2=2$.}
+    \caption{Diagrammatic representation of the Markov chain for single server
+    two node system with $n_1=1$ and $n_2=2$.}
     \label{fig:2nodeMCfeedback}
 \end{figure}
 
@@ -1193,8 +1170,8 @@ and $r_{22} = 0.1$ are used.
   \label{fig:timestodeadlockfb_n2}
 \end{subfigure}
 \end{center}
-\caption{Time to deadlock in $\Omega$, analytical \& simulation results
-(10,000 repetitions).}
+\caption{Time to deadlock in the single-server two node system, analytical \&
+simulation results (10,000 repetitions).}
 \label{fig:timestodeadlockfeedback}
 \end{figure}
 
@@ -1212,7 +1189,7 @@ Incorporating this into a simulation model, time to deadlock can be observed.
 
 Markov models of three deadlocking queueing networks have been built.
 Using linear algebraic techniques the expected time to deadlock from each
-state was found, and its behaviour as system parameters varied explored.
+state was found, and its behaviour as system parameters are varied was explored.
 These analytical results were compared with results obtained from the
 simulation model.
 
@@ -1251,9 +1228,8 @@ distributions using phase-type distributions, and incorporating these into the
 Markov models of deadlocking queueing networks.
 Blocking of Type II and III should also be considered, both in the analytical
 models and whether the deadlock detection method presented here still holds.
-Systems under Type III blocking with random destination (RS-RD) will not reach
-deadlock, as there is a non-zero probability of a blocked customer leaving the
-system.
+Systems under Type III blocking with random destination will not reach deadlock,
+as there is a non-zero probability of a blocked customer leaving the system.
 This type of blocking may be considered a deadlock prevention mechanism.
 
 \section{Acknowledgements}
