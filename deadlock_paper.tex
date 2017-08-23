@@ -112,6 +112,9 @@ there is a full queue, and similarly the customer at the bottom server is
 blocked from entering the top node as there is a full queue.
 It is clear that by following the rules of a blocking defined above, no more
 natural movement can happen.
+This system is in deadlock as there is a subset of blocked customers (the
+customer with server $A_1$ and the customer with server $B_1$) who are blocking
+eachother only.
 
 \begin{figure}[!htbp]
   \begin{center}
