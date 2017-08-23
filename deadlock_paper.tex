@@ -211,9 +211,6 @@ Thus the model will exhibit deadlock.
 In reality, there is communication between these services and patients can
 swap places.
 This ensures no deadlock.
-An understanding of how deadlock behaves in the model, and a deadlock
-detection method in the simulation model will ensure correct models can be
-built of systems like this with circular blocking.
 
 Restricted feedback loops that exhibit mutual blocking such as this one have
 been observed in real healthcare systems, as described in a case study in
@@ -227,6 +224,12 @@ However due to ease of modelling and to avoid the restrictions caused by
 deadlock, these feedback loops are omitted from the model.
 This emphasises the discrepancies that occur between common modelling
 techniques and reality in systems that may reach deadlock.
+
+An understanding of how deadlock behaves in these models will aid in the
+modelling process.
+A deadlock detection method for the simulation model will be invaluable in
+modelling realistic deadlock resolution methods, thus ensuring correct models
+can be built of systems like this with circular blocking.
 
 
 \section{Literature Review}\label{sec:litreview}
