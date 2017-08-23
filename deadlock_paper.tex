@@ -908,9 +908,11 @@ Varying the amount of servers has a greater effect on the time to deadlock
 however, as any states in which customers are blocked, $i \in [n+c+1, n+2c]$,
 can jump back to state $i=n+c-1$ simply with a service where the customer
 doesn't rejoin the queue.
-Increasing the amount of servers also increases the rate at which $i$ are
-reduced for most states, but doesn't affect the rates at which $i$ is
-increased.
+Increasing the amount of servers also increases the rate at which customer leave
+the system, but not the rate at which customers enter the system.
+This means that the rate of increase of the number of customers in the system
+increases, however the rate of decrease of number of customers in the system
+does not change, thus it would take longer to reach a full system and deadlock.
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the
 service rate contributes towards both moving customers from the system and
