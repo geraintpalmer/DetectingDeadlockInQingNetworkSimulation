@@ -775,7 +775,7 @@ $r_{11}$, and so exit the system with probability $1 - r_{11}$.
 \end{figure}
 
 The state space is given by:
-        \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
+    \[S = \{i\in\mathbb{N} \nonscript\; | \nonscript\; 0 \leq i \leq n + 2c\}\]
 where \(i\) denotes the number of individuals in the system plus the number of
 individuals who are blocked.
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node,
@@ -950,7 +950,7 @@ Section~\ref{sec:motivatingexample}.
 \end{figure}
 
 The state space is given by:
-        \[S = \{(i,j)\in\mathbb{N}^{(n_1+c_1+c_2)\times (n_2+c_2+c_1)} \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
+    \[S = \{(i,j)\in\mathbb{N}^2 \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
 where $i$ denotes the number of individuals at Node 1 plus the number of
 individuals blocked waiting to enter Node 1, and $j$ denotes the number of
 individuals at Node 2 plus the number of individuals blocked waiting to enter
@@ -1065,8 +1065,7 @@ $j$ is denoted by $r_{ij}$.
 \end{figure}
 
 The state space is given by:
-    \[S = \{(i,j)\in\mathbb{N}^{(n_1+2)\times (n_2+2)} \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2
-    \}\cup\{(-1), (-2), (-3)\}\]
+    \[S = \{(i,j)\in\mathbb{N}^2 \nonscript\; | \nonscript\; 0 \leq i + j \leq n_1 + n_2 + 2 \}\cup\{(-1), (-2), (-3)\}\]
 
     where \(i\) denotes the number of individuals:
         \begin{itemize}
