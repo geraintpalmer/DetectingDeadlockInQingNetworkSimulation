@@ -557,20 +557,22 @@ $t$.
 \end{proof}
 
 The knot condition can be simplified for specific cases.
+Theorem~\ref{thrm:wcc_nosink} may offer computational advantages in cases where
+it is easier to identify weakly connected components to knots.
 
-\begin{proposition}
+\begin{theorem}\label{thrm:wcc_nosink}
 For queueing networks:
 \begin{enumerate}
   \item with one node
   \item with two nodes, each with two or fewer parallel servers
   \item with a finite amount of nodes, each with a single-server
 \end{enumerate}
-a deadlocked state arises if and only if there exists a weakly connected
-component without a sink node.
-\end{proposition}
+a deadlocked state arises at time $t$ if and only if $D(t)$ contains a weakly
+connected component without a sink.
+\end{theorem}
 
 \begin{proof}{Proof}
-  There are three parts to this proof:
+  To prove the result in one direction, each case is considered separately:
 
   \begin{enumerate}
 
@@ -578,7 +580,8 @@ component without a sink node.
   Consider a one node queueing network.
 
   If there is deadlock, then all servers are occupied by blocked individuals,
-  and so all servers have an out-edge.
+  and so all vertices corresponding to those servers have an out-edge.
+  Thus there are no sinks.
 
   \item
   Consider a two node queueing network, each node with 2 or fewer parallel
@@ -607,65 +610,71 @@ component without a sink node.
   Now either the other server of node two is empty or still in service, and so
   isn't part of that weakly connected component, or the other server's
   customer is blocked and so has an out edge.
-
-  For the case of a two node queueing network with at least one node with more
-  than 2 servers, consider the following counter-example:
-
-  Node $A$ has two parallel servers, node $B$ has three parallel servers.
-  Begin with all servers occupied by customers in service and full queues.
-  The customer at server $A_1$ is blocked to node $A$.
-  The customer at server $B_1$ is blocked to node $A$.
-  The customer at server $B_2$ is blocked to node $B$.
-  The customer at server $A_2$ is blocked to node $A$.
-  Node $A$ is a deadlocked.
-  The resulting state digraph in Figure~\ref{fig:counter_example_1} has a
-  weakly connected component with a sink.
+  Thus there are no sinks.
 
   \item
   Consider a queueing network with $N$ nodes, each with a single-server.
 
   If $1 \leq n \leq N$ nodes are involved in the deadlock, then each server in
-  those $n$ nodes has a blocked customer, and so has an out-edge.
-  Of the other nodes, they can only be in the same weakly connected component
-  if either they contain a blocked individual, in which case they will have an
-  out edge; or they are blocking someone who is blocked directly or indirectly
-  by those in deadlock.
-  However this last case cannot happen, as every node is single-server each
-  person can only be blocked by one other individual at a time.
+  those $n$ nodes has a blocked customer, and so the corresponding vertex in the
+  state digraph has an out-edge.
 
-  For the case of a queueing network with more than two nodes with multiple
-  servers, the following counter-example proves the claim:
+  Of the nodes not involved in that deadlock, the vertices corresponding to
+  their servers can only be in the same weakly connected component if:
 
-  Node $A$ has one parallel server, node $B$ has two parallel servers, and
-  node $C$ has two parallel servers.
-  Begin with all servers occupied by customers in service and full queues.
-  The customer at server $B_1$ is blocked from entering node $A$.
-  Then the customer at server $C_1$ is blocked from entering node $B$.
-  Then the customer at server $A_1$ is blocked from entering node $A$.
-  Node $A$ is deadlocked.
-  The resulting state digraph in Figure~\ref{fig:counter_example_2} has a
-  weakly connected component with a sink.
+  \begin{itemize}
+    \item They contain a blocked individual that is blocked to the nodes
+    involved in the deadlock.
+    \item Individuals in the deadlocked nodes are blocked to them.
+  \end{itemize}
+
+  In the first case, the vertices corresponding to the servers in those nodes
+  will all have an out-edge.
+  In the second case it is implied that the customers at servers in deadlocked
+  nodes are blocked to both a node in deadlock, and a node not in deadlock.
+  Which is not possible (customers can only be blocked to one location at a
+  time).
+
+  Thus there are no sinks.
   \end{enumerate}
+
+To prove the result in the other direction, is equivalent to proving that a
+weakly connected component without a sink contains a knot:
+
+\begin{itemize}
+  \item Consider a weakly connected component, $G$, of $D(t)$.
+  \item Assume $G$ contains no knots. By definition of a knot, this implies:
+  \begin{itemize}
+    \item $G$ contains a sink; or
+    \item $G$ contains a vertex with a path to another vertex outside of $G$
+    (contradicting the fact that $G$ is a weakly connected component).
+  \end{itemize}
+\end{itemize}
+
+Thus the existence of a weakly connected component without a sink in $D(t)$
+implies that there is a knot in $D(t)$, and the result follows by applying
+Theorem~\ref{thrm:knot}.
+
 \end{proof}
 
-\begin{figure}
-\begin{subfigure}{0.5\textwidth}
-\begin{center}
-\includestandalone[width=0.8\textwidth]{images/counter_example_digraph_1}
-\end{center}
-\caption{State Digraph of Counter-Example 1.}
-\label{fig:counter_example_1}
-\end{subfigure}
-\begin{subfigure}{0.5\textwidth}
-\begin{center}
-\includestandalone[width=0.65\textwidth]{images/counter_example_digraph_2}
-\end{center}
-\caption{State Digraph of Counter-Example 2.}
-\label{fig:counter_example_2}
-\end{subfigure}
-\caption{Counter examples.}
-\label{fig:counter_examples}
-\end{figure}
+% \begin{figure}
+% \begin{subfigure}{0.5\textwidth}
+% \begin{center}
+% \includestandalone[width=0.8\textwidth]{images/counter_example_digraph_1}
+% \end{center}
+% \caption{State Digraph of Counter-Example 1.}
+% \label{fig:counter_example_1}
+% \end{subfigure}
+% \begin{subfigure}{0.5\textwidth}
+% \begin{center}
+% \includestandalone[width=0.65\textwidth]{images/counter_example_digraph_2}
+% \end{center}
+% \caption{State Digraph of Counter-Example 2.}
+% \label{fig:counter_example_2}
+% \end{subfigure}
+% \caption{Counter examples.}
+% \label{fig:counter_examples}
+% \end{figure}
 
 For the purposes of this paper, a simulation model is used to verify that the
 results of this section and the analytical model in
