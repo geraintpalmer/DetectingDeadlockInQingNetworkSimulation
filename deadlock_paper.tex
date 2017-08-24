@@ -443,58 +443,37 @@ These graph theoretic terms will be used throughout this paper
 \cite{gibbons85, wilson70}:
 
 \begin{itemize}
+  \item Two vertices $v_1$ and $v_2$ are said to be \textit{weakly connected}
+  if there is a directed path from $v_1$ to $v_2$ or a directed path from $v_2$
+  to $v_1$.
   \item Two vertices $v_1$ and $v_2$ are said to be \textit{strongly
   connected} if there is a directed path from $v_1$ to $v_2$ and a directed
-  path from $v_2$ to $v_1$.
-  \item Two vertices $v_1$ and $v_2$ are said to be \textit{weakly connected}
-  if there is either a directed path from $v_1$ to $v_2$ or a directed path
-  from $v_2$ to $v_1$.
-  \item A \textit{strongly connected component} of a digraph is a subgraph
-  induced by a maximal subset of strongly connected nodes.
+  path from $v_2$ to $v_1$. Note that strongly connected vertices are also
+  weakly connected.
   \item A \textit{weakly connected component} of a digraph is a subgraph
   induced by a maximal subset of weakly connected nodes.
-  \item $v_1$ is an \textit{ancestor} of $v_2$ if there is a path from $v_1$
-  to $v_2$.
-  \item $v_2$ is a \textit{descendant} of $v_1$ if $v_1$ is an ancestor of
-  $v_2$.
-  \item The \textit{in-degree} of $v_1$, denoted $\text{deg}^{\text{in}}(v_1)$
-  is the number of in-edges incident to $v_1$.
-  Similarly the \textit{out-degree} of $v_1$, denoted
-  $\text{deg}^{\text{out}}(v_1)$ is the number of out-edges incident to $v_1$.
-  \item A \textit{source} is a vertex whose in-degree is zero.
-  A \textit{sink} is a vertex whose out-degree is zero.
+  \item A \textit{strongly connected component} of a digraph is a subgraph
+  induced by a maximal subset of strongly connected nodes.
+  \item The \textit{out-degree} of $v_1$, denoted
+  $\text{deg}^{\text{out}}(v_1)$, is the number of out-edges incident to $v_1$.
+  \item A \textit{sink} is a vertex whose out-degree is zero.
 \end{itemize}
 
-
-Consider one weakly connected component $G(t)$ of $D(t)$ and a node
-$X \in G(t)$. Some observations:
+Consider a vertex $v$ in $D(t)$.
+Some observations:
 
 \begin{itemize}
-
-  \item If the server corresponding to $X$ is unoccupied, then $X$ has no
+  \item If the server corresponding to $v$ is unoccupied, then $v$ has no
   incident edges.
-  \item Consider the case when the server corresponding to $X$ is occupied by
-  individual $a$, whose next destination is node $j$.
-  Then $X$'s direct successors correspond to servers occupied by individuals
-  who are blocked or in service at node $j$.
-  \item It can interpreted that all $X$'s descendants correspond to servers
-  whose occupants are directly or indirectly blocking $a$, and interpret all
-  $X$'s ancestors as those servers whose individuals are being blocked
-  directly or indirectly by $a$.
-  \item All vertices of $G(t)$ are either descendants of another vertex, and
-  so correspond to servers occupied by an individual who is blocking someone;
-  or are ancestors of another vertex, and so are occupied by someone who is
-  blocked.
-  \item Note that the only possibilities for $\text{deg}^{\text{out}}(X)$ are
-  0 or $c_j$. If $\text{deg}^{\text{out}}(X) = c_j$ then $a$ is blocked by all
-  its direct successors. The only other situation is that $a$ is not blocked,
-  and $X \in G(t)$ because $a$ is in service at $X$ and blocking other
-  individuals, in which case $\text{deg}^{\text{out}}(X) = 0$.
-  \item It is clear that if all of $X$'s descendants correspond to servers
-  occupied by blocked individuals, then the system is deadlocked at time $t$.
-  \item By definition all of $X$'s ancestors correspond to servers occupied by
-  blocked individuals.
-
+  \item It can be interpreted that all vertices with a path to $v$ correspond to
+  servers whose individuals are being blocked directly or indirectly by the
+  customer at the server corresponding to $v$.
+  \item Similarly it can be interpreted that all vertices that $v$ has a path to
+  correspond to servers whose occupants are directly or indirectly blocking
+  the customer at the server corresponding to $v$.
+  \item It is clear that if all vertices that $v$ has a path to correspond to
+  servers occupied by blocked individuals, then the system is deadlocked at time
+  $t$.
 \end{itemize}
 
 Recall that a knot is defined as a strongly connected component where no
