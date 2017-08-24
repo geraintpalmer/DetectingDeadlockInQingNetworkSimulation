@@ -698,7 +698,7 @@ states $q_{s_1,s_2}$.
 Each state $s \in S$ uniquely defines a configuration of customers around the
 queueing network.
 Deadlocked states are also present, either denoted by that specific
-configuration of customers, or by negative numbers, for example (-1).
+configuration of customers, or by negative numbers, for example $(-1)$.
 Deadlocked states cannot transition to any other state, and so are absorbing
 states of the Markov chain.
 Therefore any queueing network that can experience deadlock is guaranteed to
@@ -707,7 +707,8 @@ its absorbing states.
 
 The expected time until deadlock is reached is equivalent to the expected time
 to absorption of the Markov chain, which can easily be found \cite{stewart09}.
-The canonical form of an absorbing Markov chain is
+The continuous Markov chain is converted to a discrete time absorbing Markov
+chain with canonical form:
 
 \begin{equation*}
 P = \left(\begin{array}{cc} T & U\\ 0 & I \end{array} \right)
@@ -727,6 +728,8 @@ where $e$ is a vector of 1s.
 Therefore by discretising the continuous Markov chain and ensuring the correct
 order of states, the expected number of time steps to absorption, which
 corresponds to deadlock, can be found.
+Then this can be converted back to continuous time by multiplying with the time
+step used in the discretisation process.
 
 When there is more than one deadlocked state, there is more than one absorbing
 state in the Markov chain.
