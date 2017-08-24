@@ -389,7 +389,7 @@ Here we present a generic state digraph that is defined for all FIFO
 queueing networks that exhibit Type I blocking:\\
 
 
-\begin{definition}
+\begin{definition}\label{def:statedigraph}
 The state digraph $D(t)$ of a queueing network is defined by that network's
 state at any time $t$.
 Vertices of the state digraph correspond to servers of the network.
@@ -514,22 +514,46 @@ A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 \end{theorem}
 
 \begin{proof}{Proof}
-Consider one weakly connected component $G(t)$ of $D(t)$ at time $t$.
+Consider a queueing network with set of servers $S$.
+Consider the state digraph $D(t) = \left(V, E(t)\right)$.
+Note that there is a 1-1 pairing between the elements of $S$ and the elements of
+$V$, by Definition~\ref{def:statedigraph} of $D(t)$.
 
-Assume that $G(t)$ contains a vertex $X$ such that
-$\text{deg}^{\text{out}}(X) = 0$, and there is a path from every other
-non-sink vertex to $X$.
-This implies that $X$'s occupant is not blocked and is a descendant of another
-vertex.
-Therefore the queueing network is not deadlocked as there does not exist a
-vertex whose descendants are all blocked.
+\begin{itemize}
+  \item Assume the system is in deadlock at time $t$.
+By Definition~\ref{def:deadlock} (of deadlock) there exists
+$\mathcal{S} \subseteq S$ a subset of servers with blocked customers blocked
+only by customers at servers in $\mathcal{S}$.
+Consider $\mathcal{V} \subseteq V$ corresponding to $\mathcal{S}$.
 
-Now assume that we have deadlock.
-For a vertex $X$ which corresponds to a server involved in the deadlock, all
-descendants of $X$ are are occupied by individuals who are blocked, and so
-must have out-degrees greater than 0.
-And so there is no path from $X$ to a vertex with out-degree of 0.
+For each $s \in \mathcal{S}$ the corresponding $v \in \mathcal{V}$ has at least
+one out-edge in $E(t)$ because the customer at $s$ is blocked (by
+Definition~\ref{def:statedigraph}).
 
+By Definition~\ref{def:deadlock} every $v \in \mathcal{V}$ has at least one path
+in $E(t)$ to a vertex in $\mathcal{V}$, and has no path in $E(t)$ to any vertex
+outside of $\mathcal{V}$.
+
+By definition of a knot, there exists
+$G = \left(\mathcal{V}, \mathcal{E}\right)$, where $\mathcal{E} \subseteq E(t)$,
+such that $G$ is either a knot or a collection of knots.
+
+ \item Assume that $D(t)$ contains a knot
+$G = \left(\mathcal{V}, \mathcal{E}\right)$.
+Consider $\mathcal{S} \subseteq S$ corresponding to $\mathcal{V}$.
+
+As $G$ is a knot, every $v \in \mathcal{V}$ has an out-edge, thus every customer
+at $s \in \mathcal{S}$ is blocked (by Definition~\ref{def:statedigraph}).
+
+As $G$ is a knot, there is no path in $E(t)$ from any $v \in \mathcal{V}$ to any
+vertex outside of $\mathcal{V}$.
+Therefore every customer at $s \in \mathcal{S}$ is blocked directly or
+indirectly by customers at servers in $\mathcal{S}$.
+
+By Definition~\ref{def:deadlock} this implies the system is in deadlock at time
+$t$.
+
+\end{itemize}
 \end{proof}
 
 The knot condition can be simplified for specific cases.
