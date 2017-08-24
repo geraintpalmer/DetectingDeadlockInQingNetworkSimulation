@@ -883,51 +883,31 @@ does not change, thus it would take longer to reach a full system and deadlock.
 The behaviour as the service rate $\mu$ varies is not monotonic, as the
 service rate contributes towards both moving customers from the system and
 allowing customers to rejoin the queue, causing blockages and deadlock.
-This behaviour is described in the following remark.\\
+If the function $\omega(\mu)$ describes the expected time to deadlock of this
+system as the service rate $\mu$ varies, and all other parameters are
+fixed, then it is observed that $\omega(\mu)$ has one critical point and is a
+local minimum for $\mu \in (0, \infty)$.
 
-\begin{remark}\label{rem:oneminima}
-The function $\omega(\mu)$ that describes the expected time to deadlock of
-an this system as the service rate $\mu$ varies, and all other parameters are
-fixed, has one critical point and is a local minimum for $\mu \in (0, \infty)$.
-\end{remark}
-
-The behaviour of $\omega(\mu)$ can be interpreted as follows:
-\begin{itemize}
-\item At $\lim_{\mu \to 0} \omega(\mu)$ there is infinite service time,
-and so infinite time until deadlock.
-\item At $\lim_{\mu \to \infty} \omega(\mu)$ there is zero service time,
-the queue can never fill up, and so infinite time to deadlock.
-\item At low service rates below a certain threshold $\hat{\mu}$, the arrival
-rate is relatively large compared to the service rate, and we can assume a
-saturated system.
-At this point services where a customer exits the system does not have much of
-an effect, as we can assume another arrival immediately.
-However services where a customer wishes to rejoin the queue results in a
+The observed bowl shaped curve can be explained by considering the effect of
+varying the service rate.
+At $\lim_{\mu \to 0} \omega(\mu)$ there is infinite service time, and so
+infinite time until deadlock.
+At $\lim_{\mu \to \infty} \omega(\mu)$ there is zero service time, the queue can
+never fill up, and so infinite time to deadlock.
+At low service rates below a certain threshold $\hat{\mu}$, the arrival rate is
+relatively large compared to the service rate, and we can assume a saturated
+system.
+At this point services in which a customer exits the system do not have much of
+an effect on the system state, as we can assume another arrival immediately.
+However services in which a customer wishes to rejoin the queue results in a
 blockage as the system is saturated.
-Therefore, increasing the service rate here increases the chance of a
-blockage, and so the chance of deadlock.
-\item Above $\hat{\mu}$ the service rate is large enough that we cannot assume
-a saturated system, and so services where the customer exits the system does
-have an affect on the number of customers in the system.
-Thus increasing the service rate removes people from the system, and as such
-there is less chance of getting blocked and reaching deadlock.
-\end{itemize}
-
-The following remark identifies the maximum of $\omega(\mu)$ on a closed
-interval.\\
-
-\begin{remark}\label{rem:findmaximum}
-$\arg\max_{\mu \in [a, b]} \omega(\mu) \in \{a, b\}$.
-
-From the closed interval method of finding absolute maximum \cite{tan09}, the
-absolute maximum of $\omega(\mu)$ on the closed interval $[a, b]$ is either
-the critical points in $(a, b)$, $a$ or $b$.
-The only possible critical point in $(a, b)$ is $\hat{\mu}$, and is a local
-minimum (from Remark~\ref{rem:oneminima}), and so
-$\omega(\hat{\mu}) \leq \omega(a)$ and
-$\omega(\hat{\mu}) \leq \omega(b)$.
-Therefore $\omega(\mu)$ obtains its maximum at either $a$ or $b$.
-\end{remark}
+Therefore, increasing the service rate here increases the chance of a blockage,
+and so the chance of deadlock.
+Above $\hat{\mu}$ the service rate is large enough that we cannot assume a
+saturated system, and so services in which the customer exits the system do have
+an affect on the number of customers in the system.
+Thus increasing the service rate incrases the rate at which customers are
+removed from the system, and so there is less chance of reaching deadlock.
 
 
 \subsection{Two Node Multi-Server without Self-Loops}\label{sec:2nodeMS}
