@@ -53,7 +53,7 @@ capacity, presents a method of detecting deadlock in discrete event
 simulations, and builds Markov chain models of these deadlocking networks.
 The three networks for which Markov models are given include single and
 multi-server networks for one and two node systems.
-The expected time to deadlock of these models are compared to results obtained
+The expected times to deadlock of these models are compared to results obtained
 using a simulation of the stochastic process, together with the developed
 deadlock detection method.
 This paper aims to be of value to simulation modellers of queues.
@@ -158,8 +158,8 @@ subject.
 Section~\ref{sec:detectingdeadlock} presents a method of detecting deadlock in
 simulations of queueing networks.
 Section~\ref{sec:markovmodels} presents Markov models of three deadlocking
-queueing networks, derives their expected time to deadlock, and compares these
-with results obtained through the simulation model.
+queueing networks, finds their expected time to deadlock, and compares these
+with results obtained through simulation models.
 
 
 \section{A Motivating Example}\label{sec:motivatingexample}
@@ -173,17 +173,17 @@ system.
 
 Consider the interface between secondary care services at a hospital and
 community care services.
-Patients can be admitted to hospital via a variety of routes (through
-emergency services, outpatients), and via referral from community care
+Patients can be admitted to hospital via a variety of routes (e.g. through
+emergency services, or outpatients), and via referral from community care
 services.
-Patients can begin receiving community care packages due to referral from GP,
+Patients can begin receiving community care packages after referral from GP,
 or via referral from the hospital.
 Considering only the hospital and community care services as nodes, this
 system is shown in Figure~\ref{fig:motivatingexample}.
 
 \begin{figure}
 \begin{center}
-\includestandalone[width=0.6\textwidth]{images/motivatingexample}
+\includestandalone[width=0.5\textwidth]{images/motivatingexample}
 \end{center}
 \caption{Diagram of patient flows at an interface between secondary care
 services at a hospital and community care services.}
@@ -220,7 +220,7 @@ in practice given that the swapping of patients can be identified and carried
 out easily''.
 In \cite{koizumietal05} a health and community care system is described as
 having restricted feedback loops.
-However due to ease of modelling and to avoid the restrictions caused by
+However due to ease of modelling, and to avoid the restrictions caused by
 deadlock, these feedback loops are omitted from the model.
 This emphasises the discrepancies that occur between common modelling
 techniques and reality in systems that may reach deadlock.
@@ -305,7 +305,7 @@ Allowing the system to crash now and again may be more economical in some
 systems where deadlocks do not occur often enough to justify the investment
 and effort of implementing an avoidance/resolution strategy.
 
-Prevention and avoidance strategies, have been used extensively in an area known
+Prevention and avoidance strategies have been used extensively in an area known
 as Discrete Event Systems \cite{reveliotis15a, reveliotis15b}.
 A number techniques and methods have been used to implement deadlock avoidance
 \cite{dijkstra82, kawadkaretal14, viswanadhametal90, ezpeletaetal02,
@@ -451,14 +451,15 @@ These graph theoretic terms will be used throughout this paper
   path from $v_2$ to $v_1$. Note that strongly connected vertices are also
   weakly connected.
   \item A \textit{weakly connected component} of a digraph is a subgraph
-  induced by a maximal subset of weakly connected nodes.
+  induced by a maximal subset of weakly connected vertices.
   \item A \textit{strongly connected component} of a digraph is a subgraph
-  induced by a maximal subset of strongly connected nodes.
+  induced by a maximal subset of strongly connected vertices.
   \item The \textit{out-degree} of $v_1$ is the number of out-edges incident to
   $v_1$.
   \item A \textit{sink} is a vertex whose out-degree is zero.
-  \item A \textit{knot} or terminal strong component, is a strongly connected
-  component with no path to vertices outside that component.
+  \item A \textit{knot}, or terminal strong component, is a strongly connected
+  component containing no vertices with a path to any vertices outside that
+  component.
 \end{itemize}
 
 Consider a vertex $v$ in $D(t)$.
@@ -478,7 +479,8 @@ Some observations:
   $t$.
 \end{itemize}
 
-The following results detect deadlock for open restricted queueing networks.
+The following results are used detect deadlock for open restricted queueing
+networks.
 
 \begin{theorem}\label{thrm:knot}
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
@@ -636,14 +638,14 @@ The customer at server $B_1$ is blocked to node $A$.
 The customer at server $B_2$ is blocked to node $B$.
 The customer at server $A_2$ is blocked to node $A$.
 Node $A$ is a deadlocked.
-The resulting state digraph in Figure~\ref{fig:counter_example} has a weakly
-connected component with a sink.
+The resulting state digraph, shown in Figure~\ref{fig:counter_example}, has a
+weakly connected component with a sink.
 
 \begin{figure}
 \begin{center}
 \includestandalone[width=0.4\textwidth]{images/counter_example_digraph_1}
 \end{center}
-\caption{State Digraph of the counter-example.}
+\caption{State digraph of the counter-example.}
 \label{fig:counter_example}
 \end{figure}
 
@@ -686,8 +688,9 @@ In this section Markov models are built for networks~\ref{itm:1Nms} and
 \ref{itm:2Nmss}, and their expected time to deadlock found.
 The state space for network~\ref{itm:2Nmsf} is too large to model in a similar
 way to the others, and so isn't considered in this paper.
-A single server version is modelled however, and the multi-server system is
-briefly discussed in Section~\ref{sec:conclusions}.
+A single server version is modelled however (Section~\ref{sec:2nodeselfloops}),
+and the multi-server system is briefly discussed in
+Section~\ref{sec:conclusions}.
 
 In general a continuous Markov chain model of a deadlocking queueing network
 is defined by a set of states $S$ and the transition rates between these
@@ -712,7 +715,6 @@ P = \left(\begin{array}{cc} T & U\\ 0 & I \end{array} \right)
 \end{equation*}
 
 where $I$ is the identity matrix.
-
 Now the expected number of time steps until absorption starting from the
 $i\text{th}$ state is the $i\text{th}$ element of the vector
 
@@ -855,7 +857,8 @@ Increasing the amount of servers also increases the rate at which customer leave
 the system, but not the rate at which customers enter the system.
 This means that the rate of increase of the number of customers in the system
 increases, however the rate of decrease of number of customers in the system
-does not change, thus it would take longer to reach a full system and deadlock.
+does not change, thus it would take longer to reach a full system, and thus
+deadlock.
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the
 service rate contributes towards both moving customers from the system and
@@ -1246,8 +1249,7 @@ This type of blocking may be considered a deadlock prevention mechanism.
 The authors would like to thank and express gratitude to all anonymous
 referees whose comments and suggestions have been very helpful.
 The following software libraries have been used in this work: the matplotlib
-library \cite{matplotlib}, the NumPy library \cite{numpy}.
-
+library \cite{matplotlib}, and the NumPy library \cite{numpy}.
 
 
 \bibliographystyle{plain}
