@@ -99,14 +99,14 @@ For the purposes of this paper, deadlock is defined as follows.\\
 \end{definition}
 
 This implies that a system is in deadlock when at least one service station
-permanently ceases to begin of finish any more services, due to circular
+permanently ceases to begin or finish any more services, due to circular
 blocking.
 Figure~\ref{fig:1st_example} shows an open two node restricted queueing
 network in deadlock.
 The customer at the top server is blocked from entering the bottom node as
 there is a full queue, and similarly the customer at the bottom server is
 blocked from entering the top node as there is a full queue.
-It is clear that by following the rules of a blocking defined above, no more
+It is clear that by following the rules of blocking defined above, no more
 natural movement can happen.
 This system is in deadlock as there is a subset of blocked customers (the
 customer with server $A_1$ and the customer with server $B_1$) who are only
@@ -672,7 +672,7 @@ their deadlock properties discussed.
 
 \section{Markovian Models of Deadlocking Queueing Networks}\label{sec:markovmodels}
 
-The following three networks describe all possible configurations of 
+The following three networks describe all possible configurations of
 deadlocking queueing networks with two or fewer nodes:
 
 \begin{enumerate}
@@ -706,7 +706,7 @@ experience deadlock, as absorbing Markov chains are guaranteed to enter one of
 its absorbing states.
 
 The expected time until deadlock is reached is equivalent to the expected time
-to absorption of the Markov chain, which can easily be found \cite{stewart09}.
+to absorption of the Markov chain, which can be found using classic results~\cite{stewart09}.
 The continuous Markov chain is converted to a discrete time absorbing Markov
 chain with canonical form:
 
@@ -727,7 +727,7 @@ where $e$ is a vector of 1s.
 Therefore by discretising the continuous Markov chain and ensuring the correct
 order of states, the expected number of time steps to absorption, which
 corresponds to deadlock, can be found.
-Then this can be converted back to continuous time by multiplying with the time
+This can be converted back to continuous time by multiplying with the time
 step used in the discretisation process.
 
 When there is more than one deadlocked state, there is more than one absorbing
@@ -1247,9 +1247,9 @@ This type of blocking may be considered a deadlock prevention mechanism.
 \section{Acknowledgements}
 
 The authors would like to thank and express gratitude to all anonymous
-referees whose comments and suggestions have been very helpful.
+referees whose comments and suggestions have greatly improved the work.
 The following software libraries have been used in this work: the matplotlib
-library \cite{matplotlib}, and the NumPy library \cite{numpy}.
+library~\cite{matplotlib}, and the NumPy library~\cite{numpy}.
 
 
 \bibliographystyle{plain}
