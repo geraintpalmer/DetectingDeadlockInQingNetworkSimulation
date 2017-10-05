@@ -474,8 +474,8 @@ Some observations:
   correspond to servers whose occupants are directly or indirectly blocking
   the customer at the server corresponding to $v$.
   \item It is clear that if all vertices that $v$ has a path to correspond to
-  servers occupied by blocked individuals, then the system is deadlocked at time
-  $t$.
+  servers occupied by blocked individuals, then the system is in deadlock at
+  time $t$.
 \end{itemize}
 
 The following results are used detect deadlock for open restricted queueing
@@ -485,7 +485,7 @@ networks.
 A deadlocked state arises at time $t$ if and only if $D(t)$ contains a knot.
 \end{theorem}
 
-\begin{proof}{Proof}
+\begin{proof}
 Consider a queueing network with set of servers $S$.
 Consider the state digraph $D(t) = \left(V, E(t)\right)$.
 Note that there is a 1-1 pairing between the elements of $S$ and the elements of
@@ -543,7 +543,7 @@ a deadlocked state arises at time $t$ if and only if $D(t)$ contains a weakly
 connected component without a sink.
 \end{theorem}
 
-\begin{proof}{Proof}
+\begin{proof}
   To prove the result in one direction, each case is considered separately:
   \begin{enumerate}
   \item
@@ -577,7 +577,7 @@ connected component without a sink.
   An edge from a server in node 2 to a server in node 1 implies that a
   customer in node 2 is blocked from entering node 1.
   In this case one server in node 2 has an out-edge.
-  Now either the other server of node two is empty or still in service, and so
+  Now either the other server of node 2 is empty or still in service, and so
   isn't part of that weakly connected component, or the other server's
   customer is blocked and so has an out edge.
   Thus there are no sinks.
@@ -595,21 +595,22 @@ connected component without a sink.
   \begin{itemize}
     \item They contain a blocked individual that is blocked to the nodes
     involved in the deadlock.
-    \item Individuals in the deadlocked nodes are blocked to them.
+    \item Individuals in the deadlocked nodes are blocked to those nodes not
+    involved in the deadlock.
   \end{itemize}
 
   In the first case, the vertices corresponding to the servers in those nodes
   will all have an out-edge.
   In the second case it is implied that the customers at servers in deadlocked
-  nodes are blocked to both a node in deadlock, and a node not in deadlock.
-  Which is not possible (customers can only be blocked to one location at a
+  nodes are blocked to both a node in deadlock and a node not in deadlock, which
+  is not possible (customers can only be blocked to one location at a
   time).
 
   Thus there are no sinks.
   \end{enumerate}
 
-To prove the result in the other direction, is equivalent to proving that a
-weakly connected component without a sink contains a knot:
+Proving the result in the other direction is equivalent to proving that a weakly
+connected component without a sink contains a knot:
 
 \begin{itemize}
   \item Consider a weakly connected component, $G$, of $D(t)$.
@@ -631,12 +632,12 @@ sufficient to detect deadlock.
 In order to illustrate this, consider the following counter-example of a two
 node queueing network, where node $A$ has two servers, node $B$ has three
 servers.
-Begining with all servers occupied by customers in service and full queues.
-The customer at server $A_1$ is blocked to node $A$.
-The customer at server $B_1$ is blocked to node $A$.
-The customer at server $B_2$ is blocked to node $B$.
-The customer at server $A_2$ is blocked to node $A$.
-Node $A$ is a deadlocked.
+Beginning with all servers occupied by customers in service and full queues.
+The customer at server $A_1$ becomes blocked to node $A$.
+The customer at server $B_1$ becomes blocked to node $A$.
+The customer at server $B_2$ becomes blocked to node $B$.
+The customer at server $A_2$ becomes blocked to node $A$.
+Node $A$ is now in deadlock.
 The resulting state digraph, shown in Figure~\ref{fig:counter_example}, has a
 weakly connected component with a sink.
 
@@ -653,7 +654,7 @@ results of this section and the analytical model in
 Section~\ref{sec:markovmodels} are in agreement.
 Specifically the time taken to reach deadlock from an empty system is
 investigated, and the simulation model gives information on the distribution
-of times to deadlock.
+of the times to deadlock.
 The model is built using Ciw \cite{ciwpython}.
 This is an object oriented framework in Python \cite{python15}, with care
 taken to ensure reproducibility of the results \cite{hongetal15}.
@@ -696,8 +697,8 @@ is defined by a set of states $S$ and the transition rates between these
 states $q_{s_1,s_2}$.
 Each state $s \in S$ uniquely defines a configuration of customers around the
 queueing network.
-Deadlocked states are also present, either denoted by that specific
-configuration of customers, or by negative numbers, for example $(-1)$.
+Deadlock states are also present, either denoted by that specific configuration
+of customers, or by negative numbers, for example $(-1)$.
 Deadlocked states cannot transition to any other state, and so are absorbing
 states of the Markov chain.
 Therefore any queueing network that can experience deadlock is guaranteed to
@@ -705,7 +706,8 @@ experience deadlock, as absorbing Markov chains are guaranteed to enter one of
 its absorbing states.
 
 The expected time until deadlock is reached is equivalent to the expected time
-to absorption of the Markov chain, which can be found using classic results~\cite{stewart09}.
+to absorption of the Markov chain, which can be found using classic
+results~\cite{stewart09}.
 The continuous Markov chain is converted to a discrete time absorbing Markov
 chain with canonical form:
 
@@ -726,13 +728,13 @@ where $e$ is a vector of 1s.
 Therefore by discretising the continuous Markov chain and ensuring the correct
 order of states, the expected number of time steps to absorption, which
 corresponds to deadlock, can be found.
-This can be converted back to continuous time by multiplying with the time
-step used in the discretisation process.
+This can be converted back to continuous time by multiplying by the time step
+used in the discretisation process.
 
-When there is more than one deadlocked state, there is more than one absorbing
+When there is more than one deadlock state, there is more than one absorbing
 state in the Markov chain.
-Here the expected time to absorption is the expected time to a deadlocked
-state, whichever one that may be.
+Here the expected time to absorption is the expected time to a deadlock state,
+whichever one that may be.
 
 \subsection{One Node Multi-Server}\label{sec:1nodeMS}
 
@@ -758,7 +760,7 @@ where \(i\) denotes the number of individuals in the system plus the number of
 individuals who are blocked.
 For example, $i=n+c+2$ denotes a full system, $n+c$ individuals in the node,
 and 2 of those individuals are also blocked.
-The state $i=n+2c$ denotes the deadlocked state, that is every customer with a
+The state $i=n+2c$ denotes the deadlock state, that is every customer with a
 server is blocked.
 
 Define $\delta = i_2 - i_1$ for all $i_k \in S$.
@@ -832,7 +834,7 @@ $c = 2$ were used.
     \label{fig:1Nms_c}
   \end{subfigure}
   \end{center}
-  \caption{Time to deadlock in multi-server one node system, analytical \&
+  \caption{Time to deadlock in the multi-server one node system, analytical \&
   simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock1nodemultiserver}
 \end{figure}
@@ -841,23 +843,23 @@ It can be seen that increasing the arrival rate $\Lambda$ and the routing
 probability $r_{11}$ results in reaching deadlock faster.
 This is intuitive as increasing these parameters results in the queue filling
 up quicker.
-Increasing the queueing capacity $n$ results in reaching deadlock later.
+Increasing the queueing capacity $n$ results in reaching deadlock slower.
 Again this is intuitive, as increasing the queueing capacity allows more
-customers in the system before becoming deadlocked.
+customers in the system before reaching deadlock.
 
-Increasing the amount of servers has a similar effect to increasing the
-queueing capacity, there are now more transient states to go through before
-reaching the deadlocked state.
+Increasing the amount of servers has a similar effect to increasing the queueing
+capacity, as there are now more transient states to go through before reaching
+the deadlock state.
 Varying the amount of servers has a greater effect on the time to deadlock
-however, as any states in which customers are blocked, $i \in [n+c+1, n+2c]$,
+however, as any state in which customers are blocked, $i \in [n+c+1, n+2c]$,
 can jump back to state $i=n+c-1$ simply with a service where the customer
 doesn't rejoin the queue.
 Increasing the amount of servers also increases the rate at which customer leave
 the system, but not the rate at which customers enter the system.
 This means that the rate of increase of the number of customers in the system
-increases, however the rate of decrease of number of customers in the system
-does not change, thus it would take longer to reach a full system, and thus
-deadlock.
+increases, however the rate of decrease of the number of customers in the system
+does not change, thus it would take longer to reach a full system, a requirement
+of deadlock.
 
 The behaviour as the service rate $\mu$ varies is not monotonic, as the
 service rate contributes towards both moving customers from the system and
@@ -869,23 +871,23 @@ local minimum for $\mu \in (0, \infty)$.
 
 The observed bowl shaped curve can be explained by considering the effect of
 varying the service rate.
-At $\lim_{\mu \to 0} \omega(\mu)$ there is infinite service time, and so
-infinite time until deadlock.
+At $\lim_{\mu \to 0} \omega(\mu)$ there is infinite service time, and so there
+is infinite time until deadlock.
 At $\lim_{\mu \to \infty} \omega(\mu)$ there is zero service time, the queue can
-never fill up, and so infinite time to deadlock.
-At low service rates below a certain threshold $\hat{\mu}$, the arrival rate is
-relatively large compared to the service rate, and we can assume a saturated
-system.
+never form, and so there is infinite time to deadlock.
+At low service rates, below a certain threshold $\hat{\mu}$, the arrival rate is
+relatively large compared to the service rate, a saturated system can be
+assumed.
 At this point services in which a customer exits the system do not have much of
-an effect on the system state, as we can assume another arrival immediately.
+an effect on the system state, another immediate arrival can be assumed.
 However services in which a customer wishes to rejoin the queue results in a
 blockage as the system is saturated.
 Therefore, increasing the service rate here increases the chance of a blockage,
 and so the chance of deadlock.
-Above $\hat{\mu}$ the service rate is large enough that we cannot assume a
-saturated system, and so services in which the customer exits the system do have
-an affect on the number of customers in the system.
-Thus increasing the service rate incrases the rate at which customers are
+Above $\hat{\mu}$ the service rate is large enough that a saturated system
+cannot be assumed, and so services in which the customer exits the system do
+have an affect on the number of customers in the system.
+Thus increasing the service rate increases the rate at which customers are
 removed from the system, and so there is less chance of reaching deadlock.
 
 
@@ -910,30 +912,29 @@ Section~\ref{sec:motivatingexample}.
 
 The state space is given by:
     \[S = \{(i,j)\in\mathbb{N}^{2} \nonscript\; | \nonscript\; i \leq n_1+c_1+j, \nonscript\; j \leq n_2+c_2+i\}\]
-where $i$ denotes the number of individuals at Node 1 plus the number of
-individuals blocked waiting to enter Node 1, and $j$ denotes the number of
-individuals at Node 2 plus the number of individuals blocked waiting to enter
-Node 2.
+where $i$ denotes the number of individuals at node 1 plus the number of
+individuals blocked waiting to enter node 1, and $j$ denotes the number of
+individuals at node 2 plus the number of individuals blocked waiting to enter
+node 2.
 For example, $(i, j) = (n_1+c_1+2, n_2+c_2+1)$ denotes a full system,
-$n_1+c_1$ individuals at Node 1, two of whom are blocked waiting to enter
-Node 2; $n_2+c_2$ individuals at Node 2, one of whom is blocked waiting to
-enter Node 1.
-The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlocked state.
-
+$n_1+c_1$ individuals at node 1, two of whom are blocked waiting to enter
+node 2; $n_2+c_2$ individuals at node 2, one of whom is blocked waiting to
+enter node 1.
+The state $(i, j) = (n_1+c_1+c_2, n_2+c_2+c_1)$ denotes the deadlock state.
 The Markov chain is shown in Figure~\ref{fig:2nodeMCms}.
 
 \begin{figure}[!htbp]
     \includestandalone[width=\textwidth]{images/MC2nodemultiserv_bw}
     \caption{Diagrammatic representation of the Markov chain for a
     multi-server two node system without self-loops with $n_1=1$,
-    $n_2=c_1=c_2=2$. The deadlocked state is $(5,6)$.}
+    $n_2=c_1=c_2=2$. The deadlock state is $(5,6)$.}
     \label{fig:2nodeMCms}
 \end{figure}
 
 Define $\delta = (i_2, j_2) - (i_1, j_1)$, $b_1 = \max(0, i_1-n_1-c_1)$,
 $b_2 = \max(0, i_2-n_2-c_2)$, $s_1 = \min(i_1, c_1)-b_2$ and
 $s_2 = \min(i_2, c_2)-b_1$ for all $(i_k, j_k) \in S$.
-Then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given by
+Then the transitions $q_{(i_1, j_1),(i_2, j_2)}$ are given in
 Table~\ref{tab:transitionsmultierv}.
 
 
@@ -958,17 +959,17 @@ two node network.}
 \end{center}
 \end{table}
 
-The values $b_1$ and $b_2$ correspond to the number of people blocked to
-Node 1 and Node 2 respectively.
-The values $s_1$ and $s_2$ correspond to the amount of people currently in
-service at Node 1 and Node 2 respectively.
+The values $b_1$ and $b_2$ correspond to the number of customers blocked to
+node 1 and node 2 respectively.
+The values $s_1$ and $s_2$ correspond to the amount of customers currently in
+service at node 1 and node 2 respectively.
 
 Figure~\ref{fig:timestodeadlock2nodemultiserver} shows the effect of varying
 the parameters of the above Markov model.
 Base parameters of $\Lambda_1 = 9$, $\Lambda_2 = 7.5$, $n_1 = 2$, $n_2 = 1$,
 $\mu_1 = 5.5$, $\mu_2 = 6.5$, $r_{12} = 0.7$, $r_{21} = 0.6$, $c_1 = 2$ and
 $c_2 = 2$ were used.
-Only plots for the parameter corresponding to Node 1 are shown, Node 2 shows
+Only plots for the parameters corresponding to node 1 are shown, node 2 shows
 similar behaviour.
 Similar behaviour is observed to that seen in
 Figure~\ref{fig:timestodeadlock1nodemultiserver}.
@@ -1001,8 +1002,8 @@ Figure~\ref{fig:timestodeadlock1nodemultiserver}.
     \label{fig:2Nms_c}
   \end{subfigure}
   \end{center}
-  \caption{Time to deadlock in multi-server two node system without self loops,
-  analytical \& simulation results (10,000 repetitions).}
+  \caption{Time to deadlock in the multi-server two node system without self
+  loops, analytical \& simulation results (10,000 repetitions).}
   \label{fig:timestodeadlock2nodemultiserver}
 \end{figure}
 
@@ -1031,17 +1032,17 @@ The state space is given by:
         \begin{itemize}
             \item In service or waiting at the first node.
             \item Occupying a server but having finished service at the
-                second node waiting to join the first.
+                second node and waiting to join the first.
         \end{itemize}
     where \(j\) denotes the number of individuals:
         \begin{itemize}
             \item In service or waiting at the second node.
             \item Occupying a server but having finished service at the
-                first node waiting to join the second.
+                first node and waiting to join the second.
         \end{itemize}
-    and the state $(-3)$ denotes the deadlocked state caused by both nodes;
-    $(-1)$ denotes the deadlocked state caused by the first node only; and
-    $(-2)$ denotes the deadlocked state caused by the second node only.
+    and the state $(-3)$ denotes the deadlock state caused by both nodes;
+    $(-1)$ denotes the deadlock state caused by the first node only; and
+    $(-2)$ denotes the deadlock state caused by the second node only.
 
 Define $\delta = (i_2, j_2) - (i_1, j_1)$ for all $(i_k, j_k) \in S$.
 The transitions are given by Equations~\ref{eqn:2nssfA}, \ref{equ:todeadlock2},
@@ -1177,14 +1178,14 @@ Figures~\ref{fig:timestodeadlock1nodemultiserver} and
 A notable difference however is that the increase or decrease in the time to
 deadlock flattens as the parameter in question increases or decreases.
 This is observable in Figure~\ref{fig:timestodeadlockfb_n1}.
-This is explained by the existance of more than one deadlock state for this
+This is explained by the existence of more than one deadlock state for this
 system.
 Deadlock state $(-1)$ involves node 1 only, deadlock state $(-2)$ involves node
 2 only, while deadlock state $(-3)$ involves both nodes.
 Therefore if a parameter at node 1 is increased or decreased such that the time
-to a deadlock involving node 1, $(-1)$ and $(-3)$, approaches infinity, then
-the overall time to deadlock of the system will become unchanging, as varying
-that parameter will not effect the time to deadlock state $(-2)$.
+to a deadlock involving node 1, states $(-1)$ and $(-3)$, approaches infinity,
+then the overall time to deadlock of the system will become unchanging, as
+varying that parameter will not effect the time to deadlock state $(-2)$.
 
 
 \section{Conclusions}\label{sec:conclusions}
@@ -1193,8 +1194,8 @@ This paper has explored deadlock in open restricted queueing networks.
 It has been shown that analysing a queueing network's corresponding state
 digraph is sufficient to detect when deadlock occurs in queueing networks.
 In general the presence of a knot in the state digraph will highlight that
-deadlock has occurred in the network, however for special cases only the
-presence of a weakly connected component with no sink is required.
+deadlock has occurred in the network, however for special cases the presence of
+a weakly connected component with no sink is sufficient.
 Incorporating this into a simulation model, time to deadlock can be observed.
 
 Markov models of three deadlocking queueing networks have been built.
@@ -1232,7 +1233,7 @@ Therefore it is not possible to consider this state space in the same way as
 for networks~\ref{itm:1Nms} and \ref{itm:2Nmss}.
 
 For the Markov models built in this paper Poisson arrivals and exponential
-service rates were assumed, and only blocking of Type I is considered.
+service rates are assumed, and only blocking of Type I is considered.
 A future research direction could be to model other service and arrival
 distributions using phase-type distributions, and incorporating these into the
 Markov models of deadlocking queueing networks.
@@ -1247,7 +1248,7 @@ This type of blocking may be considered a deadlock prevention mechanism.
 The authors would like to thank and express gratitude to all anonymous
 referees whose comments and suggestions have greatly improved the work.
 The following software libraries have been used in this work: the matplotlib
-library~\cite{matplotlib}, and the NumPy library~\cite{numpy}.
+library~\cite{matplotlib} and the NumPy library~\cite{numpy}.
 
 
 \bibliographystyle{plain}
